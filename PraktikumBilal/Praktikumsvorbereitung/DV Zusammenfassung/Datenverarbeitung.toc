@@ -1,0 +1,31 @@
+\select@language {german}
+\contentsline {section}{\numberline {1}Messwert und Messgenauigkeit}{3}
+\contentsline {section}{\numberline {2}Wahrscheinlichkeit}{4}
+\contentsline {subsection}{\numberline {2.1}Kombinatorik}{4}
+\contentsline {subsection}{\numberline {2.2}Kombination von Wahrscheinlichkeiten}{4}
+\contentsline {section}{\numberline {3}Wahrscheinlichkeitsverteilungen}{5}
+\contentsline {subsection}{\numberline {3.1}Zufalls-variablen und Messdaten}{5}
+\contentsline {subsection}{\numberline {3.2}Kenngr\IeC {\"o}\IeC {\ss }en f\IeC {\"u}r Wahrscheinlichkeitsverteilungen}{6}
+\contentsline {subsection}{\numberline {3.3}Wichtigste Wahrscheinlichkeitsverteilungen}{8}
+\contentsline {subsubsection}{\numberline {3.3.1}Gleichverteilung (Kontinuierlich)}{8}
+\contentsline {subsubsection}{\numberline {3.3.2}Binomialverteilung (diskret) }{9}
+\contentsline {subsubsection}{\numberline {3.3.3}Poisson Verteilung (diskret)}{10}
+\contentsline {subsubsection}{\numberline {3.3.4}Gaussverteilung Normalverteilung (Kontinuierlich)}{11}
+\contentsline {subsection}{\numberline {3.4}Zweidimensionale Wahrscheinlichkeitsdichten}{12}
+\contentsline {section}{\numberline {4}Kombination von Zufallsvariablen}{13}
+\contentsline {subsection}{\numberline {4.1}Charakteristische Funktionen zur Berechnung von kombinierten Wahrscheinlichkeitsdichtefunktionen}{13}
+\contentsline {subsection}{\numberline {4.2}Faltung von Wahrscheinlichkeitsdichten}{13}
+\contentsline {subsection}{\numberline {4.3}Zentraler Grenzwertsatz (ZGW)}{13}
+\contentsline {subsection}{\numberline {4.4}Kenngr\IeC {\"o}\IeC {\ss }en aus Messdaten}{14}
+\contentsline {section}{\numberline {5}Messfehler und Fehlerfortpflanzung}{15}
+\contentsline {subsection}{\numberline {5.1}Transformationen von Wahrscheinlichkeitsdichten}{15}
+\contentsline {subsection}{\numberline {5.2}Fehlerfortpflanzung}{15}
+\contentsline {subsection}{\numberline {5.3}Fehlerfortpflanzung mit vielen Variablen}{15}
+\contentsline {subsection}{\numberline {5.4}Fehlerfortpflanzung bei zusammengesetzten Messgr\IeC {\"o}\IeC {\ss }en}{16}
+\contentsline {section}{\numberline {6}Parametersch\IeC {\"a}tzung aus Daten}{17}
+\contentsline {subsection}{\numberline {6.1}Maximum Likelihood Methode}{17}
+\contentsline {subsection}{\numberline {6.2}Standardabweichung der Logarithmischen Likelihood Funktion}{17}
+\contentsline {subsection}{\numberline {6.3}Methode der kleinsten Quadrate (Least Square)}{18}
+\contentsline {section}{\numberline {7}Statistische Testverfahren}{18}
+\contentsline {subsection}{\numberline {7.1}Test einer Hypothese}{18}
+\contentsline {subsection}{\numberline {7.2}$\chi ^2$-Test}{20}

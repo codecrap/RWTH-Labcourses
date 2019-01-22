@@ -1,0 +1,19 @@
+\beamer@endinputifotherversion {3.36pt}
+\select@language {german}
+\beamer@sectionintoc {1}{Schallgeschwindigkeit in Festk\IeC {\"o}rpern}{2}{0}{1}
+\beamer@subsectionintoc {1}{1}{Aufbau}{2}{0}{1}
+\beamer@subsectionintoc {1}{2}{Rohdaten}{3}{0}{1}
+\beamer@subsectionintoc {1}{3}{Dichte}{6}{0}{1}
+\beamer@subsectionintoc {1}{4}{Elastizit\IeC {\"a}tsmodul}{7}{0}{1}
+\beamer@subsectionintoc {1}{5}{Schallgeschwindigkeit}{8}{0}{1}
+\beamer@sectionintoc {2}{Stimmen der Gitarre \IeC {\"u}ber Schwebung}{9}{0}{2}
+\beamer@subsectionintoc {2}{1}{Versuchsaufbau f\IeC {\"u}r alle Experimente mit der Gitarre}{9}{0}{2}
+\beamer@subsectionintoc {2}{2}{Erstes Stimmen mit Stimmger\IeC {\"a}t und Verstimmen}{10}{0}{2}
+\beamer@subsectionintoc {2}{3}{Stimmversuch 1 und 2}{11}{0}{2}
+\beamer@subsectionintoc {2}{4}{3. Stimmversuch}{12}{0}{2}
+\beamer@sectionintoc {3}{Bestimmung der Materialeigenschaften der Saiten}{13}{0}{3}
+\beamer@subsectionintoc {3}{1}{Rohdaten}{14}{0}{3}
+\beamer@subsectionintoc {3}{2}{Lineare Regression}{15}{0}{3}
+\beamer@subsectionintoc {3}{3}{Ergebnis}{17}{0}{3}
+\beamer@sectionintoc {4}{Aufnahme eines Frequenzspektrums}{18}{0}{4}
+\beamer@sectionintoc {5}{Fazit}{20}{0}{5}

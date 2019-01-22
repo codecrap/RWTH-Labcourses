@@ -1,0 +1,153 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[ngerman]{babel}
+%ä und so
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsbsy}
+
+\usepackage{mathrsfs}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{esdiff}
+\usepackage{hyperref}
+\usepackage{geometry}
+
+\geometry{top = 20mm, bottom = 20 mm, left = 25mm, right = 25mm}
+
+\begin{document}
+\title{Atomphysik}
+\author{Gruppe B14 \\ \\ Daniel Wendland \\ Philipp Bremer \\ Olexiy Fedorets \\ Jonathan Hermann}
+\date{\today}
+\maketitle
+
+\newpage
+
+\tableofcontents
+\newpage
+
+
+\section{Einleitung}
+In diesem Versuch soll durch Vermessung der sogenannten Wärmestrahlung eines Lesliewürfels das Stefan-Boltzmann-Gesetz überprüft werden.
+\newline
+$P=\epsilon \sigma T^4$
+\newline
+Des weiteren soll herausgefunden werden welche Seite am ehesten einem schwarzen Strahler entspricht, dazu werden zunächst die Theorie und der Aufbau des Experiments betrachtet und dann auf die Auswertung eingegangen.
+
+\section{Theorie}
+Ein schwarzer Körper zeichnet sich dadurch aus, dass er jede Strahlung komplett absorbiert, also ist sein Absorptionskoeffizient $\alpha=1$ . Aus dem Kirchhoffschen Gesetz $\frac{E_{\lambda}(\lambda,T)}{\alpha_{\lambda}(\lambda,T)}=f(\lambda,T)$. Mit dem Absorptionskoeffizient für schwarze Körper gilt also $E_{\lambda,s}(\lambda,T)=f(\lambda,T)$ stellt man nun das Emissionsvermögen eines grauen Körper durch das Produkt aus Emissionskoeffizient und Emissionsvermögen eines schwarzen Körpers dar, also $E_{\lambda}(\lambda,T)=\epsilon_{\lambda}(\lambda, T) \cdot E_{\lambda,s}(\lambda,T)$. So folgt sofort $\frac{\alpha_{\lambda}(\lambda, T)}{\epsilon_{\lambda}(\lambda, T)}=1$. Dieser Zusammenhang erlaubt es Aussagen über Ähnlichkeiten zu schwarzen Körpern zu treffen in dem nur der Emissionskoeffizient betrachtet wird.
+
+Nach Max Planck gilt für das Emissionsvermögen, in den Halbraum, eines schwarzen Strahlers das Plancksche Strahlungsgesetz:
+\newline
+$E_{\lambda,s}= 2 \cdot \pi \cdot \frac{h \cdot c^2}{\lambda^5} \cdot \frac{1}{e^{\frac{h\cdot c}{\lambda \cdot k \cdot T}}-1}$
+\newline
+Dabei bezeichnet $T$ die Temperatur des Körpers und k ist die Boltzmann-konstante: $k=1,3806488 \cdot 10^{-23}\frac{J}{K}$. Betrachtet man nun die Einheit des Emissionsvermögens fällt auf das gilt $[E_{\lambda,s}]=\frac{W}{m^3}$ demnach ist das Emissionsvermögen eine Leistungsdichte.
+\newline
+Aus dem Plankschen Strahlungsgesetz lässt sich zweierlei folgern, erstens durch null setzen der Ableitung nach $\lambda$, also lösen des Extremwertproblems, ergibt sich das Wiensche-verschiebungsgesetz:
+\newline
+$\lambda_{max} \cdot T=b=const.=2898 \mu m K$
+\newline 
+Des weiteren folgt durch Integration über alle Wellenlängen, oder alternativ über die Frequenzen, das Stefan-Boltzmann-Gesetz. Dies ist für graue Körper, 
+\newline
+$E_s(T)=\epsilon \cdot \sigma \cdot T^4 \; \; \; \; mit\; \; \;   \sigma = \frac{2 \pi^5 \cdot k^4}{15 \cdot h^3 \cdot c^2}= 5.670373 \cdot 10^{-8} \frac{W}{m^2K^4}$
+\newline
+\newline
+Das Stefan-Boltzmann-Gesetz gilt mit $\epsilon=1$, also idealem Emissionsfaktor, auch für schwarze Körper.
+Da unsere Messung mit der Thermosäule nach Moll durchgeführt wird, werden nur Leistungsdifferenzen gemessen. Deswegen ist also $E_s(T)=\epsilon \cdot \sigma \cdot( T^4-T_0^4) $ zu betrachten mit $T_0$ als Raumtemperatur.
+\newline
+Aufgrund der Integration über $\lambda$ gilt jetzt $[E_s(T)]=\frac{W}{m^2}$, daraus folgt das
+\newline
+$P_{ideal}= A_{sender}\cdot \frac{A_{empf.}}{r^2} \cdot \frac{\sigma}{\pi} \cdot (T_{messung}^4-T_0^4)$
+\newline
+Dabei bezeichnet $A_{sender}$ die betrachtete Fläche des Strahlers, und
+\newline 
+$\frac{A_{empf.}}{r^2} \cdot \frac{1}{\pi}$ den Anteil des Raumwinkel, den der Empfänger einnimmt, am gesamten Halbraum.
+\newline
+Um nun Aussagen über den Emissionskoeffizienten zu treffen betrachten wir in diesem Versuch den Quotient 
+\newline
+$ \frac{U_{gemessen} \cdot v}{const.}\cdot \frac{1}{A_{sender}\cdot \frac{A_{empf.}}{r^2} \cdot \frac{\sigma}{\pi} \cdot (T_{messung}^4-T_0^4)}=\frac{P_{gemessen}}{P_{ideal}}=\frac{\epsilon \cdot \sigma\cdot T^4}{\sigma \cdot T^4}=\epsilon$
+\newline
+Dabei gelten die Einzelformeln links für den von uns betrachteten Bereich und die Formeln rechts für die gesamte Leistung, da jedoch Quotienten behandelt werden sind die Ausdrücke dennoch äquivalent.
+Hier bezeichnet const. den Umrechnungsfaktor jeder Thermosäule, und $v$ den Verstärkungsfaktor $v=10 ^{-4}$
+
+
+\section{Versuchsaufbau}
+Der Aufbau des Versuchs besteht aus einem mit Wasser gefülltem Leslie Würfel, welcher auf einer Heizplatte erhitzt wird. Der Würfel hat vier Seiten welche alle unterschiedlich beschichtet sind. Es gibt eine verspiegelte, eine weiße, eine schwarze und eine mit Messing beschichtete Seite. In dem Lesliewürfel befindet sich ein Rührfisch, welcher von einem Magneten in der Heizplatte rotiert wird, um das warme Wasser zu verteilen und um damit eine gleichmäßige Erwärmung zu gewährleisten. Durch Löcher im Deckel des Würfels werden zwei Thermometer gesteckt. Das erste Thermometer liefert die Temperatur an die Heizplatte, welche grob die Temperatur des Würfels auf den eingestellten Wert bringen bzw. halten kann. Das zweite Thermometer liefert die Temperatur an die Temperaturbox des Cassys um eine genaue Temperaturmessung des Würfels zu realisieren. Vorallem bei dem zweiten Thermometer wurde darauf geachtet, dass dieses weder den Boden noch die Wände des Würfels berührt um die genaue Temperatur des Wassers zu bstimmen.
+Vor dem Würfel befindet sich außerdem eine Thermosäule nach Moll. Bei dieser wurde vorher das Schutzglas entfernt und ein Schutzrohr befestigt.
+Die Thermosäule wird mit wenigen Zentimetern Abstand vor einer Seite des Würfels fest eingespannt. Als grobe Orientiereung des Abstandes diehnt die Dicke einer Schaumstoffmatte, welche zwischen den Versuchen ebenfalls als Abschirmung der Wärmestrahlung des Würfels genutzt wird, damit sich die Thermosäule nicht über die Raumtemparatur aufheizt. Damit dies nicht geschieht wird die Säule außerdem so wenig wie möglich angefasst um sie nicht mit der Körperwärme zu erwärmen.
+Die Thermosäule liefert zunächst eine Spannung an einen Messverstärker, welcher das Spannungssignal mit einem Faktor von $10^4$ verstärkt und die Spannung dann weiter an das Sensorcassy gibt.
+Temperatur im Würfel sowie die Spannung der Thermosäule können nun durch das Cassy ermittelt werden.\newline
+\begin{figure}[H]
+
+	\hskip -2 cm
+	\includegraphics[trim = 0mm 0mm 0mm 0mm,clip, width=20cm]{Bilder/WhatsApp_Image_2017_09_11_at_16_41_371.jpeg}%
+	\caption[Versuchsaufbau]{Versuchsaufbau}%
+	\label{pic:Abbildung 2}%
+
+\end{figure}
+
+\section{Versuchsdurchführung}
+Die Thermosäule misst die Differenz der einfallenden Strahlungsleistung vom Würfel, zur Strahlungsleistung durch die Umgebungstemperatur. Diese wird dann bis auf einen Konstanten Faktor, welcher für beide Gruppen unterschiedlich ist, als Spannungssignal ans Cassy wietergeleitet.
+Um zu gewährleisten, dass das Spannungssignal wirklich die Leistung der Umgebungstemperatur als Referenzpunkt hat, wird die Säule auf eine Wand gerichtet und das Spannungssignal durch Offseteinstellungen am Spannungsverstärker auf $0V$ gesetzt. \newline
+\begin{center}
+$P_{gemessen}=\frac{U_{gemessen} \cdot v}{c}$
+\;\;\;\;\;\;\;\;\;\;
+$P_{theoretisch}=A_e \frac{\Omega}{\pi} \epsilon \sigma (T^4-T_0^4)$
+\end{center}
+Wobei $v$ der Verstärkungsvorfaktor von $V=10^{-4}$ darstellt. Die Konstante $c$ beträgt:
+\newline
+\begin{center}
+\begin{tabular}{|c|c|c|}
+
+
+
+\hline          &Seriennummer der Thermosäule & Empfindlichkeit \\
+\hline Gruppe 1 & 120631 &$c_1=(0.160 \pm   0.0048)\frac{V}{W} $ \\
+\hline Gruppe 2 &130815  &$c_2=(0.221 \pm   0.0066)\frac{V}{W} $     \\
+\hline
+
+\end{tabular}\newline
+\end{center}
+
+Weiterhin wird eine Rauschmessung der Umgebungstemparatur sowie von Eiswasser und später siedendem Wasser durchgeführt. Die Rauschmessung der Umgebungstemperatur wird am Ende der folgenden Versuchsreihe wiederholt um sicher zu gehen, dass die Umgebungstemperatur konstant geblieben ist.
+Die Messungen bei $0^\circ$ bzw $100^\circ$ werden zur Temperaturkalibrierung des Thermometers benötigt.
+Zu Beginn der Versuchsreihe wird der Würfel auf $50^\circ$ aufgeheizt. Nun wird für jede Seite des Würfels eine Messung von ca 6 Sekunden durchgeführt, welche 125 Messwerte für Temperatur im Würfel und Spannung an der Thermosäule aufnimmt.
+Wurde dies für alle 4 verschiedenen Seiten durchgeführt, erhitzt man den Würfel um $5^\circ$ und wiederholt die 4 Messungen. Dieser Vorgang wird bis zur einer Endtemperatur von $95^\circ$ wiederholt.
+Die genauen Einstellungen bei den Messungen im Cassy sind:
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline Messintervall & Messungsanzahl & Messzeit & Spannungsmessbereich \\
+\hline $50ms$& 125& $6.25s$& $-10V$ bis $10 V$ \\
+\hline
+\end{tabular}
+\end{center}
+Der Spannungsmessbereich wurde nur bei der Gruppe 2 bei der schwarzen und weißen Seite des Würfels ab $70^\circ$ auf $-30V$ bis $30 V$ erhöht, wobei für $70^\circ$ und $75^\circ$ beide Bereichswerte gemessen wurden um zu überprüfen welche Auswirkung die Änderung des Spannungsmessbereich auf die Werte hat. Dazu mehr in der Auswertung.
+
+\section{Auswertung}
+Zunächst wurde die Kalibrierung der Temperatur durchgeführt. Aus den beiden Rauschmessungen erhalten wir folgende Mittelwerte:
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline Gruppe1 & $T_{100}=   K$ & $T_0=   K$\\
+\hline Gruppe2 & $T_{100}=   K$ & $T_0=   K$\\
+\hline
+\end{tabular}
+\end{center}
+Um die realen Temperaturen aus dem gemessen zu berechnen definieren wir:
+\begin{center}
+
+
+
+\end{center}
+ 
+
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,16 @@
+\select@language {ngerman}
+\contentsline {figure}{\numberline {1}{\ignorespaces Die drei F\IeC {\"a}lle beim Entladevorgang}}{2}{figure.1}
+\contentsline {figure}{\numberline {2}{\ignorespaces Schaltplan}}{2}{figure.2}
+\contentsline {figure}{\numberline {3}{\ignorespaces Versuchsaufbau mit angeschlossenem Oszilloskop}}{3}{figure.3}
+\contentsline {figure}{\numberline {4}{\ignorespaces Schwingung bei einem Widerstand von 1 $\Omega $ (1. Messreihe)}}{3}{figure.4}
+\contentsline {figure}{\numberline {5}{\ignorespaces Grenzfall bei einem Widerstand von 43.27 $\Omega $ (1. Messreihe)}}{4}{figure.5}
+\contentsline {figure}{\numberline {6}{\ignorespaces Kriechfall bei einem Widerstand von 1 $k\Omega $ (1. Messreihe)}}{4}{figure.6}
+\contentsline {figure}{\numberline {7}{\ignorespaces FFT der 1. Spannungsmessung bei 1$\Omega $, Peak bei $f=1563Hz$}}{5}{figure.7}
+\contentsline {figure}{\numberline {8}{\ignorespaces exp()-Einh\IeC {\"u}llende der 1. Spannungsmessung bei 1$\Omega $, $\delta = 510 \tmspace +\thickmuskip {.2777em}1/s$}}{6}{figure.8}
+\contentsline {figure}{\numberline {9}{\ignorespaces $\delta $-Bestimmung mit dem Oszilloskop}}{7}{figure.9}
+\contentsline {figure}{\numberline {10}{\ignorespaces lineare Regression von $\delta $ gegen R mit D\IeC {\"a}mpfungen nach Methode 1}}{8}{figure.10}
+\contentsline {figure}{\numberline {11}{\ignorespaces lineare Regression von $\delta $ gegen R mit D\IeC {\"a}mpfungen nach Methode 2}}{8}{figure.11}
+\contentsline {figure}{\numberline {12}{\ignorespaces Bestimmung der Kapazit\IeC {\"a}t mit $\delta $ und $\omega $ nach Methode 1}}{9}{figure.12}
+\contentsline {figure}{\numberline {13}{\ignorespaces Bestimmung der Kapazit\IeC {\"a}t mit $\delta $ nach Methode 2 und $\omega $ nach Methode 1}}{9}{figure.13}
+\contentsline {figure}{\numberline {14}{\ignorespaces Bestimmung der Kapazit\IeC {\"a}t mit $\delta $ nach Methode 1 und $\omega $ nach Methode 2}}{10}{figure.14}
+\contentsline {figure}{\numberline {15}{\ignorespaces Bestimmung der Kapazit\IeC {\"a}t mit $\delta $ und $\omega $ nach Methode 2}}{10}{figure.15}

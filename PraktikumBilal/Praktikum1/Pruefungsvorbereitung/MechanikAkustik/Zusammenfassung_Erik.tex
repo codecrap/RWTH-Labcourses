@@ -1,0 +1,106 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\author{Erik Zimmermann}
+\usepackage{float}
+\title{Praktikum Formelblatt}
+\begin{document}
+\section{Mechanik}
+\subsection{Einzelpendel}
+\subsubsection{Formeln}
+\begin{equation}
+\omega^2=\frac{D_P}{J_P}=\frac{m g\cdot l_P}{0.5\cdot m_p r_P^2+m_p l_p^2}
+\end{equation}
+\begin{equation}
+\Rightarrow g= \omega^2 l_P\cdot(1+\frac{1}{2}\frac{r_P^2}{l_P^2})
+\end{equation}
+\begin{equation}
+\omega=2\pi f=\frac{2\pi}{T}\text{ mit } T=\frac{t_e-t_a}{n}
+\end{equation}
+\subsubsection{Parameter Cassy}
+\begin{table}[H]\centering
+\begin{tabular}{|c|c|}
+\hline 
+Intervall & 10 ms \\ 
+\hline 
+Anzahl & 16000 \\ 
+\hline 
+\end{tabular} 
+\end{table}
+\subsubsection{Sonstiges}
+\begin{align}
+l\approx 0.68m,\hspace{0.5cm}\sigma_l=0.5..1cm\\
+\omega_S\approx \omega_P~(0.5\text{ Prozent}) \rightarrow 1-\frac{\omega_S}{\omega_P}<0.005
+\end{align}
+\subsection{Doppelpendel}
+\subsubsection{Formeln}
+\begin{align}
+\kappa=\frac{\omega_{sf}^2-\omega_s^2}{\omega_{sf}^2+\omega_s^2}=\frac{f_+^2-f_-^2}{f_+^2+f_-^2}\\
+\frac{1}{\kappa}=1+\frac{m g l_P}{D_F}\cdot \frac{1}{l_F^2}
+\end{align}
+\section{Akustik Lars und Erik}
+\subsection{Schallgeschwindigkeit in Festkörpern}
+\subsubsection{Formeln}
+\begin{align}
+v=\sqrt{\frac{E}{\rho}}\hspace{1cm} \lambda= 2\cdot L\\
+\Rightarrow E=\rho\cdot f_0^2 \cdot 4L^2\\
+\text{mit } \rho= \frac{M}{V}=\frac{4M}{L\pi D^2}
+\end{align}
+\subsubsection{Parameter Cassy}
+\begin{table}[H]\centering
+\begin{tabular}{|c|c|}
+\hline 
+Intervall & 100 $\mu$s \\ 
+\hline 
+Anzahl & 16000 \\ 
+\hline 
+\end{tabular} 
+\end{table}
+\subsubsection{Sonstiges}
+\begin{itemize}
+\item Mikro auf minimale Empfindlichkeit im Amplituenmodus
+\item Mikro schaltet sich nach 10 min aus(!)
+\item Stab darf nur an einem einzigen Punkt befestigt sein
+\end{itemize}
+\subsection{Schwebung der Gitarre}
+\subsubsection{Formeln}
+\begin{align}
+f_k=\frac{f_++f_-}{2} \hspace{1cm} f_{sch}=\frac{f_+-f_-}{2}
+\end{align}
+\subsubsection{Parameter Cassy}
+\begin{table}[H]\centering
+\begin{tabular}{|c|c|}
+\hline 
+Intervall & 500 $\mu$s \\ 
+\hline 
+Anzahl & 10000 \\ 
+\hline 
+Trigger & z.B. 0.3V \\ 
+\hline 
+\end{tabular} 
+\end{table}
+\subsubsection{Sonstiges}
+\begin{itemize}
+\item aus FFT: $f_+$ und $f_-$
+\item ablesen bzw. abzählen: $f_{k}$ und $f_{sch}$
+\item aufpassen ob nach f oder $\omega$ gefragt ist
+\item Mikro ca. 50 cm über die Gitarre
+\end{itemize}
+\subsection{Materialeigenschaften einer Saite}
+\subsubsection{Formeln}
+\begin{equation}
+f= \frac{1}{2}\sqrt{\frac{T}{\mu}}\cdot \frac{1}{l}
+\end{equation}
+\subsubsection{Sonstiges}
+\begin{itemize}
+\item Frequenz gegen die Länge der Saite (ggf. an mehreren Bünden)
+\item Bünde richtig ablesen! :)
+\end{itemize}
+\end{document}

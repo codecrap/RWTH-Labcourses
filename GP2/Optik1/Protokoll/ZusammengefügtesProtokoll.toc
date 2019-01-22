@@ -1,0 +1,27 @@
+\select@language {ngerman}
+\contentsline {section}{\numberline {1}Einleitung}{1}{section.1}
+\contentsline {section}{\numberline {2}Prismenspektrometer}{1}{section.2}
+\contentsline {subsection}{\numberline {2.1}Theorie des Prismas}{1}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Versuchsaufbau}{3}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Durchf\IeC {\"u}hrung}{4}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Auswertung}{4}{subsection.2.4}
+\contentsline {subsection}{\numberline {2.5}Fazit zu den Versuchen zum Prisma}{7}{subsection.2.5}
+\contentsline {section}{\numberline {3}Gitterspektrometer}{8}{section.3}
+\contentsline {subsection}{\numberline {3.1}Theoretische Grundlagen der Gitterspektroskopie}{8}{subsection.3.1}
+\contentsline {paragraph}{Aufl\IeC {\"o}sungsverm\IeC {\"o}gen}{9}{section*.2}
+\contentsline {subsection}{\numberline {3.2}Aufbau}{9}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Durchf\IeC {\"u}hrung}{9}{subsection.3.3}
+\contentsline {subsubsection}{\numberline {3.3.1}Bestimmung der Gitterkonstante}{9}{subsubsection.3.3.1}
+\contentsline {subsubsection}{\numberline {3.3.2}Bestimmung der Wellenl\IeC {\"a}ngen der \texttt {Na}-Doppellinie}{10}{subsubsection.3.3.2}
+\contentsline {subsubsection}{\numberline {3.3.3}Bestimmung des Aufl\IeC {\"o}sungsverm\IeC {\"o}gens}{10}{subsubsection.3.3.3}
+\contentsline {subsection}{\numberline {3.4}Auswertung}{11}{subsection.3.4}
+\contentsline {subsubsection}{\numberline {3.4.1}Bestimmung der Beugungswinkel}{11}{subsubsection.3.4.1}
+\contentsline {subsubsection}{\numberline {3.4.2}Bestimmung der Gitterkonstante}{11}{subsubsection.3.4.2}
+\contentsline {paragraph}{Korrektur der Gitterverdrehung}{13}{section*.3}
+\contentsline {subsubsection}{\numberline {3.4.3}Bestimmung der Wellenl\IeC {\"a}ngen der \texttt {Na}-Doppellinie}{15}{subsubsection.3.4.3}
+\contentsline {subsubsection}{\numberline {3.4.4}Bestimmung des Aufl\IeC {\"o}sungsverm\IeC {\"o}gens}{16}{subsubsection.3.4.4}
+\contentsline {subsection}{\numberline {3.5}Fazit}{17}{subsection.3.5}
+\contentsline {paragraph}{Gitterkonstante}{17}{section*.4}
+\contentsline {paragraph}{Wellenl\IeC {\"a}nge}{17}{section*.5}
+\contentsline {paragraph}{Aufl\IeC {\"o}sungsverm\IeC {\"o}gen}{17}{section*.6}
+\contentsline {section}{\numberline {4}Anhang}{18}{section.4}

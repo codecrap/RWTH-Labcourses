@@ -1,0 +1,21 @@
+\select@language {ngerman}
+\contentsline {section}{\numberline {1}Versuchsbeschreibung}{1}{section.1}
+\contentsline {subsection}{\numberline {1.1}Versuchsziel}{1}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Grundlagen}{1}{subsection.1.2}
+\contentsline {subsubsection}{\numberline {1.2.1}Das mathematische Pendel}{1}{subsubsection.1.2.1}
+\contentsline {subsubsection}{\numberline {1.2.2}Das physikalische Pendel}{1}{subsubsection.1.2.2}
+\contentsline {section}{\numberline {2}Versuchsaufbau und Durchf\IeC {\"u}hrung}{3}{section.2}
+\contentsline {subsection}{\numberline {2.1}Aufbau}{3}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Durchf\IeC {\"u}hrung}{4}{subsection.2.2}
+\contentsline {subsubsection}{\numberline {2.2.1}Messung der Periodendauer}{5}{subsubsection.2.2.1}
+\contentsline {subsubsection}{\numberline {2.2.2}Messung der Pendell\IeC {\"a}nge}{5}{subsubsection.2.2.2}
+\contentsline {subsubsection}{\numberline {2.2.3}Messung des Radius des Pendelk\IeC {\"o}rpers}{5}{subsubsection.2.2.3}
+\contentsline {section}{\numberline {3}Auswertung}{6}{section.3}
+\contentsline {subsection}{\numberline {3.1}Angleich der Frequenzen}{6}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Messreihen}{7}{subsection.3.2}
+\contentsline {subsubsection}{\numberline {3.2.1}Messung der Periodendauer}{7}{subsubsection.3.2.1}
+\contentsline {subsubsection}{\numberline {3.2.2}Messung der Pendell\IeC {\"a}nge}{7}{subsubsection.3.2.2}
+\contentsline {subsubsection}{\numberline {3.2.3}Messung des Radius des Pendelk\IeC {\"o}rpers}{8}{subsubsection.3.2.3}
+\contentsline {subsection}{\numberline {3.3}Berechnung von g}{8}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}Fehlerrechnung}{8}{subsection.3.4}
+\contentsline {section}{\numberline {4}Diskussion der Ergebnisse}{10}{section.4}

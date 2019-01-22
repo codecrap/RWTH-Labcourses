@@ -1,0 +1,19 @@
+\select@language {ngerman}
+\contentsline {section}{\numberline {1}Einleitung}{1}{section.1}
+\contentsline {section}{\numberline {2}Schallgeschwindigkeit in Festk\IeC {\"o}rpern}{1}{section.2}
+\contentsline {subsection}{\numberline {2.1}Grundlagen}{1}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Aufbau und Durchf\IeC {\"u}hrung}{1}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Auswertung}{2}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Fazit}{4}{subsection.2.4}
+\contentsline {section}{\numberline {3}Physik der Gittare}{5}{section.3}
+\contentsline {subsection}{\numberline {3.1}Grundlagen}{5}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Aufbau und Durchf\IeC {\"u}hrung}{6}{subsection.3.2}
+\contentsline {subsubsection}{\numberline {3.2.1}Messung der Schwebung}{6}{subsubsection.3.2.1}
+\contentsline {subsubsection}{\numberline {3.2.2}Bestimmung der Saitenspannung}{7}{subsubsection.3.2.2}
+\contentsline {subsubsection}{\numberline {3.2.3}Aufnahme eines Frequenzspektrums}{7}{subsubsection.3.2.3}
+\contentsline {subsection}{\numberline {3.3}Auswertung}{7}{subsection.3.3}
+\contentsline {subsubsection}{\numberline {3.3.1}Schwebung}{7}{subsubsection.3.3.1}
+\contentsline {subsubsection}{\numberline {3.3.2}Saitenspannung}{8}{subsubsection.3.3.2}
+\contentsline {subsubsection}{\numberline {3.3.3}Frequenzspektren}{10}{subsubsection.3.3.3}
+\contentsline {subsection}{\numberline {3.4}Fazit}{11}{subsection.3.4}
+\contentsline {section}{\numberline {4}Anhang}{13}{section.4}

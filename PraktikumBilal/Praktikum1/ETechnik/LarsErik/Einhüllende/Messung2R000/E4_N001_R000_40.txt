@@ -1,0 +1,23 @@
+Messung 1
+frequenz 259.74025974
+Dämpfungskonstante 151.017458861
+frequenz 258.397932817
+Dämpfungskonstante 155.151881771
+frequenz 258.397932817
+Dämpfungskonstante 143.931526159
+frequenz 259.067357513
+Dämpfungskonstante 140.310176796
+
+Mittelwerte: Frequenz 258.900870722 Dämpfung 147.602760897
+
+Frequenz
+Einzelfehler [ 0.58426406  0.57824076  0.57824076  0.58124071]
+Fehler des gewichteten Mittelwerts 0.290240258027
+gewichteter Mittelwert 258.896101035
+f_theo 264.422182719
+
+Dämpfung
+Einzelfehler [ 0.68684669  1.01317529  1.62806893  2.74025991]
+Fehler des gewichteten Mittelwerts 0.526729213324
+gewichteter Mittelwert 150.997579851 
+delta_theo 132.222222222

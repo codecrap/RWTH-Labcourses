@@ -1,0 +1,19 @@
+\select@language {ngerman}
+\contentsline {section}{\numberline {1}Vorkenntnisse}{2}
+\contentsline {subsection}{\numberline {1.1}Schwerpunktsatz}{2}
+\contentsline {subsection}{\numberline {1.2}Schwerpunktsberechnung}{2}
+\contentsline {subsection}{\numberline {1.3}Schwingung}{2}
+\contentsline {subsection}{\numberline {1.4}Winkelgeschwindigkeit}{3}
+\contentsline {subsection}{\numberline {1.5}Winkelbeschleunigung}{3}
+\contentsline {subsection}{\numberline {1.6}Drehmoment M}{3}
+\contentsline {subsection}{\numberline {1.7}Tr\IeC {\"a}gheitsmoment}{3}
+\contentsline {subsection}{\numberline {1.8}Satz von Steiner}{4}
+\contentsline {subsection}{\numberline {1.9}Direktionsmoment}{4}
+\contentsline {section}{\numberline {2}Theoretischer Hintergrund}{5}
+\contentsline {subsection}{\numberline {2.1}Mathematisches Pendel}{5}
+\contentsline {subsection}{\numberline {2.2}Physikalisches(reales) Pendel}{5}
+\contentsline {subsection}{\numberline {2.3}Bestimmung der Erdbeschleunigung}{5}
+\contentsline {subsection}{\numberline {2.4}Frequenzbestimmung}{6}
+\contentsline {section}{\numberline {3}Fehlerrechnung}{6}
+\contentsline {subsection}{\numberline {3.1}Fehler durch Vernachl\IeC {\"a}ssigung der Stange}{6}
+\contentsline {section}{\numberline {4}Versuchsaufbau und Durchf\IeC {\"u}hrung}{7}

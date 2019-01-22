@@ -1,0 +1,186 @@
+\documentclass[a4paper,12pt]{scrartcl}
+
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{verbatim} 
+%dies ist ein Kommentar 
+\title{Bestimmung der Erdbeschleunigung mit dem Pendel}
+\author{Lars}
+\date{09.04.2015}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\section{Vorkenntnisse}
+\subsection{Schwerpunktsatz}
+Der Schwerpunkt eines Systems verhält sich wie ein Massenpunkt dessen Masse die Summe aller Einzelmassen des Systems ist. Weiterhin verhält er sich so als ob alle Kräfte im ihm (Schwerpunkt) angreifen würden. 
+%Siehe Abbildung \ref{schwerpunkt}
+\subsection{Schwerpunktsberechnung}
+
+\begin{align}
+s_i=\frac{\int_k \! x_i \, \mathrm{d}V}{\int_k \!  \, \mathrm{d}V}  
+\end{align}
+
+\begin{comment}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=8cm]{Bilder/Schwerpunkt.jpg}
+\caption{Schwerpunkt}
+\label{schwerpunkt}
+\end{center}
+\end{figure}
+\end{comment}
+
+\subsection{Schwingung}
+"Wiederholte zeitliche Schwankung von Zustandsgrößen."
+\begin{itemize}
+\item{Harmonische Schwingung} kann durch Sinus dargestellt werden.
+\begin{equation}
+  \underset{\mbox{{\small $(y_0=Amplitude, \omega =Winkelgeschwindigkeit, t=Zeit, \varphi_0 =Nullphasenwinkel)$}}}{y(t)=y_0 sin(\omega t + \varphi_0)} \label{harmonische Schwingungsgleichung}
+\end{equation}
+\item{linear gedämpfte Schwingung}
+\begin{itemize}
+\item Makroskopische Physikalische Systeme sind immer gedämpft
+\item Kräftegleichgewicht
+\begin{equation}
+  \underset{\mbox{{\small $(d=D{\"a}mpfungskonstante, k=Federkonstante)$}}}{m \ddot{x}+d \dot{x} + kx = 0} \label{linear gedämpfte Schwingungsgleichung}
+\end{equation}
+\item für Drehschwingungen gilt(Drehmomentgleichgewicht):
+\begin{equation}
+  \underset{\mbox{{\small $(J=Traegheitsmoment)$}}}{J \ddot{\varphi}+d \dot{\varphi}+ k \varphi = 0} \label{linear gedämpfte Drehschwingungsgleichung}
+\end{equation}
+\item Gleichung \ref{linear gedämpfte Schwingungsgleichung} lässt sich in 
+\begin{equation}
+  \underset{\mbox{{\small $$}}}{\ddot{x}+2 \delta \dot{x} +\omega_0^2 x = 0} \label{umgeformte linear gedämpfte Schwingungsgleichung}
+\end{equation}
+überführen. Mit der Abklingkonstanten $\delta = \frac{d}{2m}$ und der ungedämpften Eigenfrequenz $\omega_0 = \sqrt{\frac{k}{m}}$. Die Lösung ergibt sich aus dem Ansatz $x(t)=e^{\lambda t}$.
+\begin{itemize}
+\renewcommand{\labelitemiii}{$\Rightarrow$}
+\item $\lambda^2+2\delta\lambda+\omega_0^2=0$
+\item $\lambda=-\delta \pm \sqrt{\delta^2-\omega_o^2}$
+\item $\delta^2-\omega_o^2$ ist die Diskriminante. Das heißt, sie bestimmt Art und Zahl der Lösungen
+\item Fallunterscheidung
+\begin{itemize}
+\item[Schwingfall] 
+$\delta < \omega_0$ $\Rightarrow$ Diskriminante ist negativ $\Rightarrow$ Wurzelausdruck ist imaginär $\Rightarrow$ zwei konjugiert komplexe Lösungen: $\lambda_{1,2}= - \delta \pm i \sqrt{\omega_0^2-\delta^2}$ $\Rightarrow$ Sinus %Bild
+\item[Aperiodischer Grenzfall]
+$\delta = \omega_0 \Rightarrow \lambda_1=\lambda_2=-\delta \Rightarrow$ neue Art 2. Lösung muss existieren $\Rightarrow x(t)=X_1 e^{-\delta t}+t*X_2 e^{-\delta t} \Rightarrow$ kein Sinus
+\item[Kriechfall] hohe Dämpfung $\Rightarrow \delta < \omega_0 \Rightarrow$ Wurzel ist reell $\Rightarrow \lambda_{1,2}= - \delta \pm \sqrt{\omega_0^2-\delta^2}$  
+\end{itemize}
+\end{itemize}    
+\end{itemize}
+\end{itemize}
+<Bild Seite 159>
+
+
+\subsection{Winkelgeschwindigkeit}
+Gibt an wie schnell sich ein Winkel mit der Zeit um seine Achse ändert $[\omega]= \frac{rad}{s}$
+\subsection{Winkelbeschleunigung}
+Zeitliche Änderung der Winkelgeschwindigkeit $\alpha=\dot{\omega}=\ddot{\varphi}$
+\subsection{Drehmoment M}
+Spielt für Drehbewegungen die gleiche Rolle wie die Kraft für geradlinige Bewegungen.
+\begin{itemize}
+\item 
+\begin{equation}
+  \underset{\mbox{{\small $$}}}{\vec{M}=\vec{r}\times \vec{F}} \label{Drehmoment1}
+\end{equation}
+\item 
+\begin{equation}
+  \underset{\mbox{{\small $(J=Trägheitsmoment, wie~\vec{F}=m \vec{a})$}}}{\vec{M}=J \dot{\vec{\omega}}} \label{Drehmoment2}
+\end{equation}
+\item 
+\begin{equation}
+  \underset{\mbox{{\small $(L=Drehimpuls)$}}}{\vec{M}=\dot{\vec{L}}} \label{Drehmoment3}
+\end{equation}
+\end{itemize}
+\subsection{Trägheitsmoment}
+Gibt Widerstand eines starren Körpers gegenüber seiner Rotationsbewegung um eine gegebene Achse an.
+\subsection{Satz von Steiner}
+Berechnung des Trägheitsmomentes eines starren Körpers für parallel verschobene Drehachsen. Trägheitsmoment ist abhängig von der Drehachse. Ist das Trägheitsmoment durch den Massenmittelpunkt bekannt, kann der Satz gen utzt werden um alle Trägheitsmomente für alle Drehachsen zu berechnen, die parallel dazu sind. 
+\begin{equation}
+  \underset{\mbox{{\small $(J_1=T.~durch~Massenschwerpunkt, J_2=T.~paralleler Drehachse, d=Abstand~der~Achsen)$}}}{J_2=J_1+md^2} \label{Steiner}
+\end{equation}
+\subsection{Direktionsmoment}
+Das Direktionsmoment D ist bei mechanischer Torsion die Konstande zwischen Drehmoment $\vec{M}$ und Drehwinkel $\vec{\varphi}$
+\begin{equation}
+  \underset{\mbox{{\small $$}}}{\vec{M}=D \vec{\varphi}} \label{Direktionsmoment}
+\end{equation}
+
+
+\newpage
+\section{Theoretischer Hintergrund}
+\subsection{Mathematisches Pendel}
+\begin{itemize}
+\item Rückstellendes Drehmoment wird durch Schwerkraft erzeugt. Bewegungsgleichung bringt: \begin{equation}
+  \underset{\mbox{{\small $(Trägheitsmoment J=m_T l^2)$}}}{J \ddot\varphi=-m_s g l sin(\varphi)\approx-m_sgl\varphi} \label{Rückstellmoment}
+\end{equation}
+\item $m_{Träg}=m_{Schwer} \Rightarrow m_T l^2 \ddot{\varphi} = -m_s g l \varphi \Leftrightarrow \ddot{\varphi=-\frac{g\varphi}{l}=-\omega^2 \varphi}$ da nach Pendelgleichung $\omega=\sqrt{\frac{g}{l}}$ gilt.
+\item Allgemeine Lösung: $\varphi(t)=A cos(\omega t)+ B sin(\omega t)$.
+Aus den Anfangsbedingungen $\varphi(t=0)=\varphi_{max},\dot{\varphi}(t=0)=0$ folgt $\varphi(t)=\varphi_{max} cos(\omega t)$
+\item $\omega=\sqrt{\frac{g}{l}}, T=\frac{2 \pi}{\omega}=2 \pi \sqrt{\frac{l}{g}} \Leftrightarrow  $
+\begin{equation}
+  \underset{\mbox{{\small $(\Rightarrow T^2 \propto l)$}}}{T^2=\frac{4 \pi^2 l}{g}} \label{Mathematisches Pendel}
+\end{equation}
+\end{itemize}
+
+
+\subsection{Physikalisches(reales) Pendel}
+\begin{itemize}
+\item J ist Gesamtträgheitsmoment um Drehachse
+\item $l_s$ ist Distanz vom Aufhängepunkt zum Schwerpunkt
+\item $T^2= \frac{4 \pi^2 J}{g m l_s}$ (Formal das selbe)
+\end{itemize}
+\subsection{Bestimmung der Erdbeschleunigung}
+\begin{itemize}
+\item Eine Möglichkeit ist die explizite Berechnung von J
+\item die Zweite Möglichkeit ist den Systematischen Fehler durch $J_{Stange}$ und das Rückstellmoment zu minimieren. 
+\begin{itemize}
+\item Schwingungsfrequenz der Stange allein Messen
+\item Pendelkörper so anbringen, sodass diese Schwingungsfrequenz beibehalten wird. $\Rightarrow$ Pendelkörper und Stange beeinflussen sich nicht. 
+\item für die Stange allein gilt: $\omega_{st}^2=\frac{D_{st}}{J_{st}}$
+\item Für den Pendelkörper allein gilt: $\omega_{p}^2=\frac{D_{p}}{J_{p}}$
+\item für $\omega_p=\omega_{st}$ folgt $\frac{D_{st}}{J_{st}}=\frac{D_{p}}{J_{p}}$
+\item Pendel kann nun so behandelt werden als bestünde es nur aus dem Pendel\underline{körper}. Im folgenden werden also alle Größen die Größen des Pendelkörpers gemeint sein
+\item Mithilfe von des Steinerschen Satzes und des Trägheitsmoments eines homogenen Zylinders folgert man nun mit $J=\frac{1}{2}m r^2 + ml^2 und D= mgl \Rightarrow \omega^2=\frac{D}{J}=\frac{mgl}{\frac{1}{2}m r^2 + ml^2}=\frac{gl}{\frac{1}{2}r^2+l^2} \Leftrightarrow$
+\begin{equation}
+  \underset{\mbox{{\small $$}}}{g=\omega^2 l (1+\frac{r^2}{2l^2})} \label{Erdbeschleunigung}
+\end{equation}
+Die 1 steht für das mathematische Pendel. Der zweite Term in der Klammer für die Korrektur durch die Ausdehnung des Körpers)
+\end{itemize}
+\end{itemize}
+\subsection{Frequenzbestimmung}
+\begin{itemize}
+\item $\omega=2 \pi f= \frac{2\pi}{T}$
+\item $T=\frac{t_2-t_1}{n} (n=Anzahl vollständiger Perioden.)$
+\item Nulldurchgänge betrachten $\Rightarrow$ genauer
+\item $\Delta t$ ist Genauigkeit für T $\Rightarrow \Delta T=\sqrt{2}\frac{\Delta t}{n}$
+\end{itemize}
+\section{Fehlerrechnung}
+\begin{itemize}
+\item[$l_p$] Massbandfehler $\pm 1mm \Rightarrow$ im promillbereich
+\item[$r_p$] Durch Faktor $\frac{r_p^2}{l_p^2}\approx\frac{1}{300}$ stark unterdrückt
+\item[f] Ein Nulldurchlauf circa 10 ms. 2 Nulldurchläufe entsprechen einer Periode also circa 20 ms genau. Fehler auf f bzw. T sehr klein halten! Mindestens 120 Perioden messen, damit relative Genauigkeit besser als die von $l_p$
+\end{itemize}
+\subsection{Fehler durch Vernachlässigung der Stange}
+\begin{itemize}
+\item $\omega_p=\omega_{st}$ nie genau erreichbar. $\Rightarrow$ Abschätzung
+\item $ \omega_s^2=\frac{D_s}{J_s},~ \omega^2=\frac{D_s+D_p}{J_s+J_p}=\omega_s^2+\epsilon \Leftrightarrow \omega_p^2=\frac{D_p}{J_p}=\omega^2+\epsilon\frac{J_s}{D_s}$
+\item $\frac{J_s}{J_p}\approx0.1 \Rightarrow$ relative Abweichung der Frequenz geht mit 0,2 in g ein $\Rightarrow$ beide Frequenzen müssen besser als 0,5\% übereinstimmen. $\Rightarrow$ Korrekturfaktor für g aus Abweichung der Frequenzen bestimmen.
+\end{itemize}
+\section{Versuchsaufbau und Durchführung}
+\begin{itemize}
+\item Winkelaufnehmer an CASSY anschließen Versorgung + Hallspannung
+\item Nullage einstellen.
+\item Periodendauer aus gemesserner Spannung bestimmen (CASSY)
+\item Stange alleine schwingen lassen (120 Perioden)
+\item Pendelkörper so anbringen, dass $\omega_s=\omega_p$ 
+\item Kombination schwingenlassen (mindestens 120 Perioden)
+\item $l_p$ messen
+\item $r_p$ messen
+\item Größe der Einzelbeiträge bei der Fehlerberechnung angeben. (Möglicher Systematischer Fehler: Luftreibung...)
+\end{itemize}
+\end{document}

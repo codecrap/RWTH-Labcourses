@@ -1,0 +1,36 @@
+\beamer@endinputifotherversion {3.36pt}
+\select@language {german}
+\beamer@sectionintoc {1}{Bestimmung der Schallgeschwindigkeit durch Laufzeitmessung}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{Versuchsbeschreibung}{3}{0}{1}
+\beamer@subsectionintoc {1}{2}{Versuchsaufbau und Durchf\IeC {\"u}hrung}{4}{0}{1}
+\beamer@subsectionintoc {1}{3}{Rohdaten}{5}{0}{1}
+\beamer@subsectionintoc {1}{4}{Transformation der Rohdaten/Analyse}{8}{0}{1}
+\beamer@subsectionintoc {1}{5}{Fazit}{11}{0}{1}
+\beamer@sectionintoc {2}{Variation der Frequenz}{12}{0}{2}
+\beamer@subsectionintoc {2}{1}{Versuchsbeschreibung}{12}{0}{2}
+\beamer@subsectionintoc {2}{2}{Aufbau und Durchf\IeC {\"u}hrung}{13}{0}{2}
+\beamer@subsectionintoc {2}{3}{Auswertung}{14}{0}{2}
+\beamer@subsectionintoc {2}{4}{Fazit}{18}{0}{2}
+\beamer@sectionintoc {3}{Vermessung der stehenden Welle}{19}{0}{3}
+\beamer@subsectionintoc {3}{1}{Versuchsbeschreibung}{19}{0}{3}
+\beamer@subsectionintoc {3}{2}{Aufbau und Durchf\IeC {\"u}hrung}{20}{0}{3}
+\beamer@subsectionintoc {3}{3}{Auswertung}{22}{0}{3}
+\beamer@subsectionintoc {3}{4}{Fazit}{26}{0}{3}
+\beamer@sectionintoc {4}{Fazit}{27}{0}{4}
+\beamer@sectionintoc {5}{Schallgeschwindigkeit in Festk\IeC {\"o}rpern}{28}{0}{5}
+\beamer@subsectionintoc {5}{1}{Aufbau}{28}{0}{5}
+\beamer@subsectionintoc {5}{2}{Rohdaten}{29}{0}{5}
+\beamer@subsectionintoc {5}{3}{Dichte}{32}{0}{5}
+\beamer@subsectionintoc {5}{4}{Elastizit\IeC {\"a}tsmodul}{33}{0}{5}
+\beamer@subsectionintoc {5}{5}{Schallgeschwindigkeit}{34}{0}{5}
+\beamer@sectionintoc {6}{Stimmen der Gitarre \IeC {\"u}ber Schwebung}{35}{0}{6}
+\beamer@subsectionintoc {6}{1}{Versuchsaufbau f\IeC {\"u}r alle Experimente mit der Gitarre}{35}{0}{6}
+\beamer@subsectionintoc {6}{2}{Erstes Stimmen mit Stimmger\IeC {\"a}t und Verstimmen}{36}{0}{6}
+\beamer@subsectionintoc {6}{3}{Stimmversuch 1 und 2}{37}{0}{6}
+\beamer@subsectionintoc {6}{4}{3. Stimmversuch}{38}{0}{6}
+\beamer@sectionintoc {7}{Bestimmung der Materialeigenschaften der Saiten}{39}{0}{7}
+\beamer@subsectionintoc {7}{1}{Rohdaten}{40}{0}{7}
+\beamer@subsectionintoc {7}{2}{Lineare Regression}{41}{0}{7}
+\beamer@subsectionintoc {7}{3}{Ergebnis}{43}{0}{7}
+\beamer@sectionintoc {8}{Aufnahme eines Frequenzspektrums}{44}{0}{8}
+\beamer@sectionintoc {9}{Fazit}{46}{0}{9}

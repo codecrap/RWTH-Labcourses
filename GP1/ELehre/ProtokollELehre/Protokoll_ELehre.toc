@@ -1,0 +1,23 @@
+\select@language {ngerman}
+\contentsline {section}{\numberline {1}Grundlagen}{1}{section.1}
+\contentsline {paragraph}{Kriechfall ($\delta > \omega _0$)}{1}{section*.2}
+\contentsline {paragraph}{Schwingfall ($\delta < \omega _0$)}{1}{section*.3}
+\contentsline {paragraph}{Aperiodischer Grenzfall($\delta = \omega _0$)}{1}{section*.4}
+\contentsline {section}{\numberline {2}Aufbau und Durchf\IeC {\"u}hrung}{2}{section.2}
+\contentsline {section}{\numberline {3}Auswertung}{3}{section.3}
+\contentsline {subsection}{\numberline {3.1}Bauteile}{3}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Rohdaten}{3}{subsection.3.2}
+\contentsline {paragraph}{Schwingfall ($\delta < \omega _0$)}{3}{section*.5}
+\contentsline {paragraph}{Aperiodischer Grenzfall($\delta = \omega _0$)}{4}{section*.6}
+\contentsline {paragraph}{Kriechfall ($\delta > \omega _0$)}{4}{section*.7}
+\contentsline {subsection}{\numberline {3.3}Frequenzbestimmung}{4}{subsection.3.3}
+\contentsline {paragraph}{Methode 1 - Nulldurchg\IeC {\"a}nge}{5}{section*.8}
+\contentsline {paragraph}{Methode 2 - FFT Peaks}{5}{section*.9}
+\contentsline {subsection}{\numberline {3.4}Bestimmung der D\IeC {\"a}mpfungskonstanten}{5}{subsection.3.4}
+\contentsline {paragraph}{Methode 1 - Amplituden}{5}{section*.10}
+\contentsline {paragraph}{Methode 2 - Einh\IeC {\"u}llende}{5}{section*.11}
+\contentsline {subsubsection}{\numberline {3.4.1}$\delta $-Bestimmung mit dem Oszilloskop}{6}{subsubsection.3.4.1}
+\contentsline {subsection}{\numberline {3.5}Charakterisierung der Spule}{7}{subsection.3.5}
+\contentsline {subsection}{\numberline {3.6}Charakterisierung des Kondensators}{8}{subsection.3.6}
+\contentsline {subsection}{\numberline {3.7}Aperiodischer Grenzfall}{11}{subsection.3.7}
+\contentsline {section}{\numberline {4}Fazit}{11}{section.4}

@@ -1,0 +1,39 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{float}
+\author{Erik Zimmermann}
+\begin{document}
+
+\section{Bestimmung der Verdampfungsenthalpie von Wasser}
+\subsection{Versuchsbeschreibung}
+%Kurze Darstellung der physikalischen Grundlagen und Ziele der Versuche, %die zum Verständnis
+%des Versuches/Protokolls benötigt werden. (max. 1 Seite)
+Zur Bestimmung der Verdampfungsenthalpie wird die Verdampfungswärme in einem isochoren Prozess bestimmt, wodurch die Volumenarbeit verschwindet. Somit ist die Verdampfungsentalpie gleich der Verdampfungswärme. Grundlegend für den Versuch ist die Clausius-Clapeyonschen Gleichung:
+\begin{equation}
+\frac{dp}{dT}=\frac{\nu \Lambda}{T(V_1-V_2)}
+\end{equation}
+mit der Stoffmenge $\nu$, der Verdampfungswärme $\Lambda$ und der Differenz der Volumen(Gas,Flüssigkeit).
+Unter der Annahme, das das Gasvolumen von Wasserdampf deutlich größer (Faktor 1200) ist als das Volumen von Wasser (flüssig), ergibt sich die DGL zu
+\begin{equation*}
+\frac{dp}{dT}=\frac{\nu \Lambda}{T\cdot V_{gas}}
+\end{equation*}
+Mit der Näherung des idealen Gases ($p\cdot V=\nu R T$) lässt sich die DGL lösen:
+\begin{equation}
+ln(\frac{p}{p_0})=-\frac{\Lambda}{R}(\frac{1}{T}-\frac{1}{T_0})
+\end{equation}
+bzw.
+\begin{equation}
+\ln(p)=-\frac{\Lambda}{R}\cdot \frac{1}{T}+c \text{ mit } c=const
+\end{equation}
+Nun wird der Druck und die Temperatur des Wasserdampfes beim Abkühlen gemessen und anschließend $\ln(p)$ gegen $\frac{1}{T}$ aufgetragen. Die Steigung ergibt sich dann zu $-\frac{\Lambda}{R}$ aus der dann die Verdampfungswärme $\Lambda$ bestimmt wird.
+
+
+\end{document}

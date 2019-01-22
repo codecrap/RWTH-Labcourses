@@ -1,0 +1,37 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\author{Erik Zimmermann}
+\begin{document}
+\section{Wellengleichung}
+\subsection{Schallwellen/ Eulergleichungen}
+\begin{itemize}
+\item $\frac{\partial}{\partial x} p(x,t)= -\rho \frac{\partial}{\partial t} u(x,t)$ \newline
+\item $\frac{\partial}{\partial x} u(x,t)= -\frac{1}{\rho \kappa} \frac{\partial}{\partial t} p(x,t)$ \newline
+$u(x)$ :lokale Geschwindigkeit der Moleküle; $\kappa= \frac{c_p}{c_v}= \frac{7}{5}$ für 2-atomiges Gas
+\end{itemize}
+\subsection{allgemeine Wellengleichung}
+\begin{equation}
+\frac{\partial^2}{\partial t^2}=v^2 \frac{\partial}{\partial x}
+\end{equation}
+$\Rightarrow$ ebene Wellen:\newline
+\begin{equation}
+u(x,t)=u_0 sin(\omega\pm kx-\Phi)
+\end{equation}
+\newline
+\begin{itemize}
+\item wichtige Kenngrößen:
+\end{itemize}
+\begin{align}
+k&=\frac{2 pi}{\lambda}\notag\\
+\omega&=2 \pi f\notag\\
+v_{Ph}&=\frac{\omega}{k}\notag\\
+v_{Gr}&=\frac{\partial \omega}{\partial k}\notag
+\end{align}
+\end{document}

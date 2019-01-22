@@ -1,0 +1,37 @@
+\select@language {ngerman}
+\contentsline {section}{\numberline {1}Einleitung}{3}{section.1}
+\contentsline {section}{\numberline {2}Grundlagen}{3}{section.2}
+\contentsline {subsection}{\numberline {2.1}Wechselstr\IeC {\"o}me -/Spannung}{3}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Wechselstromwiderst\IeC {\"a}nde}{3}{subsection.2.2}
+\contentsline {subsubsection}{\numberline {2.2.1}Ohmscher Widerstand}{3}{subsubsection.2.2.1}
+\contentsline {subsubsection}{\numberline {2.2.2}Kapazitiver Widerstand}{4}{subsubsection.2.2.2}
+\contentsline {subsubsection}{\numberline {2.2.3}Induktiver Widerstand}{4}{subsubsection.2.2.3}
+\contentsline {section}{\numberline {3}Serienschwingkreis}{5}{section.3}
+\contentsline {subsection}{\numberline {3.1}Versuchsziel}{5}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Herleitung ben\IeC {\"o}tigter Formeln}{5}{subsection.3.2}
+\contentsline {subsubsection}{\numberline {3.2.1}Bestimmung der G\IeC {\"u}te}{6}{subsubsection.3.2.1}
+\contentsline {subsection}{\numberline {3.3}Messung mit dem Oszilloskop}{6}{subsection.3.3}
+\contentsline {subsubsection}{\numberline {3.3.1}Versuchsaufbau}{6}{subsubsection.3.3.1}
+\contentsline {subsubsection}{\numberline {3.3.2}Versuchsdurchf\IeC {\"u}hrung und -Auswertung}{7}{subsubsection.3.3.2}
+\contentsline {subsection}{\numberline {3.4}Messung mit dem Sensor-Cassy}{8}{subsection.3.4}
+\contentsline {subsubsection}{\numberline {3.4.1}Versuchsaufbau}{8}{subsubsection.3.4.1}
+\contentsline {subsubsection}{\numberline {3.4.2}Versuchsdurchf\IeC {\"u}hrung}{8}{subsubsection.3.4.2}
+\contentsline {subsection}{\numberline {3.5}Versuchsauswertung}{9}{subsection.3.5}
+\contentsline {subsubsection}{\numberline {3.5.1}Resonanzkurve}{9}{subsubsection.3.5.1}
+\contentsline {subsection}{\numberline {3.6}Versuchsziel}{9}{subsection.3.6}
+\contentsline {subsubsection}{\numberline {3.6.1}Phasenverschiebung}{10}{subsubsection.3.6.1}
+\contentsline {subsection}{\numberline {3.7}Versuchsziel}{11}{subsection.3.7}
+\contentsline {subsubsection}{\numberline {3.7.1}Spannungs\IeC {\"u}berh\IeC {\"o}hung}{12}{subsubsection.3.7.1}
+\contentsline {subsubsection}{\numberline {3.7.2}Theoretische Vorhersage}{13}{subsubsection.3.7.2}
+\contentsline {subsection}{\numberline {3.8}Fazit}{14}{subsection.3.8}
+\contentsline {section}{\numberline {4}Parallelschwingkreis}{15}{section.4}
+\contentsline {subsection}{\numberline {4.1}Versuchsziel}{15}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Herleitung ben\IeC {\"o}tigter Formeln}{15}{subsection.4.2}
+\contentsline {subsubsection}{\numberline {4.2.1}Messung der G\IeC {\"u}te}{16}{subsubsection.4.2.1}
+\contentsline {subsection}{\numberline {4.3}Versuchsaufbau}{16}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}Versuchsdurchf\IeC {\"u}hrung}{17}{subsection.4.4}
+\contentsline {subsection}{\numberline {4.5}Versuchsauswertung}{17}{subsection.4.5}
+\contentsline {section}{\numberline {5}Hoch- und Tiefpassfilter}{21}{section.5}
+\contentsline {section}{\numberline {6}Anhang}{24}{section.6}
+\contentsline {subsection}{\numberline {6.1}Serienschwingkreis}{24}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Parallelschwingkreis}{27}{subsection.6.2}

@@ -1,0 +1,15 @@
+\beamer@endinputifotherversion {3.36pt}
+\select@language {german}
+\beamer@sectionintoc {1}{Bestimmung der Erdbeschleunigung mit dem Pendel}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{Versuchsbeschreibung}{3}{0}{1}
+\beamer@subsectionintoc {1}{2}{Rohdaten}{5}{0}{1}
+\beamer@subsectionintoc {1}{3}{Transformation der Rohdaten}{6}{0}{1}
+\beamer@subsectionintoc {1}{4}{Ergebnisse}{8}{0}{1}
+\beamer@subsectionintoc {1}{5}{Fazit}{9}{0}{1}
+\beamer@sectionintoc {2}{Gekoppelte Pendel}{10}{0}{2}
+\beamer@subsectionintoc {2}{1}{Versuchsbeschreibung}{10}{0}{2}
+\beamer@subsectionintoc {2}{2}{Rohdaten}{12}{0}{2}
+\beamer@subsectionintoc {2}{3}{Transformation der Rohdaten}{15}{0}{2}
+\beamer@subsectionintoc {2}{4}{Analyse}{18}{0}{2}
+\beamer@sectionintoc {3}{Bestimmung der Federkonstante durch Hook}{20}{0}{3}
+\beamer@sectionintoc {4}{Fazit}{21}{0}{4}

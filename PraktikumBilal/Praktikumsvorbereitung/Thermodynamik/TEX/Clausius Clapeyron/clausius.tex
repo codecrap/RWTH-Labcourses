@@ -1,0 +1,36 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\begin{document}
+\section{Clapeyron Gleichung}
+Liefert Steigung aller Phasengrenzlinien im P-T Diagramm eines Reinstoffes:
+\begin{equation}
+\frac{dp}{dT}=\frac{\Delta S_m}{\Delta V_m}
+\end{equation}
+\begin{itemize}
+\item fest $\leftrightarrow$ flüssig: siehe Schmelzpunkt
+\item flüssig $\leftrightarrow$ gasförmig: 
+\begin{equation}
+\frac{dp}{dT}=\frac{\Delta H_{m,v}}{\Delta V_{m,v}T}\stackrel{ideale Gase}{\approx}\frac{\Delta H_{m,v}p}{RT^2}
+\end{equation}
+Dieser Fall wird auch als Clausius-Clapeyron Gleichung bezeichnet.
+\item fest $\leftrightarrow$ gasförmig: 
+\begin{equation}
+\frac{ln(p)}{dT} \approx \frac{\Delta H_{m,sub}}{RT^2}
+\end{equation}
+\begin{itemize}
+\item p = Druck
+\item T = Temperatur
+\item $\Delta S_m=$ Molare Entropieänderung
+\item $\Delta V_m=$ Molare Volumenänderung
+\item $\Delta H_{m,v}=$ Molare Verdampfungsenthalpie
+\item $R=$ universelle Gaskonstante
+\item $\Delta H_{m,sub}=$ Molare Subimationsenthalpie
+\end{itemize}
+\end{itemize}
+\end{document}

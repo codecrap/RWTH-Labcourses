@@ -1,0 +1,306 @@
+\documentclass[12pt]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{graphicx}
+\usetheme{Pittsburgh}
+
+\setbeamercovered{transparent}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{caption}[numbered]
+
+\title{Atomphysik}
+\author{\underline{Gruppe B14} \\ Daniel Wendland \\ Philipp Bremer \\ \textbf{Olexiy Fedorets} \\ Jonathan Hermann}
+\date{\today}
+
+
+
+%\mode<presentation>
+%{
+%	\usetheme{default}      % or try Darmstadt, Madrid, Warsaw, ...
+%	\usecolortheme{default} % or try albatross, beaver, crane, ...
+%	\usefonttheme{default}  % or try serif, structurebold, ...
+%	\setbeamertemplate{footline}[frame number]
+%	\setbeamertemplate{navigation symbols}{}
+%	\setbeamertemplate{caption}[numbered]
+%} 
+
+%\usepackage{enumitem}
+%
+%\newlist{SubItemList}{itemize}{1}
+%\setlist[SubItemList]{label={$-$}}
+%
+%\let\OldItem\item
+%\newcommand{\SubItemStart}[1]{%
+%	\let\item\SubItemEnd
+%	\begin{SubItemList}[resume]%
+%		\OldItem #1%
+%	}
+%	\newcommand{\SubItemMiddle}[1]{%
+%		\OldItem #1%
+%	}
+%	\newcommand{\SubItemEnd}[1]{%
+%	\end{SubItemList}%
+%	\let\item\OldItem
+%	\item #1%
+%}
+%\newcommand*{\SubItem}[1]{%
+%	\let\SubItem\SubItemMiddle%
+%	\SubItemStart{#1}%
+%}%
+
+
+
+\begin{document}
+
+\begin{frame}[plain]
+\titlepage
+\end{frame}
+
+
+\begin{frame}{Gliederung}
+\begin{enumerate}
+	\Large
+	\item{Theoretische Grundlagen}
+	\item{Versuchsaufbau}
+	\item{Versuchsdurchführung}
+	\item{Kalibration}
+		\begin{enumerate}
+			\item $0^\circ C, 100^\circ C$
+			\item Raumtemperatur $T_0$
+		\end{enumerate}
+	\item{Auswertung}
+		\begin{enumerate}
+			\item{lineare Regression an $T^4$}
+			\item{Bestimmung der Emissionskoeffizienten}
+			\item{Fit an $T^x$}
+		\end{enumerate}
+		
+	\item{Fazit}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Theoretische Grundlagen}
+\begin{itemize}
+	\item{Plancksches Strahlungsgesetz}
+	\begin{equation*}
+	E_{\lambda,s}= 2 \cdot \pi \cdot \frac{h \cdot c^2}{\lambda^5} \cdot \frac{1}{e^{\frac{h\cdot c}{\lambda \cdot k \cdot T}}-1}
+	\end{equation*}
+	
+	\item{Stefan-Boltzmann Gesetz}
+	\begin{equation*}
+	E_s(T)=\epsilon \cdot \sigma \cdot T^4
+	\end{equation*}
+	
+	\item{Emissionskoeffizient}
+	\begin{equation*} \label{eq:epsilon}
+	\epsilon = \frac{P_{gemessen}}{P_{ideal}} = \frac{\frac{U_{gemessen} \cdot v}{c}}{A_{sender}\cdot \frac{A_{empf.}}{\pi r^2} \cdot \sigma \cdot (T_{messung}^4-T_0^4)}
+	\end{equation*}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Versuchsaufbau}
+\begin{figure}[H]
+	\includegraphics[scale=0.4]{../Protokoll/Bilder/Aufbau_markiert.png}
+	\caption{Versuchsaufbau}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Versuchsdurchführung}
+\begin{itemize}
+	\item Füllen des Würfels mit Wasser, erhitzen auf $50^\circ C$
+	\item Messung der Temperaturstrahlung aller Seiten in $5^\circ C$-Schritten
+	\item Rauschmessung von Temperatur und Spannung
+	\item Zwischen jeder Messung Thermosäule auf Wand richten und abschirmen
+	\item Einstellungen am Sensor-CASSY:
+	\begin{table}[h]
+	\centering
+	\begin{tabular}{cccc}
+		\hline Messintervall & Messwertanzahl & Messzeit & U-Messbereich \\
+		$50ms$& 125& $6.25s$& $-10V...+10V$ \\
+		\hline
+	\end{tabular}
+	\end{table}
+	\item Messung der Raumtemperatur $T_0$ zu Beginn und am Ende des Versuchs
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Kalibration - $0^\circ C, 100^\circ C$}
+\begin{itemize}
+	\item Messung der Referenztemperatur in Eis- und kochendem Wasser
+	\item Umrechnung der gemessenen Werte in reale mit
+	\begin{equation*}
+	T_{real} = m \cdot T_{gemessen} + n
+	\end{equation*}
+\end{itemize}
+\begin{figure}[H]
+	\includegraphics[scale=0.2]{../Protokoll/Bilder/Gruppe1_Eiswasser.png}
+	\caption{$0^\circ C$-Kalibration der Gruppe 1}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Kalibration - $T_0$}
+\begin{figure}[H]
+	\includegraphics[scale=0.2]{../Protokoll/Bilder/Gruppe1_Zimmertemperatur.png}
+	\caption{$T_0$-Kalibration der Gruppe 1}
+\end{figure}
+\begin{itemize}
+	\item kalibrierte Raumtemperatur:
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{cc}
+			\hline Gruppe 1 & Gruppe 2\\
+			$T_0= (297.501 \pm 0.005) K$ & $T_0= (298.053 \pm 0.006)K$\\
+			\hline
+		\end{tabular}
+	\end{table}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Auswertung - lin. Regression an $T^4$}
+\begin{figure}[H]
+	\includegraphics[scale=0.3]{../Protokoll/Bilder/Gruppe1_Weiss.png}
+	\caption{$T^4$-Fit der Gruppe1, weiße Seite}
+\end{figure}
+\end{frame}
+
+%\begin{frame}
+%\frametitle{Versuchsaufbau}
+%\begin{figure}[h]
+%\begin{center}
+%\includegraphics[width=7cm]{Versuchsaufbau.JPG}
+%\caption{Versuchsaufbau, Quelle: Praktikumsskript}
+%\end{center}
+%\end{figure}
+%\end{frame}
+%
+%\begin{frame}
+%\frametitle{Versuchsdurchführung}
+%\begin{itemize}
+%\item{Vorbereitung: Rauschmessungen (Kalibration), Umgebungstemperatur}
+%\item{Messablauf: Wunschseite zur Thermosäule drehen, warten Spannung stabilisiert}
+%\item{Möglicherweise Messbereich erhöhen}
+%\item{Messablauf in $5^\circ$C Schritten wiederholen von $50^\circ$C- $95^\circ$C }
+%\end{itemize}
+%\end{frame}
+%
+%
+%\begin{frame}
+%\frametitle{Auswertung}
+%
+%\begin{figure}[h]
+%\begin{center}
+%\includegraphics[width=6cm]{Eiswasser1.png}
+%\includegraphics[width=6cm]{Siede1.png}
+%\caption{Rauschmessung mit Eiswasser und Siedewasser für Gruppe 1}
+%\label{Eisrauschen}
+%\end{center}
+%\end{figure}
+%\end{frame}
+%
+%\begin{frame}
+%\frametitle{Fehlerrechnung}
+%\begin{align}
+%&T_{gem.}=\frac{1}{N}\sum\limits_{i=1}^N T_i\\
+%&\sigma_{T_{gem.}}=\sqrt[]{\sum\limits_{i=1}^N \frac{(T_i-T_{gem.})^2}{N(N-1)}} \\
+%\end{align}
+%\end{frame}
+%
+%
+%\begin{frame}
+%\frametitle{Temperaturkalibrierung}
+%\begin{align}
+%T_{real}=a\cdot T_{gem.} + b
+%\end{align}
+%
+%\begin{figure}[h]
+%\begin{center}
+%\includegraphics[width=7cm]{KalibrierungG1.png}
+%\caption{Erwartete Temperatur gegen gemessene Temperatur zur Korrektur der aufgenommen Daten}
+%\end{center}
+%\end{figure}
+%\end{frame}
+%
+%\begin{frame}
+%\begin{figure}[h]
+%\begin{center}
+%\includegraphics[width=8.5cm]{lineare_regression_weiss1.png} 
+%\caption{Lineare Anpassung der Form $U(T) = a \cdot (T_{real}^4 -T_0^4) +b$ an die Messwerte der weißen Würfelseite, Gruppe 1}
+%\end{center}
+%\end{figure}
+%\end{frame}
+%
+%\begin{frame}
+%\begin{figure}[h]
+%\begin{center}
+%\includegraphics[width=8.5cm]{residuenplot_weiss1.png}
+%\caption{Zugehöriger Residuen der Messwerte der weißen Würfelseite, Gruppe 1}
+%\end{center}
+%\end{figure}
+%\end{frame}
+%
+%\begin{frame}
+%\begin{figure}[h]
+%\begin{center}
+%\includegraphics[width=6cm]{Tfitmessing2.pdf} 
+%\includegraphics[width=6cm]{TFitMessingres2.pdf}
+%\caption{Nichtlineare Anpassung an die Messwerte der Messingseite des Würfels, Gruppe 2}
+%\label{tx}
+%\end{center}
+%\end{figure}
+%\begin{equation}
+%U(T) = p_0+p_1(T^{P_2}-T_0^4)
+%\label{lol}
+%\end{equation}
+%\end{frame}
+%
+%
+%\begin{frame}
+%\frametitle{Emissionskoeffizient}
+%\begin{itemize}
+%\item  \begin{equation}
+%P_{gem.} = \frac{U_{gem.}}{c \cdot 10^4}
+%\end{equation}
+%\item c Empfindlichkeit der Thermsäule
+%\end{itemize}
+%Daraus folgt :
+%\begin{equation}
+%\Rightarrow\epsilon = \frac{P_{gem.}}{P_{ideal}} = \frac{\frac{U_{gem.}}{c \cdot 10^4}}{A_s A_e \frac{\sigma}{r^2 \pi} (T_{gem.}^4 - T_0^4)}
+%\end{equation}
+%\end{frame}
+%
+%\begin{frame}
+%\frametitle{Emissionskoeffizient}
+%\begin{equation}
+%\epsilon = \frac{P_{gem.}}{P_{ideal}} = \frac{\frac{U_{gem.}}{c \cdot 10^4}}{A_s A_e \frac{\sigma}{r^2 \pi} (T_{gem.}^4 - T_0^4)}
+%\end{equation}
+%
+%\begin{align}
+%\rightarrow\sigma_{\epsilon} = \epsilon \ \sqrt[]{(\frac{\sigma_a}{a})^2 + (0,03)^2}
+%\end{align}
+%\end{frame}
+%
+%\begin{frame}
+%\begin{table}[h]
+%\centering
+%\begin{tabular}{|c|c|c|c|c|} \hline
+%& Silber & Messing & Weiß & Schwarz  \\ \hline
+%$\epsilon$ &$0.046\pm0.004$  &$0.110\pm0.005$  &$0.906\pm0.028$  &$0.924\pm0.029$  \\ \hline
+%\end{tabular}
+%
+%\caption{Gruppe 1 Emissionskoeffizienten für die vier Seiten des Lesliewürfels}
+%\begin{tabular}{|c|c|c|c|c|} \hline
+%& Silber & Messing & Weiß & Schwarz  \\ \hline
+%$\epsilon$ &$0.069\pm0.005$  &$0.100\pm0.007$  &$0.921\pm0.029$  &$0.950\pm0.030$   \\ \hline
+%\end{tabular}
+%
+%\caption{Gruppe 2 Emissionskoeffizienten für die vier Seiten des Lesliewürfels}
+%\end{table}
+%\end{frame}
+%
+%
+
+
+\end{document}

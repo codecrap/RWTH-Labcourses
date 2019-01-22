@@ -1,0 +1,19 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\author{Gruppe C14 \\ Julián Ricardo Häck, Martin Koytek, \\ Lars Wenning, Erik Zimmermann}
+\title{Titel}
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+\include{1Versuchsbeschreibung}
+\include{2Versuchsaufbau_Durchfuehrung}
+\include{3Versuchsauswertung}
+\end{document}

@@ -1,0 +1,32 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[left=2.5cm,right=2.5cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{float}
+\usepackage{subfigure}
+\author{Gruppe C14 \\ Julián Häck, Martin Koytek, Lars Wenning, Erik Zimmermann}
+\begin{document}
+\section{Korrektur der Fehlerrechnung für E:}
+\begin{equation}
+E=16 \frac{M\cdot f^2\cdot L}{\pi\cdot D^2}
+\end{equation}
+mit den Fehlern:
+\begin{equation}
+\sigma_{E}=\sqrt{(2\cdot\frac{\sigma_{f}}{f})^2+(\frac{\sigma_M}{M})^2+(\frac{\sigma_L}{L})^2+(2\cdot \frac{\sigma_D}{D})^2}\cdot E
+\end{equation}
+
+\begin{table}[H]\centering
+\caption{Ergebnisse der Elastizitätsmodule mit Fehler}
+\begin{tabular}{c|cccc}
+ & Stange 1 & Stange 2 & Stange 3 & Stange 4 \\
+\hline 
+E in GPa & 126.5 & 209.9 & 190.1 & 103.7 \\ 
+$\sigma_E$ in GPa & 0.1 & 0.2 & 0.2 & 0.1 \\ 
+\end{tabular} 
+\end{table}
+\end{document}

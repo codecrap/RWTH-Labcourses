@@ -1,0 +1,306 @@
+\documentclass[11pt]{beamer}
+\usetheme{Antibes}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\author{Gruppe C14 \\ Julián Häck, Martin Koytek, Lars Wenning, Erik Zimmermann}
+\usepackage{multicol}
+%\title{}
+%\setbeamercovered{transparent} 
+%\setbeamertemplate{navigation symbols}{} 
+%\logo{} 
+%\institute{} 
+%\date{} 
+%\subject{} 
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+%\begin{frame}
+%\tableofcontents
+%\end{frame}
+
+\section{Schallgeschwindigkeit in Festkörpern}
+\subsection{Aufbau}
+\begin{frame}{Schallgeschwindigkeit in Festkörpern}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{Bilder/Versuchsaufbau_Skript.PNG}
+\label{Stange}
+\end{figure}
+\begin{equation*}
+v=\sqrt{\frac{E}{\rho}}, \hspace{1cm} E= \rho\cdot f^2\cdot 4L^2, \hspace{1cm} \rho=\frac{M}{V}=\frac{4\cdot M}{L\cdot \pi D^2}
+\end{equation*}
+\end{frame}
+\subsection{Rohdaten}
+\begin{frame}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.3]{Bilder/Beispiel_Cassy_Cu.png}
+\caption{Frequenz aus FFT (Stange 1)}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\begin{table}[H]\centering
+\begin{tabular}{c|cccc}
+ & Stange 1 & Stange 2 & Stange 3 & Stange 4 \\ 
+ \hline
+$f_1$ & 1511.52 & 1728.17 & 1884.03 & 1348.48 \\ 
+$f_2$ & 1511.54 & 1728.18 & 1884.04 & 1348.50 \\ 
+$f_3$ & 1511.52 & 1728.18 & 1884.07 & 1348.49 \\ 
+$f_4$ & 1511.53 & 1728.19 & 1884.06 & 1348.50 \\ 
+$f_5$ & 1511.51 & 1728.18 & 1884.09 & 1348.50 \\ 
+$f_6$ & 1511.53 & 1728.17 & 1884.11 & 1348.54 \\ 
+$f_7$ & 1511.54 & 1728.18 & 1884.13 & 1348.55 \\ 
+$f_8$ & 1511.51 & 1728.20 & 1884.14 & 1348.55 \\ 
+$f_9$ & 1511.51 & 1728.19 & 1884.13 & 1348.52 \\ 
+$f_{10}$ & 1511.48 & 1728.20 & 1884.14 & 1348.52 \\
+\hline 
+$f_{mean}$ & 1511.52 & 1728.18 &  1884.09 & 1348.52 \\ 
+$\sigma_{f_{mean}}$ & 0.006 & 0.003 & 0.013 & 0.008 \\ 
+\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}
+\begin{table}[H]\centering
+\begin{tabular}{c|cccc}
+& Stange 1 & Stange 2 & Stange 3 & Stange 4 \\ 
+\hline
+m in kg & 1.3019 & 1.3249 & 1.1570 & 1.2364 \\ 
+L in m & 1.299  & 1.50 & 1.301 & 1.299 \\ 
+\end{tabular} 
+\end{table}
+\begin{align*}
+\sigma_m&=0.0001\,kg\\
+\sigma_l&=0.5\cdot10^{-2}\,m
+\end{align*}
+\begin{table}[H]\centering
+\begin{tabular}{c|cccc}
+ & Stange 1 & Stange 2 & Stange 3 & Stange 4 \\ 
+ \hline
+$d_{mean}$ & $12.47$ & 12.00 & 11.96 & 1198 \\ 
+$\sigma_{d_{mean}}$ & $0.00$ & $4.47\cdot 10^{-3}$ & $4.00\cdot 10^{-3}$ & $5.83\cdot 10^{-3}$ \\ 
+\end{tabular} 
+\end{table}
+\end{frame}
+
+\subsection{Dichte}
+\begin{frame}
+\begin{equation*}
+\rho=\frac{M}{V}=\frac{4\cdot M}{L\cdot \pi D^2}
+\end{equation*}
+\begin{equation*}
+\sigma_{\rho}=\sqrt{(\frac{\sigma_m}{m})^2+(\frac{\sigma_L}{L})^2+(2\cdot \frac{\sigma_d}{d})^2}\cdot \rho
+\end{equation*}
+\begin{table}[H]\centering
+\begin{tabular}{c|cccc}
+  & Stange 1 & Stange 2 & Stange 3 & Stange 4 \\ 
+  \hline
+$\rho$ in $\frac{kg}{m^3}$ & 8206.3 & 7809.3 & 7910.7 & 8446.8 \\ 
+$\sigma_{\rho}$ in $\frac{kg}{m^3}$ & 31.6 & 26.7 & 30.9 & 33.9 \\ 
+\end{tabular} 
+\end{table}
+\end{frame}
+
+\subsection{Elastizitätsmodul}
+\begin{frame}
+\begin{equation*}
+E=4\rho\cdot f^2\cdot  L^2
+\end{equation*}
+\begin{equation*}
+\sigma_{E}=\sqrt{(\frac{\sigma_{\rho}}{\rho})^2+(2\cdot \frac{\sigma_L}{L})^2+(2\cdot \frac{\sigma_f}{f})^2}\cdot E
+\end{equation*}
+
+\begin{table}[H]\centering
+\begin{tabular}{c|cccc}
+ & Stange 1 & Stange 2 & Stange 3 & Stange 4 \\
+\hline 
+E in GPa & 126.5 & 209.9 & 190.1 & 103.7 \\ 
+$\sigma_E$ in GPa & 1.1 & 1.6 & 1.6 & 0.8 \\ 
+\end{tabular} 
+\end{table}
+\end{frame}
+
+\subsection{Schallgeschwindigkeit}
+\begin{frame}
+\begin{align*}
+v=\sqrt{\frac{E}{\rho}}, \hspace{1cm}
+\sigma_v=\sqrt{(\frac{\sigma_f}{f})^2+(\frac{\sigma_L}{L})^2}\cdot v
+\end{align*}
+
+\begin{table}[H]\centering
+\begin{tabular}{c|cccc}
+ & Stange 1 & Stange 2 & Stange 3 & Stange 4 \\ 
+\hline
+v in $\frac{m}{s}$ & 3926.9 & 5184.6 & 4902.4 & 3503.4 \\ 
+$\sigma_{v}$ in $\frac{m}{s}$ & 15.1 & 17.3 & 18.8 & 13.5 \\ 
+Material & Kupfer & Eisen & Eisen & Messing \\ 
+$v_{Literatur}$ in $\frac{m}{s}$ &$\approx 4660$ & $\approx 5170$ & $\approx 5170$ & $\approx 3500$ \\ 
+\end{tabular} 
+\end{table}
+\end{frame}
+
+
+\section{Stimmen der Gitarre über Schwebung}
+\subsection{Versuchsaufbau für alle Experimente mit der Gitarre}
+\begin{frame}{Stimmen der Gitarre über Schwebung}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.06]{Bilder/IMG_20160323_123920.jpg}
+\end{figure}
+\end{frame}
+
+\subsection{Erstes Stimmen mit Stimmgerät und Verstimmen}
+\begin{frame}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.23]{Bilder/Gestimmt_Vorher.png}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.23]{Bilder/Verstimmt.png}
+\end{figure}
+\end{frame}
+
+\subsection{Stimmversuch 1 und 2}
+\begin{frame}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.23]{Bilder/Verstimmt_vs_1_stimmen.png}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.23]{Bilder/Verstimmt_vs_2_stimmen.png}
+\end{figure}
+\end{frame}
+
+\subsection{3. Stimmversuch}
+\begin{frame}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.35]{Bilder/Verstimmt_vs_3_stimmen.png}
+\end{figure}
+\end{frame}
+
+\section{Bestimmung der Materialeigenschaften der Saiten}
+\begin{frame}{Bestimmung der Materialeigenschaften der A-Saite}
+\begin{equation*}
+f=\frac{1}{2}\sqrt{\frac{T}{\mu}}\cdot \frac{1}{l}
+\end{equation*}
+\begin{equation*}
+\mu_{lit}=3.4095 \cdot 10^{-3} \frac{kg}{m}, \hspace{1cm}
+T_{lit}=68.04 \text{N.}
+\end{equation*}
+\begin{equation*}
+m_{lit}=\frac{1}{2}\sqrt{\frac{T_{lit}}{\mu_{lit}}}=70.633 \frac{m}{s}
+\end{equation*}
+\end{frame}
+
+\subsection{Rohdaten}
+\begin{frame}
+\begin{table}[H]\centering
+\begin{tabular}{c|c|c}
+$L_0$ & 64.9 cm & Leere Saite\\ 
+$L_1$ & 54.6 cm & 2. Bund \\ 
+$L_2$ & 51.5 cm & 4. Bund \\ 
+$L_3$ & 45.9 cm & 6. Bund \\ 
+$L_4$ & 40.9 cm & 8. Bund \\ 
+$L_5$ & 36.4 cm & 10. Bund \\ 
+\end{tabular} 
+\end{table}
+\begin{equation*}
+\sigma_L=1 mm
+\end{equation*}
+\begin{table}[H]\centering
+\begin{tabular}{c|cccccc}
+ & $L_0$ & $L_1$ & $L_2$ & $L_3$ & $L_4$ & $L_5$ \\ 
+\hline 
+$f_1$ & 110.16 & 123.80 & 138.98 & 156.03 & 174.60 & 194.42 \\ 
+$f_2$ & 110.20 & 123.79 & 139.04 & 155.69 & 174.31 & 196.00 \\ 
+$f_3$ & 110.24 & 123.79 & 138.83 & 155.96 & 174.46 & 195.97 \\ 
+$\bar{f}$ & 110.20 & 123.79 & 138.95 & 155.89 & 174.46 & 195.46 \\ 
+$\sigma_{\bar{f}}$ & 0.02 & 0.00 & 0.06  & 0.10 & 0.08  & 0.52  \\ 
+\end{tabular}
+\newline 
+Angaben in Hz
+\end{table}
+\end{frame}
+
+\subsection{Lineare Regression}
+\begin{frame}
+\begin{figure}[H]\centering
+\includegraphics[scale=0.19]{Bilder/lin_reg_mit.eps}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.19]{Bilder/lin_reg_ohne.eps}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.19]{Bilder/lin_reg_ohne.eps}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.19]{Bilder/lin_reg_ohne_residuum.eps}
+\end{figure}
+\end{frame}
+\subsection{Ergebnis}
+\begin{frame}
+\begin{align*}
+A = m &= 71.162 \pm 0.282 \frac{m}{s}  \\
+B &= 0.612 \pm 0.523 Hz \\
+\frac{\chi^2}{f}&=0.601
+\end{align*}
+\begin{equation*}
+m_{lit}=70.633 \frac{m}{s}
+\end{equation*}
+\end{frame}
+
+\section{Aufnahme eines Frequenzspektrums}
+\begin{frame}{Aufnahme des Frequenzspektrums der D-Saite}
+\begin{multicols}{2}
+\begin{equation*}
+\lambda_n=	\frac{2L}{n}
+\end{equation*}
+\begin{figure}
+\includegraphics[scale=0.5]{Bilder/Harmonische.png}
+\end{figure}
+\end{multicols}
+\end{frame}
+\begin{frame}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.23]{Bilder/Spektrum_Mitte.png}
+
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.23]{Bilder/Spektrum_oben.png}
+\end{figure}
+\end{frame}
+
+\section{Fazit}
+\begin{frame}
+\begin{itemize}
+\item Schallgeschwindigkeiten in 1. und 3. Stange passten nicht gut.
+\item Schallgeschwindigkeiten in 2. und 4. Stange passten gut.
+\item Die D-Saite konnte durch Schwebung erfolgreich gestimmt werden.
+\item Die Materialkonstante der A-Saite stimmt mit etwas mehr als 1$\sigma$ mit dem Literaturwert überein.
+\item n-te Harmonische fehlt, wenn die Saite bei $d=\frac{L}{n}$ angeschlagen wird.
+\end{itemize}
+\end{frame}
+
+\end{document}
+

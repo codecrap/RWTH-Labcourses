@@ -1,0 +1,1 @@
+in Optik 1 hatdie Prismengruppe es geschafft den Nonius falsch abzulesen, dahr sind die ergebnise da recht schlecht(aber die auf die auswertung bin ich doch recht stolz) und wir durften das nochmal machen, daher gibt es Optik1 nur Prisma

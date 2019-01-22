@@ -1,0 +1,823 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[ngerman]{babel}
+%ä und so
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsbsy}
+
+\usepackage{mathrsfs}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{esdiff}
+\usepackage{hyperref}
+\usepackage{geometry}
+
+\geometry{top = 20mm, bottom = 20 mm, left = 25mm, right = 25mm}
+
+\begin{document}
+\title{Elektrizitätslehre}
+\author{Gruppe B14 \\ \\ Daniel Wendland \\ Philipp Bremer \\ Olexiy Fedorets \\ Jonathan Hermann}
+\date{\today}
+\maketitle
+
+\newpage
+
+\tableofcontents
+\newpage
+
+
+\section{Einleitung}
+In den Versuchen des Praktikumsteils zur Elektrizitätslehre ging es darum, Serien- und Parallelschwingkreise über ihre Güte zu charakterisieren und diese auf verschiedene Weisen zu bestimmen. Zusätzlich werden die Spannungsverläufe am Hoch- und Tiefpass aufgezeichnet und charakterisiert.
+
+\section{Grundlagen}
+\subsection{Wechselströme -/Spannung}
+Wechselströme- und Spannungen ändern im Gegensatz zu Gleichspannungen/-strömen periodisch ihren Betrag und Richtung. Sie lassen sich mittels einer Fourieranalyse in überlagerte Sinus- und Cosinusschwingungen zerlegen, daher wird im Folgenden nur eine Spannung der Form 
+\[ U = U_0 cos( \omega t) \] und ein phasenverschobener Strom \[ I = I_0 cos( \omega t - \phi) \] betrachtet. 
+
+Die Momentanleistung im Wechselstromkreis ergibt sich allgemein zu \[ P(t) = I(t) \cdot U(t) = \frac{1}{2} \cdot U_0 \cdot I_0 [cos(\phi) + cos(2 \omega t - \phi)] \]
+und deren zeitliches Mittel, die Wirkleistung beträgt \[P_W = \frac{U_0 \cdot I_0}{2} cos(\phi) = U_{eff} \cdot I_{eff} cos(\phi) \]
+Dabei bezeichnen $U_{eff} = \frac{U_0}{\sqrt{2}}$ und $I_{eff} = \frac{I_0}{\sqrt{2}}$ die Effektivwerte von Spannung und Strom, die über das "Root-Mean-Square" von Wechselspannung -/strom definiert sind: \[U_{eff} = \sqrt{ \frac{1}{T} \int_0^T U^2(t) dt}\] und analog für $I_{eff}$. \\
+Neben der Wirkleistung $P_W$ gibt es auch noch die Blindleistung $P_B = U_{eff} \cdot I_{eff} sin(\phi)$, die zum Aufbau der Felder in Kondensatoren und Spulen verwendet wird. Sie belastet im Mittel die Spannungsquelle nicht.\\
+Wirk- und Blindleistung lassen sich quadratisch zur Scheinleistung $P_S = \sqrt{P_W^2 + P_B^2}$ addieren.
+
+\subsection{Wechselstromwiderstände}
+Für die folgenden Teilversuche werden drei verschiedene Wechselstromwiderstände verwendet.
+\subsubsection{Ohmscher Widerstand}
+Nach dem ohmschen Gesetz gilt am Widerstand
+\begin{gather*}
+U(t) = I(t) \cdot R \\
+\Leftrightarrow U_0 cos (\omega t) = R \cdot I_0 \,cos(\omega t - \phi) \\
+\Rightarrow I_0 = \frac{U_0}{R} \; und \; \phi = 0
+\end{gather*}
+Das bedeutet, dass ohmsche Widerstände frequenzunabhängig sind und nicht die Phase zwischen Spannung und Strom beeinflussen.
+
+\subsubsection{Kapazitiver Widerstand}
+Beim Kondensator handelt es sich um einen so genannten Blindwiderstand. Allgemein gilt für den Spannungsabfall an einem Kondensator mit Kapazität C: 
+\begin{gather*} 
+U(t) = \frac{Q(t)}{C} \\
+\Leftrightarrow I(t) = \frac{dQ}{dt} = C \cdot \frac{dU}{dt} \\
+\Leftrightarrow I_0 \, cos(\omega t - \phi) = - \omega \cdot U_0 \cdot C \, sin(\omega t) = \omega \cdot U_0 \cdot C \, cos(\omega t + \frac{\pi}{2}) 
+\end{gather*}
+Dies ist im Allgemeinen nur erfüllt, falls $\phi = - \frac{\pi}{2}$ und $I_0 = \omega C \cdot U_0 $.\\
+Daraus folgt mit dem ohmschen Gesetz betragsmäßig: \[|X_C| = \frac{U_0}{I_0} = \frac{1}{\omega C}\]
+Betrag und Phase lassen sich zu einer komplexen Impedanz $X_C$ zusammenfassen mit \[ X_C = \frac{1}{i \omega C}\]
+
+\subsubsection{Induktiver Widerstand}
+Induktivitäten fallen, genau wie die Kapazitäten, unter die Blindwiderstände. Für den Spannungsabfall an einer Spule mit Induktivität L gilt allgemein:
+\begin{gather*}
+U(t) = L \cdot \frac{dI}{dt} \\
+\Leftrightarrow dI =  \frac{U_0}{L} cos(\omega	t) \\
+\Leftrightarrow I(t) = \frac{U_0}{\omega L} sin(\omega t) \\
+\Leftrightarrow I_0 \, cos(\omega	t - \phi) = \frac{U_0}{\omega L} sin(\omega t) 
+\end{gather*}
+Dies ist Allgemein nur erfüllt, falls $\phi = \frac{\pi}{2}$ und $I_0 = \frac{1}{\omega C} U_0$.\\
+Daraus folgt mit dem ohmschen Gesetz betragsmäßig: \[|X_L| = \frac{U_0}{I_0} = \omega L \]
+Betrag und Phase lassen sich zu einer komplexen Impedanz $X_L$ zusammenfassen mit \[ X_L = i \omega L \]
+
+\newpage 
+\section{Serienschwingkreis}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim = 0mm 0mm 0mm 0mm,clip, width=9cm]{Bilder/k.png}%
+	\caption[Schaltskizze Serienschwingkreis]{Schaltskizze Serienschwingkreis}%
+	\label{pic:Abbildung 1}%
+\end{figure}
+\subsection{Versuchsziel}
+Im Folgenden soll der LCR-Serienschwingkreis über seine Güte charakterisiert werden. Dazu werden vier verschiedene Methoden verwendet und die Ergebnisse, sowie deren Genauigkeit verglichen.
+
+\subsection{Herleitung benötigter Formeln}
+Aus der Maschenregel folgt für den gezeigten Aufbau die folgende Differentialgleichung:
+\begin{eqnarray}
+U(t) = U_C(t) + U_L(t) + U_R(t) \\
+\Leftrightarrow \frac{U(t)}{L} = \frac{d^2Q}{dt^2} + \frac{R}{L} \cdot \frac{dQ}{dt} + \frac{Q}{L C} \\
+\Rightarrow	\frac{1}{L} \cdot \frac{dU}{dt} = \frac{d^2I}{dt^2} + \frac{R}{L} \cdot\frac{I}{t} + \frac{I}{LC}
+\end{eqnarray}
+
+Die hier interessante partikuläre Teil der Lösung lässt sich über den Ansatz $U(t) = U_0 \cdot e^{i \omega t} \; und \; I(t) = I_0 \cdot e^{i( \omega t - \phi)}$ bestimmen.\\
+Nach Einsetzen in die Differentialgleichung und Aufteilen in Imaginär - und Realteil findet man, dass für die Phase und den Stromamplitude gilt:
+\begin{eqnarray}
+tan(\phi) = \frac{\omega L - \frac{1}{\omega C}}{R} \\
+I_0 = \frac{U_0}{\sqrt{R^2 + (\omega L - \frac{1}{\omega C})^2}} = \frac{U_0}{Z} \\
+\Rightarrow Z = \sqrt{R^2 + (\omega L - \frac{1}{\omega C})^2}
+\end{eqnarray}
+mit Gesamtimpedanz Z. \\
+Der Resonanzfall tritt auf für die Resonanzfrequenz $\omega_0 = \frac{1}{\sqrt{L \cdot C}}$, da dort die Impedanz minimal und damit der Strom maximal wird.
+
+\subsubsection{Bestimmung der Güte}
+1) Die Güte lässt sichexperimentell aus der Resonanzfrequenz $f_0$ und der Breite $\Delta f$ der Resonanzkurve bzw. aus den äquivalenten Kreisfrequenzen bestimmen. Die Breite der Resonanzkurve ist dabei über die Stellen definiert, an denen die Stromstärke auf den Faktor $\frac{1}{\sqrt{2}}$ des Maximums abfällt.\\
+Rechnerisch ergibt sich 
+\begin{eqnarray}
+\omega_0 = \frac{1}{\sqrt{L \cdot C}} \; und \; \Delta \omega = \frac{R}{L} \\
+\Rightarrow Q_1 = \frac{\omega_0}{\Delta \omega}
+\end{eqnarray} 
+
+2) Analog kann man die Güte natürlich auch direkt aus den bekannten Kenngrößen der Impedanzen bestimmen:
+\begin{equation}
+Q_2 = \frac{\omega_0}{\Delta \omega} = \frac{1}{R} \cdot \sqrt{\frac{L}{C}}
+\end{equation}
+
+3) Aus der Aufzeichnung der Phasenverschiebung in Abhängigkeit von der Frequenz lassen sich ebenfalls $f_0$ und $\Delta f$ bestimmen. Bei der Resonanzfrequenz verschwindet nämlich die Phasenverschiebung und an den Stellen $f_0 \pm \Delta f$ nimmt die Phasenverschiebung die Werte $\pm 45 \deg$ an. Dann ergibt sich analog zu vorher 
+\begin{equation}
+Q_3 = \frac{f_0}{\Delta f}
+\end{equation}
+
+4) Als letzte Möglichkeit kann man die Güte aus der Spannungsüberhöhung an der Spule errechnen. Es gilt nämlich bei der Resonanzfrequenz 
+\begin{eqnarray}
+\frac{U_L(\omega_0}{U(\omega_0)} = \frac{I_0 \omega L}{I_0 R} = \frac{1}{R} \cdot \sqrt{\frac{L}{C}} = Q \\
+U_L(\omega_0) = I_0 \omega_0 L = I_0 \frac{L}{\sqrt{LC}} = I_0 \frac{1}{\omega_0 C} = U_C(\omega_0)
+\end{eqnarray}
+Demnach lässt sich die Güte bestimmen, indem man die minimale Spannung $U_1$ und die Spannung des Schnittpunktes $U_2$ von $U_L$ und $U_C$ bestimmt. Dann ergibt sich für die Güte 
+\begin{equation}
+Q_4 = \frac{U_2}{U_1}
+\end{equation}
+
+\subsection{Messung mit dem Oszilloskop}
+
+\subsubsection{Versuchsaufbau}
+Für den Versuch werden Kondensator, Spule und Widerstand wie auf der Schaltskizze erkennbar auf die Rastersteckplatte in Serie geschaltet. Als Spannungsquelle dient hier ein Function Generator mit regelbarer Frequenz.
+Zusätzlich wird ein Oszilloskop so dazugeschaltet, dass die Masse zwischen Widerstand und dem Function Generator liegt. Channel 1 und 2 werden dann so angeschlossen, dass sich die Gesamtspannung und die am Widerstand abfallende Spannung, welche sich nur um einen Faktor R vom Strom unterscheidet, messen lassen (siehe Schaltskizze).
+Die dabei verwendeten Bauteile waren:
+
+\hskip-2.5cm
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|c|c|}
+\hline 	$ $ 	&	Gruppe 1	&	Gruppe 2 \\
+\hline 	Widerstand 	&	$ R_R = (19.79 \pm 0.05) \Omega$					&	$ (19.83 \pm 0.05) \Omega$	\\
+\hline 	Spule		&	$ L = (1.301 \pm 0.004) mH \; (250 \,Windungen) $	&	$ L = (4.776 \pm 0.012) mH \; (500 \,Windungen) $ \\
+\hline	Spuleninnenwiderstand	&	$ R_L = (0.745 \pm 0.002) \Omega $	&	$ R_L = (3.855 \pm 0.010) \Omega $ \\
+\hline  Gesamtwiderstand	&	$ R = (20.54 \pm 0.05) \Omega$				&	$ R = (23.69 \pm 0.05) \Omega $ \\
+\hline 	Kondensator &	$ C = (4.735 \pm 0.012) \mu F$					&	$ C = (4.719 \pm 0.012) \mu F$ \\
+\hline	
+\end{tabular}
+\newline
+Hierbei wurden die Bauteile mit Hilfe der Messbrücke ausgemessen. Die Unsicherheit ist dabei vom Hersteller als ein viertel Prozent des Messwertes angegeben.
+
+\subsubsection{Versuchsdurchführung und -Auswertung}
+Mit dem Oszilloskop sollte die Güte über die Spannungsüberhöhung bestimmt werden. \\
+Zunächst wurden auf dem Oszilloskop $U_R$ und $U$ in der X-Y-Darstellung gegeneinander aufgetragen. Die entstehenden Lissajou-Figuren werden durch Regelung der Frequenz am Function Generator so lange verändert, bis sie eine Gerade bildet. Diese Frequenz ist dann die Resonanzfrequenz, da hier die Phasenverschiebung zwischen Strom und Spannung verschwindet.
+Bei der ersten Gruppe wurde eine Frequenz von $f_0 = (2045 \pm \frac{4}{\sqrt{12}}) Hz$ gemessen. Die Unsicherheit ergab sich dabei daraus, dass die Figur für eine Frequenz von $f = 2043 Hz$ oder $f = 2047 Hz$ bereits erkennbar von einer Geraden abwich und dann für den Messwert eine Gleichverteilung in diesem Intervall angenommen wurde.
+Zur Bestimmung der Breite wurde dann in die X-t-Darstellung des Oszilloskops gewechselt. Zunächst wurde die Spannungsdifferenz zwischen den Minima und Maxima bestimmt. Der untere Cursor wurde dann nach oben verschoben, so dass sich diese Differenz halbiert und dann wurde noch der obere Cursor nach unten verschoben, so dass die Differenz um einen Faktor $\frac{1}{2\sqrt{2}}$ kleiner ist also zuvor. Hier wurde nun die Frequenz am Function Generator angepasst, so dass die Maxima wieder auf der Cursorlinie lagen. Aus den entsprechenden Frequenzen lässt sich dann die Breite der Resonanzkurve bestimmen.\\
+Bei der ersten Gruppe wurden die Frequenzen zu $f_+ = (3700 \pm \frac{40}{\sqrt{12}}) Hz$ und $f_- = (1120 \pm \frac{20}{\sqrt{12}}) Hz$. Auch hier wurde wieder eine Gleichverteilung in den entsprechenden Intervallen angenommen, wobei die Intervallgrenzen dadurch bestimmt wurden, so dass die Maxima erkennbar vom geforderten Wert abwichen.\\
+Die selben Messverfahren wurden auch von der zweiten Gruppe angewandt, die Ergebnisse sind in der folgenden Tabelle zusammengefasst:
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|c|c|}
+\hline $ $ 			&	Gruppe 1	&	Gruppe 2 \\
+\hline $f_+$ 		&	$ (3700 \pm \frac{40}{\sqrt{12}}) Hz $		&	$(1579 \pm \frac{1}{\sqrt{12}}) Hz$	\\
+\hline $f_-$		&	$ (1120 \pm \frac{20}{\sqrt{12}}) Hz $		&	$(726 \pm \frac{1}{\sqrt{12}}) Hz$ \\
+\hline $\Delta f$ 	&	$ (2580 \pm 13) Hz$				&	$ (853 \pm 0.3) Hz$ \\
+\hline $f_0$		&	$ (2045 \pm \frac{4}{\sqrt{12}}) Hz$	&	$ (1067 \pm \frac{1}{\sqrt{12}}) Hz$ \\
+\hline $Q_{exp} = \frac{f_0}{\Delta f}$						&	$ 0.793 \pm 0.004 $	&	$ 1.251 \pm 0.0012$ \\
+\hline $Q_{theo} = \frac{1}{R} \cdot \sqrt{\frac{L}{C}}$	&	$ 0.807 \pm 0.003$	&	$ 1.343 \pm 0.005$ \\
+\hline Abweichung $\frac{|Q_{exp} - Q_{theo}|}{\sqrt{\sigma_{Q_{exp}}^2 + \sigma_{Q_{theo}}^2}}$ & $ 2.8 $ & $ 17.9 $ \\
+\hline
+\end{tabular}
+\end{center}
+
+Die Unsicherheiten ergeben sich dabei nach Gaußscher Fehlerfortpflanzung zu 
+\begin{eqnarray*}
+\sigma_{\Delta f} = \sqrt{\sigma_{f_+}^2 + \sigma_{f_-}^2} \\
+\sigma_{Q_{exp}} = Q_{exp} \cdot \sqrt{\frac{\sigma_{f_0}^2}{f_0^2} + \frac{\sigma_{\Delta f}^2}{\Delta f^2}} \\
+\sigma_{Q_{theo}} = Q_{theo} \cdot \sqrt{\frac{\sigma_R^2}{R^2} + \frac{\sigma_L^2}{4L^2} + \frac{\sigma_C^2}{4C^2}}
+\end{eqnarray*}
+
+
+
+\subsection{Messung mit dem Sensor-Cassy}
+\subsubsection{Versuchsaufbau}
+Für den Versuch werden Kondensator, Spule und Widerstand wie auf der Schaltskizze erkennbar auf die Rastersteckplatte in Serie geschaltet. Die Spannungsmessgeräte des Sensor-Cassy werden zudem parallel zum Kondensator bzw. zur Spule geschaltet, um die Spannung, die an diesen Bauteilen abfällt zu messen. \\
+Dabei wurden die folgenden Bauteile verwendet:
+
+\hskip-2.5cm
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|c|c|}
+\hline 	$ $ 	&	Gruppe 1	&	Gruppe 2 \\
+\hline 	Ohmsche Widerstände 	&	$ R_1 = (0.983 \pm 0.003) \Omega$					&	$ R_1 = (5.184 \pm 0.013) \Omega$	\\
+\hline 	$ $ 	&	$ R_2 = (9.987 \pm 0.025) \Omega$					&	$ R_2 = (9.955 \pm 0.025) \Omega$	\\
+\hline 	$ $ 	&	$ R_3 = (19.79 \pm 0.05) \Omega$					&	$ R_3 = (19.83 \pm 0.05) \Omega$	\\
+\hline 	Spule		&	$ L = (1.301 \pm 0.004) mH \; (250 \,Windungen) $	&	$ L = (4.776 \pm 0.012) mH \; (500 \,Windungen) $ \\
+\hline	Spuleninnenwiderstand	&	$ R_L = (0.745 \pm 0.002) \Omega $	&	$ R_L = (3.855 \pm 0.010) \Omega $ \\
+\hline  Gesamtwiderstände	&	$ R_1 = (1.728 \pm 0.004) \Omega$				&	$ R_5 = (9.039 \pm 0.017) \Omega $ \\
+\hline  $ $	&	$ R_{10} = (10.73 \pm 0.025 \Omega$				&	$ R_{10} = (13.81 \pm 0.027) \Omega $ \\
+\hline  $ $	&	$ R_{20} = (20.54 \pm 0.05) \Omega$				&	$ R_{20} = (23.69 \pm 0.05) \Omega $ \\
+\hline 	Kondensator &	$ C = (4.735 \pm 0.012) \mu F$					&	$ C = (4.719 \pm 0.012) \mu F$ \\
+\hline	
+\end{tabular}
+\newline
+\newline
+Die Unsicherheiten auf die Messwerte werden dabei vom Hersteller der Messbrücke auf ein viertel Prozent des Messwertes angegeben. Für den Gesamtwiderstand errechnet sich die Unsicherheit dann aus der quadratischen Addition der Einzelfehler.
+
+\subsubsection{Versuchsdurchführung}
+Für die Messungen wurde zunächst mit dem Power-Cassy eine Sinus-förmige Spannung erzeugt. Die Abfälle der Spannungen an Kondensator und Spule wurden dann mit Hilfe des Sensor-Cassy und der fließende Strom durch das Amperemeter des Power-Cassy als Effektivwerte gemessen.\\
+Die dazu zu wählenden Messparameter waren eine Messzeit von 100 ms und eine Messpunktanzahl von 0. \\
+Die Spannungen wurden jeweils so gewählt, so dass bei keiner Messung die Stromstärke die maximal messbaren 0.7 Ampere überschreitet.
+Die gemessenen Spannungen uns Ströme werden in Abhängigkeit zur angelegten Frequenz aufgetragen, die während der Messung stückweise in 20 Hertz Schritten erhöht wurde. Um sicherzustellen, dass sich das System bei Aufnahme des Messpunktes nicht mehr im Einschwingvorgang befand, wurde der erst nach einer Wartezeit von 2 Sekunden aufgenommen.\\
+Zusätzlich wurde noch die Phasenverschiebung zwischen dem Gesamtstrom und der angelegten Spannung gemessen und ebenfalls in Abhängigkeit von der Frequenz aufgetragen.\\
+Die Messung wurde dann mit jedem der angegebenen Widerstände durchgeführt.
+
+\subsection{Versuchsauswertung}
+\subsubsection{Resonanzkurve}
+Wie zuvor erläutert, lässt sich die Güte auf verschiedene Arten bestimmen. \\
+Zunächst lässt sich aus dem Verlauf der Stromresonanzkurve das Maximum $I_{max}$, sowie die entsprechende Resonanzfrequenz $f_0$ bestimmen. \newline
+Die Unsicherheiten auf die Frequenzen ergeben sich dabei jeweils als Ablesefehler, da der Peakfinder-Algorithmus nur einen fixen Frequenzwert zurückgibt und der reale Wert im Intervallschritt rechts oder links von diesem Wert gibt. Unter Annahme einer Gleichverteilung ergibt sich dann bei Intervallschritten von 20 Hertz eine Unsicherheit von $\sigma_f = \frac{20}{\sqrt{3}}$. Die Unsicherheit auf $\Delta f$ folgt aus quadratischer Addition der Fehler auf $f_+$ und $f_-$. \newline
+Für die maximalen Stromwerte muss man einerseits die von Hersteller angegebene systematische Unsicherheit von \[ \sigma_{I_{sys}} = 0.02 \cdot I_i + 0.005 \cdot I_{Bereichswert} \] und andererseits die statistische Unsicherheit beachten. Letztere wurde durch den Abstand des maximalen Messpunktes zu den beiden nächst kleineren abgeschätzt, da diese gemittelt größer sein müssen, als der Abstand zum realen Maximum (zum Maximum hin flacht die Kurve ab). Auch hier wurde wieder eine Gleichverteilung angenommen und deswegen die Abschätzung durch $\sqrt{3}$ geteilt. \newline
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim = 0mm 0mm 0mm 0mm,clip, width=13cm]{Bilder/Selection_G2-5Ohm-I.jpg}%
+	\caption[Resonanzkurve für $ 5 \Omega$]{Resonanzkurve für $ 5 \Omega$}%
+	\label{pic:Abbildung 3}%
+\end{figure}
+
+
+\hskip-2.5cm
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|c|c|c|c|}
+\hline verwendeter Widerstand	& $f_{0_1}$	[Hz]	&	$f_{0_2}$	[Hz] & $I_{max_1} \pm \sigma_{stat} \pm \sigma_{sys}$ [A]&	$I_{max_2} \pm \sigma_{stat} \pm \sigma_{sys}$ [A]\\
+\hline $  1 \Omega $		&	$ 2049.4 \pm 11.6$	&	$ / $	&	$0.1693 \pm 0.001 \pm 0.0052$	&	$ / $ 	\\
+\hline $  5 \Omega $		&	$ /$	&	$ 1054.4 \pm 11.6$	 &	$  / $	&	$ 0.1425 \pm 0.0004 \pm 0.0049$	\\
+\hline $ 10 \Omega $		&	$ 2050.0 \pm 11.6$	&	$ 1052.6 \pm 11.6$	&	$ 0.0317 \pm 0.0001 \pm 0.0038 $	&	$ 0.0960 \pm 0.0001 \pm 0.0045$	\\
+\hline $ 20 \Omega $		&	$ 2050.0 \pm 11.6$	&	$ 1050.9 \pm 11.6$	&	$ 0.0167 \pm 0.0001 \pm 0.0037 $ &	$ 0.2854 \pm 0.0001 \pm 0.0064$	\\
+\hline
+\end{tabular}
+\newline
+
+Aus den Stellen, an denen die Stromkurve den Wert $\frac{I_{max}}{\sqrt{2}}$ erreicht($f_+$ und $f_-$), kann man zudem die Breite der Kurve $\Delta f = f_+ - f_-$ berechnen.
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|c|c|c|c|}
+\hline verwendeter Widerstand	& $f_+$	[Hz]&	$f_-$	[Hz] & $\Delta f $ [Hz] &	f [Hz]	\\
+\hline $  1 \Omega $ Gruppe 1	&	$ 2180 \pm 11.6$	&	$ 1920 \pm 11.6$	&	$ 260 \pm 16.4$	&	$ \pm 11.6$	\\
+\hline $ 10 \Omega $ Gruppe 1	&	$ 2820 \pm 11.6$	&	$ 1460 \pm 11.6$	&	$ 1360 \pm 16.4$	&	$ \pm 11.6$	\\
+\hline $ 20 \Omega $ Gruppe 1	&	$ 3620 \pm 11.6$	&	$ 1120 \pm 11.6$	&	$ 2500 \pm 16.4$	&	$ \pm 11.6$	\\
+\hline $  5 \Omega $ Gruppe 2 	&	$ 1240 \pm 11.6$	&	$ 920 \pm 11.6$	&	$ 320 \pm 16.4$	&	$ \pm 11.6$ \\
+\hline $ 10 \Omega $ Gruppe 2	&	$ 1340 \pm 11.6$	&	$ 840 \pm 11.6$	&	$ 500 \pm 16.4$	&	$ \pm 11.6$	\\
+\hline $ 20 \Omega $ Gruppe 2	&	$ 1540 \pm 11.6$	&	$ 720 \pm 11.6$	&	$ 820 \pm 16.4$	&	$ \pm 11.6$	\\
+\hline
+\end{tabular}
+\end{center}
+
+Die Güte und deren Unsicherheit berechnen sich dann aus 
+\begin{eqnarray*}
+Q_I = \frac{f_0}{\Delta f}				\\
+\sigma_{Q_I} = Q_I \cdot \sqrt{\frac{\sigma_{f_0}^2}{f_0^2} + \frac{\sigma_{\Delta f}^2}{\Delta f^2}}
+\end{eqnarray*}
+Damit ergibt sich dann für die Bestimmung der Güte aus der Resonanzkurve des Gesamtstroms:
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|c|c|}
+\hline verwendeter Widerstand	& Gruppe 1	& Gruppe 2	\\
+\hline $  1 \Omega $		&	$ 7.88 \pm 0.50 $	&	$ / $ 	\\
+\hline $  5 \Omega $		&	$ / $	&	$ 3.30 \pm 0.17$	\\
+\hline $ 10 \Omega $		&	$ 1.51 \pm 0.02 $	&	$ 2.11 \pm 0.07$	\\
+\hline $ 20 \Omega $		&	$ 0.82 \pm 0.01 $	&	$ 1.28 \pm 0.03$	\\
+\hline
+\end{tabular}
+\end{center}
+
+\subsubsection{Phasenverschiebung}
+Ähnlich zur obigen Vorgehensweise, können die relevanten Frequenzen auch aus dem Verlauf der Phasenverschiebung zwischen der angelegter Spannung und dem gemessenen Gesamtstrom bestimmt werden. Die Phasenverschiebung verschwindet bei der Resonanz, das heißt bei der Resonanzfrequenz ist $\phi = 0$. Die Spektrumsbreite $\Delta f$ wiederum, lässt sich durch die Punkte, an denen $\phi = \pm 45^\circ $ gilt, bestimmen, denn für $\omega_{\pm} = 2 \pi \cdot \left( f_0 \pm \frac{\Delta f}{2} \right)$ gilt:
+\[  tan(\phi) = \frac{\omega_{\pm} L - \frac{1}{\omega_{\pm} C}}{R} = \pm 1 \]
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim = 0mm 0mm 0mm 0mm,clip, width=13cm]{Bilder/Selection_G2-10Ohm-Phi.jpg}%
+	\caption[Phasenverschiebung für $ 10 \Omega$]{Phasenverschiebung für $ 10 \Omega$}%
+	\label{pic:Abbildung 3}%
+\end{figure}
+
+Da kein kontinuierlicher Verlauf, sondern nur explizite Punkte gemessen wurden, können die Frequenzen nicht genau bestimmt werden, weil sie im Allgemeinen zwischen zwei Punkten liegen. Da diese einen Frequenzabstand von 20 Hertz haben, wird die Unsicherheit unter Annahme einer Gleichverteilung der Werte zu $\sigma = \frac{20 Hz}{\sqrt{3}} \approx 11.6 Hz$. Mit quadratischer Fehleraddition für $\Delta f$ ergibt sich dann
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|c|c|c|c|}
+\hline verwendeter Widerstand	& $f_+$	[Hz]&	$f_-$	[Hz] & $\Delta f $ [Hz] &	$f_0$ [Hz]	\\
+\hline $  1 \Omega $ Gruppe 1	&	$ 2180 \pm 11.6$	&	$ 1920 \pm 11.6$	&	$ 260 \pm 16.4$	&	$ 2040 \pm 11.6$	\\
+\hline $ 10 \Omega $ Gruppe 1	&	$ 2900 \pm 11.6$	&	$ 1480 \pm 11.6$	&	$ 1420 \pm 16.4$	&	$ 2060 \pm 11.6$	\\
+\hline $ 20 \Omega $ Gruppe 1	&	$ 3940 \pm 11.6$	&	$ 1140 \pm 11.6$	&	$ 2800 \pm 16.4$	&	$ 2060 \pm 11.6$	\\
+\hline $  5 \Omega $ Gruppe 2 	&	$ 1240 \pm 11.6$	&	$ 920 \pm 11.6$	&	$ 320 \pm 16.4$	&	$ 1060 \pm 11.6$ \\
+\hline $ 10 \Omega $ Gruppe 2	&	$ 1340 \pm 11.6$	&	$ 860 \pm 11.6$	&	$ 480 \pm 16.4$	&	$ 1060 \pm 11.6$	\\
+\hline $ 20 \Omega $ Gruppe 2	&	$ 1580 \pm 11.6$	&	$ 740 \pm 11.6$	&	$ 840 \pm 16.4$	&	$ 1080 \pm 11.6$	\\
+\hline
+\end{tabular}
+\end{center}
+Analog zur vorherigen Berechnung ergeben sich dann die Güte und ihre Unsicherheit aus
+\begin{eqnarray*}
+Q_{\phi} = \frac{f_0}{\Delta f} 				\\
+\sigma_{Q_{\phi}} = Q_{\phi} \cdot \sqrt{\frac{\sigma_{f_0}^2}{f_0^2} + \frac{\sigma_{\Delta f}^2}{\Delta f^2}}
+\end{eqnarray*}
+Damit ergibt sich dann für die Güten
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|c|c|}
+\hline verwendeter Widerstand	& Gruppe 1	& Gruppe 2	\\
+\hline $  1 \Omega $		&	$ 7.85 \pm 0.49$	&	$ / $ 	\\
+\hline $  5 \Omega $		&	$  / $	&	$ 3.31 \pm 0.17$	\\
+\hline $ 10 \Omega $		&	$ 1.45 \pm 0.02$	&	$ 2.21 \pm 0.08$	\\
+\hline $ 20 \Omega $		&	$ 0.74 \pm 0.01$	&	$ 1.29 \pm 0.03$	\\
+\hline
+\end{tabular}
+\end{center}
+
+\subsubsection{Spannungsüberhöhung}
+Zu guter Letzt kann die Güte auch noch aus der Spannungsüberhöhung bestimmt werden. Dazu werden die Spannungsverläufe an Spule und Kondensator aufgetragen und deren Schnittpunkt bestimmt, da an dieser Stelle der Resonanzfall auftritt. Die daraus bestimmte Spannung $U_{cross}$ wird dann mit der angelegten Spannungsamplitude (als Effektivwert) verglichen.  \\
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim = 0mm 0mm 0mm 0mm,clip, width=13cm]{Bilder/Selection_G1-10Ohm-U.jpg}%
+	\caption[Spannungsüberhöhung für $ 10 \Omega$]{Spannungsüberhöhung für $ 10 \Omega$}%
+	\label{pic:Abbildung 3}%
+\end{figure}
+Dabei gibt es nur eine Unsicherheit auf $U_{cross}$, da $U_0$ vorgegeben wird und damit exakt ist.
+$U_cross$ wurde dabei aus der Mittelwertbildung von den Werten von $U_L$ und $U_C$ an der Stelle mit der geringsten Spannungsdifferenz (Approximation des Schnittpunktes), sowie von den jeweiligen benachbarten Punkten berechnet. Die Unsicherheit auf den Mittelwert ergibt sich dann mit der üblichen Formel zu \[ \sigma_{U_{cross}} = \sqrt{\frac{1}{n \cdot (n-1)} \sum_{k=0}^n (U_k - U_{cross})^2} \] wobei hier $n = 6$ wegen der insgesamt 6 Spannungswerte (je drei für $U_L$ und $U_C$).
+Die gemessenen Spannungen mit ihren Unsicherheiten sind:
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|c|c|c|c|}
+\hline verwendeter Widerstand	&	$U_0$ [V]	&	$U_{cross} \pm \sigma_{stat} \pm \sigma_{sys}$	[V]	\\
+\hline $  1\Omega$ Gruppe 1	&	$  0.36 $		&	$ 2.78 \pm 0.03 \pm 0.18$		\\
+\hline $ 10\Omega$ Gruppe 1	&	$  0.36 $		&	$ 0.53 \pm 0.01 \pm 0.11$		\\
+\hline $ 20\Omega$ Gruppe 1	&	$  0.36 $		&	$ 0.28 \pm 0.01 \pm 0.11$		\\
+\hline $  5\Omega$ Gruppe 2	&	$  1.40 $		&	$ 4.52 \pm 0.02 \pm 0.06$		\\
+\hline $ 10\Omega$ Gruppe 2	&	$  1.40 $		&	$ 3.05 \pm 0.01 \pm 0.05$		\\
+\hline $ 20\Omega$ Gruppe 2	&	$  7.05 $		&	$ 9.11 \pm 0.01 \pm 0.20$		\\
+\hline
+\end{tabular}
+\end{center}
+Hieraus lässt sich, wie zuvor erläutert, aus der Spannungsüberhöhung die Güte des Serienschwingkreises bestimmen:
+\begin{eqnarray*}
+Q_U = \frac{U_{cross}}{U_0}	\\
+\sigma_{Q_U} = \frac{\sigma_{U_cross}}{U_0}
+\end{eqnarray*}
+Dabei wurden die statistischen und systematischen Fehler auf $U_{cross}$ quadratisch addiert.
+Daraus berechnet man dann die Güten zu:
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|c|c|}
+\hline verwendeter Widerstand	& Gruppe 1	& Gruppe 2	\\
+\hline $  1 \Omega $		&	$ 7.80 \pm 0.18 $	&	$ / $ 	\\
+\hline $  5 \Omega $		&	$ / $	&	$ 3.22 \pm 0.06 $	\\
+\hline $ 10 \Omega $		&	$ 1.48 \pm 0.02 $	&	$ 2.18 \pm 0.05$	\\
+\hline $ 20 \Omega $		&	$ 0.78 \pm 0.11 $	&	$ 1.29 \pm 0.03$	\\
+\hline
+\end{tabular}
+\end{center}
+
+
+\subsubsection{Theoretische Vorhersage}
+Zum Vergleich lässt sich aus den Charakteristika der verwendeten Impedanzen eine Vorhersage für die Güte berechnen.
+\begin{eqnarray*}
+Q_{theo} = \frac{\omega_0}{\Delta \omega} = \frac{1}{R} \cdot \sqrt{\frac{L}{C}} \\
+\sigma_{Q_{theo}} = Q_{theo} \cdot \sqrt{\frac{\sigma_R^2}{R^2} + \frac{\sigma_L^2}{4L^2} + \frac{\sigma_C^2}{4C^2}}
+\end{eqnarray*}
+Die Unsicherheit auf den Wert ergibt sich dabei aus der gaußschen Fehlerfortpflanzung. Damit errechnen sich die theoretischen Werte für die Güte zu:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|c|c|}
+\hline verwendeter Widerstand	&	Gruppe 1	&	Gruppe 2 \\
+\hline $  1 \Omega $		&	$ 9.59 \pm 0.03$	&	$ / $ 	\\
+\hline $  5 \Omega $		&	$ / $	&	$ 3.52 \pm 0.01$ 	\\
+\hline $ 10 \Omega $		&	$ 1.545 \pm 0.005$	&	$ 2.30 \pm 0.01$ 	\\
+\hline $ 20 \Omega $		&	$ 0.807 \pm 0.003$	&	$ 1.343 \pm 0.004$ 	\\
+\hline
+\end{tabular}
+\end{center}
+
+\newpage
+\subsection{Fazit}
+Die errechneten Güten werden zum Schluss noch gemittelt, um ein möglichst genaues Endergebnis zu erhalten. Zum Vergleich mit dem theoretischen Wert wird der Abstand in Standardabweichungen zu diesem berechnet: $\frac{|Q_{exp} - Q_{theo}|}{\sqrt{\sigma_{Q_{exp}}^2 + \sigma_{Q_{theo}}^2}}$ \newline
+Damit erhält man:
+\begin{center}
+\renewcommand{\arraystretch}{1}
+\begin{tabular}{|c|c|c|}
+\hline verwendeter Widerstand	&	Gruppe 1	&	Gruppe 2	\\
+\hline $ $ 	&	$ Q_U = 7.80 \pm 0.18$		&	$ $		\\
+	 $ 1 \Omega$ 	&	$ Q_I = 7.88 \pm 0.50$		&	$ $		\\
+	 $ $ 	&	$ Q_{\phi} = 7.85 \pm 0.49$		&	$ /  $		\\
+	 $ $	&	$ Q_{gemittelt}	= 7.81 \pm 0.16$	&	$ $	\\
+	 $ $	&	$ Q_{theo} = 9.59 \pm 0.03$	&	$ $		\\
+	 Abweichung:	&	$ 10.9 \sigma$		&	$ $		\\
+\hline $ $ 	&	$ $		&	$ Q_U =  3.22 \pm 0.06$		\\
+	 $ 5 \Omega$ 	&	$ $		&	$ Q_I = 3.30 \pm 0.17 $		\\
+	 $ $ 	&	$ $		&	$ Q_{\phi} = 3.31 \pm 0.17 $		\\
+	 $ $	&	$ / $	&	$ Q_{gemittelt} = 3.30 \pm 0.06$	\\
+	 $ $	&	$ $	&	$Q_{theo} = 3.52 \pm 0.01 $		\\
+	 Abweichung:	&	$ $		&	$ 3.6 \sigma $		\\
+\hline $ $ 	&	$ Q_U = 1.48 \pm 0.02$		&	$ Q_U = 2.18 \pm 0.05 $		\\
+	 $ 10 \Omega$ 	&	$ Q_I = 1.51 \pm 0.02$		&	$ Q_I = 2.11 \pm 0.07 $		\\
+	 $ $ 	&	$ Q_{\phi} = 1.45 \pm 0.02$		&	$ Q_{\phi} = 2.21 \pm 0.08 $		\\
+	 $ $	&	$ Q_{gemittelt}	= 1.48 \pm 0.01$	&	$ Q_{gemittelt} = 2.17 \pm 0.04$	\\
+	 $ $	&	$ Q_{theo} = 1.545 \pm 0.005$	&	$Q_{theo} = 2.30 \pm 0.01$		\\
+	 Abweichung:	&	$ 5.8 \sigma $		&	$ 3.2 \sigma $		\\
+\hline $ $ 	&	$ Q_U = 0.78 \pm 0.11$		&	$ Q_U =  1.29 \pm 0.03$		\\
+	 $ 20 \Omega$ 	&	$ Q_I = 0.82 \pm 0.01$		&	$ Q_I = 1.28 \pm 0.03 $		\\
+	 $ $ 	&	$ Q_{\phi} = 0.74 \pm 0.01$		&	$ Q_{\phi} =  1.29 \pm 0.03$		\\
+	 $ $	&	$ Q_{gemittelt}	= 0.78 \pm 0.01$	&	$ Q_{gemittelt} = 1.29 \pm 0.02$	\\
+	 $ $	&	$ Q_{theo} = 0.807 \pm 0.003	$	&	$Q_{theo} = 1.343 \pm 0.004$		\\
+	 Abweichung:	&	$ 0.3 \sigma $		&	$ 2.6 \sigma $		\\
+\hline
+\end{tabular}
+\end{center}
+
+Man sieht, dass in den meisten Fällen die errechneten Güten recht nah beieinander liegen, keiner liegt weiter als vier Standardabweichungen vom gewichteten Mittelwert weg, die meisten liegen näher dran. Der Mittelwert selber liegt dabei zwischen 0.3 und 10.9 Standardabweichungen vom theoretisch vorhergesagten Wert entfernt. Dabei lässt sich erkennen, dass die Abweichungen für die größeren Widerstandswerte kleiner werden. Für die kleinste Abweichung,die  bei der Messung der Gruppe 1 des $20 \Omega$ Widerstandes auftritt, ist jedoch auch die Diskrepanz zwischen den Messwerten am größten, so dass der Mittelwert scheinbar eher zufällig so nah an der theoretischen Vorhersage liegt. \\
+Bei der Messung des $1 \Omega$ Widerstandes sind sowohl der absolute Abstand, als auch die Abweichung in Standardabweichung am größten. 
+
+
+\newpage
+
+\section{Parallelschwingkreis}
+\begin{figure}[H]
+	\centering
+	\includegraphics[trim = 0mm 0mm 0mm 0mm,clip, width=6cm]{Bilder/Parallelschwingkreis_Schaltskizze.png}%
+	\caption[Schaltskizze Parallelschwingkreis]{Schaltskizze Parallelschwingkreis}%
+	\label{pic:Abbildung 2}%
+\end{figure}
+
+\subsection{Versuchsziel}
+Analog zum Serienschwingkreis soll der LCR-Parallelschwingkreis über seine Güte charakterisiert werden. IM Prinzip werden die selben Methoden verwendet, bloß die Bestimmung der Frequenzen über die Phasenverschiebung ist hier impraktikabel und wird daher nicht durchgeführt.
+
+\subsection{Herleitung benötigter Formeln}
+Mit Hilfe der Knotenregel erhält man für die Spannung die Gleichung
+\begin{eqnarray*}
+I = I_R + I_C + I_L \\
+\Leftrightarrow \frac{U}{Z} = \frac{U}{R} + i \omega C \cdot U + \frac{U}{i \omega L + R_L}
+\end{eqnarray*}
+Damit folgt dann für die Impedanz 
+\[ \frac{1}{Z} = \frac{1}{R} + i \omega C + \frac{1}{i \omega L + R_L} = \frac{1}{X_R}  + \frac{1}{X_C} + \frac{1}{X_L} \]
+Es werden also die inversen Impedanzen, also die Leitwerte addiert. 
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|c|}
+\hline 	Impedanz 	&	Leitwert \\
+\hline 	$X_R = R$ 						&	$Y_R = \frac{1}{R}$	\\
+\hline 	$X_C = \frac{1}{i \omega C}$ 	&	$Y_C = i \omega C $	\\
+\hline 	$X_L = i \omega L + R_L$ 		&	$Y_L = \frac{R_L}{R}$\\
+\hline	
+\end{tabular}
+\end{center}
+Für den Betrag des Gesamtleitwertes $Y$ erhält man daraus 
+\[ |Y| = | Y_R + Y_L + Y_C| = \sqrt{ \left(\frac{1}{R} + \frac{R_L}{R_L^2 + \omega^2 L^2} \right)^2 + \left( \omega C - \frac{\omega L}{R_L^2 + \omega^2 L^2} \right)^2} \]
+Der Leitwert wird damit minimal, wenn der Imaginärteil verschwindet. Dies ist für die Resonanzfrequenz
+\[ \omega_0 = \sqrt{\frac{1-\frac{C}{L} \cdot R_L^2}{LC}} \] erfüllt. An dieser Stelle tritt also Resonanz auf, die Impedanz ist Maximal und damit der Strom minimal.
+Aus $ I = Y \cdot U$ erhält man dann mit dem Ansatz $I(t) = I_0 \cdot e^{i(\omega t - \phi)}$ für die Phase und die Stromstärkeamplitude:
+\begin{eqnarray}
+tan(\phi) = - \frac{\omega C - \frac{\omega L}{R_L^2 + \omega^2 L ^2}}{\frac{1}{R} + \frac{R_L}{R_L^2 + \omega^2 L ^2}} \\
+I_0 = |Y| \cdot U_0
+\end{eqnarray}
+
+\subsubsection{Messung der Güte}
+Drei der vier Methoden zur Bestimmung der Güte des Serienschwingkreises lassen sich in leicht abgewandelter Form auch auf den Parallelschwingkreis anwenden.\\
+1) Zunächst kann man die Güte wieder aus der Resonanzfrequenz $f_0$ und der Breite der Resonanzkurve $\Delta f$ bzw. den äquivalenten Kreisfrequenzen bestimmen. Die Breite der Kurve ist dabei durch die Stellen gegeben, an denen der Strom den Wert $\sqrt{2} \cdot I_{min}$ annimmt. \\
+Die Güte ergibt sich dann zu \[ Q_1 = \frac{f_0}{\Delta f} \]
+
+2) An der Resonanzstelle gilt ähnlich zum Serienschwingkreis (Ströme statt Spannungen): \[ I_L(\omega_0) = I_C(\omega_0) \] und \[ Q = \frac{I_L(\omega_0)}{I(\omega_0)} \]
+Man kann also hier den Schnittpunkt der Stromkurven von Spule und Kondensator bestimmen ($I_2$) und diesen mit dem Stromminimum der Resonanzkurve vergleichen und erhält daraus \[Q_2 = \frac{I_2}{I_{min}} \]
+
+3) Natürlich kann man auch wieder die Güte direkt aus den Charakteristika der Impedanzen errechnen. 
+\[ Q_3 = \frac{I_L(\omega_0)}{I(\omega_0)} = \frac{U_0}{\omega_0 L} \cdot \frac{Z(\omega_0)}{U_0} = \frac{R \cdot \sqrt{ \frac{C}{L}}}{1 + R \cdot R_L \cdot \frac{C}{L}} \]
+
+
+\subsection{Versuchsaufbau}
+Bei diesem Teilversuch wurden Spule, Kondensator und Widerstand entsprechend der Schaltskizze angeordnet, also parallel zueinander geschaltet. Da bei einer solchen Anordnung die abfallende Spannung an allen Bauteilen gleich ist, wurden die durch Spule und Kondensator fließenden Ströme gemessen. Das zur Strommessung verwendete Sensor-Cassy muss dazu jeweils zur Spule bzw. zum Kondensator in Reihe geschaltet werden. Als Spannungsquelle diente wieder das Power-Cassy.
+In diesem Versuchsteil wurden die folgenden Bauteile verwendet:
+
+\hskip-2.5cm
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|c|c|}
+\hline 	$ $ 	&	Gruppe 1	&	Gruppe 2 \\
+\hline 	Ohmsche Widerstände 	&	$ R_{47} = (46.69 \pm 0.12) \Omega$					&	$ R_{47} = (46.55 \pm 0.12) \Omega$	\\
+\hline 	$ $ 	&	$ R_{100} = (99.45 \pm 0.25) \Omega$					&	$ R_{100} = (99.25 \pm 0.25) \Omega$	\\
+\hline 	Spule		&	$ L = (1.301 \pm 0.004) mH \; (250 \,Windungen) $	&	$ L = (4.776 \pm 0.012) mH \; (500 \,Windungen) $ \\
+\hline	Spuleninnenwiderstand	&	$ R_L = (0.745 \pm 0.002) \Omega $	&	$ R_L = (3.855 \pm 0.010) \Omega $ \\
+\hline 	Kondensator &	$ C = (4.735 \pm 0.012) \mu F$					&	$ C = (4.719 \pm 0.012) \mu F$ \\
+\hline	
+\end{tabular}
+\newline
+\newline
+Die Unsicherheiten auf die Messwerte werden dabei vom Hersteller der Messbrücke auf ein viertel Prozent des Messwertes angegeben.
+
+
+\subsection{Versuchsdurchführung}
+Genau wie beim Serienschwingkreis wurde mit dem Power-Cassy eine Sinus-förmige Spannung erzeugt. Die durch Spule und Kondensator fließenden Ströme wurden mit dem Sensor-Cassy (Eingang A) und der Gesamtstrom mit dem Amperemeter des Power-Cassy als Effektivwerte gemessen.\\
+Die dazu zu wählenden Messparameter waren eine Messzeit von 100 ms und eine Messpunktanzahl von 0.\\
+Die gemessenen Ströme wurden wieder gegen die Frequenz der angelegten Spannung aufgetragen, die während der Messung stückweise in 20 Hertz Schritten erhöht wurde. Um sicherzustellen, dass sich das System bei Aufnahme des Messpunktes nicht mehr im Einschwingvorgang befand, wurde der erst nach einer Wartezeit von 2 Sekunden aufgenommen.\\
+Die Messung wurde zunächst jeweils für die beiden angegebenen Widerstände durchgeführt. Dann wurde der Widerstand aus der Schaltung entfernt (dies entspricht einem unendlichen Widerstand), so dass man einen LC-Parallelschwingkreis erhält, für den die Messung ein weiteres Mal durchgeführt wurde.
+
+\subsection{Versuchsauswertung}
+Die Rohdaten wurden in Python eingelesen und ausgewertet. \newline
+Zunächst wurde die Methode der Sromerhöhung durchgeführt. Dafür wurde eine Ausgleichsgerade durch die Stromkurve des Kondensators gelegt und der Schnittpunkt mit der Stromkurve der Spule berechnet. Der Stromwert dieses Schnittes nennen wir $ I_1$. $I_2$ ist der Stromwert des Minimums des Gesamtstromes, welchen wir ebenfalls ausgeben lassen.
+
+\begin{figure}[H]
+
+	\hskip -2.5cm
+	\includegraphics[trim = 0mm 0mm 0mm 0mm,clip, width=20cm]{Bilder/DPParalleloo_Erhoehung.png}%
+	\caption[Strom gegen Frequenz beim Parallelschwingkrein/Gruppe2]{Strom gegen Frequenz beim Parallelschwingkrein/Gruppe2}%
+	\label{pic:Abbildung 2}%
+
+\end{figure}
+
+Dadurch können wir die Güten bestimmen:
+\begin{center}
+$ Q= \frac{I_2}{I_1}$
+\; \; \:
+$ \sigma_Q=Q \cdot \sqrt{\frac{\sigma_1}{I_1}^2+\frac{\sigma_2}{I_2}^2}
+$
+\end{center}
+Dadurch erhalten wir die folgenden Werte:
+\begin{center}
+
+
+\begin{tabular}{|c|c|c|}
+\hline 	$ $ 	&	Gruppe 1 ($250$ Windungen)	&	Gruppe 2 ($500$ Windungen) \\
+\hline 	offener Widerstand 	&	$ I_2 = (131.1 \pm 0.73\pm6) mA$					&	$ I_2 = (43.78 \pm 0.48\pm4) mA$	\\
+\hline 	$ $ 	&	$ I_1 = (31.2 \pm 6.5\pm4) mA$					&	$ I_1 = (7.35 \pm 0.17\pm3) mA$	\\
+\hline 		&	$ Q = (4.21 \pm 1) $	&	$ Q = (5.96 \pm 2.6)  $ \\
+\hline	Widerstand von 100 $\Omega$	&	$ I_2 = (131.11 \pm 0.12\pm6) mA$					&	$ I_2 = (43.91 \pm 0.73\pm4) mA$	\\
+\hline 	$ $ 	&	$ I_1 = (44.48 \pm 6.17\pm4) mA$					&	$ I_1 = (20.19 \pm 0.17\pm4) mA$	\\
+\hline 		&	$ Q = (2.95 \pm 0.5)$	&	$ Q = (2.174 \pm 0.5)  $ \\
+\hline	Widerstand von 47 $\Omega$	&	$ I_2 = (130.96 \pm 0.73\pm6) mA$					&	$ I_2 = (43.63 \pm 0.47\pm4) mA$	\\
+\hline 	$ $ 	&	$ I_1 = (64.41 \pm 3.77\pm5) mA$					&	$ I_1 = (35.76 \pm 0.23\pm4) mA$	\\
+\hline 		&	$ Q = (2.03 \pm 0.22) $	&	$ Q = (1.2 \pm 0.2)  $ \\
+\hline	
+
+\end{tabular}
+\end{center}
+
+Die Fehler auf $I_2$ wurden berechnet, indem die 2 benachbarten Stromstärken zum Stromwert des Schnittpunktes ausgegeben wurde. Der tatsächliche Wert liegt dann gleichverteilt im Intervall zwischen diesen beiden Punkten.
+Die Fehler auf $I_1$ berechnen sich durch den Mittelwert zweier Fehler von zwei gleichverteilten Intervallen. Dabei ist ein Intervall, der Abstand des minimalen Stromwertes zum links höherliegendem Stromwert und das andere Intervall zu dem rechts höherliegendem Stromwert.
+\newline
+\newline
+Beim Parallelschwinkreis kann auch die Breite der Gesamtstromkurve benutzt werden um die Güte zu bestimmen.
+Es wurde also mit Peakfinder das Minimum der Stromkurve bestimmt mit den Koordinaten $I_min$ und $f_0$. Es werden nun die zwei Schnittpunkte der Stromkurve gesucht, welche approximativ den Wert $\sqrt{2}*I_min$. Diese haben die Frequenzen $f_1$ und $f_2$.
+
+\begin{figure}[H]
+
+	\hskip -2.5cm
+	\includegraphics[trim = 0mm 0mm 0mm 0mm,clip, width=20cm]{Bilder/DPParallel47_Breite.png}%
+	\caption[Gesamtstrom gegen Frequenz beim Parallelschwingkrein/Gruppe2]{Gesamtstrom gegen Frequenz beim Parallelschwingkrein/Gruppe2}%
+	\label{pic:Abbildung 2}%
+
+\end{figure}
+
+Die Güte kann nun durch diese Werte mit den folgenden Formeln bestimmt werden:
+\begin{center}
+$Q=\frac{f_0}{f_2-f_1}\:\;\;\:\;\;\:\;\; \sigma_Q=\sqrt{\frac{1}{f_2-f_1}^2+2*\frac{f_0}{(f_2-f_1)^2}^2}*\sigma_f$ \newline \newline
+mit $\sigma_f=\frac{40Hz}{\sqrt{12}}$
+\end{center}
+
+
+\begin{tabular}{|c|c|c|}
+\hline 	$ $ 	&	Gruppe 1 ($250$ Windungen)	&	Gruppe 2 ($500$ Windungen) \\
+\hline 	offener Widerstand 	&	$ f_2 =2524.2HZ$					&	$ f_2 = 1240Hz$	\\
+\hline 	$ $ 	&	$ f_1 = 1817.8HZ$					&	$ f_1 = 1020Hz$	\\
+\hline 	$ $ 	&	$ f_0 = 2195.6Hz$					&	$ f_0 = 1140Hz$	\\
+\hline 		&	$ Q = (3.108 \pm 0.074) $	&	$ Q = (5.182 \pm 0.388)  $ \\
+\hline	Widerstand von 100 $\Omega$	&	$ f_2 = 2661.6HZ$					&	$ f_2 = 1460Hz$	\\
+\hline 	$ $ 	&	$ f_1 = 1703.5HZ$					&	$ f_1 = 920Hz$	\\
+\hline 	$ $ 	&	$ f_0 = 2132.43HZ$					&	$ f_0 = 1160HZ$	\\
+\hline 		&	$ Q = (2.15 \pm 0.04)$	&	$ Q = (2.148 \pm 0.03)  $ \\
+\hline	Widerstand von 47 $\Omega$	&	$ f_2 = 2799.3Hz$					&	$ f_2 = 1760Hz$	\\
+\hline 	$ $ 	&	$ f_1 = 1656HZ$					&	$ f_1 = 780Hz$	\\
+\hline 	$ $ 	&	$ f_0 = 2228.4Hz$					&	$ f_0 = 1220Hz$	\\
+\hline 		&	$ Q = (1.94 \pm 0.3) $	&	$ Q = (1.245 \pm 0.024)  $ \\
+\hline	
+\end{tabular}
+\newpage
+
+Die Fehler auf die Frequenen wurden wie schon erwähnt alle als $\sigma_f=\frac{40Hz}{\sqrt{12}}$ angenommen.
+Für die Gruppe 1 wurde die Auswertung in Cassy durchgeführt, indem die Peakschwerpunktfunktion für die Bestimmung des Minimums benutzt und die Schnitpunkte mit dem Auge abgelesen wurden.
+
+\begin{figure}[H]
+
+	\hskip -2.0cm
+	\includegraphics[trim = 0mm 0mm 0mm 0mm,clip, width=20cm]{Bilder/JOParallel47_Breite.png}%
+	\caption[Gesamtstrom gegen Frequenz beim Parallelschwingkrein/Gruppe1]{Gesamtstrom gegen Frequenz beim Parallelschwingkrein/Gruppe1}%
+	\label{pic:Abbildung 2}%
+
+\end{figure}
+\subsection{Fazit}
+
+
+\begin{tabular}{|c|c|c|}
+\hline $ $ & Gruppe 1 & Gruppe 2 \\
+\hline $\infty$ &  $ Q_{Stromerhoehung} = (4.21 \pm 1) $  & $ Q_{Stromerhoehung} = (6 \pm 2.6) $    \\
+ $ $ & $ Q_{Resonanzbreite} = (3.11 \pm 0.08) $  & $ Q_{Resonanzbreite} = (5.2 \pm 0.4) $  \\
+ $ $ & $ Q_{gemittelt} = (3.11 \pm 0.07) $  &  $Q_{gemittelt} = (5.20 \pm 0.38) $ \\
+ $ $ & $ Q_{berechnet} = (22.25 \pm 0.07) $  & $ Q_{berechnet} = (8.25 \pm 0.02) $  \\ 
+ $ $ &  $ \sigma = 193.34 $ & $ \sigma = 8.02$  \\
+\hline $100\Omega$ & $ Q_{Stromerhoehung} = (2.95 \pm 0.5) $   &  $ Q_{Stromerhoehung} = (2.2 \pm 0.5) $   \\
+ $ $ &  $ Q_{Resonanzbreite} = (2.15 \pm 0.04) $ &   $ Q_{Resonanzbreite} = (2.15 \pm 0.03) $ \\
+ $ $ &  $ Q_{gemittelt} = (2.16 \pm 0.04) $ &  $Q_{gemittelt} = (2.15 \pm 0.03)$  \\
+  $ $ &  $ Q_{berechnet} = (4.74 \pm 0.011) $ &  $ Q_{berechnet} = (2.26 \pm 0.01) $  \\
+ 
+ $ $ &  $\sigma = 62.2 $& $\sigma =3.48$ \\
+\hline $47\Omega$ & $ Q_{Stromerhoehung} = (2.03 \pm 0.22) $   &  $ Q_{Stromerhoehung} = (1.20 \pm 0.2) $   \\
+ $ $ &  $ Q_{Resonanzbreite} = (1.94 \pm 0.3) $ &   $ Q_{Resonanzbreite} = (1.25 \pm 0.024) $ \\
+ $ $ &  $ Q_{gemittelt} = (2.00 \pm 0.18) $ &  $Q_{gemittelt} = (1.24 \pm 0.03) $  \\
+  $ $ &  $ Q_{berechnet} = (2.50 \pm 0.01) $ &  $ Q_{berechnet} = (1.24 \pm 0.01) $  \\
+
+ $ $ &  $\sigma = 2.774 $& $\sigma =0$ \\
+\hline
+\end{tabular}
+ \newline
+Da die Rohdaten der 2 Gruppe starke Fluktuationen aufzeigen, sind die Auswertungen und Ergebnisse sehr fehleranfällig. Vorallem die Stromstärken der Minima der Gesamtstromkurve bei der 2 Gruppen konnten nur sehr schlecht bestimmt werden.
+Die experimentell bestimmten Güten der beiden Methoden passen im Vergleich zu den berechneten Güten relativ gut z  usammen. Dies kann allerdings daran liegen, dass die Formel zur Berechnung der Güten grobe Näherungen enthalten.
+
+
+\section{Hoch- und Tiefpassfilter}
+Als eigenständiger Versuch war es Aufgabe, aus einem Widerstand und einem Kondensator oder einer Spule, einen Frequenzfilter zu erstellen. Bei einem solchen Hoch- oder Tiefpass sind die Bauteile in Reihe geschaltet.
+\newline
+\begin{figure}[H]
+	\hskip -0.5cm
+	\includegraphics[trim = 0mm 0mm 0mm 0mm,clip, width=11cm]{Bilder/Schaltskizze_Filter.png}%
+	\caption[Schaltskizze Hoch- bzw Tiefpass]{Schaltskizze Hoch- bzw Tiefpass}%
+	\label{pic:Abbildung 1}%
+\end{figure}
+Wie hier zu erkennen, hängt es nur davon ab wo die Spannung mit Cassy gemessen wird, ob der Filter als Hoch- oder Tiefpass fungiert. Die Übertragungsfunktion ergibt sich als Quotient der Ausgangsspannung und der Eingangsspannung zu:
+\newline
+\newline
+Hochpass: $\frac{U_a}{U_e}=\frac{1}{\sqrt{(\frac{1}{\omega \cdot C \cdot R})^2+1}}$ 
+\newline
+Tiefpass: \, $\frac{U_a}{U_e}=\frac{1}{\sqrt{1+(\omega \cdot R \cdot C)^2}}$
+\newline
+\newline
+Offensichtlich gilt in den Grenzfällen: 
+\newline
+\newline
+$\lim\limits_{\omega \rightarrow \infty}{\frac{U_a}{U_e}}$:\;\;\; $(\frac{U_a}{U_e})_{Hoch} \rightarrow  1$ und $(\frac{U_a}{U_e})_{Tief} \rightarrow 0$
+\newline und
+\newline
+ $\lim\limits_{\omega  \to 0}{\frac{U_a}{U_e}}$:  \;\;\; $(\frac{U_a}{U_e})_{Hoch} \rightarrow  0$ und $(\frac{U_a}{U_e})_{Tief} \rightarrow 1$
+\newline
+\begin{figure}[H]
+	\hskip -1cm
+	\includegraphics[trim = 0mm 0mm 0mm 0mm,clip, width=17cm]{Bilder/Uebertragungsfunktionen47.png}%
+	\caption[Übertragungsfunktionen Gruppe 2 (vertikale Striche nur zur besseren Übersicht, keine Fehlerbalken)]{Übertragungsfunktionen Gruppe 2 (vertikale Striche nur zur besseren Übersicht, keine Fehlerbalken)}%
+	\label{pic:Abbildung 1}%
+\end{figure}
+An diesem Graphen der Übertragungsfunktion lässt sich erkennen, das die gemessenen Werte (blau) sehr eng an den theoretischen (rot) liegen. Das sich das asymptotische Verhalten gegen 1 bzw gegen 0, hier nicht bzw schlecht erkennen lässt, ist eine Folge des zu kurz gewählten Messbereichs der endet bevor asymptotisches Verhalten vorlag.
+\newline
+\newline
+In der Regel werden solche Filter über ihre Grenzfrequenz charakterisiert. Die Grenzfrequenz, $\omega_0$, erfüllt die Bedingung $\frac{U_a}{U_e}(\omega_0)=\frac{1}{\sqrt{2}}$. Demnach gilt hier $\omega_0=\frac{1}{R \cdot C}$.
+Dadurch ergibt sich aufgrund der Theorie:
+\newline
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|c|c|c|}
+\hline 	$ $ & Widerstand 	&	Kondensator	&	Grenzfrequenz  \\
+\hline 	Gruppe 1 	&	$ R = (46.69 \pm 0.12) \Omega $ & $ C = (4.735 \pm 0.012) \mu F $ & $ f_0 = (719.91 \pm 2.60) Hz$	\\
+\hline 	Gruppe 2		&	$ R=(46.55 \pm 0.12) \Omega $	&	$C = (4.719 \pm 0.012) \mu F $ &$ f_0 = (724.52 \pm 1.82) Hz$ \\
+\hline 	Gruppe 2 &	$ R=(19.83 \pm 0.05) \Omega $					&	$C = (4.719 \pm 0.012) \mu F $ & $ f_0 = (1700.78 \pm 4.52) Hz$ \\
+\hline	
+\end{tabular}
+\end{center}
+
+Aus den Messwerten lässt sich bestimmen:
+\newline
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|c|c|c|c|}
+\hline 	$ Messung $ & $f_{Hochpass}$& $f_{Tiefpass}$	&	$Abweichung_{H}( in\; \sigma)$ & $Abweichung_{T}( in\; \sigma)$  \\
+\hline 	Gruppe 1 	&	$(740 \pm 12) Hz$& $(700 \pm 12)Hz$ &$ 1.70$& $1.68$	\\
+\hline 	Gruppe 2		&	 $(720 \pm 12) Hz$ 	&	$(720 \pm 12) Hz $ &$ 0.39 $&$0.39 $ \\
+\hline 	Gruppe 2 &	 $(1740 \pm 12) Hz$ 					&	$(1700 \pm 12) Hz $ & $3.18$ & $0.06$ \\
+\hline	
+\end{tabular}
+\end{center}
+Die Unsicherheiten auf die charakteristischen Größen der Bauteile sind hier systematischer Natur und durch den Hersteller als $0,0025\%$ des gemessenen Wertes gegeben. Denn der systematische Unsicherheit liegt hier über dem statistischen Unsicherheit der Ablesegenauigkeit, und macht somit den größeren Teil aus. Durch Fehlerfortpflanzung ergeben sich so die Fehler auf den theoretischen Wert von $f_0$ zu:
+\newline
+$\sigma_{f_{0_{theo}}}=\sqrt{(\frac{1}{R^2 \cdot C})^2 \cdot \sigma_{R}^2+(\frac{1}{R \cdot C^2})^2 \cdot \sigma_{C}^2}$
+\newline
+Die Unsicherheiten auf die gemessenen Grenzfrequenzen ergibt sich zum einen aus der Schrittweite in der das Frequenzspektrum durchlaufen wurde, das waren hier 20 Hz nimmt man eine Gleichverteilung an gibt das einen Ablesefehler von $\sigma_{ablese}=\frac{20}{\sqrt{3}}$. Da die Spannungsmessung durch Sensor-Cassy vom Hersteller aus mit der Unsicherheit $\sigma_U=0.01 \cdot U_i+0.005 \cdot U_{Bereichsendwert}$ ergibt sich für die Übertragungsfunktion $f=\frac{U_a}{U_e}$ der Fehler $\sigma_f^2=(\frac{1}{U_e})^2 \cdot \sigma_{U_a}^2+(\frac{U_a}{U_e^2})^2+\sigma_{U_e}^2$
+Damit ist die Unsicherheit auf die Grenzfrequenz $\sigma_{f_0}=\sqrt{\sigma_f^2+\sigma_{ablese}^2}$
+\newline
+Die Abweichung zwischen Theorie und Messwert ist als $\delta=\frac{|f_{theo}-f_{mess}|}{\sqrt{(\sigma_{f_0})^2+(\sigma_{f_{0_{theo}}})^2}}$ zu berechnen.
+\newline
+Bei Betrachtung beider Tabellen fällt sofort auf das die Grenzfrequenz für Hoch- und Tiefpass, nur in einem von drei Fällen übereinstimmen. Dies sollte jedoch nach Theorie immer der Fall sein. Weiter fällt auf das bei der zweiten Variante von Gruppe 2 die Abweichung stark schwanken, sodass davon auszugehen ist das Messfehler beim Hochpass unterschätzt wurden.
+
+\newpage
+\section{Anhang}
+\subsection{Serienschwingkreis}
+\begin{figure}[H]
+	\hskip-2cm
+	\includegraphics[trim = 0mm 0mm 0mm 0mm,clip, width=20cm]{Bilder/SerieSK1Ohm.png}%
+	\caption[Gütebestimmung für $1 \Omega$ Widerstand, Gruppe 1]{Gütebestimmung für $1 \Omega$ Widerstand, Gruppe 1}%
+	\label{pic:Abbildung 3}%
+\end{figure}
+\begin{figure}[H]
+	\hskip-2cm
+	\includegraphics[trim = 0mm 0mm 0mm 0mm,clip, width=20cm]{Bilder/SerieSK10Ohm.png}%
+	\caption[Gütebestimmung für $10 \Omega$ Widerstand, Gruppe 1]{Gütebestimmung für $10 \Omega$ Widerstand, Gruppe 1}%
+	\label{pic:Abbildung 3}%
+\end{figure}
+\begin{figure}[H]
+	\hskip-2cm
+	\includegraphics[trim = 0mm 0mm 0mm 0mm,clip, width=20cm]{Bilder/SerieSK20Ohm.png}%
+	\caption[Gütebestimmung für $20 \Omega$ Widerstand, Gruppe 1]{Gütebestimmung für $20 \Omega$ Widerstand, Gruppe 1}%
+	\label{pic:Abbildung 3}%
+\end{figure}
+\begin{figure}[H]
+	\hskip-2cm
+	\includegraphics[trim = 0mm 0mm 0mm 0mm,clip, width=20cm]{Bilder/R5.png}%
+	\caption[Gütebestimmung für $5 \Omega$ Widerstand, Gruppe 2]{Gütebestimmung für $5 \Omega$ Widerstand, Gruppe 2}%
+	\label{pic:Abbildung 3}%
+\end{figure}
+\begin{figure}[H]
+	\hskip-2cm
+	\includegraphics[trim = 0mm 0mm 0mm 0mm,clip, width=20cm]{Bilder/R10.png}%
+	\caption[Gütebestimmung für $10\Omega$ Widerstand, Gruppe 2]{Gütebestimmung für $10 \Omega$ Widerstand, Gruppe 2}%
+	\label{pic:Abbildung 3}%
+\end{figure}
+\begin{figure}[H]
+	\hskip-2cm
+	\includegraphics[trim = 0mm 0mm 0mm 0mm,clip, width=20cm]{Bilder/R20.png}%
+	\caption[Gütebestimmung für $20 \Omega$ Widerstand, Gruppe 2]{Gütebestimmung für $10 \Omega$ Widerstand, Gruppe 2}%
+	\label{pic:Abbildung 3}%
+\end{figure}
+
+\newpage
+\subsection{Parallelschwingkreis}
+
+\begin{figure}[H]
+	\hskip-2cm
+	\includegraphics[trim = 0mm 0mm 0mm 0mm,clip, width=20cm]{Bilder/JOParallel47_Breite.png}%
+	\caption[Resonanzkurve für $47 \Omega$ Widerstand, Gruppe 1]{Resonanzkurve für $47 \Omega$ Widerstand, Gruppe 2}%
+	\label{pic:Abbildung 3}%
+\end{figure}
+\begin{figure}[H]
+	\hskip-2cm
+	\includegraphics[trim = 0mm 0mm 0mm 0mm,clip, width=20cm]{Bilder/JOParallel47_Erhoehung.png}%
+	\caption[Spannungsüberhöhung für $47 \Omega$ Widerstand, Gruppe 1]{Spannungsüberhöhung für $47 \Omega$ Widerstand, Gruppe 2}%
+	\label{pic:Abbildung 3}%
+\end{figure}
+\begin{figure}[H]
+	\hskip-2cm
+	\includegraphics[trim = 0mm 0mm 0mm 0mm,clip, width=20cm]{Bilder/JOParallel100_Breite.png}%
+	\caption[Resonanzkurve für $100 \Omega$ Widerstand, Gruppe 1]{Resonanzkurve für $100 \Omega$ Widerstand, Gruppe 2}%
+	\label{pic:Abbildung 3}%
+\end{figure}
+\begin{figure}[H]
+	\hskip-2cm
+	\includegraphics[trim = 0mm 0mm 0mm 0mm,clip, width=20cm]{Bilder/JOParallel100_Erhoehung.png}%
+	\caption[Spannungsüberhöhung für $100 \Omega$ Widerstand, Gruppe 1]{Spannungsüberhöhung für $100 \Omega$ Widerstand, Gruppe 2}%
+	\label{pic:Abbildung 3}%
+\end{figure}
+\begin{figure}[H]
+	\hskip-2cm
+	\includegraphics[trim = 0mm 0mm 0mm 0mm,clip, width=20cm]{Bilder/JOParalleloo_Breite.png}%
+	\caption[Resonanzkurve ohne Widerstand, Gruppe 1]{Resonanzkurve ohne Widerstand, Gruppe 2}%
+	\label{pic:Abbildung 3}%
+\end{figure}
+\begin{figure}[H]
+	\hskip-2cm
+	\includegraphics[trim = 0mm 0mm 0mm 0mm,clip, width=20cm]{Bilder/JOParalleloo_Erhoehung.png}%
+	\caption[Spannungsüberhöhung ohne Widerstand, Gruppe 1]{Spannungsüberhöhung ohne Widerstand, Gruppe 2}%
+	\label{pic:Abbildung 3}%
+\end{figure}
+
+
+\begin{figure}[H]
+	\hskip-2cm
+	\includegraphics[trim = 0mm 0mm 0mm 0mm,clip, width=20cm]{Bilder/DPParallel47_Breite.png}%
+	\caption[Resonanzkurve für $47 \Omega$ Widerstand, Gruppe 2]{Resonanzkurve für $47 \Omega$ Widerstand, Gruppe 2}%
+	\label{pic:Abbildung 3}%
+\end{figure}
+\begin{figure}[H]
+	\hskip-2cm
+	\includegraphics[trim = 0mm 0mm 0mm 0mm,clip, width=20cm]{Bilder/DPParallel47_Erhoehung.png}%
+	\caption[Spannungsüberhöhung für $47 \Omega$ Widerstand, Gruppe 2]{Spannungsüberhöhung für $47 \Omega$ Widerstand, Gruppe 2}%
+	\label{pic:Abbildung 3}%
+\end{figure}
+\begin{figure}[H]
+	\hskip-2cm
+	\includegraphics[trim = 0mm 0mm 0mm 0mm,clip, width=20cm]{Bilder/DPParallel100_Breite.png}%
+	\caption[Resonanzkurve für $100 \Omega$ Widerstand, Gruppe 2]{Resonanzkurve für $100 \Omega$ Widerstand, Gruppe 2}%
+	\label{pic:Abbildung 3}%
+\end{figure}
+\begin{figure}[H]
+	\hskip-2cm
+	\includegraphics[trim = 0mm 0mm 0mm 0mm,clip, width=20cm]{Bilder/DPParallel100_Erhoehung.png}%
+	\caption[Spannungsüberhöhung für $100 \Omega$ Widerstand, Gruppe 2]{Spannungsüberhöhung für $100 \Omega$ Widerstand, Gruppe 2}%
+	\label{pic:Abbildung 3}%
+\end{figure}
+\begin{figure}[H]
+	\hskip-2cm
+	\includegraphics[trim = 0mm 0mm 0mm 0mm,clip, width=20cm]{Bilder/DPParalleloffen_Breite.png}%
+	\caption[Resonanzkurve ohne Widerstand, Gruppe 2]{Resonanzkurve ohne Widerstand, Gruppe 2}%
+	\label{pic:Abbildung 3}%
+\end{figure}
+\begin{figure}[H]
+	\hskip-2cm
+	\includegraphics[trim = 0mm 0mm 0mm 0mm,clip, width=20cm]{Bilder/DPParalleloo_Erhoehung.png}%
+	\caption[Spannungsüberhöhung ohne Widerstand, Gruppe 2]{Spannungsüberhöhung ohne Widerstand, Gruppe 2}%
+	\label{pic:Abbildung 3}%
+\end{figure}
+
+
+\end{document}
+
+
+

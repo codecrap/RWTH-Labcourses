@@ -1,0 +1,24 @@
+gross_hoch_2 1,214
+gross hoch3  1,191
+gross hoch4  1,1738
+grosstief1  1,1535
+grosstief2  1,1588
+grosstief3  1,169
+kleinhoch1  0,2259
+kleinhoch2  0,2372
+kleinhoch3  0,2435
+kleinmitte1 0,2319
+kleinmitte2 0,2209
+kleinmitte3 0,2206
+kleintief1  0,2246
+kleintief2  0,2154
+kleintief3  0,2238
+mittelhoch1 0,4018
+mittelhoch2 0,3823
+mittelhoch3 0,2385
+mittelmitte1 0,3994
+mittelmitte2 0,3748
+mittelmitte3 0,3968
+mitteltief1  0,3788
+mitteltief2 0,3964
+mitteltief3 0,3935

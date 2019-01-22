@@ -1,0 +1,104 @@
+\author{Martin Koytek - Lars Wenning - Erik Zimmermann}
+\title{E-Technik}
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\begin{document}
+\maketitle
+\section{Vorbereitung}
+Ohmsches Gesetz:  
+\begin{equation}
+U=R*I
+\end{equation}
+Kirchhoffsche Regeln: 
+Knotenregel	
+\begin{equation} \sum_{i}{I_i}=0 \end{equation} 
+Maschenregel 
+\begin{equation}\sum_{i}{U_i}=0\end{equation} 
+Schaltung von Widerständen: 
+Reihenschaltung
+Addieren der Einzelwiderstände
+\begin{equation}
+U_g=\sum_{i}{U_i}=\sum_{i}{R_i*I}
+\end{equation}
+Parallelschaltung
+Einzelwiderstände reziprok addieren  
+\begin{align}
+U_g=R_{ges}*I \\ 
+\text{  mit  } R_{ges}=(\frac{1}{\sum_{i}{R_i}})^{-1}
+\end{align}
+Kondensatoren:
+Als einen Kondensator bezeichnet man ein Bauteil in einem Schaltkreis mit entgegengesetzten Leiterflächen
+unterschiedlicher Polung
+Ladung: 
+\begin{equation}
+Q=C*U
+\end{equation}
+wobei C die Kapazität darstellt mit [C]= 1 Farad = 1 F
+Plattenkondensator
+$\Rightarrow$ zwischen Platten gibt es keine Ladung
+$\Rightarrow$ Laplace Gleichung  
+\begin{equation}
+\frac{\partial^2 \phi}{\partial x^2}=0
+\end{equation}
+als Vereinfachung der Poisson Gleichung, wenn im Raumgebiet keine Ladung 
+\begin{align}
+\vartriangle \phi =\frac{-\rho}{\epsilon_0} \notag \\
+\nabla \cdot \nabla \phi =\vartriangle \phi = 0 \text{ für } \rho = 0 \\
+\phi = \int _P^\infty E ds
+\end{align}
+wobei P ein beliebiger Raumpunkt ist
+\begin{align}
+ds=d^2x&=dA \\
+\delta(r)&=\text{Ladungsverteilung} \\
+\Rightarrow \frac{\partial^2\phi}{\partial x^2}&=0\\
+\Rightarrow \phi&=ax+b \\
+U&=\phi_1-\phi_2 \\
+\Rightarrow \phi_1&=\phi(0)\\
+\phi_2\phi(d)&=a*d+\phi_1 \\ \Rightarrow a&=\frac{U}{d} \\
+\Rightarrow\phi(x)&=-\frac{U}{d}*x+\phi_1 \\
+E=-\nabla \phi&=\frac{U}{d}
+\end{align}
+Elektrische Feldstärke:
+\begin{align}
+E = \frac{U}{d} &= \frac{Q}{C} \cdot \frac{1}{d}\\
+\Rightarrow C &= \frac{Q}{E d}\\
+E_{empirisch} &= \frac{Q}{A \epsilon_0}\\
+\Rightarrow \frac{U}{d} = \frac{Q}{A\cdot\epsilon_0} &= \frac{C\cdot U}{A \cdot \epsilon_0}
+\end{align}
+Kugelkondensator
+\begin{align}
+Q &= A_{Kugel} \cdot \sigma\text{ mit $\sigma$: Flächenladungsdichte}\\
+&=4\pi R^2 \sigma \text{ mit } \vartriangle \phi = \frac{-\rho}{\epsilon_0}\\
+\phi_{el} &= \int{E dA} =E \cdot 4 \pi r^2 = \frac{Q}{\epsilon_0}\\
+\Rightarrow E &= \frac{Q}{4\pi\epsilon_0r^2} \vec{r}\\
+\phi_{innen} &= \frac{Q}{4\pi\epsilon_0 a}
+\end{align}
+da Potential außerhalb mit 1/r abfällt. Im Inneren ändert sich das Potential nicht
+\begin{align}
+\phi_{zwischen} &= \frac{Q}{4\pi\epsilon_0 r}\\
+\phi_{aussen} &= \frac{Q}{4\pi\epsilon_0 b}
+U = \phi_{innen} - \phi_{aussen} &= \frac{Q}{4\pi\epsilon_0}\frac{b-a}{ab}\\
+C=\frac{Q}{U}&= 4\pi\epsilon_0 a\\
+Q &= 4\pi\epsilon_0 a U
+\end{align}
+Kondensatoren:
+\begin{align}
+\text{Parallel: } C &= \sum{C_i}\\
+\text{Reihe: } \frac{1}{C} &= \sum{\frac{1}{C_i}}
+\end{align}
+Energie des Elektrischen Feldes:
+\begin{align}
+W &= \frac{1}{2} \frac{Q^2}{C} = C\cdot U^2\\
+&= \int{(\phi_{aussen} - \phi_{\infty}) dQ}\\
+&= \int{\phi_{aussen} dQ} \text{ , da }\phi_{\infty} \rightarrow 0\\
+&= \int{\frac{Q}{4\pi\epsilon_0a} DQ}
+&= \frac{1}{2} \frac{Q^2}{C}
+\end{align}
+\end{document}
+

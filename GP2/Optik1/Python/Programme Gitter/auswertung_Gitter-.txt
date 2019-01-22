@@ -1,0 +1,86 @@
+\phi_0 = 4.54661 \pm 0.00019 sr = 260.5017 \pm 0.0107 Grad
+- - - - - - - - - - - - - - - - - - - - - -
+ \hline Farbe & -2. Ordnung   &   -1. Ordnung  &   1.Ordnung     &   2. Ordnung \
+ \hline blau $\lambda = 467.81 nm$    &   $3.941 $   &   $4.257$    &   $4.838$    &   $5.160$ \
+ \hline grün-blau $\lambda = 508.58 nm$    &   $3.880 $   &   $4.230$    &   $4.864$    &   $5.224$ \
+ \hline gelb (1) $\lambda = 576.96 nm$    &   $3.770 $   &   $4.187$    &   $4.909$    &   $5.338$ \
+ \hline rot $\lambda = 643.85 nm$    &   $3.649 $   &   $4.143$    &   $4.954$    &   $5.466$ \
+
+ alle obigen Werte haben die Unsicherheit $0.000340 $
+- - - - - - - - - - - - - - - - - - - - - -
+ohne Beachtung der Verdrehung:
+ a = (612.152 \pm 0.071 \pm 0.001) 1/mm, Abweichung: 171.03
+ d = (1633.581 \pm 0.190 \pm 0.003) nm, Abweichung: 174.50
+ b = (0.003576 \pm 0.000069)
+ chi2/ndof = 73.95
+====================================================
+mit Beachtung der Verdrehung:
+ Drehwinkel \phi = (-0.01727376 \pm 0.00038699) sr = (-0.989714 \pm 0.022173)°
+ a = (611.955 \pm 0.071 \pm 0.003) 1/mm, Abweichung: 168.12
+ d = (1634.108 \pm 0.190 \pm 0.008) nm, Abweichung: 171.47
+ b = (0.000068 \pm 0.000069)
+ chi2/ndof = 0.59
+=============================================================
+ Ordnung in aufsteigender Reihenfolge 
+ Wellenlänge 1, Einzelmessung 1: 588.889 \pm 0.252 nm
+ Wellenlänge 1, Einzelmessung 2: 588.635 \pm 0.600 nm
+ Wellenlänge 1, Einzelmessung 3: 588.011 \pm 0.592 nm
+ Wellenlänge 1, Einzelmessung 4: 588.435 \pm 0.247 nm
+ Wellenlänge 2, Einzelmessung 1: 589.677 \pm 0.252 nm
+ Wellenlänge 2, Einzelmessung 2: 589.676 \pm 0.599 nm
+ Wellenlänge 2, Einzelmessung 3: 589.331 \pm 0.592 nm
+ Wellenlänge 2, Einzelmessung 4: 589.023 \pm 0.247 nm
+ Mittelwerte: 
+ Wellenlänge 1:  588.61 \pm 0.16 nm, Abweichung: 2.42
+ Wellenlänge 2:  589.37 \pm 0.16 nm, Abweichung: 1.37
+==========================================================
+mindestens benötigtes Auflösungsvermögen: 998.31
+gemessenes Auflösungsvermögen:
+ -2.Ordnung: 917.9321857677 \pm 176.66 
+ -1.Ordnung: 1070.92 \pm 88.33 
+  1.Ordnung: 1070.92 \pm 88.33 
+  2.Ordnung: 917.93 \pm 176.66 
+  im Mittel: 1040.32 \pm 55.86 
+\phi_0 = 4.54661 \pm 0.00019 sr = 260.5017 \pm 0.0107 Grad
+- - - - - - - - - - - - - - - - - - - - - -
+ \hline Farbe & -2. Ordnung   &   -1. Ordnung  &   1.Ordnung     &   2. Ordnung \
+ \hline blau $\lambda = 467.81 nm$    &   $3.941 $   &   $4.257$    &   $4.838$    &   $5.160$ \
+ \hline grün-blau $\lambda = 508.58 nm$    &   $3.880 $   &   $4.230$    &   $4.864$    &   $5.224$ \
+ \hline gelb (1) $\lambda = 576.96 nm$    &   $3.770 $   &   $4.187$    &   $4.909$    &   $5.338$ \
+ \hline rot $\lambda = 643.85 nm$    &   $3.649 $   &   $4.143$    &   $4.954$    &   $5.466$ \
+
+ alle obigen Werte haben die Unsicherheit $0.000340 $
+- - - - - - - - - - - - - - - - - - - - - -
+ohne Beachtung der Verdrehung:
+ a = (612.152 \pm 0.071 \pm 0.001) 1/mm, Abweichung: 171.03
+ d = (1633.581 \pm 0.190 \pm 0.003) nm, Abweichung: 174.50
+ b = (0.003576 \pm 0.000069)
+ chi2/ndof = 73.95
+====================================================
+mit Beachtung der Verdrehung:
+ Drehwinkel \phi = (-0.01727376 \pm 0.00038699) sr = (-0.989714 \pm 0.022173)°
+ a = (611.955 \pm 0.071 \pm 0.003) 1/mm, Abweichung: 168.12
+ d = (1634.108 \pm 0.190 \pm 0.008) nm, Abweichung: 171.47
+ b = (0.000068 \pm 0.000069)
+ chi2/ndof = 0.59
+=============================================================
+ Ordnung in aufsteigender Reihenfolge 
+ Wellenlänge 1, Einzelmessung 1: 588.889 \pm 0.252 nm
+ Wellenlänge 1, Einzelmessung 2: 588.635 \pm 0.600 nm
+ Wellenlänge 1, Einzelmessung 3: 588.011 \pm 0.592 nm
+ Wellenlänge 1, Einzelmessung 4: 588.435 \pm 0.247 nm
+ Wellenlänge 2, Einzelmessung 1: 589.677 \pm 0.252 nm
+ Wellenlänge 2, Einzelmessung 2: 589.676 \pm 0.599 nm
+ Wellenlänge 2, Einzelmessung 3: 589.331 \pm 0.592 nm
+ Wellenlänge 2, Einzelmessung 4: 589.023 \pm 0.247 nm
+ Mittelwerte: 
+ Wellenlänge 1:  588.61 \pm 0.16 nm, Abweichung: 2.42
+ Wellenlänge 2:  589.37 \pm 0.16 nm, Abweichung: 1.37
+==========================================================
+mindestens benötigtes Auflösungsvermögen: 998.31
+gemessenes Auflösungsvermögen:
+ -2.Ordnung: 917.9321857677 \pm 176.66 
+ -1.Ordnung: 1070.92 \pm 88.33 
+  1.Ordnung: 1070.92 \pm 88.33 
+  2.Ordnung: 917.93 \pm 176.66 
+  im Mittel: 1040.32 \pm 55.86 

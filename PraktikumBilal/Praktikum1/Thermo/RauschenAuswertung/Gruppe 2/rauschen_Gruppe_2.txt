@@ -1,0 +1,3 @@
+Gruppe 2
+Mittelwert druck 1006.2649952 Fehler auf die einzel druck 0.347971903303
+Mittelwert T 274.146773005 Fehler auf die einzel T 0.173764620082

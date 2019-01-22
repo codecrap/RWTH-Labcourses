@@ -1,0 +1,8 @@
+\beamer@endinputifotherversion {3.36pt}
+\select@language {german}
+\beamer@sectionintoc {1}{Bestimmung der Erdbeschleunigung mit dem Pendel}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{Versuchsbeschreibung}{3}{0}{1}
+\beamer@subsectionintoc {1}{2}{Rohdaten}{5}{0}{1}
+\beamer@subsectionintoc {1}{3}{Transformation der Rohdaten}{6}{0}{1}
+\beamer@subsectionintoc {1}{4}{Ergebnisse}{8}{0}{1}
+\beamer@subsectionintoc {1}{5}{Fazit}{9}{0}{1}

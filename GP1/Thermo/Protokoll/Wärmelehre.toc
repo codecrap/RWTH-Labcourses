@@ -1,0 +1,11 @@
+\select@language {ngerman}
+\contentsline {section}{\numberline {1}Einleitung}{1}{section.1}
+\contentsline {section}{\numberline {2}Grundlagen}{1}{section.2}
+\contentsline {section}{\numberline {3}Aufbau und Durchf\IeC {\"u}hrung}{2}{section.3}
+\contentsline {section}{\numberline {4}Auswertung}{3}{section.4}
+\contentsline {subsection}{\numberline {4.1}Eckdaten der Flaschen}{3}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Bestimmung der D\IeC {\"a}mpfung}{3}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Leckmessung}{4}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}Bestimmung der Frequenzen}{4}{subsection.4.4}
+\contentsline {subsection}{\numberline {4.5}Bestimmung von $\kappa $}{5}{subsection.4.5}
+\contentsline {section}{\numberline {5}Fazit}{7}{section.5}

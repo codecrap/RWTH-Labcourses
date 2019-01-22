@@ -1,0 +1,43 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\begin{document}
+\section{Doppler Effekt}
+\begin{itemize}
+\item Sender und Empfänger bewegen sich relativ zueinander.
+\item Empfänger misst eine von der Senderfrequenz $f_0$ verschiedene Frequenz f.
+\item Effekt ist nicht symmetrisch unter Vertauschung von Sender und Empfänger.
+\item für die vom Empfänger registrierten Frequenzen gilt:
+\begin{equation}
+f=f_0\cdot \frac{1}{1\pm v/c} =
+	\begin{cases}
+	-: \text{Sender nähert sich} \\
+	+: \text{Sender entfernt sich} 
+	\end{cases}
+\end{equation}
+und 
+\begin{equation}
+f=f_0\cdot (1 \pm v/c) =
+	\begin{cases}
+	+: \text{Empfänger nähert sich} \\
+	-: \text{Empfänger entfernt sich  sich}
+	\end{cases}
+\end{equation}
+\end{itemize}
+\subsection{Herleitung: Sender nähert sich}
+Durch die Relativbewegung der Schallquelle zum Medium ändert sich für den Beobachter die Wellenlänge der Schallwelle.
+\begin{align}
+\lambda&=\lambda_0-vT \notag \\
+\Rightarrow f&=\frac{c}{\lambda}=\frac{c}{\lambda_0-vT}=\frac{c}{\frac{c}{f_0}-vT}=f_0\cdot \frac{1}{1- v/c} \notag
+\end{align}
+\subsection{Herleitung: Empfänger nähert sich}
+Wellenlänge ändert sich nicht, dafür aber die Relativgeschwindigkeit. Im ruhenden Fall ist $v_{rel}=c$. Hier gilt allerdings:
+\begin{align}
+v_{rel}=c+v \Rightarrow f=\frac{c+v}{\lambda_0}=\frac{c+v}{\frac{c}{f_0}}=f_0\cdot (1 + v/c) \notag
+\end{align}
+\end{document}

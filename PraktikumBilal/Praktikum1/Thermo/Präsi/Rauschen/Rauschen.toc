@@ -1,0 +1,5 @@
+\beamer@endinputifotherversion {3.36pt}
+\select@language {german}
+\beamer@sectionintoc {1}{Rauschmessung}{1}{0}{1}
+\beamer@subsectionintoc {1}{1}{Temperatursensoren}{1}{0}{1}
+\beamer@subsectionintoc {1}{2}{Drucksensoren}{2}{0}{1}

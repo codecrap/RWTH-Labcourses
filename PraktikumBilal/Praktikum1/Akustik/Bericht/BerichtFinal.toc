@@ -1,0 +1,45 @@
+\select@language {german}
+\contentsline {section}{\numberline {1}Bestimmung der Schallgeschwindigkeit durch Laufzeitmessung}{4}
+\contentsline {subsection}{\numberline {1.1}Versuchsbeschreibung}{4}
+\contentsline {subsection}{\numberline {1.2}Versuchsaufbau und Durchf\IeC {\"u}hrung}{4}
+\contentsline {subsection}{\numberline {1.3}Versuchsauswertung}{5}
+\contentsline {subsubsection}{\numberline {1.3.1}Rohdaten}{5}
+\contentsline {subsubsection}{\numberline {1.3.2}Transformation der Rohdaten/Analyse}{6}
+\contentsline {subsubsection}{\numberline {1.3.3}Fazit}{9}
+\contentsline {section}{\numberline {2}Bestimmung der Schallgeschwindigkeit durch Vermessen einer stehenden Welle}{9}
+\contentsline {subsection}{\numberline {2.1}Versuchsbeschreibung}{9}
+\contentsline {subsection}{\numberline {2.2}Versuchsaufbau und Durchf\IeC {\"u}hrung}{9}
+\contentsline {subsection}{\numberline {2.3}Versuchsauswertung}{11}
+\contentsline {subsubsection}{\numberline {2.3.1}Rohdaten}{11}
+\contentsline {subsubsection}{\numberline {2.3.2}Transformation der Rohdaten}{11}
+\contentsline {subsection}{\numberline {2.4}Fazit}{12}
+\contentsline {section}{\numberline {3}Vermessung der Schallgeschwindigkeit durch Variation der Frequenz}{12}
+\contentsline {subsection}{\numberline {3.1}Versuchsberschreibung}{12}
+\contentsline {subsection}{\numberline {3.2}Versuchsaufbau und Durchf\IeC {\"u}hrung}{13}
+\contentsline {subsection}{\numberline {3.3}Versuchsauswertung}{16}
+\contentsline {subsubsection}{\numberline {3.3.1}Rohdaten}{16}
+\contentsline {subsubsection}{\numberline {3.3.2}Transformation der Rohdaten}{16}
+\contentsline {subsection}{\numberline {3.4}Fazit}{18}
+\contentsline {section}{\numberline {4}Schallgeschwindigkeit in Festk\IeC {\"o}rpern}{19}
+\contentsline {subsection}{\numberline {4.1}Versuchsbeschreibung}{19}
+\contentsline {subsection}{\numberline {4.2}Versuchsaufbau und Durchf\IeC {\"u}hrung}{19}
+\contentsline {subsubsection}{\numberline {4.2.1}Messwerterfassungseinstellungen}{20}
+\contentsline {subsubsection}{\numberline {4.2.2}Ger\IeC {\"a}te\IeC {\"u}bersicht}{20}
+\contentsline {subsection}{\numberline {4.3}Versuchsauswertung}{21}
+\contentsline {subsubsection}{\numberline {4.3.1}Rohdaten}{21}
+\contentsline {subsubsection}{\numberline {4.3.2}Transformation der Rohdaten und Analyse}{22}
+\contentsline {subsubsection}{\numberline {4.3.3}Fazit}{23}
+\contentsline {section}{\numberline {5}Stimmen der Gitarre \IeC {\"u}ber Schwebung}{24}
+\contentsline {subsection}{\numberline {5.1}Versuchsbeschreibung}{24}
+\contentsline {subsection}{\numberline {5.2}Versuchsaufbau und Durchf\IeC {\"u}hrung}{24}
+\contentsline {section}{\numberline {6}Bestimmung der Materialeigenschaften der Saiten}{27}
+\contentsline {subsection}{\numberline {6.1}Versuchsbeschreibung}{27}
+\contentsline {subsection}{\numberline {6.2}Versuchsaufbau und Durchf\IeC {\"u}hrung}{27}
+\contentsline {subsection}{\numberline {6.3}Versuchsauswertung}{28}
+\contentsline {subsubsection}{\numberline {6.3.1}Rohdaten}{28}
+\contentsline {subsubsection}{\numberline {6.3.2}Transformation der Rohdaten}{29}
+\contentsline {subsubsection}{\numberline {6.3.3}Fazit}{30}
+\contentsline {section}{\numberline {7}Aufnahme eines Frequenzspektrums}{30}
+\contentsline {subsection}{\numberline {7.1}Versuchsbeschreibung}{30}
+\contentsline {subsection}{\numberline {7.2}Versuchsaufbau und Durchf\IeC {\"u}hrung}{31}
+\contentsline {subsection}{\numberline {7.3}Fazit}{32}

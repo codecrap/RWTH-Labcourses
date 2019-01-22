@@ -1,0 +1,4 @@
+rausch_1_sig
+Gruppe 1
+Mittelwert druck 981.33075 Fehler auf die einzel druck 0.373227929078
+Mittelwert T 297.215822542 Fehler auf die einzel T 0.105494676911

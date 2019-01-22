@@ -1,0 +1,38 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\author{Erik Zimmermann}
+\begin{document}
+\section{Fourier Reihe}
+\begin{itemize}
+\item diskret: 
+\begin{equation}
+ f(t)=A_0+\sum^{\infty}_{k=0}(A_k cos(\omega_kt)+B_k sin (\omega_kt))
+\end{equation}
+\end{itemize}
+\hspace{1,0cm} mit $\frac{\omega_k=2\pi k}{T}$
+\begin{align}
+A_0&=\frac{1}{T}\int^{\frac{T}{2}}_{-\frac{T}{2}}f(t)dt\notag \\
+A_k&=\frac{2}{T}\int^{\frac{T}{2}}_{-\frac{T}{2}}f(t)*cos(\omega_kt)dt\notag \\
+B_k&=\frac{2}{T}\int^{\frac{T}{2}}_{-\frac{T}{2}}f(t)*sin(\omega_kt)dt\notag
+\end{align}
+$A_k=0$, falls $f(t)$ ungerade; $B_k=0$, falls $f(t)$ ungerade
+\section{Fouriertransformation}
+\begin{itemize}
+\item Fouriertransformation zur Frequenzbestimmung:
+\begin{equation}
+f(\omega)=\frac{1}{\sqrt{2\pi}}\int^{\infty}_{-\infty}{e^{-it\omega}f(t)dt}\
+\end{equation}
+\item Rücktransformation:
+\begin{equation}
+f(t)=\frac{1}{\sqrt{2\pi}}\int^{\infty}_{-\infty}{e^{it\omega}f(\omega)dt}
+\end{equation}
+\item in Python mit FFT schnell lösbar, notfalls ablesen
+\end{itemize}
+\end{document}

@@ -1,0 +1,34 @@
+1 Ohm:
+1 : Spannungsmessung T = 0,00064 s, f = 1570,68 Hz, 9 1563
+    Strom T = 0,00064 s,  f = 1570,68 Hz, 6 1563
+2 : Spannungsmessung T = 0,00057 s, f = 1761,25 Hz, 9 1547
+    Strom T = 0,00066s, f = 1519,76 Hz, 5 1529
+3 : Spannungsmessung T = 0,00063 s, f = 1581,72, 9 1577
+    Strom T = 0,00065 s, f = 1547,99 Hz, 5 1559
+
+5 Ohm:
+1 : Spannungsmessung T = 0,00064 s, f = 1570,68 Hz, 3 1647
+    Strom T = 0,00067 s, f = 1503, 76 Hz, 2 1558
+2 : Spannungsmessung T = 0,00067 s, f = 1503,76 Hz, 3 1689
+    Strom T = 0,00067 s, f = 1503,76 Hz, 2 1546
+3 : Spannungsmessung T = 0,00067 s, f = 1503, 76 Hz, 2 1639
+    Strom T = 0,00065 s, f = 1538,46 Hz, 2 1545
+
+10 Ohm:
+1 : Spannungsmessung T = 0,00064 s, f = 1562,5 Hz, 2 1672
+    Strom T = 0,00081 s, f = 1234,57 Hz, 1 1566
+2 : Spannungsmessung T = 0,00068 s, f = 1476, 02 Hz, 4 1625
+    Strom T = 0,00068 s, f = 1470,59 Hz, 1 1509
+3 : Spannungsmessung T = 0,00067 s, f = 1503, 76 Hz, 2 1612
+    Strom T = 0,00065 s, f = 1538, 46 Hz, 2 1501
+
+15 Ohm:
+1 : Spannungsmessung T = 0,00072 s, f = 1388,89 Hz, 1 1673
+    Strom T = 0,00092 s, f = 1086,96 Hz, 1 1467
+2 : Spannungsmessung T = 0,00071 s, f = 1408,45 Hz, 1 1669
+    Strom T = 0,00075 s, f = 1333,33 Hz, 1 1505
+3 : Spannungsmessung T = 0,00075 s, f = 1333,33 Hz, 2 1639
+    Strom T = 0,00095 s, f = 1052,63 Hz, 1 1532
+
+43 Ohm:
+nur Bullshit bro

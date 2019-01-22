@@ -1,0 +1,291 @@
+\documentclass[11pt]{beamer}
+\usetheme{Antibes}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\author{Gruppe C14 \\ Julián Häck, Martin Koytek, Lars Wenning, \textbf{Erik Zimmermann}}
+\usepackage{float}
+\title{Mechanik}
+\usepackage{multicol}
+%\setbeamercovered{transparent} 
+%\setbeamertemplate{navigation symbols}{} 
+%\logo{} 
+%\institute{} 
+%\date{} 
+%\subject{} 
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Inhaltsverzeichnis}
+\tableofcontents
+\end{frame}
+
+\section{Bestimmung der Erdbeschleunigung mit dem Pendel}
+\subsection{Versuchsbeschreibung}
+\begin{frame}{Versuchsbeschreibung}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.06]{Bilder/Einzelpendel.jpg}
+\caption{Versuchsaufbau mit Pendelkörper}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Versuchsbeschreibung}
+\begin{multicols}{2}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.08]{Bilder/skizze_pendel_bearbeitet.png}
+\end{figure}
+\columnbreak
+Mit
+\begin{equation*}
+\omega^2=\frac{D}{J}=\frac{m_p \cdot g \cdot l_p}{\frac{1}{2}m_p r_p^2+m_pl_p^2}
+\end{equation*}
+ergibt sich:
+\begin{equation*}
+g=\omega^2 l_p (1+\frac{r_p^2}{2 l_p^2}) 
+\label{g}
+\end{equation*} 
+\end{multicols}
+\end{frame}
+
+\subsection{Rohdaten}
+\begin{frame}{Rohdaten}
+\begin{multicols}{2}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.08]{Bilder/skizze_pendel_bearbeitet.png}
+\end{figure}
+\columnbreak
+\begin{center}
+\begin{tabular}{c|c|c}
+ & Gruppe 1 & Gruppe 2 \\ 
+\hline
+Masse & 1.0207kg & 1.0217kg \\ 
+$\sigma_{Masse}$ & 0.001kg & 0.001kg \\ 
+D & 0.08m & 0.084m \\ 
+$\Rightarrow$ Radius & 0.04m & 0.042m \\ 
+$\sigma_{Schieblehre}$ & 0.0005m & 0.0005m \\ 
+$l_p$ & 0.6788m & 0.689m \\ 
+$\sigma_{l_p}$ & 0.005m & 0.005m \\ 
+\hline
+ & &  \\
+$f_{ohne}$ [FFT] & 0.6039Hz & 0.6030Hz \\ 
+$f_{mit}$ [FFT] & 0.6032Hz & 0.6011Hz \\ 
+\end{tabular} 
+\end{center}
+\end{multicols}
+\end{frame}
+
+\subsection{Transformation der Rohdaten}
+\begin{frame}{Transformation der Rohdaten}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.3]{Bilder/Erdbeschleunigung_bestimmungF.png}
+\end{figure}
+Hier:
+\begin{equation*}
+t_a=1.29s, \hspace{1cm} t_e=157.69s, \hspace{1cm} n=94, \hspace{1cm} \sigma_t=\frac{0.01}{\sqrt{12}}s
+\end{equation*}
+\end{frame}
+
+\begin{frame}{Transformation der Rohdaten}
+\begin{equation*}
+\omega=\frac{2\pi n}{t_e-t_a}
+\end{equation*}
+\begin{equation*}
+\sigma_{\omega}=\frac{2\cdot \pi \sqrt{2}\cdot n \cdot \sigma_t}{(t_e-t_a)^2}
+\end{equation*}
+\begin{equation*}
+g=\omega^2 l_p (1+\frac{r_p^2}{2 l_p^2}) 
+\end{equation*}
+\begin{equation*}
+\sigma_g=\sqrt{(2\omega l_p (1+\frac{r_p^2}{2 l_p^2}))^2 \cdot \sigma_{\omega}^2+(\omega^2 \cdot \frac{r_p}{l_p})^2 \cdot \sigma_r^2+(\omega^2(1-\frac{r_p^2}{2 l_p^2}))^2 \cdot \sigma_l^2} 
+\end{equation*}
+\end{frame}
+
+\subsection{Ergebnisse}
+\begin{frame}{Ergebnisse}
+\begin{figure}[H]\centering
+\begin{tabular}{c|c|c|c|c}
+Messung: & 1. & 2. & 3. & 4. \\ 
+g: Gruppe 1 & 9.766 & 9.766 & 9.770 & / \\ 
+$\sigma_g$: Gruppe 1 & 0.071 & 0.072 & 0.072 & / \\ 
+g: Gruppe 2 & 9.838 & 9.839 & 9.842 & 9.845 \\ 
+$\sigma_g$: Gruppe 2 & 0.071 & 0.071 & 0.071 & 0.071 \\ 
+\end{tabular} 
+\newline
+\newline
+\end{figure}
+gewichtet Gemittelt:
+\begin{center}
+\begin{tabular}{c|c|c}
+ & Gruppe 1 & Gruppe 2 \\ 
+\hline 
+$\bar{g}$ & 9.767 & 9.841 \\ 
+$\sigma_{\bar{g}}$ & 0.041 & 0.036 \\ 
+\end{tabular} 
+\newline
+\newline
+Angaben in $\frac{m}{s^2}$
+\end{center}
+\end{frame}
+
+\subsection{Fazit}
+\begin{frame}{Fazit}
+\begin{figure}[H]
+\includegraphics[scale=0.25]{Bilder/Erdbeschleunigung_alle_besserer_fehler.png}
+\end{figure}
+\end{frame}
+
+
+\section{Gekoppelte Pendel}
+\subsection{Versuchsbeschreibung}
+\begin{frame}{Versuchsbeschreibung}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.065]{Bilder/gekoppelt.jpg}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{Bilder/Gekoppeltes-Pendel.PNG}
+\end{figure}
+\begin{align*}
+\kappa =\frac{D_F l_F^2}{mgl_s + D_F l_F^2}= \frac{\omega_{sf}^2-\omega_{s}^2}{\omega_{sf}^2+\omega_s^2}
+\end{align*}
+\begin{align*}
+\frac{1}{\kappa}=1+\frac{ml_sg}{D_F}\cdot \frac{1}{l_F^2}
+\end{align*}
+\end{frame}
+
+\subsection{Rohdaten}
+\begin{frame}{Schwebung}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{Bilder/Schwebung.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{gegensinnige Auslenkung}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{Bilder/Gegensinnig.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{gleichsinninge Auslenkung}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{Bilder/Gleichsinnig.png}
+\end{figure}
+\end{frame}
+
+\subsection{Transformation der Rohdaten}
+\begin{frame}{Bestimmung von $\omega_{sF} $ und $ \omega_s$ mittels FFT.}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.3]{Bilder/FFT-Schwebung.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Fehlerabschätzung der FFT}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.3]{Bilder/fft_Fehlermessung.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{Bilder/Bestimmung_D_linreg.eps}
+\end{figure}
+
+\begin{equation*}
+a=1.431, \hspace{1cm} b=1.182, \hspace{1cm} \frac{\chi^2}{f}=0.31 
+\end{equation*}
+
+\end{frame}
+\subsection{Analyse}
+\begin{frame}{Analyse}
+Die gesuchte Federkonstante D ergibt sich dann aus:
+\begin{align*}
+D=m \cdot l_s \cdot \frac{g}{a}\\
+\sigma_D=m \cdot \sqrt{(g\cdot \frac{\sigma_{l_s}}{a})^2+(g\cdot l_s \cdot \frac{\sigma_a}{a^2})^2+(l_s \cdot \frac{\sigma_g}{a})^2}
+\end{align*}
+\begin{table}[H]\centering
+\begin{tabular}{c|c}
+Gruppe 1 & Gruppe 2\\ 
+\hline
+$D=4.9636\frac{1}{m}$& $D=4.8491 \frac{1}{m}$\\ 
+$\sigma_D=0.1622 \frac{1}{m}$& $\sigma_D=0.0609 \frac{1}{m}$\\
+\end{tabular} 
+\end{table}
+\end{frame}
+
+\begin{frame}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{Bilder/Bestimmung_D_Residuen.eps}
+\end{figure}
+\end{frame}
+
+\section{Bestimmung der Federkonstante durch Hook}
+\begin{frame}{Hook $m \cdot g = -D_F \cdot x$}
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.3]{Bilder/Hook_linreg.eps}
+\end{figure}
+
+\begin{table}[H]\centering
+\begin{tabular}{c|c}
+Gruppe 1 & Gruppe 2\\ 
+\hline
+$D=5.2671 \frac{1}{m}$& $D=5.219 \frac{1}{m}$\\ 
+$\sigma_D=0.102 \frac{1}{m}$& $\sigma_D=0.0246 \frac{1}{m}$\\
+\end{tabular} 
+\end{table}
+\end{frame}
+
+\section{Fazit}
+\begin{frame}{Fazit}
+\begin{multicols}{2}
+\begin{table}[H]\centering
+\caption{Doppelpendel}
+\begin{tabular}{c|c}
+Gruppe 1 & Gruppe 2\\ 
+\hline
+$D=4.9636$& $D=4.8491 $\\ 
+$\sigma_D=0.1622 $& $\sigma_D=0.0609 $\\
+\end{tabular} 
+\end{table}
+\columnbreak
+\begin{table}[H]\centering
+\caption{Hook}
+\begin{tabular}{c|c}
+Gruppe 1 & Gruppe 2\\ 
+\hline
+$D=5.2671 $& $D=5.219 $\\ 
+$\sigma_D=0.102 $& $\sigma_D=0.0246 $\\
+\end{tabular} 
+\end{table}
+\end{multicols}
+Angaben in $\frac{1}{m}$
+\end{frame}
+
+
+\end{document}

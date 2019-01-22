@@ -1,0 +1,3 @@
+\begin{itemize}
+\item das was du da haben willst $U=R\cdot I$
+\end{itemize}

@@ -1,0 +1,270 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[ngerman]{babel}
+%ä und so
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsbsy}
+
+\usepackage{mathrsfs}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{esdiff}
+\usepackage{hyperref}
+\usepackage{geometry}
+
+\geometry{top = 20mm, bottom = 20 mm, left = 25mm, right = 25mm}
+
+\begin{document}
+\title{Atomphysik}
+\author{Gruppe B14 \\ \\ Daniel Wendland \\ Philipp Bremer \\ Olexiy Fedorets \\ Jonathan Hermann}
+\date{\today}
+\maketitle
+
+\newpage
+
+\tableofcontents
+\newpage
+
+
+\section{Einleitung}
+In diesem Versuch soll durch Vermessung der sogenannten Wärmestrahlung eines Lesliewürfels das Stefan-Boltzmann-Gesetz überprüft werden.
+\newline
+$P=\epsilon \sigma T^4$
+\newline
+Des weiteren soll herausgefunden werden welche Seite am ehesten einem schwarzen Strahler entspricht, dazu werden zunächst die Theorie und der Aufbau des Experiments betrachtet und dann auf die Auswertung eingegangen.
+
+\section{Theorie}
+Ein schwarzer Körper zeichnet sich dadurch aus, dass er jede Strahlung komplett absorbiert, also ist sein Absorptionskoeffizient $\alpha=1$ . Aus dem Kirchhoffschen Gesetz $\frac{E_{\lambda}(\lambda,T)}{\alpha_{\lambda}(\lambda,T)}=f(\lambda,T)$. Mit dem Absorptionskoeffizient für schwarze Körper gilt also $E_{\lambda,s}(\lambda,T)=f(\lambda,T)$ stellt man nun das Emissionsvermögen eines grauen Körper durch das Produkt aus Emissionskoeffizient und Emissionsvermögen eines schwarzen Körpers dar, also $E_{\lambda}(\lambda,T)=\epsilon_{\lambda}(\lambda, T) \cdot E_{\lambda,s}(\lambda,T)$. So folgt sofort $\frac{\alpha_{\lambda}(\lambda, T)}{\epsilon_{\lambda}(\lambda, T)}=1$. Dieser Zusammenhang erlaubt es Aussagen über Ähnlichkeiten zu schwarzen Körpern zu treffen in dem nur der Emissionskoeffizient betrachtet wird.
+
+Nach Max Planck gilt für das Emissionsvermögen, in den Halbraum, eines schwarzen Strahlers das Plancksche Strahlungsgesetz:
+\newline
+$E_{\lambda,s}= 2 \cdot \pi \cdot \frac{h \cdot c^2}{\lambda^5} \cdot \frac{1}{e^{\frac{h\cdot c}{\lambda \cdot k \cdot T}}-1}$
+\newline
+Dabei bezeichnet $T$ die Temperatur des Körpers und k ist die Boltzmann-konstante: $k=1,3806488 \cdot 10^{-23}\frac{J}{K}$. Betrachtet man nun die Einheit des Emissionsvermögens fällt auf das gilt $[E_{\lambda,s}]=\frac{W}{m^3}$ demnach ist das Emissionsvermögen eine Leistungsdichte.
+\newline
+Aus dem Plankschen Strahlungsgesetz lässt sich zweierlei folgern, erstens durch null setzen der Ableitung nach $\lambda$, also lösen des Extremwertproblems, ergibt sich das Wiensche-verschiebungsgesetz:
+\newline
+$\lambda_{max} \cdot T=b=const.=2898 \mu m K$
+\newline 
+Des weiteren folgt durch Integration über alle Wellenlängen, oder alternativ über die Frequenzen, das Stefan-Boltzmann-Gesetz. Dies ist für graue Körper, 
+\newline
+$E_s(T)=\epsilon \cdot \sigma \cdot T^4 \; \; \; \; mit\; \; \;   \sigma = \frac{2 \pi^5 \cdot k^4}{15 \cdot h^3 \cdot c^2}= 5.670373 \cdot 10^{-8} \frac{W}{m^2K^4}$
+\newline
+\newline
+Das Stefan-Boltzmann-Gesetz gilt mit $\epsilon=1$, also idealem Emissionsfaktor, auch für schwarze Körper.
+Da unsere Messung mit der Thermosäule nach Moll durchgeführt wird, werden nur Leistungsdifferenzen gemessen. Deswegen ist also $E_s(T)=\epsilon \cdot \sigma \cdot( T^4-T_0^4) $ zu betrachten mit $T_0$ als Raumtemperatur.
+\newline
+Aufgrund der Integration über $\lambda$ gilt jetzt $[E_s(T)]=\frac{W}{m^2}$, daraus folgt das
+\newline
+$P_{ideal}= A_{sender}\cdot \frac{A_{empf.}}{r^2} \cdot \frac{\sigma}{\pi} \cdot (T_{messung}^4-T_0^4)$
+\newline
+Dabei bezeichnet $A_{sender}$ die betrachtete Fläche des Strahlers, und
+\newline 
+$\frac{A_{empf.}}{r^2} \cdot \frac{1}{\pi}$ den Anteil des Raumwinkel, den der Empfänger einnimmt, am gesamten Halbraum.
+\newline
+Um nun Aussagen über den Emissionskoeffizienten zu treffen betrachten wir in diesem Versuch den Quotient 
+\newline
+$ \frac{U_{gemessen} \cdot v}{const.}\cdot \frac{1}{A_{sender}\cdot \frac{A_{empf.}}{r^2} \cdot \frac{\sigma}{\pi} \cdot (T_{messung}^4-T_0^4)}=\frac{P_{gemessen}}{P_{ideal}}=\frac{\epsilon \cdot \sigma\cdot T^4}{\sigma \cdot T^4}=\epsilon$
+\newline
+Dabei gelten die Einzelformeln links für den von uns betrachteten Bereich und die Formeln rechts für die gesamte Leistung, da jedoch Quotienten behandelt werden sind die Ausdrücke dennoch äquivalent.
+Hier bezeichnet const. den Umrechnungsfaktor jeder Thermosäule, und $v$ den Verstärkungsfaktor $v=10 ^{-4}$
+
+
+\section{Versuchsaufbau}
+Der Aufbau des Versuchs besteht aus einem mit Wasser gefülltem Leslie Würfel, welcher auf einer Heizplatte erhitzt wird. Der Würfel hat vier Seiten welche alle unterschiedlich beschichtet sind. Es gibt eine verspiegelte, eine weiße, eine schwarze und eine mit Messing beschichtete Seite. In dem Lesliewürfel befindet sich ein Rührfisch, welcher von einem Magneten in der Heizplatte rotiert wird, um das warme Wasser zu verteilen und um damit eine gleichmäßige Erwärmung zu gewährleisten. Durch Löcher im Deckel des Würfels werden zwei Thermometer gesteckt. Das erste Thermometer liefert die Temperatur an die Heizplatte, welche grob die Temperatur des Würfels auf den eingestellten Wert bringen bzw. halten kann. Das zweite Thermometer liefert die Temperatur an die Temperaturbox des Cassys um eine genaue Temperaturmessung des Würfels zu realisieren. Vorallem bei dem zweiten Thermometer wurde darauf geachtet, dass dieses weder den Boden noch die Wände des Würfels berührt um die genaue Temperatur des Wassers zu bstimmen.
+Vor dem Würfel befindet sich außerdem eine Thermosäule nach Moll. Bei dieser wurde vorher das Schutzglas entfernt und ein Schutzrohr befestigt.
+Die Thermosäule wird mit wenigen Zentimetern Abstand vor einer Seite des Würfels fest eingespannt. Als grobe Orientiereung des Abstandes diehnt die Dicke einer Schaumstoffmatte, welche zwischen den Versuchen ebenfalls als Abschirmung der Wärmestrahlung des Würfels genutzt wird, damit sich die Thermosäule nicht über die Raumtemparatur aufheizt. Damit dies nicht geschieht wird die Säule außerdem so wenig wie möglich angefasst um sie nicht mit der Körperwärme zu erwärmen.
+Die Thermosäule liefert zunächst eine Spannung an einen Messverstärker, welcher das Spannungssignal mit einem Faktor von $10^4$ verstärkt und die Spannung dann weiter an das Sensorcassy gibt.
+Temperatur im Würfel sowie die Spannung der Thermosäule können nun durch das Cassy ermittelt werden.\newline
+\begin{figure}[H]
+
+	\hskip -2 cm
+	\includegraphics[trim = 0mm 0mm 0mm 0mm,clip, width=20cm]{Bilder/WhatsApp_Image_2017_09_11_at_16_41_371.jpeg}%
+	\caption[Versuchsaufbau]{Versuchsaufbau}%
+	\label{pic:Abbildung 2}%
+
+\end{figure}
+
+\section{Versuchsdurchführung}
+Die Thermosäule misst die Differenz der einfallenden Strahlungsleistung vom Würfel, zur Strahlungsleistung durch die Umgebungstemperatur. Diese wird dann bis auf einen Konstanten Faktor, welcher für beide Gruppen unterschiedlich ist, als Spannungssignal ans Cassy wietergeleitet.
+Um zu gewährleisten, dass das Spannungssignal wirklich die Leistung der Umgebungstemperatur als Referenzpunkt hat, wird die Säule auf eine Wand gerichtet und das Spannungssignal durch Offseteinstellungen am Spannungsverstärker auf $0V$ gesetzt. \newline
+\begin{center}
+$P_{gemessen}=\frac{U_{gemessen} \cdot v}{c}$
+\;\;\;\;\;\;\;\;\;\;
+$P_{theoretisch}=A_e \frac{\Omega}{\pi} \epsilon \sigma (T^4-T_0^4)$
+\end{center}
+Wobei $v$ der Verstärkungsvorfaktor von $V=10^{-4}$ darstellt. Die Konstante $c$ beträgt:
+\newline
+\begin{center}
+\begin{tabular}{|c|c|c|}
+
+
+
+\hline          &Seriennummer der Thermosäule & Empfindlichkeit \\
+\hline Gruppe 1 & 120631 &$c_1=(0.160 \pm   0.0048)\frac{V}{W} $ \\
+\hline Gruppe 2 &130815  &$c_2=(0.221 \pm   0.0066)\frac{V}{W} $     \\
+\hline
+
+\end{tabular}\newline
+\end{center}
+
+Weiterhin wird eine Rauschmessung der Umgebungstemparatur sowie von Eiswasser und später siedendem Wasser durchgeführt. Die Rauschmessung der Umgebungstemperatur wird am Ende der folgenden Versuchsreihe wiederholt um sicher zu gehen, dass die Umgebungstemperatur konstant geblieben ist.
+Die Messungen bei $0^\circ$ bzw $100^\circ$ werden zur Temperaturkalibrierung des Thermometers benötigt.
+Zu Beginn der Versuchsreihe wird der Würfel auf $50^\circ$ aufgeheizt. Nun wird für jede Seite des Würfels eine Messung von ca 6 Sekunden durchgeführt, welche 125 Messwerte für Temperatur im Würfel und Spannung an der Thermosäule aufnimmt.
+Wurde dies für alle 4 verschiedenen Seiten durchgeführt, erhitzt man den Würfel um $5^\circ$ und wiederholt die 4 Messungen. Dieser Vorgang wird bis zur einer Endtemperatur von $95^\circ$ wiederholt.
+Die genauen Einstellungen bei den Messungen im Cassy sind:
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline Messintervall & Messungsanzahl & Messzeit & Spannungsmessbereich \\
+\hline $50ms$& 125& $6.25s$& $-10V$ bis $10 V$ \\
+\hline
+\end{tabular}
+\end{center}
+Der Spannungsmessbereich wurde nur bei der Gruppe 2 bei der schwarzen und weißen Seite des Würfels ab $70^\circ$ auf $-30V$ bis $30 V$ erhöht, wobei für $70^\circ$ und $75^\circ$ beide Bereichswerte gemessen wurden um zu überprüfen welche Auswirkung die Änderung des Spannungsmessbereich auf die Werte hat. Dazu mehr in der Auswertung.
+
+\section{Auswertung}
+Zunächst wurde die Kalibrierung der Temperatur durchgeführt. Aus den beiden Rauschmessungen erhalten wir folgende Mittelwerte:
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline Gruppe1 & $T_{100^\circ}= (371.08 \pm 0.07)  K$ & $T_{0^\circ}=  (274.45 \pm 0.010) K$\\
+\hline Gruppe2 & $T_{100^\circ}=  (370.936 \pm 0.0126) K$ & $T_{0^\circ}=(274.672 \pm 0.051)   K$\\
+\hline
+\end{tabular}
+\end{center}
+Um die realen Temperaturen aus dem gemessen zu berechnen definieren wir:\newline
+
+\begin{align*}
+T_{real}&=m \cdot T_{gemessen}+b & \\
+m&=\frac{273.15K}{T_{100^\circ}-T_{0^\circ}}&\\
+b&=273.15K-m \cdot T_{100^\circ}&
+\end{align*}
+
+Mit dieser Formel wurden nun alle Messerte der anderen Messungen kalibriert und die Auswertung mit $T_{real}$ weitergeführt.
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline Gruppe1 & $m= 1.035$ & $b=-10.89 K$\\
+\hline Gruppe2 & $m= 1.039 $ & $b= -12.181 K$\\
+\hline
+\end{tabular}
+\end{center}
+Die kalibrierten Werte für $T_0$ sind:
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline Gruppe 1& Gruppe 2\\
+\hline $T_0= (297.50 \pm 0.05) K$ & $T_0= (297.44 \pm 0.06)   K$\\
+\hline
+
+\end{tabular}
+\end{center}
+
+Nun wird eine lineare Regression von der Spannung $U$ über $T^4-T_0^4$ für jeder Seite beider Würfel durchgeführt.
+\begin{center}
+$U=a\cdot (T^4-T_0^4)+b$
+\end{center} 
+Dafür werden Mittelwerte und Standartabweichung von $U,T$ und $T_0$ aus den 125 kalibrierten Messwerten jeder Messung berechnet und für die lineare Regression verwendet.
+Da wir also Fehler auf die y und x Werte haben, benutzen wir die zur verfügung gestellte Praktikumsroutine lineare\_regression\_xy. 
+Die Fehler auf die x Werte berechnen sich wie folgt:
+
+\begin{center}
+$ x=T^4-T_0^4$ \;\;\;\;\;\;\;\;$ \sigma_x = \sqrt{(4 \cdot T^3 \cdot\sigma_T)^2+(4\cdot T_0\cdot \sigma_{T_0})^2} $
+\end{center}
+
+Aus der linearen Regression bekommen wir Werte und Fehlern für $a$ und $b$ für jede Seite.
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline Seite & Gruppe 1& Gruppe 2 \\
+\hline Schwarz& $a=( 0.895\pm 0.008)\cdot 10^{-9}\frac{V}{K^4} $ &  $a=( 1.373\pm 0.017 )\cdot 10^{-9}\frac{V}{K^4}$\\
+         $ $  & $b=(-0.21 \pm 0.06)V $ &  $b=( 0.03\pm 0.11)V $\\
+$ $  & $\frac{\chi^2}{ndof}=126$ &  $\frac{\chi^2}{ndof}=317$\\
+\hline Weiß& $a=( 0.856\pm 0.006)\cdot 10^{-9}\frac{V}{K^4} $ &  $a=(1.318 \pm 0.023)\cdot 10^{-9}\frac{V}{K^4}$\\
+     $ $       & $b=(-0.06 \pm 0.04)V $ &  $b=(0.15\pm 0.15)V $\\
+$ $  & $\frac{\chi^2}{ndof}=78$ &  $\frac{\chi^2}{ndof}=525$\\
+\hline Messing& $a=(0.062 \pm 0.005)\cdot 10^{-9}\frac{V}{K^4} $ &  $a=( 0.097\pm 0.003)\cdot 10^{-9}\frac{V}{K^4}$\\
+     $ $       & $b=(0.05 \pm 0.03)V $ &  $b=(0.149 \pm 0.023)V $\\
+$ $  & $\frac{\chi^2}{ndof}=2714$ &  $\frac{\chi^2}{ndof}=2626$\\
+\hline Spiegel& $a=(0.0396 \pm 0.0018)\cdot 10^{-9}\frac{V}{K^4} $ &  $a=(0.061\pm 0.003 )\cdot 10^{-9}\frac{V}{K^4}$\\
+     $ $       & $b=(0.105 \pm 0.011)V $ &  $b=(0.132 \pm 0.025 )V $\\
+$ $  & $\frac{\chi^2}{ndof}=842$ &  $\frac{\chi^2}{ndof}=5190$\\
+           
+
+\hline  
+
+\end{tabular}
+\end{center} 
+
+Wir können mit den im Theorieteil hergelittenen Formeln nun die Emissionskoefizienten einer Seite leicht aus der Steigung bestimmen.
+\begin{center}
+$\epsilon=a \cdot \frac{v r^2 \pi }{A_sA_e \sigma c}$
+\end{center}
+Die Fehler auf den Emissionskoeffizient ergeben sich aus:
+\begin{center}
+$\sigma_{\epsilon ,stat}=\frac{v r^2 \pi}{A_s A_e \sigma c}\cdot  \sigma_a \;\;\;\;\;\;\;\; \sigma_{\epsilon ,sys}=\frac{a v r^2 \pi}{A_sA_e \sigma \cdot c^2}\cdot \sigma_c$
+\end{center}
+Daraus berechnen sich die folgenden Ergebnisse($\epsilon= \pm \sigma_{stat}\pm \sigma_{sys} $):
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline Seite & Gruppe 1& Gruppe 2 \\
+\hline Schwarz& $\epsilon=0.905 \pm 0.008\pm 0.027$ &  $\epsilon=1.004 \pm  0.012 \pm 0.03 $\\
+\hline Weiß & $\epsilon=0.865 \pm 0.006\pm 0.03$ & $\epsilon= 0.964\pm 0.016 \pm 0.029$\\
+\hline Messing & $\epsilon=0.0627 \pm 0.0048\pm 0.0019$ & $\epsilon=0.0706 \pm 0.0023\pm 0.0021$\\
+\hline Spiegel & $\epsilon=0.0400 \pm 0.0018\pm 0.0012$ & $\epsilon=0.0449 \pm 0.0024\pm 0.0013$\\
+\hline  
+
+\end{tabular}
+\end{center}
+
+Um die Ergebnisse der beiden Gruppen besser vergleichen zu können werden die Quotienten der Emissionskoeffizienten zur jeweiligen schwarzen Seite gebildet.
+\begin{center}
+$ rel=\frac{\epsilon_i}{\epsilon_{Schwarz}} \;\; \; \; \; 
+ \sigma_{rel}=\sqrt{(\frac{\epsilon_i}{\epsilon_{Schwarz}^2}\cdot \sigma_{\epsilon,Schwarz})^2+(\frac{1}{\epsilon_{Schwarz}}\cdot\sigma_{\epsilon,i})^2}$
+\end{center}
+Daraus folgen folgende Relativwerte:
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline Relativwerte zu Schwarz von & Gruppe 1& Gruppe 2\\
+\hline Weiß & $rel=0.956 \pm 0.011 \pm 0.041 $ & $rel=0.960 \pm 0.02\pm 0.04$\\
+\hline Messing & $rel=0.069 \pm 0.009 \pm 0.030$ & $rel= 0.070\pm 0.012 \pm 0.030$\\
+\hline Spiegel & $rel=0.044 \pm 0.009 \pm 0.030$ & $rel= 0.045\pm 0.012 \pm 0.030$\\
+\hline  
+
+\end{tabular}
+\end{center}
+
+Zum Schluss wird noch ein weiterer Fit gemacht, in dem die 4rer Potenz in dem Stefan-Boltzmann Gesetz weiter überprüft werden soll.
+Dafür fitten wir $U$ an $T^{p_2}$ mit den Fitparametern $p_0,p_1 und p_2$.
+\begin{center}
+$ U=p_0+p_1\cdot T^{p_2}$
+\end{center}
+Hierbei ist die Referenz zu $T_0$ in dem Parameter $p_0$ einbezogen.
+Für den Fit benutzen wir die Funktion scipy.optimize.curvefit, welche ohne Fehler arbeitet.
+Wobei die Anfangswerte zu $p_0$ und $p_1$ aus den vorher bestimmten Steigungen und Achsenabschnitte der linearen Regressionen gewählt wurden.
+\begin{center}
+$p_0=b-a\cdot T^4$ \;\;\;\;\;\;\; $p_1=a$
+\end{center}
+
+Bei dieser Auswertung konvergieren nur zwei Anpassungen. Bei der ersten Gruppe konvergieren die Werte der weißen Seite und bei der zweiten Gruppe die der Messing-Seite.
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline $ U=p_0+p_1\cdot T^{p_2}$& $p_0$& $p_1$ & $p_2$\\
+\hline Gruppe1/Weiß & $(-7.0 \pm 1.5)V $ & $ (1.5 \pm 4.4  )\cdot 10^{-9}\frac{V}{K^4}$  & $ 3.9\pm 0.5 $ \\
+\hline Gruppe2/Messing &  $(-0.7 \pm 0.7)V $ & $ (0.4 \pm 4.3  )\cdot 10^{-9}\frac{V}{K^4}$  & $ 3.8\pm 1.9 $  \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Fazit}
+Zunächst einmal ist auffällig, dass die $\frac{\chi^2}{ndof}$ bei den linearen Regressionen sehr groß sind. Außerdem sind die Werte für die Emmisionskoefizienten unrealistisch, da z.B. der Wert der zweiten Gruppe für die schwarze Seite über 1 und damit unphysikalisch. Sowie erwarten wir bei der weißen Seite dieser Gruppe eine nicht ganz so nah an 1 liegenden Wert.
+Dies Auffälligkeiten könnten durch nicht berücksichtigte Fehler entsdanden sein. Jedoch ist wahrscheinlich, dass die Empfindlichkeitsangaben der Thermosäule nicht sehr präzise sind. Denn diese Konstante fällt raus wenn wir uns die relativen Emissionskoeffizienten zur schwarzen Seite anschauen, da diese eine Abweichung von unter einer Standartabweichung haben.
+Somit können wir festhalten, dass die diskrete Bestimmung der Emissionskoeffizienten aufgrund ungenauen Angaben der Empfindlichkeit nicht perfekt geklappt hat, aber die Messungen selbst erfolgreich war, da sich bei den beiden Gruppen ähnliche Werte für die relativen Emissionskoeffizienten ergeben hat.
+Die Auswertung durch den Fit an einen freien Exponenten für T war zwar durch Konvergenzprobleme in der Pythonroutine nur bei 2 Messungsreihen erfolgreich, jedoch ist der Exponent von 4 durch die erreichten Werte angemessen bestätigt, da der Wert 4 innerhalb von maximal 2 Standartabweichungen liegt.
+
+
+
+
+
+\end{document}

@@ -1,0 +1,13 @@
+\select@language {ngerman}
+\contentsline {table}{\numberline {1}{\ignorespaces Zur Vermessung ausgew\IeC {\"a}hlte Spektrallinien der \texttt {HgCd}-Lampe (Werte stammen aus der \texttt {NIST}-Datenbank)}}{9}{table.1}
+\contentsline {table}{\numberline {2}{\ignorespaces \texttt {Na}-Doppellinie (Werte stammen aus der \texttt {NIST}-Datenbank)}}{10}{table.2}
+\contentsline {table}{\numberline {3}{\ignorespaces Gemessene Werte der Nulllinie (Maximum 0. Ordnung)}}{11}{table.3}
+\contentsline {table}{\numberline {4}{\ignorespaces gemessene Winkel der Spektrallinien der \texttt {HgCd}-Lampe, jeweils mit Unsicherheit $\sigma _{\varphi _{n, gemessen}} = 0.019^{\circ }$}}{11}{table.4}
+\contentsline {table}{\numberline {5}{\ignorespaces Steigungen der um $\pm \sigma _{\varphi _0}$ verschobenen linearen Regressionen, siehe Abbildungen \ref {pic:linReg_1_+}, \ref {pic:linReg_1_-}}}{12}{table.5}
+\contentsline {table}{\numberline {6}{\ignorespaces Ergebnisse der linearen Regression}}{13}{table.6}
+\contentsline {table}{\numberline {7}{\ignorespaces Steigungen der um $\pm \sigma _{\varphi _0}$ verschobenen linearen Regressionen unter Beachtung der Verdrehung des Gitters, siehe Abbildungen \ref {pic:linReg_2_+}, \ref {pic:linReg_2_-}}}{14}{table.7}
+\contentsline {table}{\numberline {8}{\ignorespaces Verdrehungswinkel bei urspr\IeC {\"u}nglicher Regression, sowie bei einer Verschiebung der Winkel um $\pm \sigma _{\varphi } = \pm \sqrt {\sigma _{\varphi _0}^2 + \sigma _{\varphi _n}^2} $}}{15}{table.8}
+\contentsline {table}{\numberline {9}{\ignorespaces Ergebnisse der linearen Regression, nach Korrektur um Verdrehugswinkel des Gitters}}{15}{table.9}
+\contentsline {table}{\numberline {10}{\ignorespaces Nach Gleichung \ref {eq:LambdaFehler} berechnete Wellenl\IeC {\"a}ngen der Spektrallinien der \texttt {Na}-Lampe}}{16}{table.10}
+\contentsline {table}{\numberline {11}{\ignorespaces Bestimmte Wellenl\IeC {\"a}nge der \texttt {Na}-Doppellinie mit Abweichung vom Realwert}}{16}{table.11}
+\contentsline {table}{\numberline {12}{\ignorespaces Bestimmte Aufl\IeC {\"o}sungsverm\IeC {\"o}gen mit Abweichung}}{16}{table.12}

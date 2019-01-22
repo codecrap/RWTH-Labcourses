@@ -1,0 +1,35 @@
+\documentclass[11pt]{beamer}
+\usetheme{Antibes}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\author{Gruppe C14 \\ Julián Häck, Martin Koytek, Lars Wenning, Erik Zimmermann}
+%\title{}
+%\setbeamercovered{transparent} 
+%\setbeamertemplate{navigation symbols}{} 
+%\logo{} 
+%\institute{} 
+%\date{} 
+%\subject{} 
+\begin{document}
+
+
+%\begin{frame}
+%\tableofcontents
+%\end{frame}
+\section{Rauschmessung}
+\subsection{Temperatursensoren}
+\begin{frame}
+
+\end{frame}
+
+\subsection{Drucksensoren}
+\begin{frame}
+
+\end{frame}
+
+\end{document}

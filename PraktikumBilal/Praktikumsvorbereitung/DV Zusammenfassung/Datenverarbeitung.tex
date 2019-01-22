@@ -1,0 +1,653 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\author{Lars Wenning}
+\title{Zusammenfassung: Datenverarbeitung}
+\begin{document}
+\maketitle
+
+\newpage
+\tableofcontents
+
+\newpage
+\section{Messwert und Messgenauigkeit}
+\begin{itemize}
+\item Systematischer Fehler: Fehler bei jeder Messung gleich.
+\item Statistischer Fehler: Streut um wahren Wert
+\item Breite der Wahrscheinlichkeitsverteilung ist über Standardabweichung abschätzbar. Diese gibt die Streuung einzelner Messwerte an.
+\item Mittelwert einer Stichprobe:
+\begin{equation}
+\langle x \rangle= \frac{1}{n} \sum^{n}_{i=1}x_i
+\end{equation}
+\item Varianz: Quadratische Abweichung der Messwerte vom Mittelwert:
+\begin{equation}
+V= \frac{1}{n-1} \sum^{n}_{i=1} (x_i- \langle x \rangle)^2
+\end{equation}
+\item Standardabweichung $\widehat{=}$ Streuung der Messwerte $\widehat{=}$ Fehler:
+\begin{equation}
+\sqrt{V}=\sigma
+\end{equation}
+\item Bei n Messungen liegen $ 68 \% \approx \frac{2}{3}$ aller Messwerte innerhalb von $\pm$ Standardabweichung um den Mittelwert $\langle x \rangle$
+\item Fehler des Mittelwerts:
+\begin{equation}
+\sigma_{\langle x \rangle} = \frac{\sigma}{\sqrt{n}}
+\end{equation}
+\item Fehler der Standardabweichung:
+\begin{equation}
+\sigma_\sigma=\frac{\sigma}{\sqrt{2(n-1})}
+\end{equation}
+\end{itemize}
+\newpage
+
+
+\section{Wahrscheinlichkeit}
+\subsection{Kombinatorik}
+\begin{itemize}
+\item Wenn ein Ereignis auf $n$ verschiedene gleichwahrscheinliche Arten eintreten kann wovon $k$ die Eigenschaft $A$ haben, dann ist die Wahrscheinlichkeit für das eintreten des Ereignisses:
+\begin{equation}
+P(A)=\frac{k}{n}
+\end{equation} 
+\item Möglichkeiten r unterscheidbare Objekte in Reihe anzuordnen:
+\begin{equation}
+N=r!
+\end{equation}
+\item Die Reihenfolge ist wichtig $\Rightarrow$ Möglichkeiten k Objekte aus n Objekten in Reihe anzuordnen:
+\begin{equation}
+N=\frac{n!}{(n-k)!}
+\end{equation}
+\item Die Reihenfolge ist unwichtig $\Rightarrow$ Möglichkeiten k Objekte aus n Objekten in Reihe anzuordnen:
+\begin{equation}
+N=\binom{n}{k}=\frac{n!}{(n-k)!}
+\end{equation}
+\end{itemize}
+
+
+\subsection{Kombination von Wahrscheinlichkeiten}
+Es gilt:
+\begin{equation}P(A \underbrace{\lor}_{ \text{Disjunktion}} B)=P(A) + P(B) -P(A \underbrace{\land}_{\text{Konjunktion}} B)  
+\end{equation} 
+\begin{itemize}
+\item Disjunktion: Aussage A oder B oder beide.
+\item Konjunktion: Aussage A und B.
+\item[Spezialfälle]
+\begin{itemize}
+\item A und B schließen sich aus $\Rightarrow$ 
+\begin{equation}
+P(A \land B) = 0 \Rightarrow P(A \lor B)= P(A) + P(B)
+\end{equation}
+\item B ist Negation von A $\Rightarrow$ 
+\begin{equation}
+B= \bar{A} \Rightarrow P(A \land B)= 0 \Rightarrow P(A \lor B) = P(A \lor \bar{A}) = P(A) + P(\bar{A}) = 1 
+\end{equation}
+\item A und B schließen sich nicht aus $\Rightarrow$ Definition der Bedingten Wahrscheinlichkeit
+\begin{align}
+P(A \land B) \ge 0 \Rightarrow P(\underbrace{B|A}_{ \text{B bedingt A}})= \frac{P(A \land B)}{P(A)} 
+\end{align}
+Bedingt bedeutet hier, dass B auftritt wenn A bereits aufgetreten ist. 
+\end{itemize}
+\item[Satz von Bayes]
+\begin{align}
+\textit{Sei } P(A \land B) &= P(B \land A) \notag \\
+ \Rightarrow P(A)P(A|B)&=P(B)P(A|B) \notag \\
+\Leftrightarrow P(A|B)&=P(B|A)\frac{P(A)}{P(B)}
+\end{align}
+\end{itemize}
+
+\section{Wahrscheinlichkeitsverteilungen}
+\subsection{Zufalls-variablen und Messdaten}
+Verteilung von diskreten Zufalls-variablen
+\begin{itemize}
+\item $r \in \mathbb{Z}$
+\item Wahrscheinlichkeit dass Wert auftritt: $P(r)$
+\item Normierung: $\sum^{n}_{j=1}P(r_j)=1$
+\item Wahrscheinlichkeit, dass Werte zwischen a und b auftreten:
+\begin{equation}
+P(i_a \le i \le i_b) = \sum^{i_b}_{i=i_a}P_i
+\end{equation}
+\end{itemize}
+Verteilung von kontinuierlichen Zufalls-variablen
+\begin{itemize}
+\item $r \in \mathbb{R}$
+\item Wahrscheinlichkeit dass exakter Wert auftritt: $P(r)=0$
+\item Normierung: $P(-\infty \le x \le \infty) = \int^{\infty}_{-\infty}\limits {f(x)dx}=1$ \\ wobei f(x) die Wahrscheinlichkeits(-dichte)verteilung ist.
+\item Wahrscheinlichkeit, dass Werte zwischen a und b auftreten:
+\begin{equation}
+P(a \le x \le b) = \int^{b}_{a} {f(x)dx}
+\end{equation}
+\item $F(x_0)=\int^{x_0}_{-\infty}\limits {f(x)dx}$ gibt Wahrscheinlichkeit an, dass $x$ in $x \le x_0$ liegt.
+\item $f(x) \ge 0$
+\end{itemize}
+
+\newpage
+\subsection{Kenngrößen für Wahrscheinlichkeitsverteilungen}
+\begin{itemize}
+\item Mittelwert diskret: 
+\begin{equation}
+\langle x \rangle =\sum^{n}_{i=1}x_i P(x_i)
+\end{equation}
+\item Erwartungswert von einer Funktion h(x) ist definiert als
+\begin{align}
+E[h]&=\int^{\infty}_{-\infty}\limits {h(x) f(x) dx} \\
+\rightarrow E[x^n]&= \text{n-tes algebraisches Moment} \\
+\rightarrow E[(x- \langle x \rangle)^n]&= \text{ n-tes zentrales Moment}
+\end{align}
+\item Mittelwert kontinuierlich:
+\begin{equation}
+\langle x \rangle= \int^{\infty}_{-\infty}\limits {x f(x) dx} 
+\end{equation}
+entspricht dem ersten algebraischen Moment $\langle x \rangle=E[x]$
+\item Wahrscheinlichster Wert: Das Maximum von f(x) zeigt den Wahrscheinlichsten Wert an.
+\begin{equation}
+f_{max}=f(x_{max})
+\end{equation}
+\item Median: Zufallswert liegt mit gleicher Wahrscheinlichkeit unterhalb und oberhalb des Median.
+\begin{equation}
+\int^{x_{med}}_{-\infty}\limits {f(x) dx} \stackrel{!}{=} \int^{\infty}_{x_{med}}\limits {f(x) dx}\stackrel{!}{=}0,5 
+\end{equation}
+\item Mittelwert $\langle x \rangle$ und wahrscheinlichster Wert $x_{max}$ können weit auseinander liegen.
+\item Getrimmter Mittelwert: Bei n Messungen werden die kleinsten und und größten Werte ausgelassen. 
+\item Varianz entspricht 2. zentralem Moment
+\item Root Mean Square(RMS): Wurzel aus dem 2. algebraischen Moment. Auch "Quadratisches Mittel". Mittelwert, bei dem größere Werte einen stärkeren Einfluss haben als kleinere.
+\begin{equation}
+x_{RMS}=\sqrt{V[x]+\langle x \rangle^2}
+\end{equation} 
+
+\newpage
+\item Full Width Half Maximum(FWHM): Auch Halbwertbreite
+\begin{itemize}
+\item Schätzung der Streuung aus Grafischer Verteilung.
+\item von $f_{max}$ ausgehend wird zu großen und kleinen x-Werten die Position gesucht an denen die Verteilung auf die Hälfte abgesunken ist.
+\begin{align}
+f(x_{+\frac{1}{2}})=f(x_{-\frac{1}{2}})=\frac{f_{max}}{2} \notag \\
+\Rightarrow FWHM=|x_{+\frac{1}{2}}-x_{-\frac{1}{2}}|
+\end{align}
+\item anschaulich die Breite bei halber Höhe.
+\item Über Standardabweichung:
+\begin{equation}
+FWHM=2\sqrt{2ln(2)}\sigma
+\end{equation}
+\end{itemize} 
+\end{itemize}
+
+\newpage
+\subsection{Wichtigste Wahrscheinlichkeitsverteilungen}
+\subsubsection{Gleichverteilung (Kontinuierlich)}
+\begin{itemize}
+\item Konstanter Funktionswert für alle Werte zwischen $x=a$ und $x=b$
+	\begin{equation}
+		f(x) =
+   			\begin{cases}
+     			\frac{1}{b-a} & a\le x \le b \\
+     			0 & \text{sonst}\\
+   			\end{cases}
+	\end{equation}
+\item Normierung durch Faktor $\frac{1}{b-a}$ erfüllt.
+\item Mittelwert:
+	\begin{equation}
+		\langle x \rangle = \mu = \frac{a+b}{2}
+	\end{equation} 
+\item Varianz:
+	\begin{equation}
+		V[x]=\frac{(b-a)^2}{12}
+	\end{equation}
+\item Standardabweichung:
+	\begin{equation}
+		\sigma = \sqrt{V}=\frac{b-a}{\sqrt{12}}
+	\end{equation}
+\end{itemize}
+
+\newpage
+\subsubsection{Binomialverteilung (diskret)	}
+\begin{itemize}
+\item $p$ ist Wahrscheinlichkeit, dass $E$ eintritt. Dann ist $(1-p)$ Wahrscheinlichkeit, dass $E$ nicht eintritt.
+\item E trete bei den ersten $r$ aber nicht bei den letzten $n-r$ Versuchen auf. $\Rightarrow P=p^r(1-p)^{n-r}$ ist die Gesamtwahrscheinlichkeit.
+Die r treten ohne feste Reihenfolge auf. Dann ist die Wahrscheinlichkeit, dass E mit der Wahrscheinlichkeit p in n Versuchen auftritt:
+\begin{equation}	
+	P=\binom{n}{r} p^r (1-p)^{n-r}
+\end{equation}		 
+\item Die Binomialverteilung beschreibt also die Anzahl der Erfolge in einer Serie von gleichartigen und unabhängigen Versuchen, die jeweils genau zwei mögliche Ergebnisse haben („Erfolg“ oder „Misserfolg“). Solche Versuchsserien werden auch Bernoulli-Prozesse genannt.
+\item Mittelwert:
+	\begin{equation}
+		\langle r \rangle = \mu = np
+	\end{equation} 
+\item Varianz:
+	\begin{equation}
+		V[x]=np(1-p)
+	\end{equation}
+\item Standardabweichung:
+	\begin{equation}
+		\sigma = \sqrt{np(1-p)}
+	\end{equation}
+\end{itemize}
+
+\begin{figure}[h]
+\begin{minipage}[hbt]{5cm}
+	\centering
+	\includegraphics[width=5cm]{Bilder/399px-Galton-Brett.png}
+	\caption{Galtonbrett}
+	\label{Bild1}
+\end{minipage}
+\hfill
+\begin{minipage}[hbt]{5cm}
+	\centering
+	\includegraphics[width=5cm]{Bilder/692px-Pascal's_triangle;_binomial_distribution.png}
+	\caption{Pascal's triangle binomial distribution. The area of all bars in a row is always 1.}
+	\label{Bild2}
+\end{minipage}
+\end{figure}
+
+\newpage
+\subsubsection{Poisson Verteilung (diskret)}
+\begin{itemize}
+\item Gibt wie Binomialverteilung die Wahrscheinlichkeit P für das r-fache Aufteten in n Versuchen an, nur dass n groß und das Eintreten eines einzelnen Ereignisses sehr unwahrscheinlich ist. $(p\ll 1)$
+\item Grenzfall für Binomialverteilung bei dem die Varianz ungefähr dem Mittelwert entspricht.
+\begin{align}
+V \approx \mu &= np \notag \\
+\Leftrightarrow p&= \frac{\mu}{n} \text{ in Binomialverteilung einsetzen}  \notag \\
+n &\rightarrow \infty  \notag \\
+\Rightarrow  P(r)&= e^{-\mu } \frac{\mu^r}{r!}
+\end{align}
+\item Mittelwert:
+	\begin{equation}
+		\langle r \rangle = \mu = np
+	\end{equation} 
+\item Varianz:
+	\begin{equation}
+		V[x]=\mu = np
+	\end{equation}
+\item Standardabweichung:
+	\begin{equation}
+		\sigma = \sqrt{np}
+	\end{equation}
+\end{itemize}
+
+
+\newpage
+\subsubsection{Gaussverteilung Normalverteilung (Kontinuierlich)}
+\begin{itemize}
+\item Eine stetige Zufallsvariable $x$ mit der Wahrscheinlichkeitsdichte f(x) gegeben durch:
+\begin{equation}
+f(x) = \frac{1}{\sqrt{2\pi \sigma}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}
+\end{equation}
+heißt Normalverteilt mit den Parametern mit dem Erwartungswert $\mu$ und der Standardabweichung $\sigma$.
+\item Vorfaktor ergibt sich aus der Normierungsbedingung für Wahrscheinlichkeitsdichten.
+\item Zufallsgrößen mit Normalverteilung benutzt man zur Beschreibung zufälliger Vorgänge wie: zufällige Messfehler, zufällige Abweichungen vom Sollmaß bei der Fertigung von Werkstücken, Beschreibung der brownschen Molekularbewegung.
+\item 
+\begin{equation}
+	f_{max}= \frac{1}{\sqrt{2\pi \sigma}}
+\end{equation}
+\item Varianz:
+	\begin{equation}
+		V[x]=\sigma^2
+	\end{equation}
+\item  Im Fall $\mu= 0$ und $\sigma^2=1$ wird diese Verteilung Standardnormalverteilung genannt.
+\item bei Aufgaben hilft die Substitution $Z=\frac{x-\mu }{\sigma}$. Dadurch wird die Verteilung in eine Standardnormalverteilung transformiert.
+\item f ist eine Gaußsche Glockenkurve, deren Höhe und Breite von $\sigma$ abhängt. Sie ist achsensymmetrisch zur Geraden der Gleichung $x=\mu$
+\item um zu überprüfen ob es sich um eine Gaussverteilung handelt, kann beispielsweise der Chi-Quadrat-Test angewandt werden.
+\end{itemize}
+\begin{figure}[hbtp]
+\caption{Dichtefunktion der Normalverteilung }
+\centering
+\includegraphics[scale=0.5]{Bilder/500px-Normal_Distribution_PDF.png}
+\end{figure}
+
+\newpage
+\subsection{Zweidimensionale Wahrscheinlichkeitsdichten}
+\begin{itemize}
+\item Zufallsprozess hängt von mehreren Zufallsvariablen ab
+\item Einziger wichtiger Unterschied zu eindimensionalen Dichten ist, dass die Variablen nun in Abhängigkeit voneinander Streuen können(Korrelationen). 
+\item Wahrscheinlichkeit, dass Zufallsvariablen $(x,y)$ zwischen $a \le x \le b, c \le y \le d$ liegen:
+\begin{equation}
+P= \int^{b}_{a}\int^{d}_{c}{f(x,y)dx dy}
+\end{equation}
+\item Normierung: 
+\begin{equation}
+P= \int^{\infty}_{-\infty}\int^{\infty}_{-\infty}{f(x,y)dx dy}=1
+\end{equation}
+\item Mittelwerte:
+\begin{align}
+\langle x \rangle = \int^{\infty}_{-\infty}\int^{\infty}_{-\infty}{xf(x,y)dx dy} \\
+\langle y \rangle = \int^{\infty}_{-\infty}\int^{\infty}_{-\infty}{yf(x,y)dx dy} 
+\end{align}
+\item Varianzen:
+\begin{align}
+V[x]= \sigma^2_x= \int^{\infty}_{-\infty}\int^{\infty}_{-\infty}{(x-\langle x \rangle)^2 f(x,y)dx dy} \\
+V[y]= \sigma^2_y= \int^{\infty}_{-\infty}\int^{\infty}_{-\infty}{(y-\langle y \rangle)^2 f(x,y)dx dy}
+\end{align}
+\item Kovarianz beschreibt Korrelationen zwischen x und y:
+\begin{equation}
+\sigma_{xy}=\sigma_{yx}=\int^{\infty}_{-\infty}\int^{\infty}_{-\infty}{(x-\langle x \rangle)^2(y-\langle y \rangle)^2 f(x,y)dx dy}
+\end{equation}
+
+\item Kovarianz Matrix 
+\begin{equation}
+\hat{V}=
+\begin{pmatrix}
+\sigma^2_x & \sigma_{xy} \\ 
+\sigma_{yx} & \sigma^2_y
+\end{pmatrix} 
+\end{equation}
+\item alternative Berechnung für den Korrelationskoeffizient:
+\begin{equation}
+\sigma_{xy}=\rho \sqrt{\sigma^2_x\sigma^2_y} \textit{mit}  -1\le \rho \le 1
+\end{equation}
+\begin{equation}
+\rho=
+\begin{cases}
+1 & \text{vollständig korreliert} \\
+0 & \text{unkorreliert} \\
+-1 & \text{vollständig antikorreliert}	
+\end{cases}
+\end{equation}
+\end{itemize}
+
+\newpage
+\section{Kombination von Zufallsvariablen}
+\subsection{Charakteristische Funktionen zur Berechnung von kombinierten Wahrscheinlichkeitsdichtefunktionen}
+\begin{itemize}
+\item Analogon zu Fourier:
+\begin{equation}
+\Phi(t)=\int^{\infty}_{-\infty}{e^{itx}f(x)dx}\textit{ mit }\Phi(0)=1
+\end{equation}
+\item Rücktransformation:
+\begin{equation}
+f(x)=\frac{1}{2\pi}\int^{\infty}_{-\infty}{e^{-itx}\Phi(t)dt}
+\end{equation}
+\item Beispiel: Charakteristische Funktion der Gaussfunktion:
+\begin{equation}
+\Phi(t)=e^{-\frac{t^2}{2\sigma^2_t}} \notag
+\end{equation}
+\end{itemize}
+
+\subsection{Faltung von Wahrscheinlichkeitsdichten}
+Seien x und y Zufallsvariablen $\Rightarrow z=x+y$ ist wieder Zufallsvariable. \newline
+$\Rightarrow f_z(z)$ ist Kombination von $f_y(y)$ und $f_x(x)$ folgendermaßen:
+\begin{align}
+f_z(z)&=\int^{\infty}_{-\infty}\int^{\infty}_{-\infty}{f_x(x)f_y(y)\cdot \underbrace{\delta(z-(x+y)}_{Dirac-Delta} ) dxdy} \notag \\
+&= \int^{\infty}_{-\infty}{f_y(y)f_x(z-y)dy}
+\end{align}
+
+\subsection{Zentraler Grenzwertsatz (ZGW)}
+
+"Die Kombination von vielen Zufallsvariablen aus der gleichen Verteilung ergeben immer eine Gaussverteilung"
+
+\begin{figure}[hbtp]
+\centering
+\includegraphics[scale=0.1]{Bilder/2000px-CLTBinomConvergence.png}
+\caption{Konvergenz der Binomial- gegen die Normalverteilung}
+\end{figure}
+
+\newpage
+\subsection{Kenngrößen aus Messdaten}
+\begin{itemize}
+\item Mittelwert mit Hilfe des ZGW: 
+\begin{align}
+\text{Sei } \hat{v}&=\frac{1}{n} \sum^{n}_{i=1}{v_i} \notag \\
+\stackrel{ZGW}{\Rightarrow} \omega&=\sum^{n}_{i=1}{v_i} \notag \\
+\Rightarrow \hat{v}&=\frac{\omega}{n} \textit{ mit } \langle \hat{v} \rangle = \frac{\langle \hat{\omega} \rangle}{n}
+\end{align} 
+\item Fehler des Mittelwerts
+\begin{itemize}
+\item Varianz:
+\begin{equation}
+V[\hat{v}]=V[\frac{\omega}{n}]=\frac{1}{n^2}V[\omega]=\frac{n}{n^2}V[v_i]=\frac{V[v_i]}{n}
+\end{equation}
+\item Fehler des Mittelwerts ist damit:
+\begin{equation}
+\sigma_{\hat{v}}=\frac{\omega}{\sqrt{n}}
+\end{equation}
+\end{itemize}
+\item Bestimmung der Standardabweichung
+\begin{equation}
+\sigma^2=\frac{1}{n-1}\sum^{n}_{i=1}{(v_i-\hat{v})^2}
+\end{equation}
+Faktor $\frac{1}{n-1}$ kommt daher, dass $\hat{v}$ bereits eine Schätzung ist. Wird der wahre Mittelwert verwendet, dann wird der Faktor durch $\frac{1}{n}$ ersetzt.
+\item Fehler der Standardabweichung: Da $\sigma$ aus Zufallszahlen berechnet wurde.
+\begin{equation}
+\Sigma_{\sigma}=\frac{\sigma}{\sqrt{2(n-1)}}
+\end{equation}
+\item Gewichteter Mittelwert: \newline
+Messwerte mit kleinen Fehlern sollen stärker berücksichtigt werden.
+\begin{equation}
+\omega_i=\frac{1}{\sigma^2_i}
+\end{equation}
+\begin{itemize}
+\item Mittelwert:
+	\begin{equation}
+		\langle x \rangle = \frac{\sum^{n}_{i=1}{\omega_i x_i}}{\sum^{n}_{i=1}\omega_i}
+	\end{equation} 
+\item Varianz:
+	\begin{equation}
+		V[\langle x \rangle]=\frac{1}{\sum^{n}_{i=1}\omega_i}
+	\end{equation}
+\item Standardabweichung:
+	\begin{equation}
+		\sigma_{\langle x \rangle} = \sqrt{\frac{1}{\sum^{n}_{i=1}\omega_i}}
+	\end{equation}
+\item Gewichtetes Mittel hat kleineren Fehler bei unterschiedlichen Messgenauigkeiten.
+\end{itemize}
+\end{itemize}
+
+\newpage
+\section{Messfehler und Fehlerfortpflanzung}
+\subsection{Transformationen von Wahrscheinlichkeitsdichten}
+\begin{itemize}
+\item Transformation so dass Wahrscheinlichkeiten erhalten bleiben. $\Rightarrow$ Die Flächen unter den Dichtefunktionen sind gleich. 
+\begin{equation}
+f_y(y) = f_x(x) \cdot |\frac{dx}{dy}| \notag
+\end{equation}
+\end{itemize}
+
+
+\subsection{Fehlerfortpflanzung}
+\begin{itemize}
+\item Herleitung durch Taylor-Entwicklung der Transformationsformel:
+\begin{equation}
+y(x) = y(\langle x \rangle)+ \frac{dy}{dx}\mid_{x=\langle x \rangle} (x-\langle x \rangle) + \frac{1}{2} \frac{d^2y}{dx^2}\mid_{x=\langle x \rangle} (x-\langle x \rangle)^2+... \notag
+\end{equation}
+
+\item Erwartungswert der neuen Wahrscheinlichkeitsdichte:
+\begin{equation}
+E[x]=\underbrace{E[y(\langle x \rangle)]}_{y(\langle x \rangle)}+ \frac{dy}{dx}\mid_{x=\langle x \rangle} \underbrace{E[(x-\langle x \rangle)]}_{=0} + \frac{1}{2} \frac{d^2y}{dx^2}\mid_{x=\langle x \rangle} \underbrace{E[(x-\langle x \rangle)^2]}_{V[x]=\sigma^2_y} \notag
+\end{equation}
+umformen nach $\sqrt{V}=\sigma_y$ liefert:
+\item Standardabweichung der neuen Wahrscheinlichkeitsdichte:
+\begin{equation}
+\underbrace{\sigma_y=\frac{dy}{dx}\mid_{x=\langle x \rangle} \sigma_x}_{\textbf{Gesetz der Fehlerfortpflanzung}}
+\end{equation}
+\item Relative Fehler sind beispielsweise:
+\begin{equation}
+\frac{\sigma_x}{x}
+\end{equation}
+\end{itemize}
+
+\subsection{Fehlerfortpflanzung mit vielen Variablen}
+\begin{itemize}
+\item Transformation:
+\begin{equation}
+\vec{y}=\hat{B}\cdot\vec{x},~B_{ik}=\frac{\partial y_i}{\partial x_k}=const \notag
+\end{equation}
+\item Erwartungswert
+\begin{equation}
+\langle \vec{y} \rangle = \vec{y} \notag
+\end{equation}
+\item Kovarianzmatrix
+\begin{align}
+\hat{V}[\vec{y}]=E[(\vec{y}-\langle \vec{y} \rangle)^2] \notag \\
+=E[\hat{B}\cdot (\vec{x}-\langle \vec{x} \rangle)\cdot (\vec{x}-\langle \vec{x} \rangle)^T \hat{B}^T] \notag \\
+\Rightarrow \underbrace{\hat{V}[\vec{y}]=\hat{B}\hat{V}[\vec{x}]\hat{B}^T}_{\textit{Gesetz der Fehlerfortpflanzung für viele Variable}}
+\end{align}
+\end{itemize}
+
+\subsection{Fehlerfortpflanzung bei zusammengesetzten Messgrößen}
+\begin{align}
+\textit{Sei : } y&=y(x_1,x_2) \notag \\
+\textit{Dann gilt : } \sigma^2_y &=\frac{\partial^2 y}{\partial x^2_1}\sigma^2_1+2 \cdot \frac{\partial y}{\partial x_1} \frac{\partial y}{x_2} + \frac{\partial^2 y}{\partial x^2_2}\sigma^2_2 \\
+\textit{für den unkorrelierten Fall gilt: } \sigma_y &= \sum^{n=2}_{i=1}{\frac{\partial y}{\partial x_i} \sigma_i}
+\end{align}
+Beispiele:
+\begin{itemize}
+\item 1. Addition und Subtraktion
+\begin{align*}
+y&= x_1 \pm x_2 \\
+\Rightarrow \sigma_y&=\sqrt{\sigma^2_{x_1}+\sigma^2_{x_2}}
+\end{align*}
+\item 2. Multiplikation und Division
+\begin{align*}
+y&= x_1 \cdot x_2~\textbf{oder}~ y=\frac{x_1}{x_2} \\
+\Rightarrow (\frac{\sigma_y}{y})^2&=(\frac{\sigma_{x_1}}{x_1})^2+(\frac{\sigma_{x_2}}{x_2})^2
+\end{align*}
+\end{itemize}
+
+\newpage
+\section{Parameterschätzung aus Daten}
+
+\subsection{Maximum Likelihood Methode}
+\begin{itemize}
+\item Likelihood Funktion:
+sei a der Schätzwert und die $x_i$ die Messwerte.
+\begin{equation}
+\mathcal{L}= f(x_1|a)\cdot f(x_2|a)\cdots f(x_n|a)=\prod^{n}_{i=1}{f(x_i|a})
+\end{equation}
+$\mathcal{L}$ wird für den besten Schätzwert maximal.
+\item Bedingte Wahrscheinlichkeit: \newline
+$\mathcal{L}$ gibt ein Maß für die bedingte Wahrscheinlichkeit $P(Daten|a)$ an bei gegebener Wahl von a diese Messwerte zu erhalten.
+\begin{equation}
+P(Daten|a)=\mathcal{L}\cdot const. \notag
+\end{equation}
+gewünscht ist in praktischen zusammenhängen allerdings $P(a|Daten)$.
+\begin{align}
+\textit{Satz von Bayes } &\Rightarrow \notag \\
+P(a|Daten)&=P(Daten|a)\cdot \underbrace{\frac{P(a)}{P(Daten)}}_{im~Allgemeinen~konstant} \notag \\
+\Rightarrow P(a|Daten)&=\mathcal{L}\cdot const
+\end{align}
+\item Minimum der negativen logarithmischen Likelihood Funktion:
+\begin{equation}
+\ln{\mathcal{L}}=\ln{\prod^{n}_{i=1}{f(x_i|a})}=\sum^{n}_{i=1}{\ln{f(x_i|a)}} \\notag
+\end{equation}
+\begin{itemize}
+\item Konvention zur Vereinfachung der $\chi^2$-Methode:
+\begin{equation}
+F(a)=-2\ln{\mathcal{L}}
+\end{equation}
+\end{itemize}
+\end{itemize}
+
+\subsection{Standardabweichung der Logarithmischen Likelihood Funktion}
+
+
+grobe Herleitung:
+\begin{align*}
+\textit{Taylor Entwicklung von F(a) bis in 2te Ordnung dann} \\
+&\rightarrow \lim_{n\rightarrow \infty} \\ 
+&\rightarrow Gauss \\ 
+&\rightarrow F(a)=F(\langle a \rangle) + (\frac{a-\langle a \rangle}{\sigma})^2 \\
+&\rightarrow \Delta F = F(a) - F(\langle a \rangle) =(\frac{a-\langle a \rangle}{\sigma})^2 \\
+&\Rightarrow \Delta F(\langle a \rangle + n\sigma)=n^2 \textit{ (Parabel)}
+\end{align*}
+Ändert sich F um $n^2$ ist die Entfernung zum nächsten Schätzwert $n\cdot\sigma$ 
+
+\newpage
+\subsection{Methode der kleinsten Quadrate (Least Square)}
+\begin{itemize}
+\item Anpassung von n Messwerten mit Parametern $a_j$.
+\item Residuum: Differenz zwischen gemessenem Wert und Modellwert.
+\begin{equation}
+\rho_i(x_i):=y_i(x_i)-y_{Modell}(x_i)
+\end{equation}
+\item das Modell liefert die beste Anpassung, wenn :
+\begin{equation}
+h :=\sum^{n}_{i=1}{\rho^2_i} \notag
+\end{equation}
+\item Modellfunktion:
+\begin{equation}
+y_{Modell}=a_1f_1(x)+ (\cdots) + a_nf_n(x)=\sum^{m}_{j=1}a_jf_j  \notag
+\end{equation}
+\item Fehler der Parameter
+\begin{equation}
+\sigma^2=\frac{1}{n-m}\sum^{n}_{i=1}{(y_i-y_{Modell})^2}
+\end{equation}
+dabei ist $m$ die Anzahl der Parameter $a_j$
+\end{itemize}
+
+\section{Statistische Testverfahren}
+\subsection{Test einer Hypothese}
+\begin{itemize}
+\item Wenn das Messergebnis weniger als $2\cdot \sigma$ vom theoretischen/vorhergesagtem Wert entfernt liegt wird er nach Konvention als verträglich bezeichnet.
+\item Messung und Vorhersage müssen kompatibel sein.
+\item Konfidenzgrenze: Die Konfidenzgrenzen geben an, mit welcher Wahrscheinlichkeit der wahre Mittelwert einer Grundgesamtheit in einem gewissen Bereich liegt. 
+\item Konfidenzintervall: Das Konfidenzintervall ist der Bereich, der bei unendlicher Wiederholung eines Zufallsexperiments mit einer gewissen Häufigkeit (dem Konfidenzniveau) die wahre Lage des Parameters einschließt. Ein häufig verwendetes Konfidenzniveau ist $95\%$.
+\item Konfidenzniveau: Das Konfidenzniveau gibt an, mit welcher Wahrscheinlichkeit die Lageschätzung eines statistischen Parameters (zum Beispiel eines Mittelwertes) aus einer Stichprobenerhebung auch für die Grundgesamtheit zutreffend ist.
+\begin{equation}
+CN=1-\alpha_{unterhalb}-\alpha_{oberhalb}
+\end{equation}
+\newpage
+\item t-Test:\newline
+Student'sche t-Verteilung für Verfahren, bei denen die Genauigkeit des Mttelwerts aus den Daten selbst bestimmt wird.
+\begin{itemize}
+\item Testgröße 
+\begin{equation}
+t=\frac{\langle y \rangle -y_t}{\sigma_{\langle y \rangle}}
+\end{equation}
+\item Gamma Funktion
+\begin{equation}
+\Gamma(x)=\int^{\infty}_{0}{t^{x-1}e^{-t}}~~~~\textit{für}~~\Gamma(n+1)=n!
+\end{equation}
+\item t-Verteilung
+\begin{equation}
+f_n(t)=\frac{1}{\sqrt{n\pi}}\frac{\Gamma(\frac{n+1}{2})}{\Gamma(\frac{n}{2})}(1+\frac{t^2}{2})^{-\frac{n+1}{2}}
+\end{equation}
+\item Vorgehensweise: \newline
+Zur Überprüfung ob n Messdaten mit m anderen Messdaten verträglich sind werden zunächst die jeweiligen Mittelwerte und die Fehler auf die Mittelwerte berechnet. Dann werden die Freiheitsgrade nach $f_n=n-1 ~bzw.~ f_m=m-1$ bestimmt. Die Testgröße t kann nun ausgerechnet werden. t sollte einer t-Verteilung mit $k=n+m-2$ Freiheitsgraden folgen. Sind beide Experimente als Referenz wählbar muss nur $|t|$ betrachtet werden. Die Wahrscheinlichkeit $P$ um einen Wert größer oder gleich $|t|$ zu kann nach 
+\begin{equation}
+P=2\cdot\int^{\infty}_{|t|}f_n(t)dt \notag
+\end{equation} 
+berechnet werden. Wenn nun das berechnete Konfidenzniveau $CN=1-P$ innerhalb des gewählten Konfidenzniveau liegt, ($z.B.~ berechnet ~ CN=93,1\%\le CN_{Gauss}=95\%$) sind die Werte untereinander verträglich.
+\end{itemize}
+\end{itemize}
+
+\newpage
+\subsection{$\chi^2$-Test}
+\begin{itemize}
+\item Gauss Verteilte Messfehler
+\item Prüfung ob Messdaten mit theoretischer Vorhersage kompatibel sind.
+
+\item $\chi^2$-Verteilung: benötigt Standardnormalverteilung. n unabhängige Zufallsvariablen $z_i$ mit Mittelwert $\mu=0$ und Standardabweichung $\sigma=1$.
+\begin{align}
+\chi^2:&=\sum^{n}_{i=1}{z^2_i} \\
+\stackrel{Faltung}{\rightarrow} f_n(\chi^2)&=\frac{(\frac{\chi^2}{2})^{\frac{n-2}{2}}\cdot exp^{-\frac{\chi^2}{2}}}{2\Gamma(\frac{n}{2})} 
+\end{align}
+\item Erwartungswert:
+\begin{equation}
+\langle \chi^2 \rangle =n
+\end{equation}
+\item Standardabweichung:
+\begin{equation}
+\sigma=\sqrt{2n}
+\end{equation}
+\item Maximum:
+\begin{equation}
+(\chi^2)_{max}=n-2
+\end{equation}
+\item Residuen für $\chi^2$ als Testgröße bei n Messwerten.
+\begin{equation}
+\rho_i=\frac{y_i(x_i)-f(x_i)}{\sigma_{y,i}(x_i)}
+\end{equation}
+falls die theoretische Beschreibung f(x) korrekt ist folgen die Residuen selbst auch der Gauss-verteilung mit Mittelwert $\langle \rho \rangle=0 ~ \textit{und} ~ \sigma_{\rho}=1$
+\begin{equation}
+\Rightarrow \chi^2=\sum^{n}_{i=1}\rho_i
+\end{equation}
+\end{itemize}
+
+
+\begin{figure}[hbtp]
+\centering
+\includegraphics[scale=0.5]{Bilder/gm_compdistrib_tusche.png}
+\end{figure}
+
+\end{document}

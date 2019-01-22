@@ -1,0 +1,53 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\author{Erik Zimmermann}
+\title{Auf-/ Endladung eines Kondensators}
+\begin{document}
+\maketitle
+\newpage
+
+\tableofcontents
+
+\newpage
+\section{Aufladung}
+\begin{itemize}
+\item <Bild Schaltung>
+\item bei t=0: max Stromstärke:
+\begin{equation}
+I_0= \frac{U_0}{R}
+\end{equation}
+\item sobald Schalter wieder offen --> 2. Kirchhoff'sches Gesetz
+\begin{equation}
+U_0 - U_C=U_R= R*I(t)
+\end{equation}
+\item mit $I= \frac{dQ}{dt}$ , $Q=C*U$ --> $dQ=C*dU$
+\item folgt $U_0-U_C(t)=R*C \frac{dU_c}{dt}$
+\item --> DGL mit Randwert $Q(t=0)=0$ 
+\begin{align}
+U_0-U-C(t)&=R*C* \frac{dU_c}{dt}\notag \\
+\Leftrightarrow (U_0-U_C)*dt&=R*C*dU_C \notag \\
+\Leftrightarrow \int^{t}_{0}\limits {dt}&=R*C* \int^{U_C(t)}_{0}\limits {\frac{dU_C}{U_0-U_C} } \notag \\
+\Leftrightarrow U_C(t)&=U_0*(1-e^(\frac{-t}{R*C}))\notag \\ 
+\Rightarrow I(t)= \frac{U_0}{R}*e^(\frac{-t}{R*C})&=I_0*e^(\frac{-t}{\tau})
+\end{align}
+\end{itemize}
+
+\section{Entladung}
+\begin{itemize}
+\item bei $t=0$ , Spannungsquelle durch Schalter überbrückt
+\item --> Masche: $R*I(t)+U_C(t)=0$
+\item mit $I= \frac{dQ}{dt}$, $Q=C*U$ folgt DGL:
+\begin{align}
+\int^{U_C}_{U_0}\limits {\frac{dU_C}{U_C}}=\frac{-1}{R*C} * \int^{t}_{0}\limits {dt } \notag \\
+\Leftrightarrow U_C(t)= U_0* e^(\frac{-t}{R*C})
+\Rightarrow I(t)=\frac{U_0}{R}*e^{(\frac{-t}{\tau})}
+\end{align}
+\end{itemize}
+\end{document}
