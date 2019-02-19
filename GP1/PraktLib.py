@@ -67,10 +67,10 @@ def deviation(expval,expval_err,trueval,trueval_err):
 def printAsLatexTable(data,colTitles,rowTitles="",mathMode=True,decimals=2):
 	# safety first :
 	if len(colTitles) != data.shape[1]:
-		print("Dimensions of data an colTitles don't match!")
+		print("Dimensions of data and colTitles don't match!")
 		return -1
 	if 0 != len(rowTitles) and len(rowTitles) != data.shape[0]-1:					# -1 because we don't put anything in upper left corner of the table
-		print("Dimensions of data an rowTitles don't match!")
+		print("Dimensions of data and rowTitles don't match!")
 		return -2
 
 	# we need the r-strings here to escape format placeholders like {} or \
