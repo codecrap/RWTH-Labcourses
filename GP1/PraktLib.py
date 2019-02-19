@@ -17,6 +17,8 @@ import scipy.optimize as spopt
 # import sys
 # sys.path.append("../../PraktikumPyLib/")
 
+fef
+
 def readLabFile(file):
 	'''
 	CASSY LAB Datei einlesen (Version fuer python3).
