@@ -235,17 +235,17 @@ A radioactive probe is placed in front of the scintillator at distance $r_0$.
 		\hline
 		& Cs-strong & Cs-weak & Co & Eu & Na \\
 		\hline
-		Buy date 23.11.2010 & 12.08.1988 & 15.04.2003 & 02.06.1978 & 12.01.2005 \\
+		Buy date & 23.11.2010 & 12.08.1988 & 15.04.2003 & 02.06.1978 & 12.01.2005 \\
 		\hline
-		Activity at buy date 44400000 & 37000 & 37000 & 37000 & 37000 \\
+		Activity at buy date [\si{\becquerel}] & \num{44400e3} & \num{37e3} & \num{37e3} & \num{37e3} & \num{37e3} \\
 		\hline
-		Halflife time 950400000.0 & 950400000.0 & 166345920.0 & 427075200.0 & 82123200.0 \\
+		Halflife time [\si{s}] & \num{950e6} & \num{950e6} & \num{16634.6e4} & \num{4270.8e5} & \num{8212.3e4} \\
 		\hline
-		Halflife time errors 7776000.0 & 7776000.0 & 34560.00000000001 & 432000.0 & 34560.00000000001 \\
+		Halflife time errors [\si{s}] & \num{7.8e6} & \num{7.8e6} & \num{3.5e4} & \num{4.4e5} & \num{3.5e4} \\
 		\hline
-		Decay constant 7.293215283669458e-10 & 7.293215283669458e-10 & 4.166902203311902e-09 & 1.6230096726757847e-09 & 8.440333310927306e-09 \\
+		Decay constant [\si{\per\second}] & \num{7.3e-10} & \num{7.3e-10} & \num{4.2e-09} & \num{1.6e-09} & \num{8.4e-09} \\
 		\hline
-		Activity today 36725279.881327316 & 18326.368041866357 & 4600.508101606004 & 4596.133724378956 & 863.6187132513619 \\
+		Activity today [\si{Bq}] & \num{36725279.9} & \num{18326.4} & \num{4600.5} & \num{4596.1} & \num{863.6} \\
 		\hline
 	\end{tabular}
 	\caption{ }
@@ -272,6 +272,24 @@ Distance from scattering bod to detector: $r = \SI{272+-1}{mm}$\\
 
 \subsubsection{ring geometry}
 The source is aligned with the detector, but shielded of it by a lead clinder in the middle. The scattering body is an aluminium ring and the whole experiment is axially symetric.
+
+\begin{table}[H]
+	\renewcommand{\arraystretch}{1.5}
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		ring size & outer diameter $d_o$ & inner diameter $d_i$ & diameter $d$ \\
+		\hline
+		small & \SI{149+-1}{mm} & \SI{121+-1}{mm} & \SI{149+-1}{mm} \\
+		\hline
+		medium & \SI{199+-1}{mm} & \SI{171+-1}{mm} & \SI{149+-1}{mm} \\
+		\hline
+		large & \SI{250+-1}{mm} & \SI{221+-1}{mm} & \SI{149+-1}{mm} \\
+		\hline
+	\end{tabular}
+	\caption{ }
+	\label{tab:probes }
+\end{table}
 
 
 
