@@ -1,1 +1,10 @@
 GP2/Optik2/VideosCO2/
+*pycache*
+**/*.pyc
+**/*.lof
+**/*.log
+**/*.lot
+**/*.aux
+**/*.toc
+**/*.out
+**/*.synctex.gz
