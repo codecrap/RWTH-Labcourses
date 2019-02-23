@@ -28,7 +28,11 @@ theory = [[661.66],
 noise = np.genfromtxt('Data/Noise_calibration.TKA')
 noise = np.delete(noise, [0,1])
 
+file = open('peaks.txt', 'w')
+
 for i, element in enumerate(probes):
+    
+    file.write(strings[i]+'\n')
     
     data = np.genfromtxt('Data/'+strings[i]+'_calibration.TKA')
     lt = data[0]
@@ -39,7 +43,7 @@ for i, element in enumerate(probes):
     
     chan = np.array(range(len(count)))
     
-    for bound in element:
+    for j, bound in enumerate(element):
         [before, peak, after] = np.split(count, bound)
         [before, seg, after] = np.split(chan, bound)
         
@@ -50,4 +54,6 @@ for i, element in enumerate(probes):
         dsig = np.sqrt(cov[1][1])
         a = opt[2]
         
+        file.write('theory: '+str(theory[i][j])+'   data: '+str(mean)+' +- '+str(dmean)+'\n')
         
+file.close()
