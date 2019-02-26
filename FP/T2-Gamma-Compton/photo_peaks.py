@@ -28,7 +28,7 @@ theory = [[661.66],
 noise = np.genfromtxt('Data/Noise_calibration.TKA')
 noise = np.delete(noise, [0,1])
 
-file = open('peaks.txt', 'w')
+file = open('photo_peaks.txt', 'w')
 
 for i, element in enumerate(probes):
     
