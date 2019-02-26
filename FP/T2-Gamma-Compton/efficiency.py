@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Tue Feb 26 13:59:26 2019
-
-@author: alex
-"""
+# author: Alexandre Drouet
 
 #efficiency
 
