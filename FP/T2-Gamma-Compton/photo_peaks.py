@@ -2,6 +2,7 @@
 # author: Alexandre Drouet
 
 import numpy as np
+import PraktLib as pl
 from matplotlib import pyplot as plt
 from scipy.optimize import curve_fit
 
@@ -20,14 +21,25 @@ probes = [Cs, Na, Co, Eu]
 strings = ['Cs', 'Na', 'Co', 'Eu']
 
 # expected values
-theory = [[661.66],
-          [1274.5],
-          [1173.2, 1332.5],
-          [121.78, 244.70, 344.28, 778.90, 964.08, 1112.1, 1408.0]]
+theory = np.array([661.66,
+                   1274.5,
+                   1173.2, 1332.5,
+                   121.78, 244.70, 344.28, 778.90, 964.08, 1112.1, 1408.0])
 
 # get noise
 noise = np.genfromtxt('Data/Noise_calibration.TKA')
 noise = np.delete(noise, [0,1])
+
+# set channel array
+chan = np.array(range(len(noise)))
+
+# 
+# mean = [[0],[0],[0,0],[0,0,0,0,0,0,0]]
+mean = []
+dmean = []
+sig = []
+dsig = []
+n = []
 
 # open file
 file = open('photo_peaks.txt', 'w')
@@ -41,9 +53,6 @@ for i, element in enumerate(probes):
     count = np.delete(data, [0,1])
     count = count - noise
     
-    # set channel array
-    chan = np.array(range(len(count)))
-    
     for j, bound in enumerate(element):
         
         # cut out peaks
@@ -52,12 +61,26 @@ for i, element in enumerate(probes):
         
         # fit gauss curve
         opt, cov = curve_fit(gauss, seg, peak, p0=[bound[0],1,1])
-        mean = opt[0]
-        dmean = np.sqrt(cov[0][0])
-        sig = opt[1]
-        dsig = np.sqrt(cov[1][1])
-        a = opt[2]
+        mean += [opt[0]]
+        dmean += [np.sqrt(cov[0][0])]
+        sig += [opt[1]]
+        dsig += [np.sqrt(cov[1][1])]
+        n += [opt[2]]
         
-        file.write('theory: '+str(theory[i][j])+'   data: '+str(mean)+' +- '+str(dmean)+'\n')
+        #file.write('theory: '+str(theory[i][j])+'   data: '+str(mean)+' +- '+str(dmean)+'\n')
         
 file.close()
+
+mean = np.array(mean)
+dmean = np.array(dmean)
+sig = np.array(sig)
+dsig = np.array(dsig)
+n = [np.array(n)]
+
+#def lin(x, a, b):
+#    return a*x+b
+
+noerror = np.zeros(11)
+fitparam,fitparam_err,chiq = pl.plotFit(mean, dmean, theory, noerror)
+
+
