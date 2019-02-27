@@ -71,7 +71,7 @@ n = [np.array(n)]
 # create NORM file
 file = open('photo_peaks.NORM', 'w')
 for i in range(len(mean)):
-    file.write(str(theory[i])+' '+str(mean[i])+' '+str(dmean[i])+'\n')
+    file.write('%.2f %.2f %.2f %.2f %.2f \n'%(theory[i],mean[i],dmean[i],sig[i],dsig[i]))
 file.close()
 
 # linear fit
