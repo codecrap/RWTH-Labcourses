@@ -41,12 +41,7 @@ sig = []
 dsig = []
 n = []
 
-## open file
-#file = open('photo_peaks.txt', 'w')
-
 for i, element in enumerate(probes):
-    
-    #file.write(strings[i]+'\n')
     
     # get data
     data = np.genfromtxt('Data/'+strings[i]+'_calibration.TKA')
@@ -67,16 +62,19 @@ for i, element in enumerate(probes):
         dsig += [np.sqrt(cov[1][1])]
         n += [opt[2]]
         
-        #file.write('theory: '+str(theory[i][j])+'   data: '+str(mean)+' +- '+str(dmean)+'\n')
-        
-#file.close()
-
 mean = np.array(mean)
 dmean = np.array(dmean)
 sig = np.array(sig)
 dsig = np.array(dsig)
 n = [np.array(n)]
 
+# create NORM file
+file = open('photo_peaks.NORM', 'w')
+for i in range(len(mean)):
+    file.write(str(theory[i])+' '+str(mean[i])+' '+str(dmean[i])+'\n')
+file.close()
+
+# linear fit
 noerror = np.zeros(len(theory))
 fitparam,fitparam_err,chiq = pl.plotFit(mean, dmean, theory, noerror, title="calibration fit", xlabel="channel", ylabel="Energy [keV]", res_ylabel=r"$y - (a \cdot x + b)$")
 a = fitparam[0]
@@ -84,6 +82,7 @@ da = fitparam_err[0]
 b = fitparam[1]
 db = fitparam_err[1]
 
+# convertion function
 def ChtoE(ch, dch):
     E = a * ch + b
     dE = np.sqrt((ch*da)**2 + (a*dch)**2 + db**2)
