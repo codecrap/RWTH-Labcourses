@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # @author: Alexandre Drouet
 
@@ -69,10 +70,12 @@ dsig = np.array(dsig)
 n = [np.array(n)]
 
 # create NORM file
-file = open('photo_peaks.NORM', 'w')
-for i in range(len(mean)):
-    file.write('%.2f %.2f %.2f %.2f %.2f \n'%(theory[i],mean[i],dmean[i],sig[i],dsig[i]))
-file.close()
+#file = open('photo_peaks.NORM', 'w')
+#for i in range(len(mean)):
+#    file.write('%.2f %.2f %.2f %.2f %.2f \n'%(theory[i],mean[i],dmean[i],sig[i],dsig[i]))
+#file.write(str(mean))
+#file.close()
+np.savetxt('photo_peaks.NORM',[theory,mean,dmean,sig,dsig])
 
 # linear fit
 noerror = np.zeros(len(theory))
