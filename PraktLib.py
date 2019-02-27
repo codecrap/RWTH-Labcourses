@@ -169,7 +169,7 @@ def plotFit(x,xerr,y,yerr,title="test",xlabel="",ylabel="",res_ylabel=r"$y - (a 
 		p0 = [1,0]	# start values
 		chifunc = lambda p,x,xerr,y,yerr: (y-line(p,x))/np.sqrt(yerr**2+p[0]*xerr**2)	# p[0] = d/dx line()
 		fitparam,cov,_,_,_ = spopt.leastsq(chifunc,p0,args=(x,xerr,y,yerr),full_output=True)
-		print(fitparam,cov)
+		# print(fitparam,cov)
 		chiq = np.sum(chifunc(fitparam,x,xerr,y,yerr)**2) / (len(y)-len(fitparam))
 		fitparam_err = np.sqrt(np.diag(cov)*chiq)									# leastsq returns the 'fractional covariance matrix'
 		# print(chiq,fitparam_err)

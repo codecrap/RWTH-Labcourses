@@ -78,6 +78,13 @@ dsig = np.array(dsig)
 n = [np.array(n)]
 
 noerror = np.zeros(len(theory))
-fitparam,fitparam_err,chiq = pl.plotFit(mean, dmean, theory, noerror)
+fitparam,fitparam_err,chiq = pl.plotFit(mean, dmean, theory, noerror, title="calibration fit", xlabel="channel", ylabel="Energy [keV]", res_ylabel=r"$y - (a \cdot x + b)$")
+a = fitparam[0]
+da = fitparam_err[0]
+b = fitparam[1]
+db = fitparam_err[1]
 
-
+def ChtoE(ch, dch):
+    E = a * ch + b
+    dE = np.sqrt((ch*da)**2 + (a*dch)**2 + db**2)
+    return [E, dE]
