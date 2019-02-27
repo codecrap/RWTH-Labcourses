@@ -1,30 +1,30 @@
 # -*- coding: utf-8 -*-
-# author: Alexandre Drouet
+# @author: Alexandre Drouet
 
 import numpy as np
 import PraktLib as pl
 from matplotlib import pyplot as plt
 from scipy.optimize import curve_fit
 
-# gauss funktion
+# gauss function
 def gauss(x, x0, sigma, a):
     return a * np.exp(-(x-x0)**2/(2.*sigma**2))
+
+# element order: Cs, Na, Co, Eu
+strings = ['Cs', 'Na', 'Co', 'Eu']
 
 # peak bounds
 Cs = [[400,490]]
 Na = [[810,890]]
 Co = [[740,810], [850,910]]
-Eu = [[85,105], [160,195], [210,270], [480,560], [610,680], [690,780], [890,980]]
-
-# element order: Cs, Na, Co, Eu
+Eu = [[85,105], [160,195], [210,270], [480,560], [610,680], [890,980]] #[690,780]
 probes = [Cs, Na, Co, Eu]
-strings = ['Cs', 'Na', 'Co', 'Eu']
 
 # expected values
 theory = np.array([661.66,
                    1274.5,
                    1173.2, 1332.5,
-                   121.78, 244.70, 344.28, 778.90, 964.08, 1112.1, 1408.0])
+                   121.78, 244.70, 344.28, 778.90, 964.08, 1408.0]) #1112.1
 
 # get noise
 noise = np.genfromtxt('Data/Noise_calibration.TKA')
@@ -41,12 +41,12 @@ sig = []
 dsig = []
 n = []
 
-# open file
-file = open('photo_peaks.txt', 'w')
+## open file
+#file = open('photo_peaks.txt', 'w')
 
 for i, element in enumerate(probes):
     
-    file.write(strings[i]+'\n')
+    #file.write(strings[i]+'\n')
     
     # get data
     data = np.genfromtxt('Data/'+strings[i]+'_calibration.TKA')
@@ -69,7 +69,7 @@ for i, element in enumerate(probes):
         
         #file.write('theory: '+str(theory[i][j])+'   data: '+str(mean)+' +- '+str(dmean)+'\n')
         
-file.close()
+#file.close()
 
 mean = np.array(mean)
 dmean = np.array(dmean)
@@ -77,10 +77,7 @@ sig = np.array(sig)
 dsig = np.array(dsig)
 n = [np.array(n)]
 
-#def lin(x, a, b):
-#    return a*x+b
-
-noerror = np.zeros(11)
+noerror = np.zeros(len(theory))
 fitparam,fitparam_err,chiq = pl.plotFit(mean, dmean, theory, noerror)
 
 
