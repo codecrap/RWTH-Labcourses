@@ -15,10 +15,10 @@ def gauss(x, x0, sigma, a):
 strings = ['Cs', 'Na', 'Co', 'Eu']
 
 # peak bounds
-Cs = [[400,490]]
-Na = [[810,890]]
-Co = [[740,810], [850,910]]
-Eu = [[85,105], [160,195], [210,270], [480,560], [610,680], [890,980]] #[690,780]
+Cs = [[420,475]]
+Na = [[820,865]]
+Co = [[750,800], [850,910]]
+Eu = [[85,105], [165,190], [225,255], [505,540], [620,665], [890,970]] #[690,780]
 probes = [Cs, Na, Co, Eu]
 
 # expected values
@@ -26,7 +26,13 @@ theory = np.array([661.66,
                    1274.5,
                    1173.2, 1332.5,
                    121.78, 244.70, 344.28, 778.90, 964.08, 1408.0]) #1112.1
-
+    
+# sort peaks
+sort = np.array([3,
+                 7,
+                 6, 8,
+                 0, 1, 2, 4, 5, 9])
+    
 # get noise
 noise = np.genfromtxt('Data/Noise_calibration.TKA')
 noise = np.delete(noise, [0,1])
@@ -49,6 +55,11 @@ for i, element in enumerate(probes):
     count = np.delete(data, [0,1])
     count = count - noise
     
+    # plot data
+    fig, ax = plt.subplots()
+    ax.plot(chan, count, '.')
+    fig.savefig("Figures/"+strings[i]+".pdf",format='pdf',dpi=256)
+    
     for j, bound in enumerate(element):
         
         # cut out peaks
@@ -70,14 +81,34 @@ dsig = np.array(dsig)
 n = [np.array(n)]
 
 # create NORM file
-#file = open('photo_peaks.NORM', 'w')
-#for i in range(len(mean)):
-#    file.write('%.2f %.2f %.2f %.2f %.2f \n'%(theory[i],mean[i],dmean[i],sig[i],dsig[i]))
-#file.write(str(mean))
-#file.close()
 np.savetxt('photo_peaks.NORM',[theory,mean,dmean,sig,dsig])
 
-# linear fit
+# sort arrays
+mean1 = []
+dmean1 = []
+theory1 = []
+mean2 = []
+dmean2 = []
+theory2 = []
+
+for i, val in enumerate(sort):
+    if val<=4:
+        mean1 += [mean[i]]
+        dmean1 += [dmean[i]]
+        theory1 += [theory[i]]
+    else:
+        mean2 += [mean[i]]
+        dmean2 += [dmean[i]]
+        theory2 += [theory[i]]
+        
+mean1 = np.array(mean1)
+dmean1 = np.array(dmean1)
+theory1 = np.array(theory1)
+mean2 = np.array(mean2)
+dmean2 = np.array(dmean2)
+theory2 = np.array(theory2)
+
+# linear fits
 noerror = np.zeros(len(theory))
 fitparam,fitparam_err,chiq = pl.plotFit(mean, dmean, theory, noerror, title="calibration fit", xlabel="channel", ylabel="Energy [keV]", res_ylabel=r"$y - (a \cdot x + b)$")
 a = fitparam[0]
@@ -85,8 +116,27 @@ da = fitparam_err[0]
 b = fitparam[1]
 db = fitparam_err[1]
 
+noerror1 = np.zeros(len(theory1))
+fitparam1,fitparam_err1,chiq1 = pl.plotFit(mean1, dmean1, theory1, noerror1, title="calibration fit 1", xlabel="channel", ylabel="Energy [keV]", res_ylabel=r"$y - (a \cdot x + b)$")
+a1 = fitparam1[0]
+da1 = fitparam_err1[0]
+b1 = fitparam1[1]
+db1 = fitparam_err1[1]
+
+noerror2 = np.zeros(len(theory2))
+fitparam2,fitparam_err2,chiq2 = pl.plotFit(mean2, dmean2, theory2, noerror2, title="calibration fit 2", xlabel="channel", ylabel="Energy [keV]", res_ylabel=r"$y - (a \cdot x + b)$")
+a2 = fitparam2[0]
+da2 = fitparam_err2[0]
+b2 = fitparam2[1]
+db2 = fitparam_err2[1]
+
 # convertion function
+delim = (min(mean2)-max(mean1))/2
 def ChtoE(ch, dch):
-    E = a * ch + b
-    dE = np.sqrt((ch*da)**2 + (a*dch)**2 + db**2)
+    if ch<=delim:
+        E = a1 * ch + b1
+        dE = np.sqrt((ch*da1)**2 + (a1*dch)**2 + db1**2)
+    else:
+        E = a2 * ch + b2
+        dE = np.sqrt((ch*da2)**2 + (a2*dch)**2 + db2**2)
     return [E, dE]
