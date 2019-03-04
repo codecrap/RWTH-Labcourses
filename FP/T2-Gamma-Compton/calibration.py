@@ -139,4 +139,4 @@ def ChtoE(ch, dch):
     else:
         E = a2 * ch + b2
         dE = np.sqrt((ch*da2)**2 + (a2*dch)**2 + db2**2)
-    return [E, dE]
+    return [E, dE] # in keV
