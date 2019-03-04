@@ -88,35 +88,42 @@ for i, m in enumerate(method):
             sig[i] += [opt[1]]
             dsig[i] += [np.sqrt(cov[1][1])]
             n[i] += [opt[2]]
-                        
+
 #print(mean)
 #plt.plot(chan, data, '.')
 #plt.plot(chan, gauss(chan, mean[2][5], sig[2][5], n[2][5]), '-')
 
 # convert channel to energy
 E = mean
-dE = mean
-for i, ival in enumerate(mean):
+dE = dmean
+for i, ival in enumerate(E):
     for j, jval in enumerate(ival):
-        en, den = ChtoE(jval, dmean[i][j])
+        en, den = ChtoE(jval, dE[i][j])
         E[i][j] = en
         dE[i][j] = den
-
+        
 # theory
 theo1 = 661657*e / (1 + (661657*e/(m_e*c**2))*(1-np.cos(pl.degToSr(np.array(angle[0])))))
 theo2 = 661657*e / (1 + (661657*e/(m_e*c**2))*(1-np.cos(pl.degToSr(np.array(angle[1])))))
 theo1 = theo1/(e*1000)
 theo2 = theo2/(e*1000)
 
-print(theo1)
 fig, ax = plt.subplots()
 ax.plot(angle[0], E[0], '.')
 ax.plot(angle[1], E[1], '.')
 ax.plot(angle[1], E[2], '.')
-#ax.plot(angle[0], theo1, 'r-')
-#ax.plot(angle[1], theo2, 'r-')
+ax.plot(angle[0], theo1, 'r-')
+ax.plot(angle[1], theo2, 'r-')
 ax.set_title('energy of scattered photons')
 fig.savefig('Figures/E_Phi.pdf',format='pdf',dpi=256)
 
+# create NORM file
+mean = np.concatenate(mean)
+dmean = np.concatenate(dmean)
+sig = np.concatenate(sig)
+dsig = np.concatenate(dsig)
+temp = angle[1]
+angle = np.concatenate(angle)
+angle = np.append(angle, temp)
 
-
+np.savetxt('photo_peaks_2.NORM',[angle,mean,dmean,sig,dsig])
