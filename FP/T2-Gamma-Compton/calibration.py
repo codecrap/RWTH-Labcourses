@@ -3,9 +3,11 @@
 # @author: Alexandre Drouet
 
 import numpy as np
-import PraktLib as pl
 from matplotlib import pyplot as plt
 from scipy.optimize import curve_fit
+import sys
+sys.path.append("./../../")
+import PraktLib as pl
 
 # gauss function
 def gauss(x, x0, sigma, a):

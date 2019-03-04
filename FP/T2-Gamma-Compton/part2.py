@@ -7,11 +7,13 @@ Created on Sat Mar  2 12:21:13 2019
 """
 
 import numpy as np
-import PraktLib as pl
 from matplotlib import pyplot as plt
 from scipy.optimize import curve_fit
 from calibration import ChtoE
 from scipy.constants import c, m_e, e 
+import sys
+sys.path.append("./../../")
+import PraktLib as pl
 
 # gauss function
 def gauss(x, x0, sigma, a):
