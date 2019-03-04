@@ -17,7 +17,10 @@ from scipy.constants import c, m_e, e
 def gauss(x, x0, sigma, a):
     return a * np.exp(-(x-x0)**2/(2.*sigma**2))
 
-# set strings
+# measurements
+r0 = 1
+
+# set strings and angles
 method = ['Ring', 'Conv']
 material = ['Al', 'Fe']
 angle = [[19, 24, 30, 40, 50], [50, 60, 80, 90, 105, 135]]
@@ -33,6 +36,8 @@ dmean = [[], [], []]
 sig = [[], [], []]
 dsig = [[], [], []]
 n = [[], [], []]
+cross = [[], [], []]
+dcross = [[], [], []]
 
 # plot raw data and find peaks
 for i, m in enumerate(method):
@@ -62,6 +67,18 @@ for i, m in enumerate(method):
                 sig[i+k] += [opt[1]]
                 dsig[i+k] += [np.sqrt(cov[1][1])]
                 n[i+k] += [opt[2]]
+                
+                # get FWHM
+                FWHM = 2 * np.sqrt(2 * np.log(2)) * opt[1]
+                dFWHM = 2 * np.sqrt(2 * np.log(2)) * np.sqrt(cov[1][1])
+                
+                # get counts in peak
+                lbound = int(round(mean-FWHM/2))
+                rbound = int(round(mean+FWHM/2))
+                [before, peak, after] = np.split(data, [lbound,rbound])
+                mpeak = np.sum(peak)
+                
+                cross[i+k] = 4*np.pi*r0**2*r**2*mpeak/(eta*eff*Ne*A*I*F)
                 
     else:
         for j, a in enumerate(angle[i]):
