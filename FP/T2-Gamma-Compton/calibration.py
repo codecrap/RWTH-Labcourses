@@ -4,10 +4,13 @@
 
 import numpy as np
 from matplotlib import pyplot as plt
+import matplotlib
 from scipy.optimize import curve_fit
 import sys
 sys.path.append("./../../")
 import PraktLib as pl
+
+matplotlib.style.use("../labreport.mplstyle")
 
 # gauss function
 def gauss(x, x0, sigma, a):
@@ -60,6 +63,7 @@ for i, element in enumerate(probes):
     # plot data
     fig, ax = plt.subplots()
     ax.plot(chan, count, '.')
+    plt.show()
     fig.savefig("Figures/"+strings[i]+".pdf",format='pdf',dpi=256)
     
     for j, bound in enumerate(element):

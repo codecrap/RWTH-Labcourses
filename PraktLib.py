@@ -214,6 +214,7 @@ def plotFit(x,xerr,y,yerr,title="test",xlabel="",ylabel="",res_ylabel=r"$y - (a 
 		ax[1].legend(loc='upper right',fontsize=fontsize)
 		ax[1].grid(True)
 		fig.tight_layout()
+		plt.show()
 		fig.savefig("Figures/"+title+".pdf",format='pdf',dpi=256)
 
 	return fitparam,fitparam_err,chiq
