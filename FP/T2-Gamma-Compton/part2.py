@@ -20,7 +20,87 @@ def gauss(x, x0, sigma, a):
     return a * np.exp(-(x-x0)**2/(2.*sigma**2))
 
 # measurements
-r0 = 1
+Rw = 14e-3 # ring width
+dRw = 1e-3
+Di = np.array([121e-3, 171e-3, 221e-3]) # inner diameter
+dDi = np.full(3, 1e-3)
+Do = np.array([149e-3, 199e-3, 250e-3]) # outer diameter
+dDo = np.full(3, 1e-3)
+Rv = np.pi * (Do**2 - Di**2) * Rw # ring volume
+dRv = 123
+Ne = 123
+
+r0_conv = 49e-3 # distance source - body in conv.
+dr0_conv = 2e-3
+r_conv = 272e-3 # distance body - detector in conv.
+dr_conv = 2e-3
+
+longleft = 230e-3 # calc distance body - detector in ring
+dll = 1e-3
+shortleft = 211e-3
+dsl = 1e-3
+longright = 228e-3
+dlr = 1e-3
+shortright = 216e-3
+dsr = 1e-3
+left = (longleft-shortleft)/2 + shortleft
+dleft = 123 
+right = (longright-shortright)/2 + shortright
+dright = 123
+r2 = (left+right)/2
+dr2 = 123
+r1 = 273e-3 # distance source - body in ring # whatabout source length?
+dr1 = 1e-3
+
+h = (Do-Di)/4+Di/2
+dh = 123
+r0_ring = np.sqrt(r1**2 + h**2)
+dr0_ring = 123
+r_ring = np.sqrt(r2**2 + h**2)
+dr_ring = 123
+
+cd = 26e-3 # collimator diameter
+rcd = 1e-3
+Fc = np.pi*(cd/2)**2 # detector surface for conv. 
+dFc = 123
+F_ring = 123 # detector surface for ring
+dF_ring = 123
+
+A = 36697224.2834653 # activity on day of experiment
+dA = 123
+
+I = 0.85 # photon yield
+
+E_0 = 123 # energy of photon before scattering 
+def mu_air(E):
+    return 123
+def mu_al(E):
+    return 123
+
+x1_air_ring = r0_ring # approx
+dx1_air_ring = 123
+x2_air_ring = r_ring # approx
+dx2_air_ring = 123
+x1_al_ring = 0 # approx
+dx1_al_ring = 123
+x2_al_ring = 0
+dx2_al_ring = 123
+
+x1_air_conv = r0_conv
+dx1_air_conv = 123
+x2_air_conv = r_conv
+dx2_air_conv = 123
+x1_al_conv = 0
+dx1_al_conv = 123
+x2_al_conv = 0
+dx2_al_conv = 123
+
+def eta_ring(E_prime): # absorbtion
+    return np.exp(-mu_air(E_0)*x1_air_ring)*np.exp(-mu_air(E_0)*x1_al_ring)*np.exp(-mu_air(E_prime)*x2_al_ring)*np.exp(-mu_air(E_prime)*x2_air_ring)
+def eta_conv(E_prime): # absorbtion
+    return np.exp(-mu_air(E_0)*x1_air_conv)*np.exp(-mu_air(E_0)*x1_al_conv)*np.exp(-mu_air(E_prime)*x2_al_conv)*np.exp(-mu_air(E_prime)*x2_air_conv)
+
+eff = 123
 
 # set strings and angles
 method = ['Ring', 'Conv']
@@ -75,12 +155,15 @@ for i, m in enumerate(method):
                 dFWHM = 2 * np.sqrt(2 * np.log(2)) * np.sqrt(cov[1][1])
                 
                 # get counts in peak
-                lbound = int(round(mean-FWHM/2))
-                rbound = int(round(mean+FWHM/2))
+                lbound = int(round(opt[0]-FWHM/2))
+                rbound = int(round(opt[0]+FWHM/2))
                 [before, peak, after] = np.split(data, [lbound,rbound])
                 mpeak = np.sum(peak)
                 
-                cross[i+k] = 4*np.pi*r0**2*r**2*mpeak/(eta*eff*Ne*A*I*F)
+                temp = mean[i+k]
+                dtemp = dmean[i+k]
+                #E, dE = ChtoE(temp, dtemp)
+                #cross[i+k] = 4*np.pi*r0_conv**2*r_conv**2*mpeak/(eta_conv(E)*eff*Ne_conv*A*I*F_conv)
                 
     else:
         for j, a in enumerate(angle[i]):
