@@ -14,8 +14,6 @@ import scipy.odr
 import io
 import random
 import scipy.optimize as spopt
-# import sys
-# sys.path.append("../../PraktikumPyLib/")
 
 
 
@@ -48,9 +46,6 @@ def weightedMean(x, ex):
 	sigma = np.sqrt(1./np.sum(1./ex**2))
 	return mean, sigma
 
-def minToDeg(value):
-	return value/60.
-
 def degToSr(value):
 	return value*(2.*np.pi/360.)
 
@@ -72,7 +67,8 @@ def printAsLatexTable(data,colTitles,rowTitles="",mathMode=True,decimals=2):
 		if len(colTitles) != data.shape[1]:
 			print("Dimensions of data and colTitles don't match!")
 			return -1
-		if 0 != len(rowTitles) and len(rowTitles) != data.shape[0]:					# -1 because we don't put anything in upper left corner of the table
+		if 0 != len(rowTitles) and len(rowTitles) != data.shape[0]:					# we don't put anything in upper
+			# left corner of the table
 			print("Dimensions of data and rowTitles don't match!")
 			return -2
 	except AttributeError:
@@ -82,32 +78,37 @@ def printAsLatexTable(data,colTitles,rowTitles="",mathMode=True,decimals=2):
 	# we need the r-strings here to escape format placeholders like {} or \
 	print("\n")
 	print(r"\begin{table}[H]")
-	print(r"\renewcommand{\arraystretch}{1.5}")
-	print(r"\centering")
-	print(r"	\begin{tabular}{|%s|}" % "|".join("c" for _ in colTitles))
-	print(r"	\hline")
-	print(r"	&" if 0!=len(rowTitles) else "	",
+	print(r"	\renewcommand{\arraystretch}{1}")
+	print(r"	\centering")
+	print(r"	\Large")
+	print(r"	\begin{adjustbox}{width=\textwidth}")
+	print(r"		\begin{tabular}{|%s|}" % "|".join("c" for _ in range(len(colTitles)+int(bool(rowTitles)) ) ) )		# hack to take care of potential row titles
+	print(r"			\hline")
+	print(r"			&" if 0!=len(rowTitles) else "		",
 			" & ".join(str(colTitle) for colTitle in colTitles),
 			r"\\")
-	print(r"	\hline")
+	print(r"			\hline")
 
-	# use of %g should be considered here, as we dont know how data will exactly look like
+	# use of %g (general, automatic rounding) should be considered here, as we dont know how data will exactly look like
 	if 0 != len(rowTitles):
 		for row,rowTitle in enumerate(rowTitles):
-			print("	%s" % str(rowTitle),
-					" & ".join("${:.{prec}f}$".format(data[row,col], prec=decimals) if mathMode else "%s" % data[row,col] for col in range(data.shape[1]) ),
+			print("			%s &" % str(rowTitle),
+					" & ".join("${:.{prec}g}$".format(data[row,col], prec=decimals)
+							   if mathMode else "%s" % data[row,col] for col in range(data.shape[1]) ),
 					r"\\")
-			print("	\hline")
+			print("			\hline")
 	else:
 		for row in range(data.shape[0]):
-			print("	",
-					" & ".join("${:.{prec}f}$".format(data[row,col], prec=decimals) if mathMode else "%s" % data[row,col] for col in range(data.shape[1]) ),
+			print("		",
+					" & ".join("${:.{prec}g}$".format(data[row,col], prec=decimals)
+							   if mathMode else "%s" % data[row,col] for col in range(data.shape[1]) ),
 					r"\\")
-			print("	\hline")
+			print("			\hline")
 
-	print(r"	\end{tabular}")
-	print(r"\caption{ }")
-	print(r"\label{table: }")
+	print(r"		\end{tabular}")
+	print(r"	\end{adjustbox}")
+	print(r"	\caption{ }")
+	print(r"	\label{tab: }")
 	print(r"\end{table}")
 	print("\n")
 	return 0
