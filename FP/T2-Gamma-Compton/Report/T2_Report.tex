@@ -36,9 +36,7 @@
 \usepackage{appendix}
 \usepackage[bottom]{footmisc}
 \usepackage{listings}
-
-% packages requiring setup arguments
-
+\usepackage{dashrule}
 
 % graphics and floats
 \usepackage{graphicx}
@@ -63,6 +61,8 @@
 %\epstopdfDeclareGraphicsRule{.pdf}{png}{.png}{convert #1 \OutputFile}
 %\AppendGraphicsExtensions{.pdf}
 
+% packages requiring setup arguments
+
 \usepackage{xcolor}
 %\definecolor{rwth-dark}{HTML}{176daf}
 \definecolor{rwth-dark}{RGB}{0,84,159}
@@ -76,9 +76,7 @@
 %*/
 
 \usepackage{hyperref}
-\hypersetup{hidelinks=true,
-colorlinks=true,
-allcolors=rwth-dark}
+\hypersetup{hidelinks=true,colorlinks=true,allcolors=rwth-dark}
 \usepackage[nameinlink,capitalise]{cleveref}
 %\usepackage[hyphens]{url}
 %\urlstyle{sf}
@@ -93,7 +91,7 @@ allcolors=rwth-dark}
 \fancyhf{} % delete current header and footer
 
 %\fancyhead[LE,RO]{\large\thepage}
-\fancyhead[L]{\large\rightmark\thepage}
+\fancyhead[L]{\large\rightmark}
 \fancyhead[R]{\large\leftmark}
 
 \renewcommand{\headrulewidth}{0.3pt}
@@ -151,23 +149,40 @@ allcolors=rwth-dark}
 %		\end{flushright}
 %	\end{minipage}
 	
-	\vspace{3cm}
+%	\vspace*{\fill}
+	\hspace{0pt}
+	\vspace{2cm}
 	\begin{center}
-		\Thickline
-		\vskip -0.45cm
-		\Thinline
+%		\Thickline
+%		\vskip -0.5cm
+%		\Thinline
+		\hdashrule{\linewidth}{2pt}{}
+		\vskip -0.5cm
+		\hdashrule{\linewidth}{1pt}{}
+		
 		\vspace{0.5cm}
+		\Huge{ \textbf{ T2 \\}}
+		\LARGE{ \textbf{Gamma spectroscopy and Compton scattering } } 
 		
-		\huge{ \textbf{ Report T2 - Gamma spectroscopy and Compton scattering } } 
+		\hdashrule{\linewidth}{1pt}{}
+		\vskip -0.9cm
+		\hdashrule{\linewidth}{2pt}{}
+%		\Thinline
+%		\vskip -0.9cm
+%		\Thickline 
 		
-		\Thinline
-		\vskip -1cm
-		\Thickline 
+		\vspace{3cm}
+		\Large{\textbf{ Group 14 \\}}
+		\Large{Alexandre Drouet, 358681 \\ Olexiy Fedorets, 356615 \\}
 		\vspace{1cm}
+		\Large{\textsl{ Experiment Date: 19.--20.02.2019 \\ Submission Date: 06.03.2019}}
+
+		
 
 		
 	\end{center}
 	\vfill
+%	\vspace*{\fill}
 	
 \end{titlepage}
 	
@@ -228,29 +243,33 @@ A radioactive probe is placed in front of the scintillator at distance $r_0$.
 8.63618713e+02]
 
 
-\begin{table}[H]
-	\renewcommand{\arraystretch}{1.5}
+
+
+\begin{table}
+	\renewcommand{\arraystretch}{2}
 	\centering
-	\begin{tabular}{|c|c|c|c|c|c|}
-		\hline
-		& Cs-strong & Cs-weak & Co & Eu & Na \\
-		\hline
-		Buy date & 23.11.2010 & 12.08.1988 & 15.04.2003 & 02.06.1978 & 12.01.2005 \\
-		\hline
-		Activity at buy date [\si{\becquerel}] & \num{44400e3} & \num{37e3} & \num{37e3} & \num{37e3} & \num{37e3} \\
-		\hline
-		Halflife time [\si{s}] & \num{950e6} & \num{950e6} & \num{16634.6e4} & \num{4270.8e5} & \num{8212.3e4} \\
-		\hline
-		Halflife time errors [\si{s}] & \num{7.8e6} & \num{7.8e6} & \num{3.5e4} & \num{4.4e5} & \num{3.5e4} \\
-		\hline
-		Decay constant [\si{\per\second}] & \num{7.3e-10} & \num{7.3e-10} & \num{4.2e-09} & \num{1.6e-09} & \num{8.4e-09} \\
-		\hline
-		Activity today [\si{Bq}] & \num{36725279.9} & \num{18326.4} & \num{4600.5} & \num{4596.1} & \num{863.6} \\
-		\hline
-	\end{tabular}
-	\caption{ }
-	\label{tab:probes }
+	\large
+	\begin{adjustbox}{width=1.15\textwidth}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			& Cs (strong) & Cs (weak) & Co & Eu & Na \\
+			\hline
+			Buy date & 23.11.2010 & 12.08.1988 & 15.04.2003 & 02.06.1978 & 12.01.2005 \\
+			\hline
+			Activity at buy date (\si{\kilo\becquerel}) & $44400$ & $37$ & $37$ & $37$ & $37$ \\
+			\hline
+			Halflife time (days) & $\left(1.100 \pm 0.009\right) \times 10^{4}$ & $\left(1.100 \pm 0.009\right) \times 10^{4}$ & $\left(1.9253 \pm 0.0004\right) \times 10^{3}$ & $\left(4.943 \pm 0.005\right) \times 10^{3}$ & $\left(9.505 \pm 0.004\right) \times 10^{2}$ \\
+			\hline
+			Decay constant (\si{\per\second}) & $\left(7.29 \pm 0.06\right) \times 10^{-10}$ & $\left(7.29 \pm 0.06\right) \times 10^{-10}$ & $\left(4.1669 \pm 0.0009\right) \times 10^{-9}$ & $\left(1.623 \pm 0.002\right) \times 10^{-9}$ & $\left(8.440 \pm 0.004\right) \times 10^{-9}$ \\
+			\hline
+			Activity today (\si{\kilo\becquerel}) & $\left(3.673 \pm 0.006\right) \times 10^{4}$ & $\left(1.83 \pm 0.01\right) \times 10^{1}$ & $\left(4.602 \pm 0.002\right) \times 10^{0}$ & $\left(4.60 \pm 0.01\right) \times 10^{0}$ & $\left(8.64 \pm 0.01\right) \times 10^{-1}$ \\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+	\caption{A compilation of all radioactive sources used in the experiment, with corresponding activities computed according to the decay law. }
+	\label{tab:probes}
 \end{table}
+
 
 
 
