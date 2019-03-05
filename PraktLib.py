@@ -14,8 +14,12 @@ import scipy.odr
 import io
 import random
 import scipy.optimize as spopt
+import uncertainties.unumpy as unp
+from uncertainties import ufloat
 
 
+def uarray_tag(val, sig, tag):
+    return np.array([ufloat(val[i], sig[i], tag) for i in range(np.size(val))])
 
 def readLabFile(file):
 	'''

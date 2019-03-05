@@ -6,6 +6,8 @@ import numpy as np
 from matplotlib import pyplot as plt
 import matplotlib
 from scipy.optimize import curve_fit
+import uncertainties.unumpy as unp
+from uncertainties import ufloat
 import sys
 sys.path.append("./../../")
 import PraktLib as pl
@@ -137,12 +139,27 @@ b2 = fitparam2[1]
 db2 = fitparam_err2[1]
 
 # convertion function
+# old
+#delim = (min(mean2)-max(mean1))/2
+#def ChtoE(ch, dch):
+#    if ch<=delim:
+#        E = a1 * ch + b1
+#        dE = np.sqrt((ch*da1)**2 + (a1*dch)**2 + db1**2)
+#    else:
+#        E = a2 * ch + b2
+#        dE = np.sqrt((ch*da2)**2 + (a2*dch)**2 + db2**2)
+#    return [E, dE] # in keV
+
+# new
 delim = (min(mean2)-max(mean1))/2
-def ChtoE(ch, dch):
-    if ch<=delim:
-        E = a1 * ch + b1
-        dE = np.sqrt((ch*da1)**2 + (a1*dch)**2 + db1**2)
-    else:
-        E = a2 * ch + b2
-        dE = np.sqrt((ch*da2)**2 + (a2*dch)**2 + db2**2)
-    return [E, dE] # in keV
+a1 = ufloat(a1, da1, 'sys')
+b1 = ufloat(b1, db1, 'sys')
+a2 = ufloat(a2, da2, 'sys')
+b2 = ufloat(b2, db2, 'sys')
+def ChtoE(ch):
+    for i in range(np.size(ch)): 
+        if ch[i]<=delim:
+            E = a1 * ch + b1
+        else:
+            E = a2 * ch + b2
+    return E # in keV

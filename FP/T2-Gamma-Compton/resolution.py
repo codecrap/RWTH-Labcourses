@@ -4,19 +4,28 @@
 
 import numpy as np
 from matplotlib import pyplot as plt
+import matplotlib
 from calibration import ChtoE
 from scipy.optimize import curve_fit
 import uncertainties.unumpy as unp
+from uncertainties import ufloat
+import sys
+sys.path.append("./../../")
+import PraktLib as pl
 
+matplotlib.style.use("../labreport.mplstyle")
 
 # @TODO: entire error calculation
 
 # get data
 data = np.loadtxt('photo_peaks.NORM')
-E = unp.uarray(data[0],np.zeros(len(data[0])) )		# @FIXME why taking the theory value and not E+-dE ?
-sig = unp.uarray(data[3],data[4])
+E = np.array(data[0])
+sig = pl.uarray_tag(data[3], data[4], 'stat')
 # dsig = data[4]
-sig, dsig = ChtoE(sig., dsig)	# @FIXME not working
+sig = ChtoE(sig)	# @FIXME not working
+print(sig)
+
+'''
 # had to kick out negative sigmas that where screwing the calculation
 # @TODO: improve calibration, so that maybe we don't have to kick out so much data
 sig = np.delete(sig, [0,4,5,6])
@@ -48,3 +57,4 @@ ax.plot(poly(E,opt[0],opt[1]), y, '.')
 fig.show()
 
 
+'''
