@@ -70,37 +70,40 @@ print(m)
 E0 = 661.66 
 
 # get angles and energies of scattered photons
-theta, mean, dmean, sig, dsig = np.loadtxt('photo_peaks_2.NORM', max_rows=11) # missing dtheta!
-dtheta = np.zeros(len(theta))
-print(theta)
+theta, mean, dmean, sig, dsig = np.loadtxt('photo_peaks_2.NORM', usecols = (0,1,2,3,4,6,7,8,9,10)) # missing dtheta!
+dtheta = np.full(len(theta), 0.)
+#print(theta)
 
 mean = pl.uarray_tag(mean, dmean, 'stat')
-theta = pl.uarray_tag(theta, dtheta, 'sys')
-#mean = np.delete(mean, [11,12,13,14,15,16]) # getting rid of Fe
-#theta = np.delete(theta, [11,12,13,14,15,16])
+theta = pl.uarray_tag(pl.degToSr(theta), pl.degToSr(dtheta), 'sys')
 
 # convert to energy values
 E = ChtoE(mean)
 
 # linear fit
 x = 1 - unp.cos(theta)
-y = 1/E -1/E0
+y = 1/(E) - 1/(E0)
 xval = unp.nominal_values(x)
 xerr = unp.std_devs(x)
 xstat, xsys = pl.split_error(x)
 yval = unp.nominal_values(y)
 yerr = unp.std_devs(y)
 ystat, ysys = pl.split_error(y)
+#print(xval)
+#print(xstat)
+#print(yval)
+#print(ystat)
 
-fitparam,fitparam_err,chiq = pl.plotFit(xval, xstat, yval ,ystat,
-										title="linear fit to find m_e",
+#plt.plot(xval,yval)
+
+fitparam,fitparam_err,chiq = pl.plotFit(np.array(xval), np.array(xstat), np.array(yval), np.array(ystat),
+										title=r"linear fit to find $m_e$",
 										xlabel="",
 										ylabel="",
 										res_ylabel=r"$y - (a \cdot x + b)$",
 										capsize=3,fontsize=20,show=True,method='leastsq')
 
-print(fitparam)
-
-a = ufloat(fitparam[0], fitparam_err)
-
+a = ufloat(fitparam[0], fitparam_err[0])
+m = e*1000/(a*c**2)
+print(m)
 

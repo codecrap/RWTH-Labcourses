@@ -7,6 +7,7 @@ from matplotlib import pyplot as plt
 import matplotlib
 from calibration import ChtoE
 from scipy.optimize import curve_fit
+from scipy import odr
 import uncertainties.unumpy as unp
 from uncertainties import ufloat
 import sys
@@ -63,31 +64,66 @@ fig.savefig("Figures/"+name+".pdf")
 # get a and b
 name = 'resolution constants'
 
-def poly(en, a, b):
-    return (en*a)**2 + en*b**2
+def poly(beta, en):
+    return (en*beta[0])**2 + en*beta[1]**2
 
 x = E
-xval = unp.nominal_values(x)
-xerr = unp.std_devs(x)
+xerr = np.full(len(E), 1e-15)
 y = FWHM**2
 yval = unp.nominal_values(y)
 yerr = unp.std_devs(y)
 ystat, ysys = pl.split_error(y)
 
-opt, cov = curve_fit(poly, E, yval, sigma=ystat)
-a = ufloat(opt[0], cov[0][0], 'stat')
-b = ufloat(opt[1], cov[1][1], 'stat')
+model  = odr.Model(poly)
+data   = odr.RealData(x, yval, sx=xerr, sy=ystat)
+odr    = odr.ODR(data, model, beta0=[1, 1])
+output = odr.run()
+ndof = len(x)-2
+chiq = output.res_var*ndof
+corr = output.cov_beta[0,1]/np.sqrt(output.cov_beta[0,0]*output.cov_beta[1,1])
+
+fitparam = [output.beta[0],output.beta[1]]
+fitparam_err = [output.sd_beta[0],output.sd_beta[1]]
+
+#opt, cov = curve_fit(poly, E, yval, sigma=ystat)
+a = ufloat(fitparam[0], fitparam_err[0], 'stat')
+b = ufloat(fitparam[1], fitparam_err[1], 'stat')
 print('a = {}'.format(a))
 print('b = {}'.format(b))
-
-fit = poly(np.arange(min(E),max(E)), opt[0], opt[1])
+print('chiq = {}'.format(chiq))
+'''
+fit = poly([fitparam[0], fitparam[1]], np.arange(min(E),max(E)))
 
 fig, ax = plt.subplots()
-ax.errorbar(xval,yval,xerr=xerr,yerr=yerr,fmt='.',color='b')
 ax.plot(np.arange(min(E),max(E)), fit, 'r-')
+ax.errorbar(xval,yval,xerr=xerr,yerr=yerr,fmt='.',color='b')
 ax.set_title(name)
 ax.set_ylabel(r'$(\Delta E)^{2}$ [keV$^2$]')
 ax.set_xlabel(r'$E$ [keV]')#^{2} \cdot a^{2}+E \cdot b^{2}$')
 fig.tight_layout()
 fig.show()
 fig.savefig("Figures/"+name+".pdf")
+'''
+
+fig,ax = plt.subplots(2,1,figsize=(15,10))
+residue = yval-poly(fitparam,x)
+ax[0].plot(x,poly(fitparam,x),'r-',
+			label="Fit: $a = %.3f \pm %.3f$, \n     $b = %.3f \pm %.3f$"
+					% (fitparam[0],fitparam_err[0],fitparam[1],fitparam_err[1]))
+ax[0].errorbar(x,yval,xerr=xerr,yerr=yerr,fmt='.',color='b')
+ax[0].set_title('title')
+ax[0].set_xlabel('xlabel')
+ax[0].set_ylabel('ylabel')
+ax[0].legend(loc='lower right')
+ax[0].grid(True)
+ax[1].errorbar(x,residue,yerr=np.sqrt(yerr**2+fitparam[0]*xerr**2),fmt='x',color='b',
+			label=r"$\frac{\chi^2}{ndf} = %.3f$" % np.around(chiq,3))
+ax[1].axhline(0,color='r')
+ax[1].set_title("Residuenverteilung")
+ax[1].set_xlabel('xlabel')
+ax[1].set_ylabel('resylabel')
+ax[1].legend(loc='upper right')
+ax[1].grid(True)
+fig.tight_layout()
+plt.show()
+fig.savefig("Figures/resolution_fit.pdf",format='pdf',dpi=256)
