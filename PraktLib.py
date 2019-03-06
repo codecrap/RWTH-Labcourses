@@ -17,6 +17,9 @@ import scipy.optimize as spopt
 import uncertainties.unumpy as unp
 from uncertainties import ufloat
 
+import matplotlib
+matplotlib.style.use("../labreport.mplstyle")
+
 
 def split_error(x):
 	sys = np.zeros(np.size(x))
@@ -182,8 +185,8 @@ def linreg_manual(x,y,ey):
 def plotFit(x,xerr,y,yerr,title="test",xlabel="",ylabel="",res_ylabel=r"$y - (a \cdot x + b)$",capsize=3,fontsize=20,show=True,method='leastsq'):
 	# print(len(x),len(xerr),len(y),len(yerr),y.shape)
 	line = lambda p,x: p[0]*x+p[1]
-
-
+	plt.ioff()
+	
 	if method=='leastsq':
 		p0 = [1,0]	# start values
 		chifunc = lambda p,x,xerr,y,yerr: (y-line(p,x))/np.sqrt(yerr**2+p[0]*xerr**2)	# p[0] = d/dx line()
@@ -212,28 +215,28 @@ def plotFit(x,xerr,y,yerr,title="test",xlabel="",ylabel="",res_ylabel=r"$y - (a 
 		fitparam_err = [output.sd_beta[0],output.sd_beta[1]]
 
 	if show:
-		fig,ax = plt.subplots(2,1,figsize=(15,10))
+		fig,ax = plt.subplots(2,1)
 		residue = y-line(fitparam,x)
 		ax[0].plot(x,line(fitparam,x),'r-',
 					label="Fit: $a = %.3f \pm %.3f$, \n     $b = %.3f \pm %.3f$"
 							% (fitparam[0],fitparam_err[0],fitparam[1],fitparam_err[1]))
-		ax[0].errorbar(x,y,xerr=xerr,yerr=yerr,fmt='.',color='b',capsize=capsize-1)
-		ax[0].set_title(title,fontsize=fontsize)
-		ax[0].set_xlabel(xlabel,fontsize=fontsize)
-		ax[0].set_ylabel(ylabel,fontsize=fontsize)
-		ax[0].legend(loc='lower right',fontsize=fontsize)
-		ax[0].grid(True)
-		ax[1].errorbar(x,residue,yerr=np.sqrt(yerr**2+fitparam[0]*xerr**2),fmt='x',color='b',capsize=capsize,
+		ax[0].errorbar(x,y,xerr=xerr,yerr=yerr,fmt='.',color='b')
+		ax[0].set_title(title)
+		ax[0].set_xlabel(xlabel)
+		ax[0].set_ylabel(ylabel)
+		ax[0].legend(loc='lower right')
+		# ax[0].grid(True)
+		ax[1].errorbar(x,residue,yerr=np.sqrt(yerr**2+fitparam[0]*xerr**2),fmt='o',color='b',
 					label=r"$\frac{\chi^2}{ndf} = %.3f$" % np.around(chiq,3))
 		ax[1].axhline(0,color='r')
-		ax[1].set_title("Residuenverteilung",fontsize=fontsize)
-		ax[1].set_xlabel(xlabel,fontsize=fontsize)
-		ax[1].set_ylabel(res_ylabel,fontsize=fontsize)
-		ax[1].legend(loc='upper right',fontsize=fontsize)
-		ax[1].grid(True)
-		fig.tight_layout()
-		plt.show()
-		fig.savefig("Figures/"+title+".pdf",format='pdf',dpi=256)
+		ax[1].set_title("Residuals")
+		ax[1].set_xlabel(xlabel)
+		ax[1].set_ylabel(res_ylabel)
+		ax[1].legend(loc='upper right')
+		# ax[1].grid(True)
+		# fig.tight_layout()
+		# plt.show()
+		fig.savefig("Figures/"+title)
 
 	return fitparam,fitparam_err,chiq
 

@@ -4,29 +4,37 @@
 
 import numpy as np
 from matplotlib import pyplot as plt
-import matplotlib
 from scipy.optimize import curve_fit
 import uncertainties.unumpy as unp
 from uncertainties import ufloat, UFloat
+import peakutils as pu
+import operator
+from functools import reduce
+
 import sys
 sys.path.append("./../../")
 import PraktLib as pl
 
+from importlib import reload														# take care of changes in module by manually reloading
+pl = reload(pl)
+
+import matplotlib
 matplotlib.style.use("../labreport.mplstyle")
+plt.ioff()
 
-# gauss function
-def gauss(x, x0, sigma, a):
-    return a * np.exp(-(x-x0)**2/(2.*sigma**2))
-
-# element order: Cs, Na, Co, Eu
-strings = ['Cs', 'Na', 'Co', 'Eu']
+# Element order: Cs, Na, Co, Eu
+vSOURCES = ['Cs', 'Na', 'Co', 'Eu']
+DATAPATH = "./Data/"
+FILE_POSTFIX = "_calibration.TKA"
+vCOLORS = ['r','g','b','k','m','y']
 
 # peak bounds
 Cs = [[420,475]]
 Na = [[820,865]]
 Co = [[750,800], [850,910]]
 Eu = [[85,105], [165,190], [225,255], [505,540], [620,665], [890,970]] #[690,780]
-probes = [Cs, Na, Co, Eu]
+# vPeakBounds = reduce(operator.concat,[Cs, Na, Co, Eu])
+vPeakBounds = [Cs,Na,Co,Eu]
 
 # expected values
 theory = np.array([661.66,
@@ -41,79 +49,100 @@ sort = np.array([3,
                  0, 1, 2, 4, 5, 9])
     
 # get noise
-noise = np.genfromtxt('Data/Noise_calibration.TKA')
-noise = np.delete(noise, [0,1])
+vNoise =  np.genfromtxt(DATAPATH+"Noise"+FILE_POSTFIX, dtype=int, delimiter='\n', skip_header=2)
+
 
 # set channel array
-chan = np.array(range(len(noise)))
+vCh = np.array(range(len(vNoise)))
 
 # 
 # mean = [[0],[0],[0,0],[0,0,0,0,0,0,0]]
-mean = []
-dmean = []
-sig = []
-dsig = []
+vMean = []
+# dmean = []
+vSigma = []
+# dsig = []
 n = []
+vThres = [0.5,0.1,0.7,0.1]
+vMindist = [50,300,80,40]
 
-for i, element in enumerate(probes):
-    
-    # get data
-	data = np.genfromtxt('Data/'+strings[i]+'_calibration.TKA')
-	count = np.delete(data, [0,1])
+for i,source in enumerate(vSOURCES):
+	
+	vData = np.genfromtxt(DATAPATH + source + FILE_POSTFIX, dtype=float, delimiter='\n', skip_header=2)
 
 	# raw plot
-#	name = strings[i]+' raw'
-#	fig, ax = plt.subplots()
-#	ax.plot(chan, count, 'b.')
-#	ax.set_title(name)
-#	ax.set_xlabel('channel')
-#	ax.set_ylabel('counts')
-#	fig.savefig("Figures/"+name+".pdf")
-
-    # plot clean data
-	count = count - noise
-#	name = strings[i]
-#	fig, ax = plt.subplots()
-#	ax.plot(chan, count, 'b.')
-#	ax.set_title(name)
-#	ax.set_xlabel('channel')
-#	ax.set_ylabel('counts')
-#	fig.savefig("Figures/"+name+".pdf")
+	fig, ax = plt.subplots()
+	ax.plot(vCh, vData, 'b.')
+	ax.set_xlabel('MCA Channel')
+	ax.set_ylabel('Event counts')
+	ax.set_title(source+" raw data")
+	fig.savefig("Figures/"+source+"_raw")
 	
-#	# plot with gauss
-#	name = strings[i]+' gauss'
-#	fig, ax = plt.subplots()
-#	ax.plot(chan, count, 'b.')
-#	ax.set_title(name)
-#	ax.set_xlabel('channel')
-#	ax.set_ylabel('counts')
-	    
-	for j, bound in enumerate(element):
-	        
-		# cut out peaks
-		[before, peak, after] = np.split(count, bound)
-		[before, seg, after] = np.split(chan, bound)
-
-		# fit gauss curve
-		opt, cov = curve_fit(gauss, seg, peak, p0=[bound[0],1,1])
-		mean += [opt[0]]
-		dmean += [np.sqrt(cov[0][0])]
-		sig += [abs(opt[1])]
-		dsig += [np.sqrt(cov[1][1])]
-		n += [opt[2]]
+	# plot without noise
+	vData -= vNoise
+	fig, ax = plt.subplots()
+	ax.plot(vCh, vData, 'b.')
+	ax.set_xlabel('MCA Channel')
+	ax.set_ylabel('Event counts')
+	ax.set_title(source + " without noise")
+	fig.savefig("Figures/" + source + "_nonoise")
+	
+	# plot without baseline estimate
+	vBaseline = pu.baseline(vData,deg=8,max_it=200,tol=1e-4)
+	vData -= vBaseline
+	fig, ax = plt.subplots()
+	ax.plot(vCh, vData, 'b.')
+	ax.set_xlabel('MCA Channel')
+	ax.set_ylabel('Event counts')
+	ax.set_title(source + " without baseline estimate")
+	# fig.savefig("Figures/" + source + "_nobaseline")
+	
+	# # plot with peaks
+	# vPeakInds = pu.peak.indexes(vData,thres=vThres[i],min_dist=vMindist[i])
+	# fig, ax = plt.subplots()
+	# ax.plot(vCh, vData, 'b.')
+	# ax.plot(vPeakInds, vData[vPeakInds], 'rx', label="Peakfinder peaks")
+	# ax.legend(loc='upper right')
+	# ax.set_xlabel('MCA Channel')
+	# ax.set_ylabel('Event counts')
+	# ax.set_title(source + " without baseline estimate")
+	# fig.savefig("Figures/" + source + "_nobaseline")
+	
+	# plot with fits
+	# fig, ax = plt.subplots()
+	for j, bound in enumerate(vPeakBounds[i]):
 		
-		#ax.plot(chan, gauss(chan, opt[0], opt[1], opt[2]), 'r-')
+		# cut out peaks
+		_,vPeakData,_ = np.split(vData, bound)
+		_,vPeakCh,_ = np.split(vCh, bound)
+		
+		# fit gauss curve
+		opt, cov = curve_fit(pl.gauss, vPeakCh, vPeakData, p0=[int(np.mean(bound)),1,1])
+		vMean += [ufloat(opt[0], np.sqrt(cov[0][0]))]
+		# dmean += [np.sqrt(cov[0][0])]
+		vSigma += [ufloat(abs(opt[1]), np.sqrt(cov[1][1]))]
+		# dsig += [np.sqrt(cov[1][1])]
+		n += [opt[2]]
 	
-	#fig.savefig("Figures/"+name+".pdf")
-        
-mean = np.array(mean)
-dmean = np.array(dmean)
-sig = np.array(sig)
-dsig = np.array(dsig)
+		ax.plot(vCh, pl.gauss(vCh, opt[0], opt[1], opt[2]), color=vCOLORS[j],
+				label=r"$\mu = {:.1ufL}, \sigma = {:.1ufL}$".format(ufloat(opt[0],np.sqrt(cov[0][0])), ufloat(abs(opt[1]), np.sqrt(cov[1][1])) ) )
+
+	ax.legend(loc='upper right')
+	ax.set_xlabel('MCA Channel')
+	ax.set_ylabel('Event counts')
+	ax.set_title(source + " without baseline estimate")
+	fig.savefig("Figures/" + source + "_nobaseline")
+
+
+plt.close('all')
+
+vMean = np.array(vMean)
+# dmean = np.array(dmean)
+vSigma = np.array(vSigma)
+# dsig = np.array(dsig)
 n = [np.array(n)]
 
 # create NORM file
-np.savetxt('photo_peaks.NORM',[theory,mean,dmean,sig,dsig])
+np.savetxt('photo_peaks.NORM', [theory, unp.nominal_values(vMean), unp.std_devs(vMean), unp.nominal_values(vSigma), unp.std_devs(vSigma)])
 
 # sort arrays
 mean1 = []
@@ -125,12 +154,12 @@ theory2 = []
 
 for i, val in enumerate(sort):
     if val<=4:
-        mean1 += [mean[i]]
-        dmean1 += [dmean[i]]
+        mean1 += [unp.nominal_values(vMean[i])]
+        dmean1 += [unp.std_devs(vMean[i])]
         theory1 += [theory[i]]
     else:
-        mean2 += [mean[i]]
-        dmean2 += [dmean[i]]
+        mean2 += [unp.nominal_values(vMean[i])]
+        dmean2 += [unp.std_devs(vMean[i])]
         theory2 += [theory[i]]
         
 mean1 = np.array(mean1)
@@ -142,21 +171,21 @@ theory2 = np.array(theory2)
 
 # linear fits
 noerror = np.zeros(len(theory))
-fitparam,fitparam_err,chiq = pl.plotFit(mean, dmean, theory, noerror, show=False, title="calibration fit", xlabel="channel", ylabel="Energy [keV]", res_ylabel=r"$y - (a \cdot x + b)$")
+fitparam,fitparam_err,chiq = pl.plotFit(unp.nominal_values(vMean), unp.std_devs(vMean), theory, noerror, show=True, title="Calibration fit", xlabel="Channel", ylabel="Energy [keV]", res_ylabel=r"$y - (a \cdot x + b)$")
 a = fitparam[0]
 da = fitparam_err[0]
 b = fitparam[1]
 db = fitparam_err[1]
 
 noerror1 = np.zeros(len(theory1))
-fitparam1,fitparam_err1,chiq1 = pl.plotFit(mean1, dmean1, theory1, noerror1, show=False, title="calibration fit 1", xlabel="channel", ylabel="Energy [keV]", res_ylabel=r"$y - (a \cdot x + b)$")
+fitparam1,fitparam_err1,chiq1 = pl.plotFit(mean1, dmean1, theory1, noerror1, show=True, title="Calibration fit 1", xlabel="Channel", ylabel="Energy [keV]", res_ylabel=r"$y - (a \cdot x + b)$")
 a1 = fitparam1[0]
 da1 = fitparam_err1[0]
 b1 = fitparam1[1]
 db1 = fitparam_err1[1]
 
 noerror2 = np.zeros(len(theory2))
-fitparam2,fitparam_err2,chiq2 = pl.plotFit(mean2, dmean2, theory2, noerror2, show=False, title="calibration fit 2", xlabel="channel", ylabel="Energy [keV]", res_ylabel=r"$y - (a \cdot x + b)$")
+fitparam2,fitparam_err2,chiq2 = pl.plotFit(mean2, dmean2, theory2, noerror2, show=True, title="Calibration fit 2", xlabel="Channel", ylabel="Energy [keV]", res_ylabel=r"$y - (a \cdot x + b)$")
 a2 = fitparam2[0]
 da2 = fitparam_err2[0]
 b2 = fitparam2[1]

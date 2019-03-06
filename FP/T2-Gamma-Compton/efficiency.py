@@ -14,6 +14,8 @@ import uncertainties.unumpy as unp
 from uncertainties import ufloat
 import operator
 from functools import reduce
+import peakutils as pu
+
 
 import sys
 sys.path.append("./../../")															# path needed for PraktLib
@@ -103,8 +105,10 @@ vSOURCES_LIN = vSOURCES[0:2] + [vSOURCES[2]]*2 + [vSOURCES[3]]*6
 vActivity_today_LIN = np.append(vActivity_today[1:3], [vActivity_today[3]]*2 + [vActivity_today[4]]*6)
 
 for i,intensity in enumerate(reduce(operator.concat,vIntensity)):					# flatten the 2D list to match saved data in photo_peaks.NORM
-	vData = np.genfromtxt(DATAPATH + vSOURCES_LIN[i] + FILE_POSTFIX, dtype=int, delimiter='\n', skip_header=2)
+	vData = np.genfromtxt(DATAPATH + vSOURCES_LIN[i] + FILE_POSTFIX, dtype=float, delimiter='\n', skip_header=2)
 	vData -=  vNoise
+	vBaseline = pu.baseline(vData,deg=8,max_it=200,tol=1e-4)
+	vData -= vBaseline
 	
 	# get counts in peak
 	vPeakBounds += [[int(np.rint(vCalibrationPeaks[i] - vPeakFWHMs[i])), int(np.rint(vCalibrationPeaks[i] + vPeakFWHMs[i]))]]
