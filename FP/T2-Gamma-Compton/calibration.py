@@ -65,7 +65,7 @@ for i, element in enumerate(probes):
     # plot data
     fig, ax = plt.subplots()
     ax.plot(chan, count, '.')
-    plt.show()
+    # plt.show()
     fig.savefig("Figures/"+strings[i]+".pdf",format='pdf',dpi=256)
     
     for j, bound in enumerate(element):
@@ -78,7 +78,7 @@ for i, element in enumerate(probes):
         opt, cov = curve_fit(gauss, seg, peak, p0=[bound[0],1,1])
         mean += [opt[0]]
         dmean += [np.sqrt(cov[0][0])]
-        sig += [opt[1]]
+        sig += [abs(opt[1])]
         dsig += [np.sqrt(cov[1][1])]
         n += [opt[2]]
         
@@ -118,21 +118,21 @@ theory2 = np.array(theory2)
 
 # linear fits
 noerror = np.zeros(len(theory))
-fitparam,fitparam_err,chiq = pl.plotFit(mean, dmean, theory, noerror, title="calibration fit", xlabel="channel", ylabel="Energy [keV]", res_ylabel=r"$y - (a \cdot x + b)$")
+fitparam,fitparam_err,chiq = pl.plotFit(mean, dmean, theory, noerror, show=False, title="calibration fit", xlabel="channel", ylabel="Energy [keV]", res_ylabel=r"$y - (a \cdot x + b)$")
 a = fitparam[0]
 da = fitparam_err[0]
 b = fitparam[1]
 db = fitparam_err[1]
 
 noerror1 = np.zeros(len(theory1))
-fitparam1,fitparam_err1,chiq1 = pl.plotFit(mean1, dmean1, theory1, noerror1, title="calibration fit 1", xlabel="channel", ylabel="Energy [keV]", res_ylabel=r"$y - (a \cdot x + b)$")
+fitparam1,fitparam_err1,chiq1 = pl.plotFit(mean1, dmean1, theory1, noerror1, show=False, title="calibration fit 1", xlabel="channel", ylabel="Energy [keV]", res_ylabel=r"$y - (a \cdot x + b)$")
 a1 = fitparam1[0]
 da1 = fitparam_err1[0]
 b1 = fitparam1[1]
 db1 = fitparam_err1[1]
 
 noerror2 = np.zeros(len(theory2))
-fitparam2,fitparam_err2,chiq2 = pl.plotFit(mean2, dmean2, theory2, noerror2, title="calibration fit 2", xlabel="channel", ylabel="Energy [keV]", res_ylabel=r"$y - (a \cdot x + b)$")
+fitparam2,fitparam_err2,chiq2 = pl.plotFit(mean2, dmean2, theory2, noerror2, show=False, title="calibration fit 2", xlabel="channel", ylabel="Energy [keV]", res_ylabel=r"$y - (a \cdot x + b)$")
 a2 = fitparam2[0]
 da2 = fitparam_err2[0]
 b2 = fitparam2[1]

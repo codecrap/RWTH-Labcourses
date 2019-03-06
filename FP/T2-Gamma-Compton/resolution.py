@@ -20,41 +20,72 @@ matplotlib.style.use("../labreport.mplstyle")
 # get data
 data = np.loadtxt('photo_peaks.NORM')
 E = np.array(data[0])
+mean = pl.uarray_tag(data[1], data[2], 'stat')
 sig = pl.uarray_tag(data[3], data[4], 'stat')
-# dsig = data[4]
-sig = ChtoE(sig)	# @FIXME not working
-print(sig)
-
-'''
-# had to kick out negative sigmas that where screwing the calculation
-# @TODO: improve calibration, so that maybe we don't have to kick out so much data
-sig = np.delete(sig, [0,4,5,6])
-E = np.delete(E, [0,4,5,6])
+#sig = ChtoE(sig)
+#print(sig)
 
 # calc FWHM
 FWHM = 2 * np.sqrt(2 * np.log(2)) * sig
 # dFWHM = 2 * np.sqrt(2 * np.log(2)) * dsig
 
+# get channel values at half maximum
+right = mean + FWHM/2
+left = mean - FWHM/2
+
+# convert to energy values
+right = ChtoE(right)
+left = ChtoE(left)
+
+# calc FWHM in energy units
+FWHM = right-left
+
 # resolution-energy plot
-x = 1/np.sqrt(E)
+name = 'resolution'
+x = E
 y = FWHM/E
+xval = unp.nominal_values(E)
+yval = unp.nominal_values(FWHM/E)
+xerr = unp.std_devs(x)
+yerr = unp.std_devs(y)
 
 fig, ax = plt.subplots()
-ax.plot(x, y, '.')
-fig.show()
+ax.plot(xval, yval, '.')
+ax.errorbar(xval,yval,xerr=xerr,yerr=yerr,fmt='.',color='b')
+ax.set_title(name)
+ax.set_xlabel('$E$ [keV]')
+ax.set_ylabel(r'$\frac{\Delta E}{E}$')
+fig.tight_layout()
+#fig.show()
+fig.savefig("Figures/"+name+".pdf")
+
 
 # get a and b
-def poly(e, a, b):
-    return (e*a)**2 + e*b**2
+name = 'resolution constants'
 
+def poly(en, a, b):
+    return (en*a)**2 + en*b**2
+
+x = E
+xval = unp.nominal_values(x)
+xerr = unp.std_devs(x)
 y = FWHM**2
+yval = unp.nominal_values(y)
+yerr = unp.std_devs(y)
+ystat, ysys = pl.split_error(y)
 
-opt, cov = curve_fit(poly, E, y)
-print(opt)
+opt, cov = curve_fit(poly, E, yval, sigma=ystat)
+a = ufloat(opt[0], cov[0][0], 'stat')
+b = ufloat(opt[1], cov[1][1], 'stat')
+fit = poly(, opt[0], opt[1])
 
 fig, ax = plt.subplots()
-ax.plot(poly(E,opt[0],opt[1]), y, '.')
+ax.plot(xval, yval, '.')
+ax.errorbar(xval,yval,xerr=xerr,yerr=yerr,fmt='.',color='b')
+ax.plot(xval, fit, 'r.')
+ax.set_title(name)
+ax.set_ylabel(r'$\Delta E^{2}$ [keV]')
+ax.set_xlabel(r'$E^{2} \cdot a^{2}+E \cdot b^{2}$')
+fig.tight_layout()
 fig.show()
-
-
-'''
+fig.savefig("Figures/"+name+".pdf")
