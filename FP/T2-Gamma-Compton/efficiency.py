@@ -108,6 +108,8 @@ for i,source in enumerate(vSOURCES):
 		
 
 print(vEps)
+print("Efficiency mean: {:uf}".format(np.mean(vEps)) )
+# matplotlib.use('Qt5Agg')
 
 fig, ax = plt.subplots()
 ax.errorbar(vCalibrationTheoryE, unp.nominal_values(vEps), yerr=unp.std_devs(vEps), fmt='s', color='b')
@@ -116,3 +118,4 @@ ax.set_xlabel("Energy (keV)")
 ax.set_ylabel(r"$\varepsilon(E)$")
 fig.savefig("Figures/" + "Efficiency")
 fig.show()
+
