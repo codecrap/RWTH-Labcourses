@@ -97,9 +97,9 @@ ystat, ysys = pl.split_error(y)
 #plt.plot(xval,yval)
 
 fitparam,fitparam_err,chiq = pl.plotFit(np.array(xval), np.array(xstat), np.array(yval), np.array(ystat),
-										title=r"linear fit to find $m_e$",
-										xlabel="",
-										ylabel="",
+										title="linearfittofindme",
+										xlabel=r"1 - \cos{theta}",
+										ylabel=r"1/E_{\gamma}^{prime} - 1/E_{\gamma}",
 										res_ylabel=r"$y - (a \cdot x + b)$",
 										capsize=3,fontsize=20,show=True,method='leastsq')
 
