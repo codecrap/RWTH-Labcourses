@@ -7,7 +7,7 @@ from matplotlib import pyplot as plt
 import matplotlib
 from scipy.optimize import curve_fit
 import uncertainties.unumpy as unp
-from uncertainties import ufloat
+from uncertainties import ufloat, UFloat
 import sys
 sys.path.append("./../../")
 import PraktLib as pl
@@ -62,31 +62,31 @@ for i, element in enumerate(probes):
 	count = np.delete(data, [0,1])
 
 	# raw plot
-	name = strings[i]+' raw'
-	fig, ax = plt.subplots()
-	ax.plot(chan, count, 'b.')
-	ax.set_title(name)
-	ax.set_xlabel('channel')
-	ax.set_ylabel('counts')
-	fig.savefig("Figures/"+name+".pdf")
+#	name = strings[i]+' raw'
+#	fig, ax = plt.subplots()
+#	ax.plot(chan, count, 'b.')
+#	ax.set_title(name)
+#	ax.set_xlabel('channel')
+#	ax.set_ylabel('counts')
+#	fig.savefig("Figures/"+name+".pdf")
 
     # plot clean data
 	count = count - noise
-	name = strings[i]
-	fig, ax = plt.subplots()
-	ax.plot(chan, count, 'b.')
-	ax.set_title(name)
-	ax.set_xlabel('channel')
-	ax.set_ylabel('counts')
-	fig.savefig("Figures/"+name+".pdf")
+#	name = strings[i]
+#	fig, ax = plt.subplots()
+#	ax.plot(chan, count, 'b.')
+#	ax.set_title(name)
+#	ax.set_xlabel('channel')
+#	ax.set_ylabel('counts')
+#	fig.savefig("Figures/"+name+".pdf")
 	
-	# plot with gauss
-	name = strings[i]+' gauss'
-	fig, ax = plt.subplots()
-	ax.plot(chan, count, 'b.')
-	ax.set_title(name)
-	ax.set_xlabel('channel')
-	ax.set_ylabel('counts')
+#	# plot with gauss
+#	name = strings[i]+' gauss'
+#	fig, ax = plt.subplots()
+#	ax.plot(chan, count, 'b.')
+#	ax.set_title(name)
+#	ax.set_xlabel('channel')
+#	ax.set_ylabel('counts')
 	    
 	for j, bound in enumerate(element):
 	        
@@ -102,9 +102,9 @@ for i, element in enumerate(probes):
 		dsig += [np.sqrt(cov[1][1])]
 		n += [opt[2]]
 		
-		ax.plot(chan, gauss(chan, opt[0], opt[1], opt[2]), 'r-')
+		#ax.plot(chan, gauss(chan, opt[0], opt[1], opt[2]), 'r-')
 	
-	fig.savefig("Figures/"+name+".pdf")
+	#fig.savefig("Figures/"+name+".pdf")
         
 mean = np.array(mean)
 dmean = np.array(dmean)
@@ -181,9 +181,11 @@ b1 = ufloat(b1, db1, 'sys')
 a2 = ufloat(a2, da2, 'sys')
 b2 = ufloat(b2, db2, 'sys')
 def ChtoE(ch):
-    for i in range(np.size(ch)): 
-        if ch[i]<=delim:
-            E = a1 * ch + b1
-        else:
-            E = a2 * ch + b2
-    return E # in keV
+	if isinstance(ch, UFloat):
+		if ch<=delim: E = a1 * ch + b1
+		else: E = a2 * ch + b2
+	else:
+		for i in range(np.size(ch)): 
+			if ch[i]<=delim: E = a1 * ch + b1
+			else: E = a2 * ch + b2
+	return E # in keV

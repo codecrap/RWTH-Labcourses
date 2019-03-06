@@ -10,11 +10,28 @@ Created on Tue Feb 26 11:44:41 2019
 import numpy as np
 from matplotlib import pyplot as plt
 from scipy.optimize import curve_fit
-from scipy.constants import c
+from scipy.constants import c, e
+from uncertainties import ufloat
+from calibration import ChtoE
+import uncertainties.unumpy as unp
 
-def gauss(x, x0, sigma, a):
-    return a * np.exp(-(x-x0)**2/(2.*sigma**2))
+import sys
+sys.path.append("./../../") # path needed for PraktLib
+import PraktLib as pl
 
+import matplotlib
+matplotlib.style.use("../labreport.mplstyle")
+
+from importlib import reload # take care of changes in module by manually reloading
+pl = reload(pl)
+#calibration = reload(calibration)
+
+### with sodium ###
+
+#def gauss(x, x0, sigma, a):
+#    return a * np.exp(-(x-x0)**2/(2.*sigma**2))
+
+# read data
 noise = np.genfromtxt('Data/Noise_calibration.TKA')
 noise = np.delete(noise, [0,1])
 
@@ -23,24 +40,47 @@ count = np.delete(data, [0,1])
 count = count - noise
 
 chan = np.array(range(len(count)))
-
-#plt.plot(chan, count, '.')
+# plt.plot(chan, count, '.')
 
 bound = [300,390]
 
 [before, peak, after] = np.split(count, bound)
 [before, seg, after] = np.split(chan, bound)
         
-opt, cov = curve_fit(gauss, seg, peak, p0=[bound[0],1,1])
+opt, cov = curve_fit(pl.gauss, seg, peak, p0=[bound[0],1,1])
 mean = opt[0]
 dmean = np.sqrt(cov[0][0])
 sig = opt[1]
 dsig = np.sqrt(cov[1][1])
 a = opt[2]
+# plt.plot(chan, gauss(chan, mean, sig, a))
 
-#plt.plot(chan, gauss(chan, mean, sig, a))
+# convert to energy value
+mean = ufloat(mean, dmean, 'stat')
+mean = ChtoE(mean)
 
-# INSERT CALIBRATION HERE
+# calc electron mass
+m = mean*1000*e/c**2
+print(m)
 
-#m = mean/c**2
-#print(c)
+
+### with compton ###
+
+# energy of photon before scattering
+E0 = 661.66 
+
+# get angles and energies of scattered photons
+theta, mean, dmean, sig, dsig = np.loadtxt('photo_peaks_2.NORM')
+
+
+mean = pl.uarray_tag(mean, dmean, 'stat')
+theta = pl.uarray_tag(theta, dmean, 'sys')
+mean = np.delete(mean, [11,12,13,14,15,16]) # getting rid of Fe
+theta = np.delete(theta, [11,12,13,14,15,16])
+
+# convert to energy values
+E = ChtoE(mean)
+
+# 
+x = 1 - unp.cos(theta)
+y = 1/E -1/E0
