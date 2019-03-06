@@ -295,19 +295,20 @@ Once we substract the noise, we can clearly see the photo peaks we are looking f
 
 \subsubsection{Calibration}
 To find the channel numbers we want to use the calibration, we fit gauss distribution on the individual peaks and use the means as calibration points.
-Then we proceed to do a linear fit $E_\gamma = a \cdot \mathrm{channel}+ b$ 
+Then we proceed to do a linear fit $E_{\gamma} = a \cdot \mathrm{channel}+ b$ with $E_{\gamma}$ beeing the Energies of the peaks we identified.
+The first fit, was of poor quality and based on the residuals we decided to split up the fit in two parts, which greatly improved the quality of the respective fits.
 
 Complete fit: \newline
 $a = 1.544\pm0.003$ \newline
 $b = -28.334\pm1.431$ \newline
 $\frac{\chi^2}{ndf} = 41.111$ \newline
 
-First part fit: \newline
+Fit for lower energies: \newline
 $a = 1.533\pm0.001$ \newline
 $b = -25.468\pm0.322$ \newline
 $\frac{\chi^2}{ndf} = 1.373$ \newline
 
-Second part fit: \newline
+Fit for higher energies: \newline
 $a = 1.553\pm0.007$ \newline
 $b = -32.815\pm5.822$ \newline
 $\frac{\chi^2}{ndf} = 3.476$ \newline
@@ -341,7 +342,9 @@ $\frac{\chi^2}{ndf} = 3.476$ \newline
 \end{figure}
 
 \subsubsection{Energy resolution}
-
+We obtained the resolution by getting the standard deviations of the gauss fits and converting those to FWHM. Next we calculated the channel values at the FWHM and converted those into enrgy values based on the previous calibration. Plotting $\Delta E/E$ vs $E$ we see a decline towards higher enrgies, as it should be.
+To find the constants in the resolution formula $\Delta E/E = \sqrt{a^2+b^2/E}$, we plotted $\Delta E^2$ vs $E$ and fitted the function $\Delta E^2 = a^2 \cdot E^2 + b^2 \cdot E$.
+It seems the data doesn't behave quite as expected, since it doesn't fit well. Nonetheless, the values for $a$ and $b$ we get out of that fit remain our best guess for the resolution constants.\newline
 fit function: \newline
 $a^2 \cdot E^2 + b^2 \cdot E$ \newline
 fit parameter: \newline
@@ -368,7 +371,7 @@ $\frac{\chi^2}{ndf} = 70.963$ \newline
 \subsubsection{Efficiency}
 
 \subsubsection{Mass of the electron}
-
+We can obtain the mass of the electron out of the anihilation peak in the sodium spectrum. It's energy is equivalent to the electron mass. 
 
 \section{Compton scattering}
 
