@@ -21,7 +21,7 @@ from matplotlib import pyplot as plt
 import uncertainties.unumpy as unp
 from uncertainties import ufloat
 from scipy.optimize import curve_fit
-from calibration import chToE
+from calibration import ChtoE
 import scipy.constants as sc
 
 import sys
@@ -186,7 +186,7 @@ def eta_conv(E_prime): # absorbtion
 # set strings and angles
 method = ['Ring', 'Conv']
 material = ['Al', 'Fe']
-angle = [pl.uarray_tag([19, 24, 30, 40, 50]), [50, 60, 80, 90, 105, 135]]
+angle = [pl.srToDeg(np.flipud(vTheta_set)), pl.uarray_tag([50, 60, 80, 90, 105, 135],[5/np.sqrt(12)]*6,'sys')]
 
 # set peak bounds [[Ring], [[Conv_Al], [Conv_Fe]]]
 bound = [[[380,480],[375,450],[340,430],[320,385],[280,360]],
@@ -224,9 +224,9 @@ for i, m in enumerate(method):
 				[before, peak, after] = np.split(data, bound[i][k][j])
 				[before, seg, after] = np.split(chan, bound[i][k][j])
 				
-				opt, cov = curve_fit(gauss, seg, peak, p0=[bound[i][k][j][0],1,1])
-				mean+k] += [np.s[i+k] += [opt[0]]
-				dmean[iqrt(cov[0][0])]
+				opt, cov = curve_fit(pl.gauss, seg, peak, p0=[bound[i][k][j][0],1,1])
+				mean[i+k] += [opt[0]]
+				dmean[i+k] +=  [np.sqrt(cov[0][0])]
 				sig[i+k] += [opt[1]]
 				dsig[i+k] += [np.sqrt(cov[1][1])]
 				n[i+k] += [opt[2]]
@@ -265,7 +265,7 @@ for i, m in enumerate(method):
 			[before, peak, after] = np.split(data, bound[i][j])
 			[before, seg, after] = np.split(chan, bound[i][j])
 			
-			opt, cov = curve_fit(gauss, seg, peak, p0=[bound[i][j][0],1,1])
+			opt, cov = curve_fit(pl.gauss, seg, peak, p0=[bound[i][j][0],1,1])
 			mean[i] += [opt[0]]
 			dmean[i] += [np.sqrt(cov[0][0])]
 			sig[i] += [opt[1]]
@@ -305,8 +305,6 @@ mean = np.concatenate(mean)
 dmean = np.concatenate(dmean)
 sig = np.concatenate(sig)
 dsig = np.concatenate(dsig)
-temp = angle[1]
-angle = np.concatenate(angle)
-angle = np.append(angle, temp)
+angle = np.append(np.concatenate(angle),angle[1])
 
-np.savetxt('photo_peaks_2.NORM',[angle,mean,dmean,sig,dsig])
+np.savetxt('photo_peaks_2.NORM',[unp.nominal_values(angle),unp.std_devs(angle)])#,mean,dmean,sig,dsig])
