@@ -23,7 +23,7 @@ d_large = ufloat((0.25 - 0.221)/2 + 0.221, MEAS_ERROR)
 d_medium = ufloat((0.199 - 0.171)/2 + 0.171, MEAS_ERROR)
 d_small = ufloat((0.149 - 0.121)/2 + 0.121, MEAS_ERROR)
 d_tiny = ufloat(0.085, MEAS_ERROR)
-vD_used = np.array([d_large,d_large,d_medium,d_small,d_small]) # @FIXME which rings were used exactly?
+vD_used = np.array([d_large,d_medium,d_small,d_small,d_small])
 
 
 # distances to detector
@@ -46,5 +46,5 @@ print("Distances to source needed: \n",vRs_required)
 
 vRs_set = np.array([ ufloat(np.round(x.nominal_value,2), 0.01) for _,x in enumerate(vRs_required)])
 print("Distances to source set: \n",vRs_set)
-vTheta_set = np.pi - unp.tan(2*vRs_set/vD_used) - unp.tan(2*rD/vD_used)
-print("Theta angles set: \n",pl.srToDeg(vTheta_set))	#@FIXME this is bullshit results
+vTheta_set = np.pi - unp.arctan(2*vRs_set/vD_used) - unp.arctan(2*rD/vD_used)
+print("Theta angles set: \n",pl.srToDeg(vTheta_set))
