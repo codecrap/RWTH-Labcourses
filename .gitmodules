@@ -1,0 +1,3 @@
+[submodule "peakutils-submodule"]
+	path = peakutils-submodule
+	url = https://bitbucket.org/lucashnegri/peakutils/src
