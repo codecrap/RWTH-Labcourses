@@ -59,9 +59,9 @@ def readLabFile(file):
 	return np.genfromtxt(io.BytesIO(dnew), unpack=True, dtype=float)
 
 def weightedMean(x, ex):
-	# return np.average(x,weights=ex,returned=True) 	# this should be equivalent
+	# return np.average(x,weights=1/ex,returned=True) 	# this should be equivalent
 	mean = np.sum(x/ex**2)/np.sum(1./ex**2)
-	sigma = np.sqrt(1./np.sum(1./ex**2))
+	sigma = unp.sqrt(1./np.sum(1./ex**2))
 	return mean, sigma
 
 def degToSr(value):
@@ -610,9 +610,16 @@ def residuen(x,y,ex,ey,ux,uy,Parameterx,Parametery,k=0,l=0,o=0,p=0,ftsize=15,ca=
 	else:
 		print('incorrect data type error x')
 
+
+# from __future__ import division, print_function
+# import numpy as np
+
+# __author__ = "Marcos Duarte, https://github.com/demotu/BMC"
+# __version__ = "1.0.5"
+# __license__ = "MIT"
 def detect_peaks(x, mph=None, mpd=1, threshold=0, edge='rising',
 				 kpsh=False, valley=False, show=False, ax=None):
-
+	
 	"""Detect peaks in data based on their amplitude and other features.
 
 	Parameters
@@ -620,7 +627,9 @@ def detect_peaks(x, mph=None, mpd=1, threshold=0, edge='rising',
 	x : 1D array_like
 		data.
 	mph : {None, number}, optional (default = None)
-		detect peaks that are greater than minimum peak height.
+		detect peaks that are greater than minimum peak height (if parameter
+		`valley` is False) or peaks that are smaller than maximum peak height
+		 (if parameter `valley` is True).
 	mpd : positive integer, optional (default = 1)
 		detect peaks that are at least separated by minimum peak distance (in
 		number of data).
@@ -641,7 +650,7 @@ def detect_peaks(x, mph=None, mpd=1, threshold=0, edge='rising',
 
 	Returns
 	-------
-	ind : 1D array_likeiui
+	ind : 1D array_like
 		indeces of the peaks in `x`.
 
 	Notes
@@ -676,7 +685,7 @@ def detect_peaks(x, mph=None, mpd=1, threshold=0, edge='rising',
 
 	>>> x = np.sin(2*np.pi*5*np.linspace(0, 1, 200)) + np.random.randn(200)/5
 	>>> # detection of valleys instead of peaks
-	>>> detect_peaks(x, mph=0, mpd=20, valley=True, show=True)
+	>>> detect_peaks(x, mph=-1.2, mpd=20, valley=True, show=True)
 
 	>>> x = [0, 1, 1, 0, 1, 1, 0]
 	>>> # detect both edges
@@ -685,13 +694,21 @@ def detect_peaks(x, mph=None, mpd=1, threshold=0, edge='rising',
 	>>> x = [-2, 1, -2, 2, 1, 1, 3, 0]
 	>>> # set threshold = 2
 	>>> detect_peaks(x, threshold = 2, show=True)
-	"""
 
+	Version history
+	---------------
+	'1.0.5':
+		The sign of `mph` is inverted if parameter `valley` is True
+
+	"""
+	
 	x = np.atleast_1d(x).astype('float64')
 	if x.size < 3:
 		return np.array([], dtype=int)
 	if valley:
 		x = -x
+		if mph is not None:
+			mph = -mph
 	# find indices of all peaks
 	dx = x[1:] - x[:-1]
 	# handle NaN's
@@ -711,18 +728,18 @@ def detect_peaks(x, mph=None, mpd=1, threshold=0, edge='rising',
 	# handle NaN's
 	if ind.size and indnan.size:
 		# NaN's and values close to NaN's cannot be peaks
-		ind = ind[np.in1d(ind, np.unique(np.hstack((indnan, indnan-1, indnan+1))), invert=True)]
+		ind = ind[np.in1d(ind, np.unique(np.hstack((indnan, indnan - 1, indnan + 1))), invert=True)]
 	# first and last values of x cannot be peaks
 	if ind.size and ind[0] == 0:
 		ind = ind[1:]
-	if ind.size and ind[-1] == x.size-1:
+	if ind.size and ind[-1] == x.size - 1:
 		ind = ind[:-1]
 	# remove peaks < minimum peak height
 	if ind.size and mph is not None:
 		ind = ind[x[ind] >= mph]
 	# remove peaks - neighbors < threshold
 	if ind.size and threshold > 0:
-		dx = np.min(np.vstack([x[ind]-x[ind-1], x[ind]-x[ind+1]]), axis=0)
+		dx = np.min(np.vstack([x[ind] - x[ind - 1], x[ind] - x[ind + 1]]), axis=0)
 		ind = np.delete(ind, np.where(dx < threshold)[0])
 	# detect small peaks closer than minimum peak distance
 	if ind.size and mpd > 1:
@@ -732,21 +749,50 @@ def detect_peaks(x, mph=None, mpd=1, threshold=0, edge='rising',
 			if not idel[i]:
 				# keep peaks with the same height if kpsh is True
 				idel = idel | (ind >= ind[i] - mpd) & (ind <= ind[i] + mpd) \
-					& (x[ind[i]] > x[ind] if kpsh else True)
+					   & (x[ind[i]] > x[ind] if kpsh else True)
 				idel[i] = 0  # Keep current peak
 		# remove the small peaks and sort back the indices by their occurrence
 		ind = np.sort(ind[~idel])
-
+	
 	if show:
 		if indnan.size:
 			x[indnan] = np.nan
 		if valley:
 			x = -x
+			if mph is not None:
+				mph = -mph
 		_plot(x, mph, mpd, threshold, edge, valley, ax, ind)
-
+	
 	return ind
 
-
+def _plot(x, mph, mpd, threshold, edge, valley, ax, ind):
+	"""Plot results of the detect_peaks function, see its help."""
+	try:
+		import matplotlib.pyplot as plt
+	except ImportError:
+		print('matplotlib is not available.')
+	else:
+		if ax is None:
+			_, ax = plt.subplots(1, 1, figsize=(8, 4))
+	
+		ax.plot(x, 'b', lw=1)
+		if ind.size:
+			label = 'valley' if valley else 'peak'
+			label = label + 's' if ind.size > 1 else label
+			ax.plot(ind, x[ind], '+', mfc=None, mec='r', mew=2, ms=8,
+					label='%d %s' % (ind.size, label))
+			ax.legend(loc='best', framealpha=.5, numpoints=1)
+		ax.set_xlim(-.02*x.size, x.size*1.02-1)
+		ymin, ymax = x[np.isfinite(x)].min(), x[np.isfinite(x)].max()
+		yrange = ymax - ymin if ymax > ymin else 1
+		ax.set_ylim(ymin - 0.1*yrange, ymax + 0.1*yrange)
+		ax.set_xlabel('Data #', fontsize=14)
+		ax.set_ylabel('Amplitude', fontsize=14)
+		mode = 'Valley detection' if valley else 'Peak detection'
+		ax.set_title("%s (mph=%s, mpd=%d, threshold=%s, edge='%s')"
+					 % (mode, str(mph), mpd, str(threshold), edge))
+		# plt.grid()
+		plt.show()
 
 
 

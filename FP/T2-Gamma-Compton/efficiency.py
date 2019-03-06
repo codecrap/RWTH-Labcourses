@@ -12,6 +12,8 @@ from matplotlib import pyplot as plt
 import datetime as dt
 import uncertainties.unumpy as unp
 from uncertainties import ufloat
+import operator
+from functools import reduce
 
 import sys
 sys.path.append("./../../")															# path needed for PraktLib
@@ -68,6 +70,7 @@ rS = ufloat(0.0875,0.01,'sys')														# 5+5*3/4, based on guess via pictur
 d_detector = ufloat(0.026,0.001,'sys')
 F_detector = np.pi * (d_detector/2)**2
 
+
 # photon yield (intensity)
 vIntensity = [	[0.850],															# Cs
 				[0.99940],															# Na
@@ -93,23 +96,30 @@ vCalibrationTheoryE,vCalibrationPeaks,_,vCalibrationSigmas,_ = np.loadtxt("photo
 vPeakFWHMs = pl.stdToFWHM(vCalibrationSigmas)
 
 vEps = []
-for i,source in enumerate(vSOURCES):
-	vData = np.genfromtxt(DATAPATH + source + FILE_POSTFIX, dtype=int, delimiter='\n', skip_header=2)
+vPeakBounds = []
+vM = []
+# to match saved data in photo_peaks.NORM... : [Cs,Na,Co,Co,Eu,Eu,Eu,Eu,Eu,Eu]
+vSOURCES_LIN = vSOURCES[0:2] + [vSOURCES[2]]*2 + [vSOURCES[3]]*6
+vActivity_today_LIN = np.append(vActivity_today[1:3], [vActivity_today[3]]*2 + [vActivity_today[4]]*6)
+
+for i,intensity in enumerate(reduce(operator.concat,vIntensity)):					# flatten the 2D list to match saved data in photo_peaks.NORM
+	vData = np.genfromtxt(DATAPATH + vSOURCES_LIN[i] + FILE_POSTFIX, dtype=int, delimiter='\n', skip_header=2)
 	vData -=  vNoise
 	
-	for j,intensity in enumerate(vIntensity[i]):
-		# get counts in peak
-		_,vPeak,_ = np.split(vData, [int(np.rint(vCalibrationPeaks[i+j]-vPeakFWHMs[i+j])), int(np.rint(vCalibrationPeaks[i+j]+vPeakFWHMs[i+j])) ] )
-		m = np.sum(vPeak)
-		
-		# calc efficiency
-		vEps += [ 4*np.pi * rS**2 * m / (vActivity_today[i+1] * intensity * F_detector) ]
-		# deff = 4*np.pi*m/valI * np.sqrt((2*r*dr/(valA*F))**2 + (r**2*dA[i]/(valA**2*F))**2 + (r**2*dF/(valA)*F**2)**2)
+	# get counts in peak
+	vPeakBounds += [[int(np.rint(vCalibrationPeaks[i] - vPeakFWHMs[i])), int(np.rint(vCalibrationPeaks[i] + vPeakFWHMs[i]))]]
+	_,vPeakCounts,_ = np.split(vData, vPeakBounds[i])
+	vM += [np.sum(vPeakCounts)]
+	
+	# calc efficiency
+	vEps += [ 4*np.pi * rS**2 * vM[i] / (vActivity_today_LIN[i] * intensity * F_detector) ]
+	# deff = 4*np.pi*m/valI * np.sqrt((2*r*dr/(valA*F))**2 + (r**2*dA[i]/(valA**2*F))**2 + (r**2*dF/(valA)*F**2)**2)
 		
 
+
 print(vEps)
-print("Efficiency mean: {:uf}".format(np.mean(vEps)) )
-# matplotlib.use('Qt5Agg')
+print("Efficiency mean: {:.2f}+-{:.2f}".format(*pl.weightedMean(unp.nominal_values(vEps),unp.std_devs(vEps))) )
+
 
 fig, ax = plt.subplots()
 ax.errorbar(vCalibrationTheoryE, unp.nominal_values(vEps), yerr=unp.std_devs(vEps), fmt='s', color='b')
