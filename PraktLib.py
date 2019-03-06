@@ -24,6 +24,7 @@ def split_error(x):
 		sys[i] = np.sqrt(sum(error**2 for (var, error) in x[i].error_components().items() if var.tag == "sys"))
 		stat[i] = np.sqrt(x[i].std_dev**2 - sys[i]**2)
 	return stat, sys
+
 	
 def stdToFWHM(std):
 	return 2 * np.sqrt(2 * np.log(2)) * std
