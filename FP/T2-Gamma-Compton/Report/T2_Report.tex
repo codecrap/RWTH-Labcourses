@@ -237,13 +237,19 @@ Double escape peak $E_\mathrm{esc}^{(2)} = E_\gamma - 2m_ec^2 \leftarrow$ Pair p
 Backscatter peak $E_R = E_\gamma - E_C \leftarrow$ Compton effect outside of the scintillator with absorbtion of the scattered photon.\\
 
 \subsection{Setup}
-A radioactive probe is placed in front of the scintillator at distance $r_0$. 
+A radioactive probe is placed in front of the scintillator at distance $r_0 = (87\pm1)$mm. The detector is shielded by a collimator with the diameter of the opening beeing $(26\pm1)$mm. We measure the energy spectrum of four different probes, beeing Cs, Co, Na, Eu. We also do a noise measurement with no probe.
+  
 
-[3.67252799e+07 1.83263680e+04 4.60050810e+03 4.59613372e+03
-8.63618713e+02]
+%[3.67252799e+07 1.83263680e+04 4.60050810e+03 4.59613372e+03
+%8.63618713e+02]
 
 
-
+\begin{figure}
+\center
+\includegraphics[scale=0.1]{../Figures/calib.jpg}
+\caption{setup for calibration}
+\label{setCalib}
+\end{figure}
 
 \begin{table}
 	\renewcommand{\arraystretch}{2}
@@ -270,11 +276,99 @@ A radioactive probe is placed in front of the scintillator at distance $r_0$.
 	\label{tab:probes}
 \end{table}
 
+\subsection{Analysis}
+Once we substract the noise, we can clearly see the photo peaks we are looking for. We suspect the continuous compton spektrum and the various other peaks to be responsible for what could be described as a source specific noise, increasing in intensity for lower energies.
 
+\begin{figure}
+\center
+\includegraphics[scale=0.3]{../Figures/Eu_raw.pdf}
+\caption{raw data with Eu probe}
+\label{Eu_raw}
+\end{figure}
 
+\begin{figure}
+\center
+\includegraphics[scale=0.3]{../Figures/Eu.pdf}
+\caption{clean data with Eu probe}
+\label{Eu}
+\end{figure}
 
+\subsubsection{Calibration}
+To find the channel numbers we want to use the calibration, we fit gauss distribution on the individual peaks and use the means as calibration points.
+Then we proceed to do a linear fit $E_\gamma = a \cdot \mathrm{channel}+ b$ 
 
+Complete fit: \newline
+$a = 1.544\pm0.003$ \newline
+$b = -28.334\pm1.431$ \newline
+$\frac{\chi^2}{ndf} = 41.111$ \newline
+
+First part fit: \newline
+$a = 1.533\pm0.001$ \newline
+$b = -25.468\pm0.322$ \newline
+$\frac{\chi^2}{ndf} = 1.373$ \newline
+
+Second part fit: \newline
+$a = 1.553\pm0.007$ \newline
+$b = -32.815\pm5.822$ \newline
+$\frac{\chi^2}{ndf} = 3.476$ \newline
+
+\begin{figure}
+\center
+\includegraphics[scale=0.3]{../Figures/Eu_gauss.pdf}
+\caption{clean data with Eu probe}
+\label{Eu_gauss}
+\end{figure}
+
+\begin{figure}
+\center
+\includegraphics[scale=0.3]{../Figures/calibration fit.pdf}
+\caption{linear fit for all the energies}
+\label{calibFit}
+\end{figure}
+
+\begin{figure}
+\center
+\includegraphics[scale=0.3]{../Figures/calibration fit 1.pdf}
+\caption{linear fit for lower energies}
+\label{calibFit}
+\end{figure}
+
+\begin{figure}
+\center
+\includegraphics[scale=0.3]{../Figures/calibration fit 2.pdf}
+\caption{linear fit for higher energies}
+\label{calibFit}
+\end{figure}
+
+\subsubsection{Energy resolution}
+
+fit function: \newline
+$a^2 \cdot E^2 + b^2 \cdot E$ \newline
+fit parameter: \newline
+$a = 0.032\pm0.009$ \newline
+$b = 1.766\pm0.128$ \newline
+$\frac{\chi^2}{ndf} = 70.963$ \newline
+
+\begin{figure}
+\center
+\includegraphics[scale=0.3]{../Figures/resolution.pdf}
+\caption{energy resolution vs. energy}
+\label{resolution}
+\end{figure}
 \newpage
+
+\begin{figure}
+\center
+\includegraphics[scale=0.3]{../Figures/resolution constants.pdf}
+\caption{linear fit to obtain constants in resolution}
+\label{resolutionFit}
+\end{figure}
+\newpage
+
+\subsubsection{Efficiency}
+
+\subsubsection{Mass of the electron}
+
 
 \section{Compton scattering}
 
@@ -309,6 +403,33 @@ The source is aligned with the detector, but shielded of it by a lead clinder in
 	\caption{ }
 	\label{tab:probes }
 \end{table}
+
+\subsection{Analysis}
+
+\subsubsection{Finding scattered photons}
+
+\begin{figure}
+\center
+\includegraphics[scale=0.3]{../Figures/E_Phi.pdf}
+\caption{Energy of scattered photons vs. scattering angle}
+\label{resolution}
+\end{figure}
+\newpage
+
+\subsubsection{Cross-section}
+
+\subsubsection{Mass of the electron}
+
+\begin{figure}
+\center
+\includegraphics[scale=0.3]{../Figures/linearfittofindme.pdf}
+\caption{linear fit to find the mass of the electron}
+\label{meFit}
+\end{figure}
+\newpage
+
+
+
 
 
 
