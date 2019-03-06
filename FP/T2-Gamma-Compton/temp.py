@@ -35,7 +35,9 @@ for (var, error) in sum_value.error_components().items():
 
 #print(np.sqrt(0.1**2+0.2**2))
 num = 3.5
-print(np.size(num))
+#print(np.size(num))
+
+print(np.__version__)
 
 
 
