@@ -58,29 +58,53 @@ n = []
 for i, element in enumerate(probes):
     
     # get data
-    data = np.genfromtxt('Data/'+strings[i]+'_calibration.TKA')
-    count = np.delete(data, [0,1])
-    count = count - noise
-    
-    # plot data
-    fig, ax = plt.subplots()
-    ax.plot(chan, count, '.')
-    # plt.show()
-    fig.savefig("Figures/"+strings[i]+".pdf",format='pdf',dpi=256)
-    
-    for j, bound in enumerate(element):
-        
-        # cut out peaks
-        [before, peak, after] = np.split(count, bound)
-        [before, seg, after] = np.split(chan, bound)
-        
-        # fit gauss curve
-        opt, cov = curve_fit(gauss, seg, peak, p0=[bound[0],1,1])
-        mean += [opt[0]]
-        dmean += [np.sqrt(cov[0][0])]
-        sig += [abs(opt[1])]
-        dsig += [np.sqrt(cov[1][1])]
-        n += [opt[2]]
+	data = np.genfromtxt('Data/'+strings[i]+'_calibration.TKA')
+	count = np.delete(data, [0,1])
+
+	# raw plot
+	name = strings[i]+' raw'
+	fig, ax = plt.subplots()
+	ax.plot(chan, count, 'b.')
+	ax.set_title(name)
+	ax.set_xlabel('channel')
+	ax.set_ylabel('counts')
+	fig.savefig("Figures/"+name+".pdf")
+
+    # plot clean data
+	count = count - noise
+	name = strings[i]
+	fig, ax = plt.subplots()
+	ax.plot(chan, count, 'b.')
+	ax.set_title(name)
+	ax.set_xlabel('channel')
+	ax.set_ylabel('counts')
+	fig.savefig("Figures/"+name+".pdf")
+	
+	# plot with gauss
+	name = strings[i]+' gauss'
+	fig, ax = plt.subplots()
+	ax.plot(chan, count, 'b.')
+	ax.set_title(name)
+	ax.set_xlabel('channel')
+	ax.set_ylabel('counts')
+	    
+	for j, bound in enumerate(element):
+	        
+		# cut out peaks
+		[before, peak, after] = np.split(count, bound)
+		[before, seg, after] = np.split(chan, bound)
+
+		# fit gauss curve
+		opt, cov = curve_fit(gauss, seg, peak, p0=[bound[0],1,1])
+		mean += [opt[0]]
+		dmean += [np.sqrt(cov[0][0])]
+		sig += [abs(opt[1])]
+		dsig += [np.sqrt(cov[1][1])]
+		n += [opt[2]]
+		
+		ax.plot(chan, gauss(chan, opt[0], opt[1], opt[2]), 'r-')
+	
+	fig.savefig("Figures/"+name+".pdf")
         
 mean = np.array(mean)
 dmean = np.array(dmean)
