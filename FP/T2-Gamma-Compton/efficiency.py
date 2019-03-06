@@ -1,61 +1,118 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # @author: Alexandre Drouet
-
-#efficiency
+#
+# @efficiency.py: compute activity of radioactive sources after a given time,
+# 					and use for detector efficiency calculation
+# @author: Olexiy Fedorets
+# @date: Tue 05.03.2019
 
 import numpy as np
 from matplotlib import pyplot as plt
+import datetime as dt
+import uncertainties.unumpy as unp
+from uncertainties import ufloat
+
+import sys
+sys.path.append("./../../")															# path needed for PraktLib
+import PraktLib as pl
+
+import matplotlib
+matplotlib.style.use("../labreport.mplstyle")
+
+from importlib import reload														# take care of changes in module by manually reloading
+pl = reload(pl)
+
 
 # Element order: Cs, Na, Co, Eu
-strings = ['Cs', 'Na', 'Co', 'Eu']
-
-# distance between source and detector
-r = 0.075 # GUESS. ACTUAL MEASUREMENT MISSING
-dr = 0.005
-
-# detector surface used
-d = 0.0247 # GUESS BASED ON CLEMENS' MEASUREMENTS
-dd = 0.001
-F = 2*np.pi * (d/2.)**2
-dF = np.pi * d * dd
+vSOURCES = ['Cs', 'Na', 'Co', 'Eu']
+DATAPATH = "./Data/"
+FILE_POSTFIX = "_calibration.TKA"
 
 # activity on day of experiment
-A = [18319.5, 859.9, 4590.7, 4592.3] # BETTER IMPLEMENT A READING ROUTINE
-dA = [1., 1., 1., 1.] # MISSING
+# @activity.py: compute activity of radioactive sources after a given time
+# @author: Olexiy Fedorets
+# @date: Tue 19.02.2019
+# define start values
+# order: ["Cs (strong)","Cs (weak)","Na","Co","Eu"] consistent with calibration
+T_experiment = dt.datetime(2019, 2, 19, 12, 35, 17, 420514)
+vT_start = [dt.datetime(2010,11,23),dt.datetime(1988,8,12),
+			dt.datetime(2005,1,12),dt.datetime(2003,4,15),dt.datetime(1978,6,2)]
+vActivity_start = np.array([44400,37,37,37,37]) * 10**3 							# convert kBq -> Bq
+vT_halflife = pl.uarray_tag( [11000,11000,950.5,1925.3,4943], [90,90,0.4,0.4,5], 'sys')	# in days
+
+# compute activities at t=T_experiment
+vDeltaT = np.array([ (T_experiment - t).total_seconds() for _,t in enumerate(vT_start) ])
+vLambda =  np.log(2)/(vT_halflife *24*60*60)  										# convert days -> seconds
+# print(vT_halflife,vLambda)
+fActivity = lambda A0,l,t: A0 * unp.exp(-l*t)
+vActivity_today = fActivity(vActivity_start,vLambda,vDeltaT)
+
+print(vActivity_today)
+pl.printAsLatexTable( np.array([ [x.strftime("%d.%m.%Y") for _,x in enumerate(vT_start)],
+								['${:.0f}$'.format(x*10**-3) for _,x in enumerate(vActivity_start)],
+								['${:.1ueL}$'.format(x) for _,x in enumerate(vT_halflife)],
+								['${:.1ueL}$'.format(x) for _,x in enumerate(vLambda)],
+								['${:.1ueL}$'.format(x*10**-3) for _,x in enumerate(vActivity_today)] ]),
+					colTitles=["Cs (strong)","Cs (weak)","Na","Co","Eu"],
+					rowTitles=["Buy date","Activity at buy date (\si{\kilo\becquerel})",
+							   "Halflife time (days)","Decay constant (\si{\per\second})",
+							   "Activity today (\si{\kilo\becquerel})"],
+					mathMode=False )
+
+
+# distance between source and detector
+rS = ufloat(0.0875,0.01,'sys')														# 5+5*3/4, based on guess via picture and 5cm block length
+
+# detector surface used
+d_detector = ufloat(0.026,0.001,'sys')
+F_detector = np.pi * (d_detector/2)**2
 
 # photon yield (intensity)
-I = [[.850],                                            # Cs
-     [.99940],                                          # Na
-     [.9985, .999826],                                  # Co
-     [.2858, .7580, .265, .1294, .1460, .1364, .210]]   # Eu
+vIntensity = [	[0.850],															# Cs
+				[0.99940],															# Na
+				[0.9985, 0.999826],													# Co
+				[0.2858, 0.7580, 0.265, 0.1294, 0.1460, 0.210]	]					# Eu
 
-# peaks bounds
-bounds = [[[400,490]],
-          [[810,890]],
-          [[740,810], [850,910]],
-          [[85,105], [160,195], [210,270], [480,560], [610,680], [690,780], [890,980]]]
+# # peak bounds (manually set)
+# Cs = [[420,475]]
+# Na = [[820,865]]
+# Co = [[750,800], [850,910]]
+# Eu = [[85,105], [165,190], [225,255], [505,540], [620,665], [890,970]] #[690,780]
+# vPeakbounds = [Cs, Na, Co, Eu]
 
-# get noise
-noise = np.genfromtxt('Data/Noise_calibration.TKA')
-noise = np.delete(noise, [0,1])
+# # peaks bounds old
+# vPeakbounds = [[[400,490]],
+#           [[810,890]],
+#           [[740,810], [850,910]],
+#           [[85,105], [160,195], [210,270], [480,560], [610,680], [690,780], [890,980]]]
 
-## set channel array
-#chan = np.array(range(len(noise))) 
 
-for i, valA in enumerate(A):
-    # get data
-    data = np.genfromtxt('Data/'+strings[i]+'_calibration.TKA')
-    count = np.delete(data, [0,1])
-    count = count - noise
-    
-    for j, valI in enumerate(I[i]):
-        
-        # get counts in peak
-        [before, peak, after] = np.split(count, bounds[i][j])
-        m = np.sum(peak)
-        
-        # calc efficiency
-        eff = 4*np.pi * r**2 * m /(valA * valI * F)
-        deff = 4*np.pi*m/valI * np.sqrt((2*r*dr/(valA*F))**2 + (r**2*dA[i]/(valA**2*F))**2 + (r**2*dF/(valA)*F**2)**2)
-        print(str(eff)+' +- '+str(deff))
+vNoise =  np.genfromtxt(DATAPATH+"Noise"+FILE_POSTFIX, dtype=int, delimiter='\n', skip_header=2)
+vCalibrationTheoryE,vCalibrationPeaks,_,vCalibrationSigmas,_ = np.loadtxt("photo_peaks.NORM")
+vPeakFWHMs = pl.stdToFWHM(vCalibrationSigmas)
+
+vEps = []
+for i,source in enumerate(vSOURCES):
+	vData = np.genfromtxt(DATAPATH + source + FILE_POSTFIX, dtype=int, delimiter='\n', skip_header=2)
+	vData -=  vNoise
+	
+	for j,intensity in enumerate(vIntensity[i]):
+		# get counts in peak
+		_,vPeak,_ = np.split(vData, [int(np.rint(vCalibrationPeaks[i+j]-vPeakFWHMs[i+j])), int(np.rint(vCalibrationPeaks[i+j]+vPeakFWHMs[i+j])) ] )
+		m = np.sum(vPeak)
+		
+		# calc efficiency
+		vEps += [ 4*np.pi * rS**2 * m / (vActivity_today[i+1] * intensity * F_detector) ]
+		# deff = 4*np.pi*m/valI * np.sqrt((2*r*dr/(valA*F))**2 + (r**2*dA[i]/(valA**2*F))**2 + (r**2*dF/(valA)*F**2)**2)
+		
+
+print(vEps)
+
+fig, ax = plt.subplots()
+ax.errorbar(vCalibrationTheoryE, unp.nominal_values(vEps), yerr=unp.std_devs(vEps), fmt='s', color='b')
+ax.set_title(r"Detector efficiency $\varepsilon$ vs energy")
+ax.set_xlabel("Energy (keV)")
+ax.set_ylabel(r"$\varepsilon(E)$")
+fig.savefig("Figures/" + "Efficiency")
+fig.show()

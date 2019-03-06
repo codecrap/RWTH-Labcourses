@@ -8,3 +8,4 @@ GP2/Optik2/VideosCO2/
 **/*.toc
 **/*.out
 **/*.synctex.gz
+.idea/
