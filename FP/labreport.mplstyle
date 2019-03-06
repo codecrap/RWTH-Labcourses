@@ -9,23 +9,21 @@ axes.titlepad      : 6.0
 axes.labelsize     : large
 axes.labelpad      : 4.0
 
-
-
-#### GRIDS
-grid.color       :   ff0000    ## grid color
-grid.linestyle   :   --         ## solid
-grid.linewidth   :   0.8       ## in points
-grid.alpha       :   1.0       ## transparency, between 0.0 and 1.0
-
-axes.grid          : True
-axes.grid.axis     : both
-axes.grid.which    : both
-
+# Misc
 xtick.labelsize    : large
 ytick.labelsize    : large
 legend.fancybox    : True
 lines.linewidth    : 3
 lines.markersize   : 10
+
+# Grid
+grid.color         : b0b0b0
+grid.linestyle     : --
+grid.linewidth     : 0.8       ## in points
+grid.alpha         : 0.9       ## transparency, between 0.0 and 1.0
+axes.grid          : True
+axes.grid.axis     : both
+axes.grid.which    : both
 
 # Text
 text.usetex        : True
@@ -38,6 +36,7 @@ savefig.dpi        : 256
 figure.titlesize   : large
 figure.titleweight : bold
 figure.figsize     : 20,10
+figure.autolayout  : True
 
 
 
