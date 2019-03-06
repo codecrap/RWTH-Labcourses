@@ -35,32 +35,61 @@ from importlib import reload														# take care of changes in module by ma
 pl = reload(pl)
 
 # computed by efficiency.py
-EPS_EFF = ufloat(1205,291,'sys')														# efficiency mean
+EPS_EFF = ufloat(1205,291,'sys')													# efficiency mean
 A_CS = ufloat(36727880.177579954,57006.008076133214,'sys')
+# theory values from datasheet
 I_CS = 0.85
+E0_CS = 661.66																		# in keV, energy of photon before scattering
 
 TAPE_ERROR = 0.001																	# 1mm tape accuracy
 
 # ring setup
-F_det_ring = np.pi * (ufloat(0.081,TAPE_ERROR,'sys')/2)**2
-vRd_ring_long = pl.uarray_tag([0.23,0.28],[TAPE_ERROR]*2,'sys')
-vRd_ring_short = pl.uarray_tag([0.211,0.216],[TAPE_ERROR]*2,'sys')
-rD_ring = np.mean( (vRd_ring_long - vRd_ring_short)/2 + vRd_ring_short  )			# take average of both sides as true distance
+# L: distance in plane (along symmetry axis), R: real distance to ring (diagonal "in air")
+# ==================================================================================
 
-# ring diameters
+# ring setup parameters (detector area, ring diameters, ring widths, ring volumes, number of electrons in volume)
+F_det_ring = np.pi * (ufloat(0.081,TAPE_ERROR,'sys')/2)**2
+
 vD_inner = pl.uarray_tag([0.221, 0.171, 0.121],[TAPE_ERROR]*3,'sys')
 vD_outer = pl.uarray_tag([0.250, 0.199, 0.149],[TAPE_ERROR]*3,'sys')
 vD = (vD_outer-vD_inner)/2+vD_inner
-vD_used = np.array([list(vD),vD[-1],vD[-1]])
+vD_used = np.append(vD,[vD[-1]]*2)
 
 width = ufloat(0.014,TAPE_ERROR,'sys')
 vVolumes = np.pi * (vD_outer**2 - vD_inner**2) * width
 # N_e =
 
+# distance ring - detector
+vLD_ring_long = pl.uarray_tag([0.23,0.28],[TAPE_ERROR]*2,'sys')
+vLD_ring_short = pl.uarray_tag([0.211,0.216],[TAPE_ERROR]*2,'sys')
+LD_ring = np.mean( (vLD_ring_long - vLD_ring_short)/2 + vLD_ring_short  )			# take average of both sides as true distance
+
+# find distances ring - source required for given theta angles
+vTheta_required = pl.degToSr(np.array([50, 40, 30, 24, 19]))
+print("Theta angles needed: \n",pl.srToDeg(vTheta_required))
+vLS_ring_required = vD_used / 2 * unp.tan(np.pi - unp.arctan(2 * LD_ring / vD_used) - vTheta_required)
+print("Plane distances to source needed: \n", vLS_ring_required)
+
+# now the other way round: get errors on theta angles through set LS distance
+# assume distance is set to cm precision of requirement (quite rough)
+vLS_ring_set = pl.uarray_tag( np.round(unp.nominal_values(vLS_ring_required),2), [0.01]*vLS_ring_required.size, 'sys')
+	# np.array([ufloat(np.round(x.nominal_value, 2), 0.01) for _, x in enumerate(vLS_ring_required)])
+print("Plane distances to source set: \n", vLS_ring_set)
+vTheta_set = np.pi - unp.arctan(2 * vLS_ring_set / vD_used) - unp.arctan(2 * LD_ring / vD_used)
+print("Theta angles set: \n",pl.srToDeg(vTheta_set))
+
+RD_ring = unp.sqrt(LD_ring**2 + (vD_used/2)**2)
+RS_ring = unp.sqrt(vLS_ring_set**2 + (vD_used/2)**2)
+print("Diagonal distance ring - detector: \n", RD_ring, "\n\t\t\t\tring - source: \n", RS_ring)
+
+
 # conventional setup
+# ==================================================================================
+
+# detector area, distances scattering body - source/detector
 F_det_conv = np.pi * (ufloat(0.026,TAPE_ERROR,'sys')/2)**2
-rS = ufloat(0.049,2*TAPE_ERROR,'sys')
-rD = ufloat(0.272,2*TAPE_ERROR,'sys')
+RS_conv = ufloat(0.049,2*TAPE_ERROR,'sys')
+RD_conv = ufloat(0.272,2*TAPE_ERROR,'sys')
 # r0_conv = 49e-3 # distance source - body in conv.
 # dr0_conv = 2e-3
 # r_conv = 272e-3 # distance body - detector in conv.
@@ -79,21 +108,6 @@ rD = ufloat(0.272,2*TAPE_ERROR,'sys')
 # rD_ring_left = ufloat((0.23 - 0.211) / 2 + 0.211, TAPE_ERROR)
 # rD_ring_right = ufloat((0.28 - 0.216) / 2 + 0.216, TAPE_ERROR)
 # rD_ring = np.mean([rD_ring_left, rD_ring_right])
-
-vTheta_required = pl.degToSr(np.array([50, 40, 30, 24, 19]))
-print("Theta angles needed: \n",pl.srToDeg(vTheta_required))
-
-# distances to source
-vRs_ring_required = vD_used / 2 * unp.tan(np.pi - unp.arctan(2 * rD / vD_used) - vTheta_required)
-print("Distances to source needed: \n", vRs_ring_required)
-
-# now the other way round: get errors on theta angles through set rS distance
-# assume distance is set to cm precision of requirement (quite rough)
-vRs_ring_set = np.array([ufloat(np.round(x.nominal_value, 2), 0.01) for _, x in enumerate(vRs_ring_required)])
-print("Distances to source set: \n", vRs_ring_set)
-vTheta_set = np.pi - unp.arctan(2 * vRs_ring_set / vD_used) - unp.arctan(2 * rD / vD_used)
-print("Theta angles set: \n",pl.srToDeg(vTheta_set))
-
 
 
 # # measurements
@@ -125,12 +139,7 @@ print("Theta angles set: \n",pl.srToDeg(vTheta_set))
 # r1 = 273e-3 # distance source - body in ring # whatabout source length?
 # dr1 = 1e-3
 
-h = (Do-Di)/4+Di/2
-dh = 123
-r0_ring = np.sqrt(r1**2 + h**2)
-dr0_ring = 123
-r_ring = np.sqrt(r2**2 + h**2)
-dr_ring = 123
+
 
 # cd = 26e-3 # collimator diameter
 # rcd = 1e-3
@@ -144,7 +153,6 @@ dr_ring = 123
 #
 # I = 0.85 # photon yield
 
-E_0 = 123 # energy of photon before scattering 
 def mu_air(E):
 	return 123
 def mu_al(E):
@@ -178,7 +186,7 @@ def eta_conv(E_prime): # absorbtion
 # set strings and angles
 method = ['Ring', 'Conv']
 material = ['Al', 'Fe']
-angle = [[19, 24, 30, 40, 50], [50, 60, 80, 90, 105, 135]]
+angle = [pl.uarray_tag([19, 24, 30, 40, 50]), [50, 60, 80, 90, 105, 135]]
 
 # set peak bounds [[Ring], [[Conv_Al], [Conv_Fe]]]
 bound = [[[380,480],[375,450],[340,430],[320,385],[280,360]],
@@ -217,8 +225,8 @@ for i, m in enumerate(method):
 				[before, seg, after] = np.split(chan, bound[i][k][j])
 				
 				opt, cov = curve_fit(gauss, seg, peak, p0=[bound[i][k][j][0],1,1])
-				mean[i+k] += [opt[0]]
-				dmean[i+k] += [np.sqrt(cov[0][0])]
+				mean+k] += [np.s[i+k] += [opt[0]]
+				dmean[iqrt(cov[0][0])]
 				sig[i+k] += [opt[1]]
 				dsig[i+k] += [np.sqrt(cov[1][1])]
 				n[i+k] += [opt[2]]
@@ -230,7 +238,7 @@ for i, m in enumerate(method):
 				# get counts in peak
 				lbound = int(round(opt[0]-FWHM/2))
 				rbound = int(round(opt[0]+FWHM/2))
-				[before, peak, after] = np.split(data, [lbound,rbound])
+				[before, peak, _] = np.split(data, [lbound,rbound])
 				mpeak = np.sum(peak)
 				
 				temp = mean[i+k]

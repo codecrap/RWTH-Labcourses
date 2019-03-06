@@ -17,6 +17,7 @@ import scipy.optimize as spopt
 import uncertainties.unumpy as unp
 from uncertainties import ufloat
 
+
 def split_error(x):
 	sys = np.zeros(np.size(x))
 	stat = np.zeros(np.size(x))
@@ -25,7 +26,6 @@ def split_error(x):
 		stat[i] = np.sqrt(x[i].std_dev**2 - sys[i]**2)
 	return stat, sys
 
-	
 def stdToFWHM(std):
 	return 2 * np.sqrt(2 * np.log(2)) * std
 

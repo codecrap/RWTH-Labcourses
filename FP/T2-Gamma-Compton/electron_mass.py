@@ -101,6 +101,6 @@ fitparam,fitparam_err,chiq = pl.plotFit(xval, xstat, yval ,ystat,
 
 print(fitparam)
 
-
+a = ufloat(fitparam[0], fitparam_err)
 
 
