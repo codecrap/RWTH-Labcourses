@@ -158,28 +158,28 @@ def mu_air(E):
 def mu_al(E):
 	return 123
 
-x1_air_ring = r0_ring # approx
+x1_air_ring = 1 # approx
 dx1_air_ring = 123
-x2_air_ring = r_ring # approx
+x2_air_ring = 1 # approx
 dx2_air_ring = 123
 x1_al_ring = 0 # approx
 dx1_al_ring = 123
 x2_al_ring = 0
 dx2_al_ring = 123
 
-x1_air_conv = r0_conv
+x1_air_conv = 1
 dx1_air_conv = 123
-x2_air_conv = r_conv
+x2_air_conv = 1
 dx2_air_conv = 123
 x1_al_conv = 0
 dx1_al_conv = 123
 x2_al_conv = 0
 dx2_al_conv = 123
 
-def eta_ring(E_prime): # absorbtion
-	return np.exp(-mu_air(E_0)*x1_air_ring)*np.exp(-mu_air(E_0)*x1_al_ring)*np.exp(-mu_air(E_prime)*x2_al_ring)*np.exp(-mu_air(E_prime)*x2_air_ring)
-def eta_conv(E_prime): # absorbtion
-	return np.exp(-mu_air(E_0)*x1_air_conv)*np.exp(-mu_air(E_0)*x1_al_conv)*np.exp(-mu_air(E_prime)*x2_al_conv)*np.exp(-mu_air(E_prime)*x2_air_conv)
+#def eta_ring(E_prime): # absorbtion
+#	return np.exp(-mu_air(E_0)*x1_air_ring)*np.exp(-mu_air(E_0)*x1_al_ring)*np.exp(-mu_air(E_prime)*x2_al_ring)*np.exp(-mu_air(E_prime)*x2_air_ring)
+#def eta_conv(E_prime): # absorbtion
+#	return np.exp(-mu_air(E_0)*x1_air_conv)*np.exp(-mu_air(E_0)*x1_al_conv)*np.exp(-mu_air(E_prime)*x2_al_conv)*np.exp(-mu_air(E_prime)*x2_air_conv)
 
 # eff = 123
 
@@ -208,9 +208,9 @@ for i, m in enumerate(method):
 		for j, a in enumerate(angle[i]):
 			for k, mat in enumerate(material):
 				
-				name = str(a)+'_'+m+'_'+mat
+				name = str(int(round(a.n)))+'_'+m+'_'+mat
 				data = np.genfromtxt('Data/'+name+'.TKA')
-				noise = np.genfromtxt('Data/'+str(a)+'_'+m+'_Noise.TKA')
+				noise = np.genfromtxt('Data/'+str(int(round(a.n)))+'_'+m+'_Noise.TKA')
 				
 				data = data - noise
 				data = np.delete(data, [0,1])
@@ -218,7 +218,7 @@ for i, m in enumerate(method):
 				
 				fig, ax = plt.subplots()
 				ax.plot(chan, data, '.')
-				ax.set_title(name)
+				ax.set_title(str(int(round(a.n)))+m+mat)
 				fig.savefig('Figures/'+name+'.pdf',format='pdf',dpi=256)
 				
 				[before, peak, after] = np.split(data, bound[i][k][j])
@@ -249,7 +249,7 @@ for i, m in enumerate(method):
 	else:
 		for j, a in enumerate(angle[i]):
 			
-			name = str(a)+'_'+m
+			name = str(int(round(a.n)))+'_'+m
 			data = np.genfromtxt('Data/'+name+'.TKA')
 			noise = np.genfromtxt('Data/'+name+'_Noise.TKA')
 			
@@ -259,7 +259,7 @@ for i, m in enumerate(method):
 			
 			fig, ax = plt.subplots()
 			ax.plot(chan, data, '.')
-			ax.set_title(name)
+			ax.set_title(str(int(round(a.n)))+m)
 			fig.savefig('Figures/'+name+'.pdf',format='pdf',dpi=256)
 			
 			[before, peak, after] = np.split(data, bound[i][j])
@@ -277,13 +277,13 @@ for i, m in enumerate(method):
 #plt.plot(chan, gauss(chan, mean[2][5], sig[2][5], n[2][5]), '-')
 
 # convert channel to energy
-E = mean
-dE = dmean
-for i, ival in enumerate(E):
-	for j, jval in enumerate(ival):
-		en, den = ChtoE(jval, dE[i][j])
-		E[i][j] = en
-		dE[i][j] = den
+E = np.concatenate(mean)
+dE = np.concatenate(dmean)
+E = unp.uarray(E, dE)
+E = ChtoE(E)
+
+dE = unp.std_devs(E)
+E = unp.nominal_values(E)
 
 # theory
 theo1 = 661657*e / (1 + (661657*e/(m_e*c**2))*(1-np.cos(pl.degToSr(np.array(angle[0])))))
@@ -292,11 +292,13 @@ theo1 = theo1/(e*1000)
 theo2 = theo2/(e*1000)
 
 fig, ax = plt.subplots()
-ax.plot(angle[0], E[0], '.')
-ax.plot(angle[1], E[1], '.')
-ax.plot(angle[1], E[2], '.')
-ax.plot(angle[0], theo1, 'r-')
-ax.plot(angle[1], theo2, 'r-')
+ax.plot(angle[0], E[0], '.', label='ring geo.')
+ax.plot(angle[1], E[1], '.', label='conv. geo., Al')
+ax.plot(angle[1], E[2], '.', label='conv. geo., Fe')
+ax.plot(angle[0], theo1, 'r-', label='theory')
+ax.plot(int(round(angle[1])), theo2, 'r-')
+ax.set_xlabel(r'$\theta$ [deg]')
+ax.set_ylabel(r'$E_{\gamma}^{prime}$ [keV]')
 ax.set_title('energy of scattered photons')
 fig.savefig('Figures/E_Phi.pdf',format='pdf',dpi=256)
 
