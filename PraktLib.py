@@ -17,6 +17,11 @@ import scipy.optimize as spopt
 import uncertainties.unumpy as unp
 from uncertainties import ufloat
 
+def stdToFWHM(std):
+	return 2 * np.sqrt(2 * np.log(2)) * std
+
+def gauss(x, x0, sigma, a):
+    return a * np.exp(-(x-x0)**2/(2.*sigma**2))
 
 def uarray_tag(val, sig, tag):
     return np.array([ufloat(val[i], sig[i], tag) for i in range(np.size(val))])
