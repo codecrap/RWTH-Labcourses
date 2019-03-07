@@ -414,11 +414,19 @@ Using our calibration we obtain $m_e = (8.97 \pm 0.13) \times 10^{-31}$kg which 
 \section{Compton scattering}
 
 \subsection{Theory}
-Energy of scattered photons: 
+The energy of a photon with incoming energy $E_\gamma$, after compton scattering at angle $\theta$, is given by: 
 \begin{equation}
-	E_\gamma^\prime = E_\gamma \cdot \frac{1}{1+a(1-\cos\theta)}
+	E_\gamma^\prime = E_\gamma \cdot \frac{1}{1+a(1-\cos\theta)} 
 \end{equation}
-count rate:
+where $a = \frac{E_\gamma}{m_e c^2}$.
+
+The differential cross-section for such an event is given by the Klein-Nishina formula:
+\begin{equation}
+	\frac{d\sigma}{d\Omega} = \frac{\alpha^2\lambda_e^2}{8\pi^2} \cdot\frac{1}{\rho^2} (\rho+\frac{1}{\rho}-\sin^2\theta)
+\end{equation}
+where $\rho=\frac{E_\gamma}{E_\gamma^\prime} = 1+a(1-\cos\theta)$ and $\lambda_e$ is the compton wavelength.
+
+To measure the cross-section in the experiment we can use the following relation for the count rate:
 \begin{equation}
 	m = \frac{A \cdot I_\gamma}{4 \pi r_0^2} \cdot \eta \cdot \epsilon \cdot N_e \cdot \frac{d\sigma}{d\Omega} \cdot \frac{F_D}{r^2}
 \end{equation}
@@ -426,11 +434,27 @@ count rate:
 \subsection{Setup}
 
 \subsubsection{Conventional geometry}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.1]{../Figures/conv.jpg}
+	\caption{Setup for conventional geometry}
+	\label{setCalib}
+\end{figure}
+
 The source is placed on the edge of a rotating table, allowing to set different angles. In the middle of the table we place the scattering body (either a steel or an aluminum cylinder). To shield the radiation coming directly from the source from the detector, we use lead bricks shaped to match the set angle.\\
 Distance from source to scattering body: $r_0 = \SI{49+-1}{mm}$\\
 Distance from scattering body to detector: $r = \SI{272+-1}{mm}$\\
 
 \subsubsection{Ring geometry}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.1]{../Figures/ring.jpg}
+	\caption{Setup for ring geometry}
+	\label{setCalib}
+\end{figure}
+
 For the ring geometry setup the source is aligned with the detector, but shielded of it by a lead cylinder in the middle. The scattering body is an aluminum ring placed around the lead cylinder. Therefore the whole experiment is axially symmetric.
 
 \begin{table}[H]
