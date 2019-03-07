@@ -93,7 +93,7 @@
 
 %\fancyhead[LE,RO]{\large\thepage}
 \fancyhead[L]{\large\rightmark}
-\fancyhead[R]{\large\leftmark}
+\fancyhead[R]{\large\thepage}
 
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\footrulewidth}{0pt}
@@ -197,11 +197,11 @@
 %	\newpage
 \listoffigures
 
-\begingroup
-\let\cleardoublepage\relax
-\let\clearpage\relax
+%\begingroup
+%\let\cleardoublepage\relax
+%\let\clearpage\relax
 \listoftables
-\endgroup
+%\endgroup
 %\listoftables
 
 \skippage
@@ -250,9 +250,9 @@ A radioactive probe is placed in front of the detector at distance $r_0 = (8.7\p
 The calculated activities of the radioactive sources used for the experiment are shown in \cref{tab:probes}.
   
 \begin{table}[H]
-	\renewcommand{\arraystretch}{2}
+	\renewcommand{\arraystretch}{1.5}
 	\centering
-	\large
+	\Large
 	\begin{adjustbox}{width=1.1\textwidth}
 		\begin{tabular}{|c|c|c|c|c|c|}
 			\hline
@@ -359,13 +359,7 @@ we plotted $\Delta E^2$ vs $E$ and fitted the function
 	\Delta E^2 = a^2 \cdot E^2 + b^2 \cdot E
 \end{equation}
 
-It seems the data does not behave quite as expected, since it doesn't fit well. Nonetheless, the values for $a$ and $b$ we get out of that fit remain our best guess for the resolution constants.
-\newline
-
-fit parameters: \newline
-$a = 0.032\pm0.009$ \newline
-$b = 1.766\pm0.128$ \newline
-$\frac{\chi^2}{ndf} = 70.963$ \newline
+It seems the data does not behave quite as expected, since we are not able to describe the data well with our fit (we get $\frac{\chi^2}{ndf} = 71$). Nonetheless, the values for $a$ and $b$ we get out of that fit remain our best guess for the resolution constants: $a = 0.032\pm0.009$, $b = 1.766\pm0.128$.
 
 \begin{figure}[H]
 \centering
@@ -373,7 +367,7 @@ $\frac{\chi^2}{ndf} = 70.963$ \newline
 \caption{Energy resolution vs. energy}
 \label{resolution}
 \end{figure}
-\newpage
+
 
 \begin{figure}[H]
 \centering
@@ -423,7 +417,7 @@ where $a = \frac{E_\gamma}{m_e c^2}$.
 
 The differential cross-section for such an event is given by the Klein-Nishina formula:
 \begin{equation}
-	\frac{d\sigma}{d\Omega} = \frac{\alpha^2\lambda_e^2}{8\pi^2} \cdot\frac{1}{\rho^2} (\rho+\frac{1}{\rho}-\sin^2\theta)
+	\frac{d\sigma}{d\Omega} = \frac{\alpha^2\lambda_e^2}{8\pi^2} \cdot\frac{1}{\rho^2} \left(\rho+\frac{1}{\rho}-\sin^2\theta\right)
 \end{equation}
 where $\rho=\frac{E_\gamma}{E_\gamma^\prime} = 1+a(1-\cos\theta)$ and $\lambda_e$ is the compton wavelength.
 
@@ -453,7 +447,7 @@ Distance from scattering body to detector: $r = \SI{272+-1}{mm}$\\
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.1]{../Figures/ring.jpg}
+	\includegraphics[scale=0.1,trim=15cm 15cm 15cm 15cm,clip]{../Figures/ring.jpg}
 	\caption{Setup for ring geometry}
 	\label{setCalib}
 \end{figure}
@@ -503,7 +497,7 @@ We can then compute the diagonal distances to the ring $r, r_0$ via simple pytha
 			\hline
 			required $L_S$ (cm) & $27.3 \pm 0.2$ & $27.7 \pm 0.2$ & $27.2 \pm 0.3$ & $48.5 \pm 0.8$ & $132 \pm 5$ \\
 			\hline
-			set $L_S$ (cm) & $27 \pm 1$ & $28 \pm 1$ & $27 \pm 1$ & $48 \pm 1$ & $132 \pm 1$ \\
+			set $L_S$ (cm) & $27 \pm 1$ & $27 \pm 1$ & $27 \pm 1$ & $48 \pm 1$ & $132 \pm 1$ \\
 			\hline
 			set $\theta$ & $50.2 \pm 0.8$ & $39.8 \pm 0.6$ & $30.1 \pm 0.5$ & $24.1 \pm 0.2$ & $19.0 \pm 0.1$ \\
 			\hline
@@ -522,11 +516,11 @@ We can then compute the diagonal distances to the ring $r, r_0$ via simple pytha
 
 \subsubsection{Finding scattered photons}
 
-The results of the peak energies in dependence of the scattering angle are shown in \cref{Ephi}. Here blue datapoints represent data from the ring setup, orange and green points are results of the conventional setup using aluminum and metal scattering cylinders, respectively. We see no significant difference between the material of the scattering body. Comparing the results for a scattering angle of $\theta = 50 ^\circ$ we see that the peak from the ring geometry has a slightly higher energy than the ones from the conventional one. The data matches the curve expected by theory fairly well, except for very small angles, which is shown in red.
+The results of the peak energies in dependence of the scattering angle are shown in \cref{Ephi}. Here blue datapoints represent data from the ring setup, green and pink points are results of the conventional setup using aluminum and metal scattering cylinders, respectively. We see no significant difference between the material of the scattering body. Comparing the results for a scattering angle of $\theta = 50 ^\circ$ we see that the peak from the ring geometry has a slightly higher energy than the ones from the conventional one. The data matches the curve expected by theory fairly well, except for very small angles, which is shown in red.
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=1]{../Figures/E_Phi.pdf}
+\includegraphics[scale=0.25]{../Figures/E_Phi.eps}
 \caption{Energy of scattered photons vs. scattering angle}
 \label{Ephi}
 \end{figure}

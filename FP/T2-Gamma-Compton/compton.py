@@ -197,7 +197,8 @@ dx2_al_conv = 123
 # set strings and angles
 method = ['Ring', 'Conv']
 material = ['Al', 'Fe']
-angle = [pl.srToDeg(np.flipud(vTheta_set)), pl.uarray_tag([50, 60, 80, 90, 105, 135],[5/np.sqrt(12)]*6,'sys')]
+# angle = [pl.srToDeg(np.flipud(vTheta_set)), pl.uarray_tag([50, 60, 80, 90, 105, 135],[5/np.sqrt(12)]*6,'sys')]
+angle = [[19,24,30,40,50],[50, 60, 80, 90, 105, 135]]
 
 # set peak bounds [[Ring], [[Conv_Al], [Conv_Fe]]]
 bound = [[[380,480],[375,450],[340,430],[320,385],[280,360]],
@@ -219,9 +220,9 @@ for i, m in enumerate(method):
 		for j, a in enumerate(angle[i]):
 			for k, mat in enumerate(material):
 				
-				name = str(int(round(a.n)))+'_'+m+'_'+mat
+				name = str(int(round(a)))+'_'+m+'_'+mat
 				data = np.genfromtxt('Data/'+name+'.TKA')
-				noise = np.genfromtxt('Data/'+str(int(round(a.n)))+'_'+m+'_Noise.TKA')
+				noise = np.genfromtxt('Data/'+str(int(round(a)))+'_'+m+'_Noise.TKA')
 				
 				data = data - noise
 				data = np.delete(data, [0,1])
@@ -229,8 +230,8 @@ for i, m in enumerate(method):
 				
 				fig, ax = plt.subplots()
 				ax.plot(chan, data, '.')
-				ax.set_title(str(int(round(a.n)))+m+mat)
-				fig.savefig('Figures/'+name+'.pdf',format='pdf',dpi=256)
+				ax.set_title(str(int(round(a)))+m+mat)
+				fig.savefig('Figures/'+name)
 				
 				[before, peak, after] = np.split(data, bound[i][k][j])
 				[before, seg, after] = np.split(chan, bound[i][k][j])
@@ -260,7 +261,7 @@ for i, m in enumerate(method):
 	else:
 		for j, a in enumerate(angle[i]):
 			
-			name = str(int(round(a.n)))+'_'+m
+			name = str(int(round(a)))+'_'+m
 			data = np.genfromtxt('Data/'+name+'.TKA')
 			noise = np.genfromtxt('Data/'+name+'_Noise.TKA')
 			
@@ -270,8 +271,8 @@ for i, m in enumerate(method):
 			
 			fig, ax = plt.subplots()
 			ax.plot(chan, data, '.')
-			ax.set_title(str(int(round(a.n)))+m)
-			fig.savefig('Figures/'+name+'.pdf',format='pdf',dpi=256)
+			ax.set_title(str(int(round(a)))+m)
+			fig.savefig('Figures/'+name)
 			
 			[before, peak, after] = np.split(data, bound[i][j])
 			[before, seg, after] = np.split(chan, bound[i][j])
@@ -287,30 +288,43 @@ for i, m in enumerate(method):
 #plt.plot(chan, data, '.')
 #plt.plot(chan, gauss(chan, mean[2][5], sig[2][5], n[2][5]), '-')
 
+# data shape: [5*ring,6*Al,6*Fe]
+# angle,dangle,mean,dmean,sig,dsig = np.loadtxt('photo_peaks_2.NORM')
+real_angle,real_dangle,_,_,_,_= np.loadtxt('photo_peaks_2.NORM')
+
 # convert channel to energy
-E = np.concatenate(mean)
-dE = np.concatenate(dmean)
-E = unp.uarray(E, dE)
+mean = np.concatenate(mean)
+dmean = np.concatenate(dmean)
+E = unp.uarray(mean, dmean)
 E = ChtoE(E)
 
-dE = unp.std_devs(E)
 E = unp.nominal_values(E)
+dE = unp.std_devs(E)
+
+theta = unp.uarray(real_angle,real_dangle)
 
 # theory
-theo1 = 661657*e / (1 + (661657*e/(m_e*c**2))*(1-unp.cos(pl.degToSr(np.array(angle[0])))))
-theo2 = 661657*e / (1 + (661657*e/(m_e*c**2))*(1-unp.cos(pl.degToSr(np.array(angle[1])))))
+theo1 = 661657*e / (1 + (661657*e/(m_e*c**2))*(1-unp.cos(pl.degToSr(theta[0:11]))))
+# theo2 = 661657*e / (1 + (661657*e/(m_e*c**2))*(1-unp.cos(pl.degToSr(np.array(angle[1])))))
 theo1 = theo1/(e*1000)
-theo2 = theo2/(e*1000)
+# theo2 = theo2/(e*1000)
 
 fig, ax = plt.subplots()
-ax.plot(angle[0], E[0], '.', label='ring geo.')
-ax.plot(angle[1], E[1], '.', label='conv. geo., Al')
-ax.plot(angle[1], E[2], '.', label='conv. geo., Fe')
-ax.plot(angle[0], theo1, 'r-', label='theory')
-ax.plot(int(round(angle[1])), theo2, 'r-')
-ax.set_xlabel(r'$\theta$ [deg]')
-ax.set_ylabel(r'$E_{\gamma}^{prime}$ [keV]')
-ax.set_title('energy of scattered photons')
+ax.errorbar(angle[0:5], E[0:5], fmt='b.', xerr=dangle[0:5], yerr=dE[0:5], label='Ring geometry')
+ax.errorbar(angle[5:11], E[5:11], fmt='g.', xerr=dangle[5:11], yerr=dE[5:11], label='Conventional geometry, Al cylinder')
+ax.errorbar(angle[11:17], E[11:17], fmt='m.', xerr=dangle[11:17], yerr=dE[11:17], label='Conventional geometry, Fe cylinder')
+ax.plot(angle[0:5], unp.nominal_values(theo1[0:5]), 'r-', label='Theory prediction with error margin')
+ax.plot(angle[0:5], unp.nominal_values(theo1[0:5])+unp.std_devs(theo1[0:5]), 'r--')
+ax.plot(angle[0:5], unp.nominal_values(theo1[0:5])-unp.std_devs(theo1[0:5]), 'r--')
+ax.plot(angle[5:11], unp.nominal_values(theo1[5:11]), 'r-')
+ax.plot(angle[5:11], unp.nominal_values(theo1[5:11])+unp.std_devs(theo1[5:11]), 'r--')
+ax.plot(angle[5:11], unp.nominal_values(theo1[5:11])-unp.std_devs(theo1[5:11]), 'r--')
+
+# ax.errorbar(int(round(angle[1])), theo2, 'r-')
+ax.legend(loc='upper right')
+ax.set_xlabel(r'$\theta [^\circ]$')
+ax.set_ylabel(r'$E_{\gamma}^{\prime}$ [keV]')
+ax.set_title('Energy of scattered photons vs scattering angle')
 fig.savefig('Figures/E_Phi')
 
 # create NORM file
@@ -320,4 +334,4 @@ sig = np.concatenate(sig)
 dsig = np.concatenate(dsig)
 angle = np.append(np.concatenate(angle),angle[1])
 
-np.savetxt('photo_peaks_2.NORM',[unp.nominal_values(angle),unp.std_devs(angle)])#,mean,dmean,sig,dsig])
+np.savetxt('photo_peaks_2.NORM',[unp.nominal_values(angle),unp.std_devs(dangle),mean,dmean,sig,dsig])
