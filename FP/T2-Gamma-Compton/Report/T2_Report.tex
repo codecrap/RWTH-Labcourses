@@ -93,7 +93,7 @@
 
 %\fancyhead[LE,RO]{\large\thepage}
 \fancyhead[L]{\large\rightmark}
-\fancyhead[R]{\large\leftmark}
+\fancyhead[R]{\large\thepage}
 
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\footrulewidth}{0pt}
@@ -196,12 +196,13 @@
 \tableofcontents
 %	\newpage
 \listoffigures
+\thispagestyle{plain}
 
-\begingroup
-\let\cleardoublepage\relax
-\let\clearpage\relax
+%\begingroup
+%\let\cleardoublepage\relax
+%\let\clearpage\relax
 \listoftables
-\endgroup
+%\endgroup
 %\listoftables
 
 \skippage
@@ -212,7 +213,6 @@
 \thispagestyle{fancy}
 
 
-\skippage
 	
 \section{Introduction}
 In this experiment we want to analyse the Energy of photons emitted by radioactive probes with a szintillaor detector. First we will use Materials with low radiation and with well known energy peaks to calibrate the detector. Then we will use that to analyse the spectrum of a source with stronger radiation and establish a link between scattering angle and the energy of compton scatterd photons. 
@@ -252,7 +252,7 @@ The calculated activities of the radioactive sources used for the experiment are
 \begin{table}[H]
 	\renewcommand{\arraystretch}{2}
 	\centering
-	\large
+	\Large
 	\begin{adjustbox}{width=1.1\textwidth}
 		\begin{tabular}{|c|c|c|c|c|c|}
 			\hline
@@ -359,13 +359,7 @@ we plotted $\Delta E^2$ vs $E$ and fitted the function
 	\Delta E^2 = a^2 \cdot E^2 + b^2 \cdot E
 \end{equation}
 
-It seems the data does not behave quite as expected, since it doesn't fit well. Nonetheless, the values for $a$ and $b$ we get out of that fit remain our best guess for the resolution constants.
-\newline
-
-fit parameters: \newline
-$a = 0.032\pm0.009$ \newline
-$b = 1.766\pm0.128$ \newline
-$\frac{\chi^2}{ndf} = 70.963$ \newline
+It seems the data does not behave quite as expected, since we are not able to describe the data well with our fit (we get $\frac{\chi^2}{ndf} = 71$). Nonetheless, the values for $a$ and $b$ we get out of that fit remain our best guess for the resolution constants: $a = 0.032\pm0.009$, $b = 1.766\pm0.128$.
 
 \begin{figure}[H]
 \centering
