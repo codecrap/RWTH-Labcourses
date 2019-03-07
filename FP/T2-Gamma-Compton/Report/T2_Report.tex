@@ -309,42 +309,46 @@ To improve the estimate of peak widths, we used a polynomial baseline estimation
 Then we proceed to do a linear fit $E_{\gamma} = a \cdot \mathrm{ch}+ b$ with $E_{\gamma}$ being the energies of the peaks we identified, such that we are able to assign an energy to every channel in future evaluations.
 The first fit was of poor quality and based on the residuals we decided to split up the fit in two parts for low and high energies, which greatly improved the quality of the respective fits. We thus get two linear regions of our detector.
 
-Complete fit: \newline
-$a = 1.544\pm0.003$ \newline
-$b = -28.334\pm1.431$ \newline
-$\frac{\chi^2}{ndf} = 41.111$ \newline
-
-Fit for lower energies: \newline
-$a = 1.533\pm0.001$ \newline
-$b = -25.468\pm0.322$ \newline
-$\frac{\chi^2}{ndf} = 1.373$ \newline
-
-Fit for higher energies: \newline
-$a = 1.553\pm0.007$ \newline
-$b = -32.815\pm5.822$ \newline
-$\frac{\chi^2}{ndf} = 3.476$ \newline
-
-
+\begin{table}[H]
+	\renewcommand{\arraystretch}{1}
+	\centering
+	\Large
+	\begin{adjustbox}{width=\textwidth}
+		\begin{tabular}{c|ccccc}
+			\hline
+			range of fit & $a$ [keV] & $b$ [keV] & $\frac{\chi^2}{ndf}$ \\
+			\hline
+			all channels & $1.544\pm0.003$ & $-28.3\pm1.5$ & $41.11$ \\
+			\hline
+			channels below 600 & $1.533\pm0.001$ & $-25.5\pm0.4$ & $1.37$ \\
+			\hline
+			channels above 600 & $1.553\pm0.007$ & $-32.8\pm5.9$ & $3.48$ \\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+	\caption{Fit parameters for differnt calibration fits. }
+	\label{tab:calibfit}
+\end{table}
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.25]{../Figures/Calibration_fit.eps}
-\caption{Linear fit for all the energies}
+\caption{Linear fit for all the channels}
 \label{calibFit}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.25]{../Figures/Calibration_fit_1.eps}
-\caption{Linear fit for lower energies}
-\label{calibFit}
+\caption{Linear fit for lower channels}
+\label{calibFit1}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.25]{../Figures/Calibration_fit_2.eps}
-\caption{Linear fit for higher energies}
-\label{calibFit}
+\caption{Linear fit for higher channels}
+\label{calibFit2}
 \end{figure}
 
 \subsubsection{Energy resolution}
@@ -439,9 +443,9 @@ To measure the cross-section in the experiment we can use the following relation
 	\label{setCalib}
 \end{figure}
 
-The source is placed on the edge of a rotating table, allowing to set different angles. In the middle of the table we place the scattering body (either a steel or an aluminum cylinder). To shield the radiation coming directly from the source from the detector, we use lead bricks shaped to match the set angle.\\
-Distance from source to scattering body: $r_0 = \SI{49+-1}{mm}$\\
-Distance from scattering body to detector: $r = \SI{272+-1}{mm}$\\
+The source is placed on the edge of a rotating table, allowing to set different angles with an estimated error margin of 0.1 degrees. In the middle of the table we place the scattering body (either a steel or an aluminum cylinder). To shield the radiation coming directly from the source from the detector, we use lead bricks shaped to match the set angle.\\
+The source is at distance $r_0 = \SI{49+-1}{mm}$ from the scattering body, which is at distance $r = \SI{272+-1}{mm}$ from the detector.\\
+We measure the energy spectrum of the radiation coming from the scattering body with the angle set at $50^\circ$, $60^\circ$, $80^\circ$, $90^\circ$, $105^\circ$ and $135^\circ$. For each angle we do a background measurement with no scattering body.
 
 \subsubsection{Ring geometry}
 
@@ -482,7 +486,8 @@ After setting the distances, we calculated the actually set angles, which may di
 \begin{equation}
 	\theta = \pi - \arctan{\left( 2 \cdot \frac{L_S}{d} \right)} - \arctan{\left( 2 \cdot \frac{L_D}{d} \right)}
 \end{equation}
-We can then compute the diagonal distances to the ring $r, r_0$ via simple pythagorean relations. The results of this procedure are combined in \cref{tab:ringsetup}. As one can see we chose the lengths and angles such that we could just switch the ring for the first 3 angles, and only had to reset the distance to the source for the two smallest ones.
+We can then compute the diagonal distances to the ring $r, r_0$ via simple pythagorean relations. The results of this procedure are combined in \cref{tab:ringsetup}. As one can see we chose the lengths and angles such that we could just switch the ring for the first 3 angles, and only had to reset the distance to the source for the two smallest ones.\\
+For every different setup, we did a background measurement with no ring.
 
 \begin{table}[H]
 	\renewcommand{\arraystretch}{1}
