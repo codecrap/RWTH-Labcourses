@@ -218,7 +218,7 @@ def plotFit(x,xerr,y,yerr,title="test",xlabel="",ylabel="",res_ylabel=r"$y - (a 
 		fig,ax = plt.subplots(2,1)
 		residue = y-line(fitparam,x)
 		ax[0].plot(x,line(fitparam,x),'r-',
-					label="Fit: $a = %.3f \pm %.3f$, \n     $b = %.3f \pm %.3f$"
+					label="Fit: $a = %.1e \pm %.1e$, \n     $b = %.1e \pm %.1e$"
 							% (fitparam[0],fitparam_err[0],fitparam[1],fitparam_err[1]))
 		ax[0].errorbar(x,y,xerr=xerr,yerr=yerr,fmt='.',color='b')
 		ax[0].set_title(title)

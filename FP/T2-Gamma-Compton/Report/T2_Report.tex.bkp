@@ -196,7 +196,6 @@
 \tableofcontents
 %	\newpage
 \listoffigures
-\thispagestyle{plain}
 
 %\begingroup
 %\let\cleardoublepage\relax
@@ -213,6 +212,7 @@
 \thispagestyle{fancy}
 
 
+\skippage
 	
 \section{Introduction}
 In this experiment we want to analyse the Energy of photons emitted by radioactive probes with a szintillaor detector. First we will use Materials with low radiation and with well known energy peaks to calibrate the detector. Then we will use that to analyse the spectrum of a source with stronger radiation and establish a link between scattering angle and the energy of compton scatterd photons. 
@@ -250,7 +250,7 @@ A radioactive probe is placed in front of the detector at distance $r_0 = (8.7\p
 The calculated activities of the radioactive sources used for the experiment are shown in \cref{tab:probes}.
   
 \begin{table}[H]
-	\renewcommand{\arraystretch}{2}
+	\renewcommand{\arraystretch}{1.5}
 	\centering
 	\Large
 	\begin{adjustbox}{width=1.1\textwidth}
@@ -367,7 +367,7 @@ It seems the data does not behave quite as expected, since we are not able to de
 \caption{Energy resolution vs. energy}
 \label{resolution}
 \end{figure}
-\newpage
+
 
 \begin{figure}[H]
 \centering
@@ -408,23 +408,50 @@ Using our calibration we obtain $m_e = (8.97 \pm 0.13) \times 10^{-31}$kg which 
 \section{Compton scattering}
 
 \subsection{Theory}
-Energy of scattered photons: 
-\begin{equation}
-	E_\gamma^\prime = E_\gamma \cdot \frac{1}{1+a(1-\cos\theta)}
+In this part of the experiment, we will be specifically looking for compton scattering. As explained before, this is the scattering of a photon at an electron.
+The energy of a photon with incoming energy $E_\gamma$, after compton scattering at angle $\theta$, assuming the electron was at rest, is given by: 
+\begin{equation}\label{eq:compton}
+	E_\gamma^\prime = E_\gamma \cdot \frac{1}{1+a(1-\cos\theta)} 
 \end{equation}
-count rate:
+where $a = \frac{E_\gamma}{m_e c^2}$.
+
+The differential cross-section for such an event is given by the Klein-Nishina formula:
+\begin{equation}
+	\frac{d\sigma}{d\Omega} = \frac{\alpha^2\lambda_e^2}{8\pi^2} \cdot\frac{1}{\rho^2} \left(\rho+\frac{1}{\rho}-\sin^2\theta\right)
+\end{equation}
+where $\rho=\frac{E_\gamma}{E_\gamma^\prime} = 1+a(1-\cos\theta)$ and $\lambda_e$ is the compton wavelength of the electron.
+
+To measure the cross-section in the experiment we can use the following relation for the count rate:
 \begin{equation}
 	m = \frac{A \cdot I_\gamma}{4 \pi r_0^2} \cdot \eta \cdot \epsilon \cdot N_e \cdot \frac{d\sigma}{d\Omega} \cdot \frac{F_D}{r^2}
 \end{equation}
 
+
+
 \subsection{Setup}
 
 \subsubsection{Conventional geometry}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.1]{../Figures/conv.jpg}
+	\caption{Setup for conventional geometry}
+	\label{setCalib}
+\end{figure}
+
 The source is placed on the edge of a rotating table, allowing to set different angles. In the middle of the table we place the scattering body (either a steel or an aluminum cylinder). To shield the radiation coming directly from the source from the detector, we use lead bricks shaped to match the set angle.\\
 Distance from source to scattering body: $r_0 = \SI{49+-1}{mm}$\\
 Distance from scattering body to detector: $r = \SI{272+-1}{mm}$\\
 
 \subsubsection{Ring geometry}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.1,trim=15cm 15cm 15cm 15cm,clip]{../Figures/ring.jpg}
+	\caption{Setup for ring geometry}
+	\label{setCalib}
+\end{figure}
+
 For the ring geometry setup the source is aligned with the detector, but shielded of it by a lead cylinder in the middle. The scattering body is an aluminum ring placed around the lead cylinder. Therefore the whole experiment is axially symmetric.
 
 \begin{table}[H]
@@ -470,7 +497,7 @@ We can then compute the diagonal distances to the ring $r, r_0$ via simple pytha
 			\hline
 			required $L_S$ (cm) & $27.3 \pm 0.2$ & $27.7 \pm 0.2$ & $27.2 \pm 0.3$ & $48.5 \pm 0.8$ & $132 \pm 5$ \\
 			\hline
-			set $L_S$ (cm) & $27 \pm 1$ & $28 \pm 1$ & $27 \pm 1$ & $48 \pm 1$ & $132 \pm 1$ \\
+			set $L_S$ (cm) & $27 \pm 1$ & $27 \pm 1$ & $27 \pm 1$ & $48 \pm 1$ & $132 \pm 1$ \\
 			\hline
 			set $\theta$ & $50.2 \pm 0.8$ & $39.8 \pm 0.6$ & $30.1 \pm 0.5$ & $24.1 \pm 0.2$ & $19.0 \pm 0.1$ \\
 			\hline
@@ -487,17 +514,31 @@ We can then compute the diagonal distances to the ring $r, r_0$ via simple pytha
 
 \subsection{Analysis}
 
-\subsubsection{Finding scattered photons}
+\subsubsection{Energy dependence on scattering angle}
 
-The results of the peak energies in dependence of the scattering angle are shown in \cref{Ephi}. Here blue datapoints represent data from the ring setup, orange and green points are results of the conventional setup using aluminum and metal scattering cylinders, respectively. We see no significant difference between the material of the scattering body. Comparing the results for a scattering angle of $\theta = 50 ^\circ$ we see that the peak from the ring geometry has a slightly higher energy than the ones from the conventional one. The data matches the curve expected by theory fairly well, except for very small angles, which is shown in red.
+The results of the peak energies in dependence of the scattering angle are shown in \cref{Ephi}. Here blue datapoints represent data from the ring setup, green and pink points are results of the conventional setup using aluminum and metal scattering cylinders, respectively. We see no significant difference between the material of the scattering body. Comparing the results for a scattering angle of $\theta = 50 ^\circ$ we see that the peak from the ring geometry has a slightly higher energy than the ones from the conventional one. The data matches the curve expected by theory fairly well, except for very small angles, which is shown in red.
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=1]{../Figures/E_Phi.pdf}
+\includegraphics[scale=0.25]{../Figures/E_Phi.eps}
 \caption{Energy of scattered photons vs. scattering angle}
 \label{Ephi}
 \end{figure}
 
+\subsubsection{Electron mass}
+
+Making use of the relation from \cref{eq:compton}, we can find the electron mass via the factor $a$. By rewriting the formula to 
+\begin{equation}
+	\frac{1}{E_\gamma^\prime} - \frac{1}{E_\gamma} = a \cdot (1 - \cos(\theta)), \quad \mathrm{with} \quad a = \frac{1}{m_e c^2}
+\end{equation}
+we get a linear relation. Using the theoretic value for Cs of $E_\gamma = 661.66$keV and our measured data from the Compton scattering experiment (we used the data of the aluminum cylinder for angles of the conventional setup) we can perform a linear fit if we plot $1/E_\gamma^\prime - 1/E_\gamma$ against $1-\cos(\theta)$, which can be seen in \cref{fig:mefit}. This results in an electron mass of $m_e = (9.06 \pm 0.19) \times 10^{-31}$ kg, in excellent agreement with the theory value within $0.25 \sigma$. Despite the very bad quality of the fit, this result is even better than the obtained from the Na spectrum before.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.25]{../Figures/Electron-mass-fit.eps}
+	\caption{Linear fit to compton peak data to find the electron mass.}
+	\label{fig:mefit}
+\end{figure}
 
 
 \clearpage
@@ -558,3 +599,4 @@ The results of the peak energies in dependence of the scattering angle are shown
 
 
 \end{document}
+

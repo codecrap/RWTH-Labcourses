@@ -410,7 +410,7 @@ Using our calibration we obtain $m_e = (8.97 \pm 0.13) \times 10^{-31}$kg which 
 \subsection{Theory}
 In this part of the experiment, we will be specifically looking for compton scattering. As explained before, this is the scattering of a photon at an electron.
 The energy of a photon with incoming energy $E_\gamma$, after compton scattering at angle $\theta$, assuming the electron was at rest, is given by: 
-\begin{equation}
+\begin{equation}\label{eq:compton}
 	E_\gamma^\prime = E_\gamma \cdot \frac{1}{1+a(1-\cos\theta)} 
 \end{equation}
 where $a = \frac{E_\gamma}{m_e c^2}$.
@@ -514,7 +514,7 @@ We can then compute the diagonal distances to the ring $r, r_0$ via simple pytha
 
 \subsection{Analysis}
 
-\subsubsection{Finding scattered photons}
+\subsubsection{Energy dependence on scattering angle}
 
 The results of the peak energies in dependence of the scattering angle are shown in \cref{Ephi}. Here blue datapoints represent data from the ring setup, green and pink points are results of the conventional setup using aluminum and metal scattering cylinders, respectively. We see no significant difference between the material of the scattering body. Comparing the results for a scattering angle of $\theta = 50 ^\circ$ we see that the peak from the ring geometry has a slightly higher energy than the ones from the conventional one. The data matches the curve expected by theory fairly well, except for very small angles, which is shown in red.
 
@@ -525,6 +525,20 @@ The results of the peak energies in dependence of the scattering angle are shown
 \label{Ephi}
 \end{figure}
 
+\subsubsection{Electron mass}
+
+Making use of the relation from \cref{eq:compton}, we can find the electron mass via the factor $a$. By rewriting the formula to 
+\begin{equation}
+	\frac{1}{E_\gamma^\prime} - \frac{1}{E_\gamma} = a \cdot (1 - \cos(\theta)), \quad \mathrm{with} \quad a = \frac{1}{m_e c^2}
+\end{equation}
+we get a linear relation. Using the theoretic value for Cs of $E_\gamma = 661.66$keV and our measured data from the Compton scattering experiment (we used the data of the aluminum cylinder for angles of the conventional setup) we can perform a linear fit if we plot $1/E_\gamma^\prime - 1/E_\gamma$ against $1-\cos(\theta)$, which can be seen in \cref{fig:mefit}. This results in an electron mass of $m_e = (9.06 \pm 0.19) \times 10^{-31}$ kg, in excellent agreement with the theory value within $0.25 \sigma$. Despite the very bad quality of the fit, this result is even better than the obtained from the Na spectrum before.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.25]{../Figures/Electron-mass-fit.eps}
+	\caption{Linear fit to compton peak data to find the electron mass.}
+	\label{fig:mefit}
+\end{figure}
 
 
 \clearpage

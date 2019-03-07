@@ -82,7 +82,7 @@ fig.savefig("Figures/" + "Na_me")
 E0 = 661.66 
 
 # get angles and energies of scattered photons
-theta, dtheta, mean, dmean, sig, dsig = np.loadtxt('photo_peaks_2.NORM', usecols = (0,1,2,3,4,6,7,8,9,10)) # missing dtheta!
+theta, dtheta, mean, dmean, sig, dsig = np.loadtxt('photo_peaks_2_new.NORM', usecols = (0,1,2,3,4,6,7,8,9,10)) # missing dtheta!
 #dtheta = np.full(len(theta), 0.)
 #print(theta)
 
@@ -109,13 +109,13 @@ ystat, ysys = pl.split_error(y)
 #plt.plot(xval,yval)
 
 fitparam,fitparam_err,chiq = pl.plotFit(np.array(xval), np.array(xstat), np.array(yval), np.array(ystat),
-										title="linearfittofindme",
-										xlabel=r"$1 - \cos{theta}$",
-										ylabel=r"$1/E_{\gamma}^{prime} - 1/E_{\gamma}$",
-										res_ylabel=r"$y - (a \cdot x + b)$",
-										capsize=3,fontsize=20,show=True,method='leastsq')
+										title="Electron-mass-fit",
+										xlabel="$1 - \\cos{{\\theta}}$",
+										ylabel="$1/E_{{\\gamma}}^{{\\prime}} - 1/E_{{\\gamma}}$ (keV)",
+										res_ylabel="$y - (a \\cdot x + b)$",
+										show=True,method='leastsq')
 
 a = ufloat(fitparam[0], fitparam_err[0])
 m = e*1000/(a*c**2)
-print('mCompton = {}'.format(m))
+print('mCompton = {}, stdscore = {}'.format(m,m.std_score(9.109*10**-31)))
 print('aFit = {}'.format(a))
