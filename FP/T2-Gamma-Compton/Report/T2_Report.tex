@@ -93,7 +93,7 @@
 
 %\fancyhead[LE,RO]{\large\thepage}
 \fancyhead[L]{\large\rightmark}
-\fancyhead[R]{\large\thepage}
+\fancyhead[R]{\large\leftmark}
 
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\footrulewidth}{0pt}
@@ -196,13 +196,12 @@
 \tableofcontents
 %	\newpage
 \listoffigures
-\thispagestyle{plain}
 
-%\begingroup
-%\let\cleardoublepage\relax
-%\let\clearpage\relax
+\begingroup
+\let\cleardoublepage\relax
+\let\clearpage\relax
 \listoftables
-%\endgroup
+\endgroup
 %\listoftables
 
 \skippage
@@ -213,6 +212,7 @@
 \thispagestyle{fancy}
 
 
+\skippage
 	
 \section{Introduction}
 In this experiment we want to analyse the Energy of photons emitted by radioactive probes with a szintillaor detector. First we will use Materials with low radiation and with well known energy peaks to calibrate the detector. Then we will use that to analyse the spectrum of a source with stronger radiation and establish a link between scattering angle and the energy of compton scatterd photons. 
@@ -252,7 +252,7 @@ The calculated activities of the radioactive sources used for the experiment are
 \begin{table}[H]
 	\renewcommand{\arraystretch}{2}
 	\centering
-	\Large
+	\large
 	\begin{adjustbox}{width=1.1\textwidth}
 		\begin{tabular}{|c|c|c|c|c|c|}
 			\hline
@@ -359,7 +359,13 @@ we plotted $\Delta E^2$ vs $E$ and fitted the function
 	\Delta E^2 = a^2 \cdot E^2 + b^2 \cdot E
 \end{equation}
 
-It seems the data does not behave quite as expected, since we are not able to describe the data well with our fit (we get $\frac{\chi^2}{ndf} = 71$). Nonetheless, the values for $a$ and $b$ we get out of that fit remain our best guess for the resolution constants: $a = 0.032\pm0.009$, $b = 1.766\pm0.128$.
+It seems the data does not behave quite as expected, since it doesn't fit well. Nonetheless, the values for $a$ and $b$ we get out of that fit remain our best guess for the resolution constants.
+\newline
+
+fit parameters: \newline
+$a = 0.032\pm0.009$ \newline
+$b = 1.766\pm0.128$ \newline
+$\frac{\chi^2}{ndf} = 70.963$ \newline
 
 \begin{figure}[H]
 \centering
@@ -408,7 +414,8 @@ Using our calibration we obtain $m_e = (8.97 \pm 0.13) \times 10^{-31}$kg which 
 \section{Compton scattering}
 
 \subsection{Theory}
-The energy of a photon with incoming energy $E_\gamma$, after compton scattering at angle $\theta$, is given by: 
+In this part of the experiment, we will be specifically looking for compton scattering. As explained before, this is the scattering of a photon at an electron.
+The energy of a photon with incoming energy $E_\gamma$, after compton scattering at angle $\theta$, assuming the electron was at rest, is given by: 
 \begin{equation}
 	E_\gamma^\prime = E_\gamma \cdot \frac{1}{1+a(1-\cos\theta)} 
 \end{equation}
@@ -424,6 +431,8 @@ To measure the cross-section in the experiment we can use the following relation
 \begin{equation}
 	m = \frac{A \cdot I_\gamma}{4 \pi r_0^2} \cdot \eta \cdot \epsilon \cdot N_e \cdot \frac{d\sigma}{d\Omega} \cdot \frac{F_D}{r^2}
 \end{equation}
+
+
 
 \subsection{Setup}
 
