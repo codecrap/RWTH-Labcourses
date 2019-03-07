@@ -61,7 +61,7 @@ mean = ChtoE(mean)
 
 # calc electron mass
 m = mean*1000*e/c**2
-print(m)
+print('mNa = {}'.format(m))
 
 
 ### with compton ###
@@ -70,8 +70,8 @@ print(m)
 E0 = 661.66 
 
 # get angles and energies of scattered photons
-theta, mean, dmean, sig, dsig = np.loadtxt('photo_peaks_2.NORM', usecols = (0,1,2,3,4,6,7,8,9,10)) # missing dtheta!
-dtheta = np.full(len(theta), 0.)
+theta, dtheta, mean, dmean, sig, dsig = np.loadtxt('photo_peaks_2.NORM', usecols = (0,1,2,3,4,6,7,8,9,10)) # missing dtheta!
+#dtheta = np.full(len(theta), 0.)
 #print(theta)
 
 mean = pl.uarray_tag(mean, dmean, 'stat')
@@ -98,12 +98,12 @@ ystat, ysys = pl.split_error(y)
 
 fitparam,fitparam_err,chiq = pl.plotFit(np.array(xval), np.array(xstat), np.array(yval), np.array(ystat),
 										title="linearfittofindme",
-										xlabel=r"1 - \cos{theta}",
-										ylabel=r"1/E_{\gamma}^{prime} - 1/E_{\gamma}",
+										xlabel=r"$1 - \cos{theta}$",
+										ylabel=r"$1/E_{\gamma}^{prime} - 1/E_{\gamma}$",
 										res_ylabel=r"$y - (a \cdot x + b)$",
 										capsize=3,fontsize=20,show=True,method='leastsq')
 
 a = ufloat(fitparam[0], fitparam_err[0])
 m = e*1000/(a*c**2)
-print(m)
-
+print('mCompton = {}'.format(m))
+print('aFit = {}'.format(a))
