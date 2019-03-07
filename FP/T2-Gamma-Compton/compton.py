@@ -35,7 +35,7 @@ from importlib import reload														# take care of changes in module by ma
 pl = reload(pl)
 
 # computed by efficiency.py
-EPS_EFF = ufloat(1205,291,'sys')													# efficiency mean
+EPS_EFF = ufloat(0.25,0.02,'sys')													# efficiency mean
 A_CS = ufloat(36727880.177579954,57006.008076133214,'sys')
 # theory values from datasheet
 I_CS = 0.85
@@ -45,7 +45,7 @@ TAPE_ERROR = 0.001																	# 1mm tape accuracy
 
 # ring setup
 # L: distance in plane (along symmetry axis), R: real distance to ring (diagonal "in air")
-# ==================================================================================
+# ========================================================================================
 
 # ring setup parameters (detector area, ring diameters, ring widths, ring volumes, number of electrons in volume)
 F_det_ring = np.pi * (ufloat(0.081,TAPE_ERROR,'sys')/2)**2
@@ -53,7 +53,7 @@ F_det_ring = np.pi * (ufloat(0.081,TAPE_ERROR,'sys')/2)**2
 vD_inner = pl.uarray_tag([0.221, 0.171, 0.121],[TAPE_ERROR]*3,'sys')
 vD_outer = pl.uarray_tag([0.250, 0.199, 0.149],[TAPE_ERROR]*3,'sys')
 vD = (vD_outer-vD_inner)/2+vD_inner
-vD_used = np.append(vD,[vD[-1]]*2)
+vD_used = np.append(vD,[vD[-1]]*2)													# rings used: [large,medium,small,small,small]
 
 width = ufloat(0.014,TAPE_ERROR,'sys')
 vVolumes = np.pi * (vD_outer**2 - vD_inner**2) * width
@@ -78,10 +78,21 @@ print("Plane distances to source set: \n", vLS_ring_set)
 vTheta_set = np.pi - unp.arctan(2 * vLS_ring_set / vD_used) - unp.arctan(2 * LD_ring / vD_used)
 print("Theta angles set: \n",pl.srToDeg(vTheta_set))
 
-RD_ring = unp.sqrt(LD_ring**2 + (vD_used/2)**2)
-RS_ring = unp.sqrt(vLS_ring_set**2 + (vD_used/2)**2)
-print("Diagonal distance ring - detector: \n", RD_ring, "\n\t\t\t\tring - source: \n", RS_ring)
+vRD_ring = unp.sqrt(LD_ring ** 2 + (vD_used / 2) ** 2)
+vRS_ring = unp.sqrt(vLS_ring_set ** 2 + (vD_used / 2) ** 2)
+print("Diagonal distance ring - detector: \n", vRD_ring, "\n\t\t\t\tring - source: \n", vRS_ring)
 
+pl.printAsLatexTable(np.array([['${:.0f}^\circ$'.format(x) for _,x in enumerate(pl.srToDeg(vTheta_required))],
+							   ['${:.1ufL}$'.format(x*10**2) for _,x in enumerate(vLS_ring_required)],
+							   ['${:.1ufL}$'.format(x*10**2) for _,x in enumerate(vLS_ring_set)],
+							   ['${:.1ufL}$'.format(x) for _,x in enumerate(pl.srToDeg(vTheta_set))],
+							   ['${:.1ufL}$'.format(x*10**2) for _,x in enumerate(vRD_ring)],
+							   ['${:.1ufL}$'.format(x*10**2) for _, x in enumerate(vRS_ring)]]),
+					 colTitles=["large","medium","small","small","small"],
+					 rowTitles=[r"required $\theta$",r"required $L_S$ (cm)",
+							   r"set $L_S$ (cm)",r"set $\theta$",
+							   r"$r$ (cm)",r"$r_0$ (cm)"],
+					 mathMode=False)
 
 # conventional setup
 # ==================================================================================
@@ -286,8 +297,8 @@ dE = unp.std_devs(E)
 E = unp.nominal_values(E)
 
 # theory
-theo1 = 661657*e / (1 + (661657*e/(m_e*c**2))*(1-np.cos(pl.degToSr(np.array(angle[0])))))
-theo2 = 661657*e / (1 + (661657*e/(m_e*c**2))*(1-np.cos(pl.degToSr(np.array(angle[1])))))
+theo1 = 661657*e / (1 + (661657*e/(m_e*c**2))*(1-unp.cos(pl.degToSr(np.array(angle[0])))))
+theo2 = 661657*e / (1 + (661657*e/(m_e*c**2))*(1-unp.cos(pl.degToSr(np.array(angle[1])))))
 theo1 = theo1/(e*1000)
 theo2 = theo2/(e*1000)
 
@@ -300,7 +311,7 @@ ax.plot(int(round(angle[1])), theo2, 'r-')
 ax.set_xlabel(r'$\theta$ [deg]')
 ax.set_ylabel(r'$E_{\gamma}^{prime}$ [keV]')
 ax.set_title('energy of scattered photons')
-fig.savefig('Figures/E_Phi.pdf',format='pdf',dpi=256)
+fig.savefig('Figures/E_Phi')
 
 # create NORM file
 mean = np.concatenate(mean)

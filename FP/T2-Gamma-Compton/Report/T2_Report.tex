@@ -41,6 +41,7 @@
 % graphics and floats
 \usepackage{graphicx}
 \graphicspath{{../Figures/}}
+\usepackage{tikz}
 \usepackage{float}
 \usepackage{wrapfig}
 %\usepackage{subfloat}
@@ -244,7 +245,7 @@ Backscatter peak $E_R = E_\gamma - E_C \leftarrow$ Compton effect outside of the
 	\label{setCalib}
 \end{figure}
 
-A radioactive probe is placed in front of the scintillator at distance $r_0 = (87\pm1)$mm. The detector is shielded by a collimator with the diameter of the opening being $(26\pm1)$mm. The detector is placed right behind the collimator to increase intensity and reduce diffraction effects, so that we know the surface of the detector most precisely. We measure the energy spectrum of four different probes, being Cs, Co, Na, Eu. We also do a noise measurement with no probe.
+A radioactive probe is placed in front of the detector at distance $r_0 = (8.7\pm0.1)$cm. The detector is shielded by a collimator with the diameter of the opening being $(2.6\pm0.1)$mm, which gives us a used detector surface of $F_D = (5.3\pm0.4)\si{\centi\meter\squared}$. The detector is placed right behind the collimator to increase intensity and reduce diffraction effects, so that we know the surface of the detector most precisely. We measure the energy spectrum of four different probes, being Cs, Co, Na, Eu. We also do a noise measurement with no probe.
 
 The calculated activities of the radioactive sources used for the experiment are shown in \cref{tab:probes}.
   
@@ -292,12 +293,11 @@ Once we substract the noise, we can clearly see the photoeffect peaks we are loo
 \end{figure}
 
 \subsubsection{Calibration}
-To find the energies corresponding to channel numbers of the MCA we need to perform a calibration. We fit gaussian peaks on the individual peaks in the data and use the center values as calibration points, together with theoretic values of the peaks obtained from the datasheets..
-Then we proceed to do a linear fit $E_{\gamma} = a \cdot \mathrm{channel}+ b$ with $E_{\gamma}$ being the energies of the peaks we identified.
+To find the energies corresponding to channel numbers of the MCA we need to perform a calibration. We fit gaussian curves on the individual peaks in the data and use the center values as calibration points, together with theory values of the peak energies obtained from the datasheets.
 
 An example of this procedure is shown in \cref{Eu_gauss} for Eu. Here we decided to use only the peaks with highest intensities according to the datasheet. We had to leave out one of the large peaks because it produced an outlier in the following analysis. We suspect that multiple energy peaks melded into one because of poor resolution.
 
-To improve the estimate of peak widths, we used a polynomial baseline estimation routine from \code{peakutils.peak.baseline()} to subtract the background level and shift the whole data to zero. The resulting datapoints are shown in \cref{Eu_gauss}.
+To improve the estimate of peak widths, we used a polynomial baseline estimation routine from \code{peakutils.peak.baseline()} to subtract the background level and shift the whole data closer to zero. The resulting datapoints are shown for the example of Eu in \cref{Eu_gauss}.
 
 \begin{figure}[H]
 	\centering
@@ -306,7 +306,8 @@ To improve the estimate of peak widths, we used a polynomial baseline estimation
 	\label{Eu_gauss}
 \end{figure}
 
-The first fit was of poor quality and based on the residuals we decided to split up the fit in two parts, which greatly improved the quality of the respective fits.
+Then we proceed to do a linear fit $E_{\gamma} = a \cdot \mathrm{ch}+ b$ with $E_{\gamma}$ being the energies of the peaks we identified, such that we are able to assign an energy to every channel in future evaluations.
+The first fit was of poor quality and based on the residuals we decided to split up the fit in two parts for low and high energies, which greatly improved the quality of the respective fits. We thus get two linear regions of our detector.
 
 Complete fit: \newline
 $a = 1.544\pm0.003$ \newline
@@ -347,20 +348,28 @@ $\frac{\chi^2}{ndf} = 3.476$ \newline
 \end{figure}
 
 \subsubsection{Energy resolution}
-We obtained the resolution by getting the standard deviations of the gauss fits and converting those to FWHM. Next we calculated the channel values at the FWHM and converted those into enrgy values based on the previous calibration. Plotting $\Delta E/E$ vs $E$ we see a decline towards higher energies, as it should be.
-To find the constants in the resolution formula $\Delta E/E = \sqrt{a^2+b^2/E}$, we plotted $\Delta E^2$ vs $E$ and fitted the function $\Delta E^2 = a^2 \cdot E^2 + b^2 \cdot E$.
-It seems the data doesn't behave quite as expected, since it doesn't fit well. Nonetheless, the values for $a$ and $b$ we get out of that fit remain our best guess for the resolution constants.
+We obtained the resolution by getting the standard deviations of the fitted Gauss curves and converting those to FWHM. Next we calculated the channel values at the FWHM and converted those into energy values based on the previous calibration. Plotting $\Delta E/E$ vs $E$ we see a decline towards higher energies, as it would be expected. Nonetheless we can not see a clear linear dependence.
+
+To find the constants for the systematic contribution $a$ and the statistical contribution (due to Poisson statistics) $b$ in the resolution formula 
+\begin{equation}
+	\frac{\Delta E}{E} = \sqrt{a^2+ \frac{b^2}{E}}
+\end{equation}
+we plotted $\Delta E^2$ vs $E$ and fitted the function 
+\begin{equation}
+	\Delta E^2 = a^2 \cdot E^2 + b^2 \cdot E
+\end{equation}
+
+It seems the data does not behave quite as expected, since it doesn't fit well. Nonetheless, the values for $a$ and $b$ we get out of that fit remain our best guess for the resolution constants.
 \newline
-fit function: \newline
-$a^2 \cdot E^2 + b^2 \cdot E$ \newline
-fit parameter: \newline
+
+fit parameters: \newline
 $a = 0.032\pm0.009$ \newline
 $b = 1.766\pm0.128$ \newline
 $\frac{\chi^2}{ndf} = 70.963$ \newline
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.3]{../Figures/resolution.pdf}
+\includegraphics[scale=0.25]{../Figures/resolution.pdf}
 \caption{Energy resolution vs. energy}
 \label{resolution}
 \end{figure}
@@ -368,8 +377,8 @@ $\frac{\chi^2}{ndf} = 70.963$ \newline
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.3]{../Figures/resolution constants.pdf}
-\caption{Linear fit to obtain constants in resolution}
+\includegraphics[scale=0.25]{../Figures/resolution constants.pdf}
+\caption{Fit of $\Delta E^2 = a^2 \cdot E^2 + b^2 \cdot E$ to obtain constants in resolution}
 \label{resolutionFit}
 \end{figure}
 
@@ -380,98 +389,177 @@ We can compute the detector efficiency $\varepsilon$ according to
 \begin{equation}
 	m = \frac{A \cdot I_\gamma}{4 \pi r_0^2} \cdot \varepsilon \cdot F_D
 \end{equation}
-using the counts $m$ within the FWHM of each peak. Unfortunately we could not normalize the results properly and do not get a value of $\varepsilon \in [0,1]$. We can not see any functional dependence of $\varepsilon$ on the energy. Because of this we could not get proper results for the differential cross-section in the following experiment.
+using the counts $m$ within the FWHM of each peak. Unfortunately we can not see any functional dependence of $\varepsilon$ on the energy. Some values obtained from the Eu spectrum have large errors and lie much above the others or even above 1, but the efficiency remains nonlinear even if we exclude those. Because of this we could not get proper results for the differential cross-section in the following experiment. Our best guess for the detector efficiency is the weighted mean value of $\varepsilon = 0.25 \pm 0.02$.
 
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.3]{../Figures/Efficiency.eps}
-	\caption{Detector efficiency vs energy}
+	\caption{Detector efficiency vs energy. The leftmost and the 3 values around 1200 keV result from Cs,Co and Na spectra, the rest belongs to Eu.}
 	\label{efficiency}
 \end{figure}
 
 \subsubsection{Mass of the electron}
-We can obtain the mass of the electron out of the annihilation peak in the Na spectrum. It's energy is equivalent to the electron mass. 
-Using our calibration we obtain $m_e = (8.97 \pm 0.13) \times 10^{-31}$kg which has a deviation from the theory value of $1.07 \, \sigma$.
+We can obtain the mass of the electron out of the annihilation peak in the Na spectrum, which we excluded from the calibration before. It's energy is equivalent to the electron mass. 
+Using our calibration we obtain $m_e = (8.97 \pm 0.13) \times 10^{-31}$kg which has a deviation from the theory value $m_e = (9.109 \pm 0.13) \times 10^{-31}$kg of $1.07 \, \sigma$.
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.25]{../Figures/Na_me.eps}
+	\caption{Fit to the annihilation peak in the Na spectrum, giving the energy of an electron.}
+	\label{efficiency}
+\end{figure}
 
 \clearpage
 \section{Compton scattering}
 
 \subsection{Theory}
-Energy of scattered photons: $E_\gamma^\prime = E_\gamma \cdot \frac{1}{1+a(1-\cos\theta)}$\\
-count rate: $m = \frac{A \cdot I_\gamma}{4 \pi r_0^2} \cdot \eta \cdot \epsilon \cdot N_e \cdot \frac{d\sigma}{d\Omega} \cdot \frac{F_D}{r^2}$
+Energy of scattered photons: 
+\begin{equation}
+	E_\gamma^\prime = E_\gamma \cdot \frac{1}{1+a(1-\cos\theta)}
+\end{equation}
+count rate:
+\begin{equation}
+	m = \frac{A \cdot I_\gamma}{4 \pi r_0^2} \cdot \eta \cdot \epsilon \cdot N_e \cdot \frac{d\sigma}{d\Omega} \cdot \frac{F_D}{r^2}
+\end{equation}
 
 \subsection{Setup}
 
-\subsubsection{conventional geometry}
-The source is placed on the edge of a rottary table, allowing different angles. In the middle of the table we place the scattering body (either a steel or an aluminium cylinder). To shield the radiation coming directly from the source from the detector, we use convenientl shaped lead coils.\\
+\subsubsection{Conventional geometry}
+The source is placed on the edge of a rotating table, allowing to set different angles. In the middle of the table we place the scattering body (either a steel or an aluminum cylinder). To shield the radiation coming directly from the source from the detector, we use lead bricks shaped to match the set angle.\\
 Distance from source to scattering body: $r_0 = \SI{49+-1}{mm}$\\
-Distance from scattering bod to detector: $r = \SI{272+-1}{mm}$\\
+Distance from scattering body to detector: $r = \SI{272+-1}{mm}$\\
 
-\subsubsection{ring geometry}
-The source is aligned with the detector, but shielded of it by a lead clinder in the middle. The scattering body is an aluminium ring and the whole experiment is axially symetric.
+\subsubsection{Ring geometry}
+For the ring geometry setup the source is aligned with the detector, but shielded of it by a lead cylinder in the middle. The scattering body is an aluminum ring placed around the lead cylinder. Therefore the whole experiment is axially symmetric.
 
 \begin{table}[H]
 	\renewcommand{\arraystretch}{1.5}
 	\centering
-	\begin{tabular}{|c|c|c|c|}
+	\begin{tabular}{|c|c|c|c|c|}
 		\hline
-		ring size & outer diameter $d_o$ & inner diameter $d_i$ & diameter $d$ \\
+		ring size & outer diameter $d_o$ & inner diameter $d_i$ & mean diameter $d$ & width\\
 		\hline
-		small & \SI{149+-1}{mm} & \SI{121+-1}{mm} & \SI{149+-1}{mm} \\
-		\hline
-		medium & \SI{199+-1}{mm} & \SI{171+-1}{mm} & \SI{149+-1}{mm} \\
-		\hline
-		large & \SI{250+-1}{mm} & \SI{221+-1}{mm} & \SI{149+-1}{mm} \\
+		small & \SI{149+-1}{mm} & \SI{121+-1}{mm} & \SI{149+-1}{mm} & \multirow{3}{*}{\SI{14+-1}{mm}} \\
+		\cline{1-4}
+		medium & \SI{199+-1}{mm} & \SI{171+-1}{mm} & \SI{149+-1}{mm} & \\
+		\cline{1-4}
+		large & \SI{250+-1}{mm} & \SI{221+-1}{mm} & \SI{149+-1}{mm} & \\
 		\hline
 	\end{tabular}
-	\caption{ }
-	\label{tab:probes }
+	\caption{Compilation of measured parameters of the rings. }
+	\label{tab:rings }
 \end{table}
+
+The detector was not shielded by a collimator as in the conventional geometry experiments, so we measured its size to be $d = 8.1 \pm 0.1$cm, $F_D = (51.5\pm1.3)\si{\centi\meter\squared}$. We fixed the distance between detector and ring, and measured it to be $L_d = 23.43 \pm 0.05$cm, via averaging multiple measurements on both sides.
+
+As we needed to perform measurements for 5 different angles up to and including 50 degrees, we computed the in plane distances (along the symmetry axis) between source and ring using the geometric relation
+\begin{equation}
+	L_S = \frac{d}{2} \cdot \tan{\left( \pi - \arctan{\left( 2 \cdot \frac{L_D}{d} \right)} \right)}
+\end{equation}
+After setting the distances, we calculated the actually set angles, which may differ from the expected ones due to errors in the length measurement, which were fairly high as it was difficult to measure using the broken measurement tape in the air. We therefore used 1 cm as the error for this part. For that we used the inverse relation
+\begin{equation}
+	\theta = \pi - \arctan{\left( 2 \cdot \frac{L_S}{d} \right)} - \arctan{\left( 2 \cdot \frac{L_D}{d} \right)}
+\end{equation}
+We can then compute the diagonal distances to the ring $r, r_0$ via simple pythagorean relations. The results of this procedure are combined in \cref{tab:ringsetup}. As one can see we chose the lengths and angles such that we could just switch the ring for the first 3 angles, and only had to reset the distance to the source for the two smallest ones.
+
+\begin{table}[H]
+	\renewcommand{\arraystretch}{1}
+	\centering
+	\Large
+	\begin{adjustbox}{width=\textwidth}
+		\begin{tabular}{c|ccccc}
+			\hline
+			Ring used & large & medium & small & small & small \\
+			\hline
+			required $\theta$ & $50^\circ$ & $40^\circ$ & $30^\circ$ & $24^\circ$ & $19^\circ$ \\
+			\hline
+			required $L_S$ (cm) & $27.3 \pm 0.2$ & $27.7 \pm 0.2$ & $27.2 \pm 0.3$ & $48.5 \pm 0.8$ & $132 \pm 5$ \\
+			\hline
+			set $L_S$ (cm) & $27 \pm 1$ & $28 \pm 1$ & $27 \pm 1$ & $48 \pm 1$ & $132 \pm 1$ \\
+			\hline
+			set $\theta$ & $50.2 \pm 0.8$ & $39.8 \pm 0.6$ & $30.1 \pm 0.5$ & $24.1 \pm 0.2$ & $19.0 \pm 0.1$ \\
+			\hline
+			$r$ (cm) & $26.22 \pm 0.05$ & $25.19 \pm 0.05$ & $24.38 \pm 0.05$ & $24.38 \pm 0.05$ & $24.38 \pm 0.05$ \\
+			\hline
+			$r_0$ (cm) & $29.5 \pm 0.9$ & $29.5 \pm 0.9$ & $28 \pm 1$ & $48 \pm 1$ & $132 \pm 1$ \\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+	\caption{Compilation of measurements for the ring setup. }
+	\label{tab:ringsetup}
+\end{table}
+ 
 
 \subsection{Analysis}
 
 \subsubsection{Finding scattered photons}
 
-\begin{figure}
+The results of the peak energies in dependence of the scattering angle are shown in \cref{Ephi}. Here blue datapoints represent data from the ring setup, orange and green points are results of the conventional setup using aluminum and metal scattering cylinders, respectively. We see no significant difference between the material of the scattering body. Comparing the results for a scattering angle of $\theta = 50 ^\circ$ we see that the peak from the ring geometry has a slightly higher energy than the ones from the conventional one. The data matches the curve expected by theory fairly well, except for very small angles, which is shown in red.
+
+\begin{figure}[H]
 \centering
 \includegraphics[scale=1]{../Figures/E_Phi.pdf}
 \caption{Energy of scattered photons vs. scattering angle}
-\label{resolution}
+\label{Ephi}
 \end{figure}
 
 
 
-\newpage
-
-
-
+\clearpage
 \section{Appendix}
 
 \subsection{Raw data of gamma spectroscopy experiment}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.3]{../Figures/Co_nobaseline.eps}
+	\includegraphics[scale=0.25]{../Figures/Co_nobaseline.eps}
 	\caption{}
 	\label{Eu_raw}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.3]{../Figures/Cs_nobaseline.eps}
+	\includegraphics[scale=0.25]{../Figures/Cs_nobaseline.eps}
 	\caption{}
 	\label{Eu_raw}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.3]{../Figures/Na_nobaseline.eps}
+	\includegraphics[scale=0.25]{../Figures/Na_nobaseline.eps}
 	\caption{}
 	\label{Eu_raw}
 \end{figure}
 
+\subsection{Raw data of Compton scattering experiments}
+
+\foreach \angle in {50,60,80,90,105,135}{
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.25]{../Figures/\angle_Conv_Fe.pdf} 
+		\caption{Raw data of conventional setup with metal as scattering cylinder for an angle of $\theta=\,$\angle$^\circ$}
+		\label{fig:}
+	\end{figure}
+}
+
+\foreach \angle in {50,60,80,90,105,135}{
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.25]{../Figures/\angle_Conv_Al.pdf} 
+		\caption{Raw data of conventional setup with aluminum as scattering cylinder for an angle of $\theta=\,$\angle$^\circ$}
+		\label{fig:}
+	\end{figure}
+}
+
+\foreach \angle in {19,24,30,40,50}{
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.25]{../Figures/\angle_Ring.pdf} 
+		\caption{Raw data of ring setup for an angle of $\theta=\,$\angle$^\circ$}
+		\label{fig:}
+	\end{figure}
+}
 
 
 

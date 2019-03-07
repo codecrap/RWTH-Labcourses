@@ -53,7 +53,6 @@ dmean = np.sqrt(cov[0][0])
 sig = opt[1]
 dsig = np.sqrt(cov[1][1])
 a = opt[2]
-# plt.plot(chan, gauss(chan, mean, sig, a))
 
 # convert to energy value
 mean = ufloat(mean, dmean, 'stat')
@@ -61,7 +60,20 @@ mean = ChtoE(mean)
 
 # calc electron mass
 m = mean*1000*e/c**2
-print('mNa = {}'.format(m))
+print('m_e(Na) = {}'.format(m))
+
+fig, ax = plt.subplots()
+ax.plot(chan, count, 'b.')
+ax.plot(chan, pl.gauss(chan, opt[0], opt[1], opt[2]), color='r',
+				label=r"$\mu = {:.1ufL}, \sigma = {:.1ufL}, E_{{e^-}} = {:.2ufL}$ keV".format(ufloat(opt[0],np.sqrt(cov[0][0])), ufloat(abs(opt[1]), np.sqrt(cov[1][1])), mean ) )
+ax.legend(loc='upper right')
+ax.set_xlabel('MCA Channel')
+ax.set_ylabel('Event counts')
+ax.set_title("Using the Na spectrum to find the electron mass")
+fig.savefig("Figures/" + "Na_me")
+
+# plt.plot(chan, gauss(chan, mean, sig, a))
+
 
 
 ### with compton ###

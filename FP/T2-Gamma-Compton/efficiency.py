@@ -59,9 +59,9 @@ pl.printAsLatexTable( np.array([ [x.strftime("%d.%m.%Y") for _,x in enumerate(vT
 								['${:.1ueL}$'.format(x) for _,x in enumerate(vLambda)],
 								['${:.1ueL}$'.format(x*10**-3) for _,x in enumerate(vActivity_today)] ]),
 					colTitles=["Cs (strong)","Cs (weak)","Na","Co","Eu"],
-					rowTitles=["Buy date","Activity at buy date (\si{\kilo\becquerel})",
-							   "Halflife time (days)","Decay constant (\si{\per\second})",
-							   "Activity today (\si{\kilo\becquerel})"],
+					rowTitles=["Buy date",r"Activity at buy date (\si{\kilo\becquerel})",
+							   "Halflife time (days)",r"Decay constant (\si{\per\second})",
+							   r"Activity today (\si{\kilo\becquerel})"],
 					mathMode=False )
 
 
@@ -116,7 +116,7 @@ for i,intensity in enumerate(reduce(operator.concat,vIntensity)):					# flatten 
 	vM += [np.sum(vPeakCounts)]
 	
 	# calc efficiency
-	vEps += [ 4*np.pi * rS**2 * vM[i] / (vActivity_today_LIN[i] * intensity * F_detector) ]
+	vEps += [ 4*np.pi * rS**2 * vM[i] / (vActivity_today_LIN[i]*10**3 * intensity * F_detector) ]
 	# deff = 4*np.pi*m/valI * np.sqrt((2*r*dr/(valA*F))**2 + (r**2*dA[i]/(valA**2*F))**2 + (r**2*dF/(valA)*F**2)**2)
 		
 
