@@ -236,7 +236,7 @@ def plotFit(x,xerr,y,yerr,title="test",xlabel="",ylabel="",res_ylabel=r"$y - (a 
 		# ax[1].grid(True)
 		# fig.tight_layout()
 		# plt.show()
-		fig.savefig("Figures/"+title)
+		fig.savefig("Figures/"+title+'.pdf')
 
 	return fitparam,fitparam_err,chiq
 
