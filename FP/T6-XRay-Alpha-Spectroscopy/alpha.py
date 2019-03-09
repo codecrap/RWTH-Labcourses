@@ -31,7 +31,7 @@ FILE_PREFIX = DATAPATH+"am_kal_"
 FILE_POSTFIX = ".mca"
 
 # set peak bounds
-vPeakBounds = [[1900,2040],[2860,2900],[890,750],[1500,1600],[1160,1220],[3950,3990]]
+vPeakBounds = [[1900,2040],[2860,2900],[690,750],[1500,1600],[1160,1220],[3950,3990]]
 
 # get noise
 vNoise =  np.genfromtxt(FILE_PREFIX+"leer"+FILE_POSTFIX, skip_header=12, skip_footer=37, encoding='latin-1', dtype=int, delimiter='\n')
@@ -81,14 +81,14 @@ for i, source in enumerate(vSOURCES):
 	
 	# plot with fit
 	fig, ax = plt.subplots()
-	ax.plot(vCh, pl.gauss(vCh, opt[0], opt[1], opt[2]),
+	ax.plot(vCh, pl.gauss(vCh, opt[0], opt[1], opt[2]), 'r-',
 		 label=r"$\mu = {:.1ufL}, \sigma = {:.1ufL}$".format(ufloat(opt[0],np.sqrt(cov[0][0])), ufloat(abs(opt[1]), np.sqrt(cov[1][1])) ) )
+	ax.plot(vCh, vData, 'b.', label='raw data')
 	ax.legend(loc='upper right')
 	ax.set_xlabel('MCA Channel')
 	ax.set_ylabel('Event counts')
 	ax.set_title(source+" with gauss fit")
 	fig.savefig("Figures/am_"+source+"_gauss.pdf")
-
 
 plt.close('all')
 
