@@ -243,22 +243,30 @@ b2 = ufloat(b2, b2_err, 'sys')
 delim = (vMean[3]-vMean[2])/2
 
 def chToE(ch):
-	E = a * ch + b
+	E = []
+	for i in range(len(ch)):
+		 E += [a * ch[i] + b]
 #	if isinstance(ch, UFloat):
 #		if ch<=delim: E = a1 * ch + b1
 #		else: E = a2 * ch + b2
 #	else:
+#		E = []	
 #		for i in range(np.size(ch)): 
-#			if ch[i]<=delim: E = a1 * ch + b1
-#			else: E = a2 * ch + b2
-	return E # in keV
+#			if ch[i]<=delim: E += a1 * ch[i] + b1
+#			else: E += a2 * ch[i] + b2
+	return np.array(E) # in keV
 
 
 ### ANALYSE FE ###
 
 # get data
-vNoise = np.genfromtxt(DATAPATH+"am_spek_papier"+FILE_POSTFIX, skip_header=12, skip_footer=37, encoding='latin-1', dtype=int, delimiter='\n')
+vNoise = np.genfromtxt(DATAPATH+"am_spek_leer"+FILE_POSTFIX, skip_header=14, skip_footer=37, encoding='latin-1', dtype=int, delimiter='\n')
+#vNoise = np.genfromtxt(DATAPATH+"am_spek_papier"+FILE_POSTFIX, skip_header=12, skip_footer=37, encoding='latin-1', dtype=int, delimiter='\n')
 vData = np.genfromtxt(DATAPATH+'am_spek_fe'+FILE_POSTFIX, skip_header=14, skip_footer=37, encoding='latin-1', dtype=int, delimiter='\n')
+vCh = np.arange(len(vData))
+
+# convert channels to ernergy values
+vEnergy = chToE(unp.uarray(vCh, np.zeros(len(vData))))
 
 # set peak bound
 peakBound = [1530, 1590]
@@ -282,14 +290,14 @@ fig.savefig("Figures/am_fe_raw.pdf")
 # clean plot
 vData = vData - vNoise
 #_,vData,_ = np.split(vData, [1000,-1])
-#_,vCh,_ = np.split(vCh, [1000,-1])
+#_,vEnergy,_ = np.split(vEnergy, [1000,-1])
 fig, ax = plt.subplots()
-ax.plot(vCh, vData, 'b.')
-ax.set_xlabel('MCA channel')
+ax.plot(unp.nominal_values(vEnergy), vData, 'b.')
+ax.set_xlabel('energy [keV]')
 ax.set_ylabel('event counts')
 ax.set_title('clean data for steel')
 fig.savefig("Figures/am_fe_clean.pdf")
-
+'''
 # cut out peak
 _,vPeakData,_ = np.split(vData, peakBound)
 _,vPeakCh,_ = np.split(vCh, peakBound)
@@ -304,7 +312,7 @@ norm = opt[2]
 
 # plot with fit
 fig, ax = plt.subplots()
-ax.plot(vCh, pl.gauss(vCh, opt[0], opt[1], opt[2]), 'r-',
+ax.plot(vEnergy, pl.gauss(vEnergy, opt[0], opt[1], opt[2]), 'r-',
 	 label=r"$\mu = {:.1ufL}, \sigma = {:.1ufL}$".format(ufloat(opt[0],np.sqrt(cov[0][0])), ufloat(abs(opt[1]), np.sqrt(cov[1][1])) ) )
 ax.plot(vCh, vData, 'b.', label='raw data')
 ax.legend(loc='upper right')
@@ -315,9 +323,16 @@ fig.savefig("Figures/am_fe_gauss.pdf")
 
 plt.close('all')
 
-# convert to energy value
-E = chToE(ufloat(mean, meanErr, 'stat'))
-sigE = chToE(ufloat(sigma, sigmaErr, 'stat'))
+# convert mean to energy value
+E = ufloat(mean, meanErr, 'stat')
 
 # print result for energy of x-ray
-print('energy of x-ray for steel: {}'.format(E))
+print('energy of x-ray for steel: ({})keV'.format(E))
+
+
+### ANALYSE ENERGY RESOLUTION ###
+
+
+
+
+'''
