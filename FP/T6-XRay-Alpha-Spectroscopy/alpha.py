@@ -24,6 +24,11 @@ import matplotlib
 matplotlib.style.use("../labreport.mplstyle")
 plt.ioff()
 
+# will need this def
+def find_nearest(array, value):
+    array = np.asarray(array)
+    idx = (np.abs(array - value)).argmin()
+    return idx
 
 ### CALIBRATION ###
 
@@ -269,7 +274,8 @@ vCh = np.arange(len(vData))
 vEnergy = chToE(unp.uarray(vCh, np.zeros(len(vData))))
 
 # set peak bound
-peakBound = [1530, 1590]
+peakBound = unp.nominal_values(chToE([1530, 1590]))
+peakBound = [find_nearest(vEnergy, peakBound[0]), find_nearest(vEnergy, peakBound[1])]
 
 # plot noise
 fig, ax = plt.subplots()
@@ -297,24 +303,22 @@ ax.set_xlabel('energy [keV]')
 ax.set_ylabel('event counts')
 ax.set_title('clean data for steel')
 fig.savefig("Figures/am_fe_clean.pdf")
-'''
+
 # cut out peak
 _,vPeakData,_ = np.split(vData, peakBound)
-_,vPeakCh,_ = np.split(vCh, peakBound)
+_,vPeakCh,_ = np.split(unp.nominal_values(vEnergy), peakBound)
 
 # fit gauss curve
 opt, cov = curve_fit(pl.gauss, vPeakCh, vPeakData, p0=[int(np.mean(peakBound)),1,1])
-mean = opt[0]
-meanErr = np.sqrt(cov[0][0])
-sigma = abs(opt[1])
-sigmaErr = np.sqrt(cov[1][1])
+mean = ufloat(opt[0], np.sqrt(cov[0][0]))
+sigma = ufloat(abs(opt[1]), np.sqrt(cov[1][1]))
 norm = opt[2]
 
 # plot with fit
 fig, ax = plt.subplots()
-ax.plot(vEnergy, pl.gauss(vEnergy, opt[0], opt[1], opt[2]), 'r-',
+ax.plot(unp.nominal_values(vEnergy), pl.gauss(unp.nominal_values(vEnergy), opt[0], opt[1], opt[2]), 'r-',
 	 label=r"$\mu = {:.1ufL}, \sigma = {:.1ufL}$".format(ufloat(opt[0],np.sqrt(cov[0][0])), ufloat(abs(opt[1]), np.sqrt(cov[1][1])) ) )
-ax.plot(vCh, vData, 'b.', label='raw data')
+ax.plot(unp.nominal_values(vEnergy), vData, 'b.', label='steel data with gauss peak')
 ax.legend(loc='upper right')
 ax.set_xlabel('MCA channel')
 ax.set_ylabel('event counts')
@@ -323,16 +327,56 @@ fig.savefig("Figures/am_fe_gauss.pdf")
 
 plt.close('all')
 
-# convert mean to energy value
-E = ufloat(mean, meanErr, 'stat')
-
 # print result for energy of x-ray
-print('energy of x-ray for steel: ({})keV'.format(E))
+print('energy of x-ray for steel: ({})keV'.format(mean))
 
 
 ### ANALYSE ENERGY RESOLUTION ###
 
+vMean = []
+vSigma = []
 
+# set peak bounds
+vPeakBounds = [unp.nominal_values(chToE(bound)) for bound in vPeakBounds]
+vPeakBounds = [[find_nearest(vEnergy, bound[0]), find_nearest(vEnergy, bound[1])] for bound in vPeakBounds]
 
+for i, source in enumerate(vSOURCES):
+	
+	# get data
+	vData = np.genfromtxt(FILE_PREFIX+source+FILE_POSTFIX, skip_header=vHEADER[i], skip_footer=37, encoding='latin-1', dtype=int, delimiter='\n')
+	
+	# gen energy scale
+	vEnergy = chToE(unp.uarray(np.arange(len(vData)), np.zeros(len(vData))))
+	
+	# cut out peak
+	_,vPeakData,_ = np.split(vData, vPeakBounds[i])
+	_,vPeakCh,_ = np.split(unp.nominal_values(vEnergy), vPeakBounds[i])
+	
+	# fit gauss curve
+	opt, cov = curve_fit(pl.gauss, vPeakCh, vPeakData, p0=[int(np.mean(vPeakBounds[i])),1,1])
+	vMean += [ufloat(opt[0], np.sqrt(cov[0][0]), 'stat')]
+	vSigma += [ufloat(abs(opt[1]), np.sqrt(cov[1][1]), 'stat')]
+	norm = opt[2]
+	
+vMean = np.array(vMean)
+vSigma = np.array(vSigma)
 
-'''
+# calc FWHM
+vFWHM = 2 * np.sqrt(2 * np.log(2)) * vSigma
+
+# plot resolution
+vRes = vFWHM/vMean
+X = unp.nominal_values(vMean)
+X_err = unp.std_devs(vMean)
+Y = unp.nominal_values(vRes)
+Y_err =	unp.std_devs(vRes)
+
+fig, ax = plt.subplots()
+ax.plot(X, Y, '.')
+ax.errorbar(X, Y, xerr=X_err, yerr=Y_err, fmt='.', color='b')
+ax.set_title('resolution')
+ax.set_xlabel('energy [keV]')
+ax.set_ylabel(r'$\frac{\Delta E}{E}$')
+fig.tight_layout()
+fig.savefig("Figures/am_resolution.pdf")	
+	
