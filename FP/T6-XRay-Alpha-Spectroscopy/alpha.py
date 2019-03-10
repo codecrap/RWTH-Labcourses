@@ -10,8 +10,10 @@ import numpy as np
 from matplotlib import pyplot as plt
 from scipy.optimize import curve_fit
 from scipy import odr
+import scipy.optimize as spopt
 import uncertainties.unumpy as unp
 from uncertainties import ufloat, UFloat
+from scipy.constants import h, c, elementary_charge
 
 import sys
 sys.path.append("./../../")
@@ -106,6 +108,7 @@ for i, source in enumerate(vSOURCES):
 plt.close('all')
 
 vMean = np.array(vMean)
+#vMeanErr = np.full(len(vMean), 1/np.sqrt(12))
 vMeanErr = np.array(vMeanErr)
 
 # linear fit
@@ -272,6 +275,7 @@ vCh = np.arange(len(vData))
 
 # convert channels to ernergy values
 vEnergy = chToE(unp.uarray(vCh, np.zeros(len(vData))))
+#print(unp.nominal_values(vEnergy))
 
 # set peak bound
 peakBound = unp.nominal_values(chToE([1530, 1590]))
@@ -306,10 +310,44 @@ fig.savefig("Figures/am_fe_clean.pdf")
 
 # cut out peak
 _,vPeakData,_ = np.split(vData, peakBound)
-_,vPeakCh,_ = np.split(unp.nominal_values(vEnergy), peakBound)
+_,vPeakE,_ = np.split(unp.nominal_values(vEnergy), peakBound)
+#print(len(vPeakData))
+#print(len(vPeakE))
 
 # fit gauss curve
-opt, cov = curve_fit(pl.gauss, vPeakCh, vPeakData, p0=[int(np.mean(peakBound)),1,1])
+def g(x, beta):
+	y = []
+	for i in range(len(x)):
+		y += [beta[2] * np.exp(-(x-beta[0])**2/(2.*beta[1]**2))]
+	return np.array(y)
+
+X = vPeakE
+X_err = np.full(len(vPeakE), 1e-10)
+Y = vPeakData
+Y_err = np.full(len(vPeakData), 1e-10)
+
+#model  = odr.Model(g)
+#data   = odr.RealData(X, Y, sx=X_err, sy=Y_err)
+#odrObject = odr.ODR(data, model, beta0=[np.mean(peakBound), 1, 1])
+#output = odrObject.run()
+#ndof = len(X)-3
+#chiq = output.res_var*ndof
+#corr = output.cov_beta[0,1]/np.sqrt(output.cov_beta[0,0]*output.cov_beta[1,1])
+#opt = [output.beta[0], output.beta[1], output.beta[2]]
+#cov = [[output.sd_beta[0]**2,0,0], [0,output.sd_beta[1]**2,0], [0,0,output.sd_beta[2]**2]]
+
+#p0 = [np.mean(peakBound),1,1]	# start values
+#chifunc = lambda p,x,xerr,y,yerr: (y-g(x,p))/np.sqrt(yerr**2+g(x,p)*(-2*(x-p[0])/(2*p[1]**2))*xerr**2)	# p[0] = d/dx line()
+#fitparam,cov,_,_,_ = spopt.leastsq(chifunc,p0,args=(X,X_err,Y,Y_err),full_output=True)
+## print(fitparam,cov)
+#chiq = np.sum(chifunc(fitparam,X,X_err,Y,Y_err)**2) / (len(Y)-len(fitparam))
+#fitparam_err = np.sqrt(np.diag(cov)*chiq)									# leastsq returns the 'fractional covariance matrix'
+## print(chiq,fitparam_err)
+#opt = [fitparam[0], fitparam[1], fitparam[2]]
+#cov = [[fitparam_err[0]**2,0,0], [0,fitparam_err[1]**2,0], [0,0,fitparam_err[2]**2]]
+
+opt, cov = curve_fit(pl.gauss, X, Y, p0=[np.mean(peakBound),1,1])
+
 mean = ufloat(opt[0], np.sqrt(cov[0][0]))
 sigma = ufloat(abs(opt[1]), np.sqrt(cov[1][1]))
 norm = opt[2]
@@ -327,8 +365,12 @@ fig.savefig("Figures/am_fe_gauss.pdf")
 
 plt.close('all')
 
+# calc wavelength
+wl = (h*c / (17.5*1000*elementary_charge)) /1e-9
+
 # print result for energy of x-ray
 print('energy of x-ray for steel: ({})keV'.format(mean))
+print('wavelength of x-ray for steel: ({})nm'.format(wl))
 
 
 ### ANALYSE ENERGY RESOLUTION ###
@@ -350,16 +392,18 @@ for i, source in enumerate(vSOURCES):
 	
 	# cut out peak
 	_,vPeakData,_ = np.split(vData, vPeakBounds[i])
-	_,vPeakCh,_ = np.split(unp.nominal_values(vEnergy), vPeakBounds[i])
+	_,vPeakE,_ = np.split(unp.nominal_values(vEnergy), vPeakBounds[i])
+	#print(vPeakE)
 	
 	# fit gauss curve
-	opt, cov = curve_fit(pl.gauss, vPeakCh, vPeakData, p0=[int(np.mean(vPeakBounds[i])),1,1])
+	opt, cov = curve_fit(pl.gauss, vPeakE, vPeakData, p0=[np.mean(vPeakBounds[i]),1,1])
 	vMean += [ufloat(opt[0], np.sqrt(cov[0][0]), 'stat')]
 	vSigma += [ufloat(abs(opt[1]), np.sqrt(cov[1][1]), 'stat')]
 	norm = opt[2]
 	
 vMean = np.array(vMean)
 vSigma = np.array(vSigma)
+print(vMean)
 
 # calc FWHM
 vFWHM = 2 * np.sqrt(2 * np.log(2)) * vSigma
