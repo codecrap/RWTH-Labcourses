@@ -181,9 +181,9 @@ def linreg_manual(x,y,ey):
 
 	return(a,ea,b,eb,chiq,corr)
 
-def plotFit(x,xerr,y,yerr,title="test",filename="test",xlabel="",ylabel="",res_ylabel="Data - Fit",
-			capsize=3,linewidth=2,markersize=10,marker='.',fontsize=20,
-			show=True,fitmethod='leastsq'):
+def plotFit(x, xerr, y, yerr, x_plotaxis=[], title="test", filename="test", xlabel="", ylabel="", res_ylabel="Data - Fit",
+			capsize=3, linewidth=2, markersize=10, marker='.', fontsize=20,
+			show=True, fitmethod='leastsq'):
 	# print(len(x),len(xerr),len(y),len(yerr),y.shape)
 	if fitmethod not in ['ODR','least-squares']:
 		raise TypeError("fitmethod must be one of ['ODR','least-squares']! \n")
@@ -191,56 +191,68 @@ def plotFit(x,xerr,y,yerr,title="test",filename="test",xlabel="",ylabel="",res_y
 	plt.ioff()
 	line = lambda p,x: p[0]*x+p[1]
 	
-	if fitmethod=='leastsq':
+	if fitmethod=='least-squares':
 		p0 = [1,0]	# start values
-		chifunc = lambda p,x,xerr,y,yerr: (y-line(p,x))/np.sqrt(yerr**2+p[0]*xerr**2)	# p[0] = d/dx line()
+		chifunc = lambda p,x,xerr,y,yerr: (y-line(p,x))/np.sqrt(yerr**2+(p[0]*xerr)**2)	# p[0] = d/dx line()
 		fitparam,cov,_,_,_ = spopt.leastsq(chifunc,p0,args=(x,xerr,y,yerr),full_output=True)
 		# print(fitparam,cov)
 		chiq = np.sum(chifunc(fitparam,x,xerr,y,yerr)**2) / (len(y)-len(fitparam))
 		fitparam_err = np.sqrt(np.diag(cov)*chiq)									# leastsq returns the 'fractional covariance matrix'
 		# print(chiq,fitparam_err)
-
-	if fitmethod=='ODR':
-		a_ini,ea_ini,b_ini,eb_ini,chiq_ini,corr_ini = linreg_manual(x,y,yerr)
-
+		
+	elif fitmethod=='ODR':
+		# a_ini,ea_ini,b_ini,eb_ini,chiq_ini,corr_ini = linreg_manual(x,y,yerr)
 
 		def f(B, x):
 			return B[0]*x + B[1]
 
 		model  = scipy.odr.Model(f)
-		data   = scipy.odr.RealData(x, y, sx=xerr, sy=yerr)
-		odr    = scipy.odr.ODR(data, model, beta0=[a_ini, b_ini])
-		output = odr.run()
+		
+		if np.all(xerr) and np.all(yerr):
+			data   = scipy.odr.RealData(x, y, sx=xerr, sy=yerr)
+		elif np.all(xerr):
+			data = scipy.odr.RealData(x, y, sx=xerr)
+		elif np.all(yerr):
+			data = scipy.odr.RealData(x, y, sy=yerr)
+		else:
+			raise TypeError("xerr and yerr must be numpy-compatible!")
+		
+		odr_instance = scipy.odr.ODR(data, model, beta0=[1,1])
+		odr_instance.set_job(fit_type=0)
+		output = odr_instance.run()
+		output.pprint()
 		ndof = len(x)-2
-		chiq = output.res_var*ndof
+		chiq = output.res_var
 		corr = output.cov_beta[0,1]/np.sqrt(output.cov_beta[0,0]*output.cov_beta[1,1])
 
-		fitparam = [output.beta[0],output.beta[1]]
-		fitparam_err = [output.sd_beta[0],output.sd_beta[1]]
+		fitparam = output.beta
+		fitparam_err = output.sd_beta
 
 	if show:
 		fig,ax = plt.subplots(2,1)
-		residue = y-line(fitparam,x)
-		ax[0].plot(x,line(fitparam,x),'r-',
-					label="Fit: $a = %.1e \pm %.1e$, \n     $b = %.1e \pm %.1e$"
-							% (fitparam[0],fitparam_err[0],fitparam[1],fitparam_err[1]))
+		
+		residuals = y-line(fitparam,x)
+		ax[1].errorbar(x,residuals,yerr=np.sqrt(yerr**2+fitparam[0]*xerr**2),fmt='o',color='b',
+					   label=r"$\frac{\chi^2}{ndf} = %.1e$" % chiq)
 		ax[0].errorbar(x,y,xerr=xerr,yerr=yerr,fmt='.',color='b')
+		
+		if np.any(x_plotaxis):														# extend x axis if desired
+			x = x_plotaxis
+		ax[0].plot(x,line(fitparam,x),'r-',
+				   label="Fit: $a = %.1e \pm %.1e$, \n     $b = %.1e \pm %.1e$"
+						 % (fitparam[0],fitparam_err[0],fitparam[1],fitparam_err[1]))
+		
 		ax[0].set_title(title)
 		ax[0].set_xlabel(xlabel)
 		ax[0].set_ylabel(ylabel)
 		ax[0].legend(loc='lower right')
-		# ax[0].grid(True)
-		ax[1].errorbar(x,residue,yerr=np.sqrt(yerr**2+fitparam[0]*xerr**2),fmt='o',color='b',
-					label=r"$\frac{\chi^2}{ndf} = %.3f$" % np.around(chiq,3))
 		ax[1].axhline(0,color='r')
 		ax[1].set_title("Residuals")
 		ax[1].set_xlabel(xlabel)
 		ax[1].set_ylabel(res_ylabel)
 		ax[1].legend(loc='upper right')
-		# ax[1].grid(True)
-		# fig.tight_layout()
-		# plt.show()
-		fig.savefig("Figures/"+title)
+
+		fig.savefig("Figures/"+filename)
 
 	return fitparam,fitparam_err,chiq
 
