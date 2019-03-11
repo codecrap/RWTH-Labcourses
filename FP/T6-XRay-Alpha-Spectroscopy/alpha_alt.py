@@ -211,7 +211,7 @@ peakBound = [1530, 1590]#[560, 585]#
 #fig.savefig("Figures/am_fe_raw.pdf")
 #
 ## clean plot
-#vData = vData - vNoise
+vData = vData - vNoise
 ##_,vData,_ = np.split(vData, [1000,-1])
 ##_,vEnergy,_ = np.split(vEnergy, [1000,-1])
 #fig, ax = plt.subplots()
