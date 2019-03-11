@@ -114,7 +114,7 @@ plt.rcParams.update({'font.size': 25})
 vNEGLECT_TAIL = [30,40,30,20,20,17,40,30]											# energy of bremsstarhlung start in keV
 vTHRESHOLD = [120,200,180,200,70,20,180,300]
 vMINDIST = [80,110,300,30,200,200,200,70]
-
+vDetectedPeaks = []
 
 for i,sample in enumerate(vANALYSIS_SAMPLE):
 	vData = np.genfromtxt(DATAPATH + FILE_PREFIX + "spek_" + sample + FILE_POSTFIX,
@@ -146,6 +146,14 @@ for i,sample in enumerate(vANALYSIS_SAMPLE):
 		vPeakInds += [vSliceInds[j] + vSlicePeakInds]
 	vPeakInds = np.concatenate(vPeakInds)
 	
+	vDetectedPeaks += [unp.nominal_values(vE[vPeakInds])]
+	
+	pl.printAsLatexTable(np.array([['${:.2f}$'.format(x) for _, x in enumerate(unp.nominal_values(vE[vPeakInds]))],
+								   ['element']*len(unp.nominal_values(vE[vPeakInds])) ]),
+						 colTitles=['col']*len(unp.nominal_values(vE[vPeakInds])),
+						 rowTitles=["Peaks (keV)", "Element"],
+						 mathMode=False)
+	
 	label = "Peaks: ["\
 			+ ', '.join(['{:.2f}'.format(np.round(x,2))
 						for i,x in enumerate(unp.nominal_values(vE[vPeakInds])) ])\
@@ -163,6 +171,13 @@ ax[-1].set_xlabel("Energy (keV)")
 ax[-2].set_xlabel("Energy (keV)")
 fig.subplots_adjust(hspace=0,wspace=0)
 fig.savefig("Figures/" + "XRay-analysis")
+
+print(vDetectedPeaks)
+# pl.printAsLatexTable( np.array([['${:.0f}$'.format(x) for _,x in enumerate(vDetectedPeaks)],
+# 								['element']*len(vDetectedPeaks) ]),
+# 					colTitles=vANALYSIS_SAMPLE,
+# 					rowTitles=["Peaks (keV)","Element"],
+# 					mathMode=False )
 
 
 #%% PUR and Voltage EFFECT COMPARISON
