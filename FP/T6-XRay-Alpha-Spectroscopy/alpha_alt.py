@@ -119,15 +119,16 @@ Y_err = vEnergyErr
 
 def f(B, x):
 	return B[0]*x + B[1]
+	#return -(B[2]*x - B[0])**2 + B[2]
 model  = odr.Model(f)
 data   = odr.RealData(X, Y, sx=X_err, sy=Y_err)
-odrObject = odr.ODR(data, model, beta0=[1, 1])
+odrObject = odr.ODR(data, model, beta0=[1, 1, 1])
 output = odrObject.run()
 ndof = len(X)-2
-chiq = output.res_var*ndof
-corr = output.cov_beta[0,1]/np.sqrt(output.cov_beta[0,0]*output.cov_beta[1,1])
-fitparam = [output.beta[0],output.beta[1]]
-fitparam_err = [output.sd_beta[0],output.sd_beta[1]]
+chiq = output.res_var
+#corr = output.cov_beta[0,1]/np.sqrt(output.cov_beta[0,0]*output.cov_beta[1,1])
+fitparam = [output.beta[0], output.beta[1]]#, output.beta[2]]
+fitparam_err = [output.sd_beta[0], output.sd_beta[1]]#, output.sd_beta[2]]
 	
 fig,ax = plt.subplots(2,1)
 residue = Y - f(fitparam, X)
@@ -154,101 +155,15 @@ a = fitparam[0]
 a_err = fitparam_err[0]
 b = fitparam[1]
 b_err = fitparam_err[1]
-
-
-X = np.delete(vMean, [3, 4, 5])
-X_err = np.delete(vMeanErr, [3, 4, 5])
-Y = np.delete(vEnergy, [3, 4, 5])
-Y_err = np.delete(vEnergyErr, [3, 4, 5])
-
-model  = odr.Model(f)
-data   = odr.RealData(X, Y, sx=X_err, sy=Y_err)
-odrObject = odr.ODR(data, model, beta0=[1, 1])
-output = odrObject.run()
-ndof = len(X)-2
-chiq = output.res_var*ndof
-corr = output.cov_beta[0,1]/np.sqrt(output.cov_beta[0,0]*output.cov_beta[1,1])
-fitparam = [output.beta[0],output.beta[1]]
-fitparam_err = [output.sd_beta[0],output.sd_beta[1]]
-	
-fig,ax = plt.subplots(2,1)
-residue = Y - f(fitparam, X)
-ax[0].plot(X, f(fitparam, X), 'r-',
-			label="Fit: $a = %.1e \pm %.1e$, \n     $b = %.1e \pm %.1e$"
-					% (fitparam[0],fitparam_err[0],fitparam[1],fitparam_err[1]))
-ax[0].errorbar(X, Y, xerr=X_err, yerr=Y_err, fmt='.', color='b')
-ax[0].set_title('calibration fit')
-ax[0].set_ylabel('Energy [keV]')
-ax[0].legend(loc='lower right')
-ax[0].grid(True)
-ax[1].errorbar(X, residue, yerr=np.sqrt(Y_err**2 + fitparam[0]*X_err**2), fmt='o', color='b',
-			label=r"$\frac{\chi^2}{ndf} = %.3f$" % np.around(chiq,3))
-ax[1].axhline(0,color='r')
-ax[1].set_title("Residuals")
-ax[1].set_xlabel('Channel')
-ax[1].set_ylabel(r"$y - (a \cdot x + b)$")
-ax[1].legend(loc='upper right')
-ax[1].grid(True)
-fig.tight_layout()
-fig.savefig('Figures/'+'am_calibration_fit_2'+'.pdf')
-
-a1 = fitparam[0]
-a1_err = fitparam_err[0]
-b1 = fitparam[1]
-b1_err = fitparam_err[1]
-
-
-X = np.delete(vMean, [0, 1, 2])
-X_err = np.delete(vMeanErr, [0, 1, 2])
-Y = np.delete(vEnergy, [0, 1, 2])
-Y_err = np.delete(vEnergyErr, [0, 1, 2])
-
-model  = odr.Model(f)
-data   = odr.RealData(X, Y, sx=X_err, sy=Y_err)
-odrObject = odr.ODR(data, model, beta0=[1, 1])
-output = odrObject.run()
-ndof = len(X)-2
-chiq = output.res_var*ndof
-corr = output.cov_beta[0,1]/np.sqrt(output.cov_beta[0,0]*output.cov_beta[1,1])
-fitparam = [output.beta[0],output.beta[1]]
-fitparam_err = [output.sd_beta[0],output.sd_beta[1]]
-	
-fig,ax = plt.subplots(2,1)
-residue = Y - f(fitparam, X)
-ax[0].plot(X, f(fitparam, X), 'r-',
-			label="Fit: $a = %.1e \pm %.1e$, \n     $b = %.1e \pm %.1e$"
-					% (fitparam[0],fitparam_err[0],fitparam[1],fitparam_err[1]))
-ax[0].errorbar(X, Y, xerr=X_err, yerr=Y_err, fmt='.', color='b')
-ax[0].set_title('calibration fit')
-ax[0].set_ylabel('Energy [keV]')
-ax[0].legend(loc='lower right')
-ax[0].grid(True)
-ax[1].errorbar(X, residue, yerr=np.sqrt(Y_err**2 + fitparam[0]*X_err**2), fmt='o', color='b',
-			label=r"$\frac{\chi^2}{ndf} = %.3f$" % np.around(chiq,3))
-ax[1].axhline(0,color='r')
-ax[1].set_title("Residuals")
-ax[1].set_xlabel('Channel')
-ax[1].set_ylabel(r"$y - (a \cdot x + b)$")
-ax[1].legend(loc='upper right')
-ax[1].grid(True)
-fig.tight_layout()
-fig.savefig('Figures/'+'am_calibration_fit_1'+'.pdf')
-
-a2 = fitparam[0]
-a2_err = fitparam_err[0]
-b2 = fitparam[1]
-b2_err = fitparam_err[1]
+#m = fitparam[2]
+#m_err = fitparam_err[2]
 
 plt.close('all')
 
 # calibration function
 a = ufloat(a, a_err, 'sys')
 b = ufloat(b, b_err, 'sys')
-a1 = ufloat(a1, a1_err, 'sys')
-b1 = ufloat(b1, b1_err, 'sys')
-a2 = ufloat(a2, a2_err, 'sys')
-b2 = ufloat(b2, b2_err, 'sys')
-delim = (vMean[3]-vMean[2])/2
+#m = ufloat(m, m_err, 'sys')
 
 def chToE(ch):
 	if isinstance(ch, UFloat):
@@ -259,14 +174,13 @@ def chToE(ch):
 		for i in range(len(ch)):
 			 E += [a * ch[i] + b]
 #	if isinstance(ch, UFloat):
-#		if ch<=delim: E = a1 * ch + b1
-#		else: E = a2 * ch + b2
+#		E = -(m * ch - a)**2 + b
+#		return E
 #	else:
-#		E = []	
-#		for i in range(np.size(ch)): 
-#			if ch[i]<=delim: E += a1 * ch[i] + b1
-#			else: E += a2 * ch[i] + b2
-	return np.array(E) # in keV
+#		E = []
+#		for i in range(len(ch)):
+#			 E += [-(m * ch[i] - a)**2 + b]
+#		return np.array(E)
 
 
 ### ANALYSE FE ###
@@ -368,69 +282,39 @@ plt.close('all')
 E = chToE(mean)
 
 # calc wavelength
-wl = (h*c / (E*1000*elementary_charge)) /1e-9
+#wl = (h*c / (E*1000*elementary_charge)) /1e-9
 
 # print result for energy of x-ray
 print('energy of x-ray for steel: ({})keV'.format(E))
-print('wavelength of x-ray for steel: ({})nm'.format(wl))
+#print('wavelength of x-ray for steel: ({})nm'.format(wl))
 
-'''
+
 ### ANALYSE ENERGY RESOLUTION ###
 
 vMean = []
 vSigma = []
 
 # set peak bounds
-vPeakBounds = [unp.nominal_values(chToE(bound)) for bound in vPeakBounds]
-vPeakBounds = [[find_nearest(vEnergy, bound[0]), find_nearest(vEnergy, bound[1])] for bound in vPeakBounds]
+#vPeakBounds = vPeakBounds
 
 for i, source in enumerate(vSOURCES):
 	
 	# get data
 	vData = np.genfromtxt(FILE_PREFIX+source+FILE_POSTFIX, skip_header=vHEADER[i], skip_footer=37, encoding='latin-1', dtype=int, delimiter='\n')
+	vCh = np.arange(len(vData))
 	
-	# gen energy scale
-	vEnergy = chToE(unp.uarray(np.arange(len(vData)), np.zeros(len(vData))))
-	
-	## plot noise
-fig, ax = plt.subplots()
-ax.plot(vCh, vNoise, 'b.')
-ax.set_xlabel('MCA channel')
-ax.set_ylabel('event counts')
-ax.set_title('background measurement')
-fig.savefig("Figures/am_noise.pdf")
-
-# raw plot
-fig, ax = plt.subplots()
-ax.plot(vCh, vData, 'b.')
-ax.set_xlabel('MCA channel')
-ax.set_ylabel('event counts')
-ax.set_title("raw data for steel")
-fig.savefig("Figures/am_fe_raw.pdf")
-
-# clean plot
-vData = vData - vNoise
-#_,vData,_ = np.split(vData, [1000,-1])
-#_,vEnergy,_ = np.split(vEnergy, [1000,-1])
-fig, ax = plt.subplots()
-ax.plot(vCh, vData, 'b.')
-ax.set_xlabel('energy [keV]')
-ax.set_ylabel('event counts')
-ax.set_title('clean data for steel')
-fig.savefig("Figures/am_fe_clean.pdf") cut out peak
+	# cut out peak
 	_,vPeakData,_ = np.split(vData, vPeakBounds[i])
-	_,vPeakE,_ = np.split(unp.nominal_values(vEnergy), vPeakBounds[i])
-	#print(vPeakE)
+	_,vPeakCh,_ = np.split(vCh, vPeakBounds[i])
 	
 	# fit gauss curve
-	opt, cov = curve_fit(pl.gauss, vPeakE, vPeakData, p0=[np.mean(vPeakBounds[i]),1,1])
+	opt, cov = curve_fit(pl.gauss, vPeakCh, vPeakData, p0=[np.mean(vPeakBounds[i]),1,1])
 	vMean += [ufloat(opt[0], np.sqrt(cov[0][0]), 'stat')]
 	vSigma += [ufloat(abs(opt[1]), np.sqrt(cov[1][1]), 'stat')]
 	norm = opt[2]
 	
 vMean = np.array(vMean)
 vSigma = np.array(vSigma)
-print(vMean)
 
 # calc FWHM
 vFWHM = 2 * np.sqrt(2 * np.log(2)) * vSigma
@@ -450,4 +334,3 @@ ax.set_xlabel('energy [keV]')
 ax.set_ylabel(r'$\frac{\Delta E}{E}$')
 fig.tight_layout()
 fig.savefig("Figures/am_resolution.pdf")	
-'''

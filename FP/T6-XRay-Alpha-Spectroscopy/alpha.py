@@ -156,98 +156,98 @@ b = fitparam[1]
 b_err = fitparam_err[1]
 
 
-X = np.delete(vMean, [3, 4, 5])
-X_err = np.delete(vMeanErr, [3, 4, 5])
-Y = np.delete(vEnergy, [3, 4, 5])
-Y_err = np.delete(vEnergyErr, [3, 4, 5])
-
-model  = odr.Model(f)
-data   = odr.RealData(X, Y, sx=X_err, sy=Y_err)
-odrObject = odr.ODR(data, model, beta0=[1, 1])
-output = odrObject.run()
-ndof = len(X)-2
-chiq = output.res_var*ndof
-corr = output.cov_beta[0,1]/np.sqrt(output.cov_beta[0,0]*output.cov_beta[1,1])
-fitparam = [output.beta[0],output.beta[1]]
-fitparam_err = [output.sd_beta[0],output.sd_beta[1]]
-	
-fig,ax = plt.subplots(2,1)
-residue = Y - f(fitparam, X)
-ax[0].plot(X, f(fitparam, X), 'r-',
-			label="Fit: $a = %.1e \pm %.1e$, \n     $b = %.1e \pm %.1e$"
-					% (fitparam[0],fitparam_err[0],fitparam[1],fitparam_err[1]))
-ax[0].errorbar(X, Y, xerr=X_err, yerr=Y_err, fmt='.', color='b')
-ax[0].set_title('calibration fit')
-ax[0].set_ylabel('Energy [keV]')
-ax[0].legend(loc='lower right')
-ax[0].grid(True)
-ax[1].errorbar(X, residue, yerr=np.sqrt(Y_err**2 + fitparam[0]*X_err**2), fmt='o', color='b',
-			label=r"$\frac{\chi^2}{ndf} = %.3f$" % np.around(chiq,3))
-ax[1].axhline(0,color='r')
-ax[1].set_title("Residuals")
-ax[1].set_xlabel('Channel')
-ax[1].set_ylabel(r"$y - (a \cdot x + b)$")
-ax[1].legend(loc='upper right')
-ax[1].grid(True)
-fig.tight_layout()
-fig.savefig('Figures/'+'am_calibration_fit_2'+'.pdf')
-
-a1 = fitparam[0]
-a1_err = fitparam_err[0]
-b1 = fitparam[1]
-b1_err = fitparam_err[1]
-
-
-X = np.delete(vMean, [0, 1, 2])
-X_err = np.delete(vMeanErr, [0, 1, 2])
-Y = np.delete(vEnergy, [0, 1, 2])
-Y_err = np.delete(vEnergyErr, [0, 1, 2])
-
-model  = odr.Model(f)
-data   = odr.RealData(X, Y, sx=X_err, sy=Y_err)
-odrObject = odr.ODR(data, model, beta0=[1, 1])
-output = odrObject.run()
-ndof = len(X)-2
-chiq = output.res_var*ndof
-corr = output.cov_beta[0,1]/np.sqrt(output.cov_beta[0,0]*output.cov_beta[1,1])
-fitparam = [output.beta[0],output.beta[1]]
-fitparam_err = [output.sd_beta[0],output.sd_beta[1]]
-	
-fig,ax = plt.subplots(2,1)
-residue = Y - f(fitparam, X)
-ax[0].plot(X, f(fitparam, X), 'r-',
-			label="Fit: $a = %.1e \pm %.1e$, \n     $b = %.1e \pm %.1e$"
-					% (fitparam[0],fitparam_err[0],fitparam[1],fitparam_err[1]))
-ax[0].errorbar(X, Y, xerr=X_err, yerr=Y_err, fmt='.', color='b')
-ax[0].set_title('calibration fit')
-ax[0].set_ylabel('Energy [keV]')
-ax[0].legend(loc='lower right')
-ax[0].grid(True)
-ax[1].errorbar(X, residue, yerr=np.sqrt(Y_err**2 + fitparam[0]*X_err**2), fmt='o', color='b',
-			label=r"$\frac{\chi^2}{ndf} = %.3f$" % np.around(chiq,3))
-ax[1].axhline(0,color='r')
-ax[1].set_title("Residuals")
-ax[1].set_xlabel('Channel')
-ax[1].set_ylabel(r"$y - (a \cdot x + b)$")
-ax[1].legend(loc='upper right')
-ax[1].grid(True)
-fig.tight_layout()
-fig.savefig('Figures/'+'am_calibration_fit_1'+'.pdf')
-
-a2 = fitparam[0]
-a2_err = fitparam_err[0]
-b2 = fitparam[1]
-b2_err = fitparam_err[1]
+#X = np.delete(vMean, [3, 4, 5])
+#X_err = np.delete(vMeanErr, [3, 4, 5])
+#Y = np.delete(vEnergy, [3, 4, 5])
+#Y_err = np.delete(vEnergyErr, [3, 4, 5])
+#
+#model  = odr.Model(f)
+#data   = odr.RealData(X, Y, sx=X_err, sy=Y_err)
+#odrObject = odr.ODR(data, model, beta0=[1, 1])
+#output = odrObject.run()
+#ndof = len(X)-2
+#chiq = output.res_var*ndof
+#corr = output.cov_beta[0,1]/np.sqrt(output.cov_beta[0,0]*output.cov_beta[1,1])
+#fitparam = [output.beta[0],output.beta[1]]
+#fitparam_err = [output.sd_beta[0],output.sd_beta[1]]
+#	
+#fig,ax = plt.subplots(2,1)
+#residue = Y - f(fitparam, X)
+#ax[0].plot(X, f(fitparam, X), 'r-',
+#			label="Fit: $a = %.1e \pm %.1e$, \n     $b = %.1e \pm %.1e$"
+#					% (fitparam[0],fitparam_err[0],fitparam[1],fitparam_err[1]))
+#ax[0].errorbar(X, Y, xerr=X_err, yerr=Y_err, fmt='.', color='b')
+#ax[0].set_title('calibration fit')
+#ax[0].set_ylabel('Energy [keV]')
+#ax[0].legend(loc='lower right')
+#ax[0].grid(True)
+#ax[1].errorbar(X, residue, yerr=np.sqrt(Y_err**2 + fitparam[0]*X_err**2), fmt='o', color='b',
+#			label=r"$\frac{\chi^2}{ndf} = %.3f$" % np.around(chiq,3))
+#ax[1].axhline(0,color='r')
+#ax[1].set_title("Residuals")
+#ax[1].set_xlabel('Channel')
+#ax[1].set_ylabel(r"$y - (a \cdot x + b)$")
+#ax[1].legend(loc='upper right')
+#ax[1].grid(True)
+#fig.tight_layout()
+#fig.savefig('Figures/'+'am_calibration_fit_2'+'.pdf')
+#
+#a1 = fitparam[0]
+#a1_err = fitparam_err[0]
+#b1 = fitparam[1]
+#b1_err = fitparam_err[1]
+#
+#
+#X = np.delete(vMean, [0, 1, 2])
+#X_err = np.delete(vMeanErr, [0, 1, 2])
+#Y = np.delete(vEnergy, [0, 1, 2])
+#Y_err = np.delete(vEnergyErr, [0, 1, 2])
+#
+#model  = odr.Model(f)
+#data   = odr.RealData(X, Y, sx=X_err, sy=Y_err)
+#odrObject = odr.ODR(data, model, beta0=[1, 1])
+#output = odrObject.run()
+#ndof = len(X)-2
+#chiq = output.res_var*ndof
+#corr = output.cov_beta[0,1]/np.sqrt(output.cov_beta[0,0]*output.cov_beta[1,1])
+#fitparam = [output.beta[0],output.beta[1]]
+#fitparam_err = [output.sd_beta[0],output.sd_beta[1]]
+#	
+#fig,ax = plt.subplots(2,1)
+#residue = Y - f(fitparam, X)
+#ax[0].plot(X, f(fitparam, X), 'r-',
+#			label="Fit: $a = %.1e \pm %.1e$, \n     $b = %.1e \pm %.1e$"
+#					% (fitparam[0],fitparam_err[0],fitparam[1],fitparam_err[1]))
+#ax[0].errorbar(X, Y, xerr=X_err, yerr=Y_err, fmt='.', color='b')
+#ax[0].set_title('calibration fit')
+#ax[0].set_ylabel('Energy [keV]')
+#ax[0].legend(loc='lower right')
+#ax[0].grid(True)
+#ax[1].errorbar(X, residue, yerr=np.sqrt(Y_err**2 + fitparam[0]*X_err**2), fmt='o', color='b',
+#			label=r"$\frac{\chi^2}{ndf} = %.3f$" % np.around(chiq,3))
+#ax[1].axhline(0,color='r')
+#ax[1].set_title("Residuals")
+#ax[1].set_xlabel('Channel')
+#ax[1].set_ylabel(r"$y - (a \cdot x + b)$")
+#ax[1].legend(loc='upper right')
+#ax[1].grid(True)
+#fig.tight_layout()
+#fig.savefig('Figures/'+'am_calibration_fit_1'+'.pdf')
+#
+#a2 = fitparam[0]
+#a2_err = fitparam_err[0]
+#b2 = fitparam[1]
+#b2_err = fitparam_err[1]
 
 plt.close('all')
 
 # calibration function
 a = ufloat(a, a_err, 'sys')
 b = ufloat(b, b_err, 'sys')
-a1 = ufloat(a1, a1_err, 'sys')
-b1 = ufloat(b1, b1_err, 'sys')
-a2 = ufloat(a2, a2_err, 'sys')
-b2 = ufloat(b2, b2_err, 'sys')
+#a1 = ufloat(a1, a1_err, 'sys')
+#b1 = ufloat(b1, b1_err, 'sys')
+#a2 = ufloat(a2, a2_err, 'sys')
+#b2 = ufloat(b2, b2_err, 'sys')
 delim = (vMean[3]-vMean[2])/2
 
 def chToE(ch):
@@ -285,6 +285,7 @@ peakBound = [find_nearest(vEnergy, peakBound[0]), find_nearest(vEnergy, peakBoun
 fig, ax = plt.subplots()
 ax.plot(vCh, vNoise, 'b.')
 ax.set_xlabel('MCA channel')
+#ax.set_yscale('log')
 ax.set_ylabel('event counts')
 ax.set_title('background measurement')
 fig.savefig("Figures/am_noise.pdf")
@@ -293,6 +294,7 @@ fig.savefig("Figures/am_noise.pdf")
 fig, ax = plt.subplots()
 ax.plot(vCh, vData, 'b.')
 ax.set_xlabel('MCA channel')
+#ax.set_yscale('log')
 ax.set_ylabel('event counts')
 ax.set_title("raw data for steel")
 fig.savefig("Figures/am_fe_raw.pdf")
@@ -303,7 +305,9 @@ vData = vData - vNoise
 #_,vEnergy,_ = np.split(vEnergy, [1000,-1])
 fig, ax = plt.subplots()
 ax.plot(unp.nominal_values(vEnergy), vData, 'b.')
+#ax.set_xscale('log')
 ax.set_xlabel('energy [keV]')
+#ax.set_yscale('log')
 ax.set_ylabel('event counts')
 ax.set_title('clean data for steel')
 fig.savefig("Figures/am_fe_clean.pdf")
