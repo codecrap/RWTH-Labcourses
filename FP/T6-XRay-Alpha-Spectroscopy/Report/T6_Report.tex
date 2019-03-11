@@ -227,11 +227,26 @@ Nach der Kalibration wollen wir ein Stück Edelstahl untersuchen. Dazu nutzen wi
 
 \subsection{Auswertung}
 \subsubsection{Kalibration}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../Figures/am_tb_raw.pdf}
+\caption{Rohdaten für Tb}
+\label{am_tb_raw}
+\end{figure}
+
 Nach Auslesen und Plotten der aufgenommen Spektren von den Kalibrationsproben, identifizieren wir jeweils den $K_\alpha$-Peak und ermitteln durch Anpassung einer Gaußkurve dessen Mittelwert. Falls schon die Feinstrukturaufspaltung zu erkennen ist, nehmen wir den $K_{\alpha_1}$-Peak. Anschließend tragen wir die bekannten Energien dieser Peaks über die ermittelten Mittelwerte auf und passen auf diese Daten eine Gerade an, so dass sich unsere Kalibrationsfunktion
 \begin{equation}
 	E = a * \mathrm{Kanal} + b
 \end{equation}
 ergibt. Die Fehler auf a und b pflanzen sich bei allen weiteren Rechnungen als systematische Fehler fort.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../Figures/am_tb_gauss.pdf}
+\caption{Gaussfit am Beispiel von Tb}
+\label{am_tb_gauss}
+\end{figure}
 
 \begin{figure}[H]
 \centering
@@ -308,6 +323,13 @@ Die Kalibration des Detektors läuft analog zum vorherigen Aufbau. Erst ziehen w
 	E = a * \mathrm{Kanal} + b.
 \end{equation}
 Die Fehler auf a und b pflanzen sich bei allen weiteren Rechnungen als systematische Fehler fort.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../Figures/XRay-calibration-samples.pdf}
+\caption{Gaußfits}
+\label{XRay-calibration-samples}
+\end{figure}
 
 \begin{figure}[H]
 \centering
