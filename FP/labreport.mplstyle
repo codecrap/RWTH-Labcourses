@@ -22,7 +22,7 @@ ytick.minor.visible: True
 # Misc
 legend.fancybox    : True
 lines.linewidth    : 3
-lines.markersize   : 16
+lines.markersize   : 15
 errorbar.capsize   : 8
 
 # Grid
@@ -37,7 +37,7 @@ axes.grid.which    : both
 # Text
 text.usetex        : True
 font.family        : serif
-font.size          : 40
+font.size          : 20
 
 # Figure
 savefig.format     : eps

@@ -18,7 +18,6 @@ import uncertainties.unumpy as unp
 from uncertainties import ufloat
 
 import matplotlib
-matplotlib.style.use("../labreport.mplstyle")
 
 
 def split_error(x):
@@ -182,12 +181,17 @@ def linreg_manual(x,y,ey):
 
 	return(a,ea,b,eb,chiq,corr)
 
-def plotFit(x,xerr,y,yerr,title="test",xlabel="",ylabel="",res_ylabel=r"$y - (a \cdot x + b)$",capsize=3,fontsize=20,show=True,method='leastsq'):
+def plotFit(x,xerr,y,yerr,title="test",filename="test",xlabel="",ylabel="",res_ylabel="Data - Fit",
+			capsize=3,linewidth=2,markersize=10,marker='.',fontsize=20,
+			show=True,fitmethod='leastsq'):
 	# print(len(x),len(xerr),len(y),len(yerr),y.shape)
-	line = lambda p,x: p[0]*x+p[1]
+	if fitmethod not in ['ODR','least-squares']:
+		raise TypeError("fitmethod must be one of ['ODR','least-squares']! \n")
+	matplotlib.style.use("../labreport.mplstyle")
 	plt.ioff()
+	line = lambda p,x: p[0]*x+p[1]
 	
-	if method=='leastsq':
+	if fitmethod=='leastsq':
 		p0 = [1,0]	# start values
 		chifunc = lambda p,x,xerr,y,yerr: (y-line(p,x))/np.sqrt(yerr**2+p[0]*xerr**2)	# p[0] = d/dx line()
 		fitparam,cov,_,_,_ = spopt.leastsq(chifunc,p0,args=(x,xerr,y,yerr),full_output=True)
@@ -196,7 +200,7 @@ def plotFit(x,xerr,y,yerr,title="test",xlabel="",ylabel="",res_ylabel=r"$y - (a 
 		fitparam_err = np.sqrt(np.diag(cov)*chiq)									# leastsq returns the 'fractional covariance matrix'
 		# print(chiq,fitparam_err)
 
-	if method=='ODR':
+	if fitmethod=='ODR':
 		a_ini,ea_ini,b_ini,eb_ini,chiq_ini,corr_ini = linreg_manual(x,y,yerr)
 
 
@@ -236,7 +240,7 @@ def plotFit(x,xerr,y,yerr,title="test",xlabel="",ylabel="",res_ylabel=r"$y - (a 
 		# ax[1].grid(True)
 		# fig.tight_layout()
 		# plt.show()
-		fig.savefig("Figures/"+title+'.pdf')
+		fig.savefig("Figures/"+title)
 
 	return fitparam,fitparam_err,chiq
 
