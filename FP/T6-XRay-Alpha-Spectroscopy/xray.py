@@ -77,6 +77,8 @@ for i,sample in enumerate(vCALIBRATION_SAMPLE):
 # fig.set_rasterized(True)
 fig.delaxes(ax[-1])
 fig.savefig("Figures/" + "XRay-calibration-samples")
+vMean = np.array(vMean)
+vSigma = np.array(vSigma)
 
 fitparam,fiterror,chiq = pl.plotFit(unp.nominal_values(vMean),unp.std_devs(vMean),
 									vSAMPLE_KALPHA_ENERGY,np.zeros(len(vSAMPLE_KALPHA_ENERGY)),
@@ -89,11 +91,25 @@ print("Fit: ",fitparam,fiterror,chiq)
 def chToE(channel, a=ufloat(fitparam[0],fiterror[0],tag='sys'), b=ufloat(fitparam[1],fiterror[1],tag='sys')):
 	return a * channel + b
 
+#%% DETECTOR RESOLUTION
+vE = chToE(vMean)
+vResolution = pl.stdToFWHM(vSigma)/vE
+
+fig, ax = plt.subplots()
+ax.errorbar(unp.nominal_values(vE), unp.nominal_values(vResolution),
+			xerr=unp.std_devs(vE), yerr=unp.std_devs(vResolution),
+			fmt='o', color='b', ms=20)
+ax.set_title('XRay detector resolution')
+ax.set_xlabel('Energy (keV)')
+ax.set_ylabel(r'$\frac{\Delta E}{E}$')
+fig.savefig("Figures/xray_resolution.pdf")
+
+
 
 #%% SAMPLE ANALYSIS
 fig, ax = plt.subplots(4, 2, figsize=(30,40), sharex='all', sharey='all')
 ax = ax.ravel()
-# plt.rcParams.update({'font.size': 20})
+plt.rcParams.update({'font.size': 25})
 
 vNEGLECT_TAIL = [30,40,30,20,20,17,40,30]											# energy of bremsstarhlung start in keV
 vTHRESHOLD = [120,200,180,200,70,20,180,300]
@@ -167,6 +183,11 @@ for i, sample in enumerate(vCOMPARISON_SAMPLE):
 	ax[i].set_title(sample.replace("_"," ").upper())										# escape the underscore to calm down the latex interpreter
 
 fig.savefig("Figures/" + "XRay-comparison")
+
+
+
+
+
 
 plt.show()
 # plt.close('all')
