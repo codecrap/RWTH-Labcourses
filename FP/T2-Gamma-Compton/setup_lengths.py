@@ -1,6 +1,6 @@
 #-*- coding: utf-8 -*-
 #
-#@activity.py: compute lengths needed for compton scattering experiment setup
+#@setup_lengths.py: compute lengths needed for compton scattering experiment setup
 #@author: Olexiy Fedorets
 #@date: Tue 19.02.2019
 
