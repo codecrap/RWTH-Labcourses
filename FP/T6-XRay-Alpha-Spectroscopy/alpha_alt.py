@@ -267,7 +267,7 @@ norm = opt[2]
 
 # plot with fit
 fig, ax = plt.subplots()
-ax.plot(unp.nominal_values(vEnergy), pl.gauss(unp.nominal_values(vEnergy), opt[0], opt[1], opt[2]), 'r-',
+ax.plot(vCh, pl.gauss(vCh, opt[0], opt[1], opt[2]), 'r-',
 	 label=r"$\mu = {:.1ufL}, \sigma = {:.1ufL}$".format(ufloat(opt[0],np.sqrt(cov[0][0])), ufloat(abs(opt[1]), np.sqrt(cov[1][1])) ) )
 ax.plot(vCh, vData, 'b.', label='steel data with gauss peak')
 ax.legend(loc='upper right')
