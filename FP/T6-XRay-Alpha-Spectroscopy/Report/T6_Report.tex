@@ -227,7 +227,7 @@ Nach Auslesen und Plotten der aufgenommen Spektren von den Kalibrationsproben, i
 \end{equation}
 ergibt.
 
-\subsubsection{Edelstahl analysieren}
+\subsubsection{Anlyse von Edelstahl}
 Als erstes ziehen wir die Leermessung von der Messung mit Edelstahl ab und wandeln die Kanalnummern mith Hilfe der Kalibrationsfunktion in eine Energieskala um.
 
 \begin{figure}[H]
@@ -251,7 +251,7 @@ Trotz des starken Rauschens für geringe Energien, ist ein Peak sichtbar der her
 	\centering
 	\begin{tabular}{|c|c|c|c|}
 		\hline
-		Vermutete Linie & erwarteter Wert & gemessener Wert & Abweichung \\
+		Vermutete Linie & erwarteter Wert & gemessener Wert ($\pm$ stat $\pm$ sys) & Abweichung \\
 		\hline
 		$K_\alpha$ & \SI{6.403}{keV} & $(6.442 \pm 0.003 \pm 0.037)$keV & $1,051\sigma$ \\
 		\cline{1-4}
@@ -287,8 +287,30 @@ In diesem Aufbau nutzen wir eine Röntgenröhre. Die Probe wird in eine abgeschi
 Anschließend analysieren wir ein Stein, ein Schneckengehäuse, ein Computerchip, eine Tablette, ein Bleiblock, eine 10-cent-Münze, und eine Batterie.
 
 \subsection{Auswertung}
-\
+\subsubsection{Kalibration}
+Die Kalibration des Detektors läuft analog zum vorherigen Aufbau. Erst ziehen wir die Leermessung jeweils vom Mo-, Cu- und Ag-Spektrum ab und identifizieren dann die $K_\alpha$-Linien. An denen fitten wir wieder Gaußkurven um den Mittelwert inklusive Fehler zu erhalten und diesen über die Kanalnummern aufzutragen. Wir legen eine Gerade an die Punkte und erhalten unsere Kalibrationsfunktion
+\begin{equation}
+	E = a * \mathrm{Kanal} + b.
+\end{equation}
+Die Fehler auf a und b pflanzen sich bei allen weiteren Rechnungen als systematische Fehler fort.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.25]{../Figures/XRay-calibration-fit.pdf}
+\caption{Energieauflösung aufgetragen über die Energie}
+\label{XRay_calibration}
+\end{figure}
+
+Diese Anpassung ist mit Vorsicht zu genießen, nicht nur weil das $\frac{\chi^2}{ndof}$ sehr klein ist, sondern eine Anpassung mit nur drei Punkten immer eine beschränkte Aussagekraft hat. Leider waren für diesen Aufbau nicht mehr Proben zur Kalibration gegeben. Wir werden diese Kalibration dennoch weiter benutzen, da wir guten Grund haben anzunehmen, dass der Zusammenhang zwischen Energie und Kanalnummer tatsächlich linear ist.
+
+\subsubsection{Anlyse von Edelstahl}
+
+\subsubsection{Analyse anderer Materialien}
+
+
+
 \section{Fazit}
+
 
 \section{Anhang}
 	
