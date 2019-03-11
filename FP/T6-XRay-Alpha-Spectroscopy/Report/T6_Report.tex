@@ -3,7 +3,7 @@
 % !BIB TS-program = biber
 % basic packages and document settings
 \documentclass[a4paper,14pt]{article}
-\usepackage[english]{babel}
+\usepackage[ngerman]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[a4paper]{geometry}
@@ -36,6 +36,7 @@
 \usepackage{appendix}
 \usepackage[bottom]{footmisc}
 \usepackage{listings}
+\usepackage{dashrule}
 
 % packages requiring setup arguments
 
@@ -149,21 +150,26 @@
 %		\end{flushright}
 %	\end{minipage}
 	
-	\vspace{3cm}
+	\vspace{5cm}
 	\begin{center}
-		\Thickline
-		\vskip -0.45cm
-		\Thinline
+		\hdashrule{\linewidth}{1pt}{}
+		\vskip -0.25cm
+		\hdashrule{\linewidth}{0.5pt}{}
+		
 		\vspace{0.5cm}
+		\Huge{ \textbf{ T6 \\}}
+		\LARGE{ \textbf{$\alpha$-- und R\"ontgen--Spektroskopie } } 
 		
-		\huge{ \textbf{ title } } 
+		\hdashrule{\linewidth}{0.5pt}{}
+		\vskip -0.7cm
+		\hdashrule{\linewidth}{1pt}{}
 		
-		\Thinline
-		\vskip -1cm
-		\Thickline 
+		\vspace{3cm}
+		\Large{\textbf{ Gruppe 14 \\}}
+		\Large{Alexandre Drouet, 355096 \\ Olexiy Fedorets, 356615 \\}
 		\vspace{1cm}
+		\Large{\textsl{ Experiment Datum: 25.02.2019 \\ Abgabedatum: 11.03.2019}}
 
-		
 	\end{center}
 	\vfill
 	
@@ -313,12 +319,141 @@ Die Fehler auf a und b pflanzen sich bei allen weiteren Rechnungen als systemati
 Diese Anpassung ist mit Vorsicht zu genießen, nicht nur weil das $\frac{\chi^2}{ndof}$ sehr klein ist, sondern eine Anpassung mit nur drei Punkten immer eine beschränkte Aussagekraft hat. Leider waren für diesen Aufbau nicht mehr Proben zur Kalibration gegeben. Wir werden diese Kalibration dennoch weiter benutzen, da wir guten Grund haben anzunehmen, dass der Zusammenhang zwischen Energie und Kanalnummer tatsächlich linear ist.
 
 \subsubsection{Analyse anderer Materialien}
-Jetzt wollen wir andere Materialien  anhand ihres Röntgenspektrums analysieren und herausfinden aus welchen Elementen sie bestehen. Dafür müssen wir von den entsprechenden Rohdaten erstmal die Leermessung abziehen und dann die Kanalnummern mit Hilfe der Kalibrationsfunktion in eine Energieskala umrechnen. Dann lassen wir eien peakfinder über die Daten laufen um die prominentesten Peaks ausfindig zu machen.
+Jetzt wollen wir andere Materialien  anhand ihres Röntgenspektrums analysieren und herausfinden aus welchen Elementen sie bestehen. Dafür müssen wir von den entsprechenden Rohdaten erstmal die Leermessung abziehen und dann die Kanalnummern mit Hilfe der Kalibrationsfunktion in eine Energieskala umrechnen. Dann lassen wir einen peakfinder aus \code{peakutils} über die Daten laufen um die prominentesten Peaks ausfindig zu machen.
+
+\begin{table}[H]
+	\renewcommand{\arraystretch}{1}
+	\centering
+	\Large
+	\begin{adjustbox}{width=\textwidth}
+		\begin{tabular}{|c|c|c|c|c|c|c|}
+			\hline
+			Peaks (keV) & $3.67$ & $8.04$ & $8.91$ & $9.60$ & $16.12$ & $25.33$ \\
+			\hline
+			Element & element & element & element & element & element & element \\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+	\caption{ 10 cent M\"unze}
+	\label{tab: }
+\end{table}
+\begin{table}[H]
+	\renewcommand{\arraystretch}{1}
+	\centering
+	\Large
+	\begin{adjustbox}{width=\textwidth}
+		\begin{tabular}{|c|c|c|c|c|c|c|}
+			\hline
+			Peaks (keV) & $8.06$ & $9.72$ & $11.92$ & $22.18$ & $24.97$ & $32.30$ \\
+			\hline
+			Element & element & element & element & element & element & element \\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+	\caption{ Computerchip rechte Seite }
+	\label{tab: }
+\end{table}
+\begin{table}[H]
+	\renewcommand{\arraystretch}{1}
+	\centering
+	\Large
+	\begin{adjustbox}{width=\textwidth}
+		\begin{tabular}{|c|c|c|c|c|c|c|c|}
+			\hline
+			Peaks (keV) & $6.40$ & $9.71$ & $11.94$ & $17.50$ & $19.64$ & $25.30$ & $28.59$ \\
+			\hline
+			Element & element & element & element & element & element & element & element \\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+	\caption{ Computerchip linke Seite }
+	\label{tab: }
+\end{table}
+\begin{table}[H]
+	\renewcommand{\arraystretch}{1}
+	\centering
+	\Large
+	\begin{adjustbox}{width=\textwidth}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Peaks (keV) & $3.68$ & $5.41$ & $5.95$ & $6.40$ & $7.06$ \\
+			\hline
+			Element & element & element & element & element & element \\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+	\caption{ Zellenbatterie }
+	\label{tab: }
+\end{table}
+\begin{table}[H]
+	\renewcommand{\arraystretch}{1}
+	\centering
+	\Large
+	\begin{adjustbox}{width=\textwidth}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Peaks (keV) & $1.87$ & $3.68$ & $7.48$ & $14.17$ & $15.85$ \\
+			\hline
+			Element & element & element & element & element & element \\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+	\caption{ Schnecke }
+	\label{tab: }
+\end{table}
+\begin{table}[H]
+	\renewcommand{\arraystretch}{1}
+	\centering
+	\Large
+	\begin{adjustbox}{width=\textwidth}
+		\begin{tabular}{|c|c|c|c|c|c|c|c|}
+			\hline
+			Peaks (keV) & $3.67$ & $5.04$ & $6.40$ & $8.22$ & $10.60$ & $14.25$ & $15.74$ \\
+			\hline
+			Element & element & element & element & element & element & element & element \\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+	\caption{ Stein }
+	\label{tab: }
+\end{table}
+\begin{table}[H]
+	\renewcommand{\arraystretch}{1}
+	\centering
+	\Large
+	\begin{adjustbox}{width=\textwidth}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			Peaks (keV) & $4.23$ & $7.46$ & $26.49$ & $28.67$ & $32.36$ \\
+			\hline
+			Element & element & element & element & element & element \\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+	\caption{ Tablette }
+	\label{tab: }
+\end{table}
+\begin{table}[H]
+	\renewcommand{\arraystretch}{1}
+	\centering
+	\Large
+	\begin{adjustbox}{width=\textwidth}
+		\begin{tabular}{|c|c|c|c|c|c|c|c|}
+			\hline
+			Peaks (keV) & $5.41$ & $5.93$ & $6.40$ & $7.04$ & $8.26$ & $17.49$ & $19.64$ \\
+			\hline
+			Element & element & element & element & element & element & element & element \\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+	\caption{ Eisen-Pl\"attchen }
+	\label{tab: }
+\end{table}
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.2]{../Figures/XRay-analysis.pdf}
-\caption{Messdaten für unbekannte Materialien}
+\includegraphics[width=\textwidth]{../Figures/XRay-analysis.pdf}
+\caption{Messdaten für unbekannte Materialien mit gefundenen peaks}
 \label{XRay_analysis}
 \end{figure}
 
