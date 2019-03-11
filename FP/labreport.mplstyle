@@ -33,13 +33,13 @@ legend.fancybox     : True
 legend.fontsize     : large
 legend.framealpha   : 0.6
 lines.linewidth     : 3
-lines.markersize    : 10
+lines.markersize    : 16
 errorbar.capsize    : 8
 
 # Text
 text.usetex         : True
 font.family         : serif
-font.size           : 30
+font.size           : 40
 
 # Figure
 savefig.format      : pdf

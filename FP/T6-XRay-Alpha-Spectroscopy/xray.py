@@ -10,6 +10,9 @@ import uncertainties.unumpy as unp
 from uncertainties import ufloat
 import peakutils as pu
 import scipy.optimize as spo
+import operator
+from functools import reduce
+from textwrap import wrap
 
 import sys
 sys.path.append("./../../")															# path needed for PraktLib
@@ -30,7 +33,7 @@ FILE_PREFIX = "xray_"
 vCALIBRATION_SAMPLE = ["cu","mo","ag"]
 vEMPTY_MEAS = ["leer_"+x for x in ["leer","folie","papier"] ]
 vANALYSIS_SAMPLE = ["10ct","chip","chip2","battery","schnecke","stein","tab","fe"]
-vCOMPARISON_SAMPLE = ["pb"+x for x in ["","_PUR","_20kV","_35kV",] ]
+vCOMPARISON_SAMPLE = ["pb"+x for x in ["_50kV","_PUR","_20kV","_35kV",] ]
 
 #%% MCA CALIBRATION
 # order: cu,mo,ag
@@ -65,8 +68,8 @@ for i,sample in enumerate(vCALIBRATION_SAMPLE):
 			label=r"$\mu = {:.1ufL}, \sigma = {:.1ufL},$".format(vMean[i],vSigma[i]) + '\n'
 				  r"$E_{{K \alpha 1}}$ = {:.3f} keV".format(vSAMPLE_KALPHA_ENERGY[i]) )
 
-	ax[i].legend(loc='upper right')
 	ax[i].semilogy(vCh, vData, 'b.', markersize=2)
+	ax[i].legend(loc='upper right')
 	ax[i].set_xlabel("MCA Channel")
 	ax[i].set_ylabel("Event counts")
 	ax[i].set_title(sample.upper())
@@ -83,30 +86,66 @@ fitparam,fiterror,chiq = pl.plotFit(unp.nominal_values(vMean),unp.std_devs(vMean
 									fitmethod='ODR')
 print("Fit: ",fitparam,fiterror,chiq)
 
-def chToE(channel, a=ufloat(fitparam[0],fiterror[0]), b=ufloat(fitparam[1],fiterror[1])):
+def chToE(channel, a=ufloat(fitparam[0],fiterror[0],tag='sys'), b=ufloat(fitparam[1],fiterror[1],tag='sys')):
 	return a * channel + b
 
 
 #%% SAMPLE ANALYSIS
-fig, ax = plt.subplots(4, 2, figsize=(30,40))
-plt.rcParams.update({'font.size': 20})
-
+fig, ax = plt.subplots(4, 2, figsize=(30,40), sharex='all', sharey='all')
 ax = ax.ravel()
+# plt.rcParams.update({'font.size': 20})
 
-for i, sample in enumerate(vANALYSIS_SAMPLE):
+vNEGLECT_TAIL = [30,40,30,20,20,17,40,30]											# energy of bremsstarhlung start in keV
+vTHRESHOLD = [120,200,180,200,70,20,180,300]
+vMINDIST = [80,110,300,30,200,200,200,70]
+
+
+for i,sample in enumerate(vANALYSIS_SAMPLE):
 	vData = np.genfromtxt(DATAPATH + FILE_PREFIX + "spek_" + sample + FILE_POSTFIX,
-						  dtype=float, delimiter='\n', skip_header=11, skip_footer=71, encoding='latin1')
+						  dtype=float, delimiter='\n', skip_header=12, skip_footer=71, encoding='latin1')
 	vNoise = np.genfromtxt(DATAPATH + FILE_PREFIX + vEMPTY_MEAS[0] + FILE_POSTFIX,
-						   dtype=float, delimiter='\n', skip_header=11, skip_footer=71, encoding='latin1')
+						   dtype=float, delimiter='\n', skip_header=12, skip_footer=71, encoding='latin1')
 	vData -= vNoise
 	vCh = np.arange(0, len(vData))
 	vE = chToE(vCh)
 	ax[i].semilogy(unp.nominal_values(vE), vData, 'b.', markersize=2)
-	ax[i].set_xlabel("Energy (keV)")
-	ax[i].set_ylabel("Event counts")
+	
+	# neglect bremsstrahlung part for peakfinder
+	vMask = vE<vNEGLECT_TAIL[i]
+	vData = vData[vMask]
+	vE = vE[vMask]
+	
+	# neglect front part for 'stein'
+	if 'stein' == sample:
+		vMask = vE>3
+		vData = vData[vMask]
+		vE = vE[vMask]
+	
+	# moving peak search
+	vPeakInds = []
+	vSliceInds = np.linspace(0,len(vData),2,dtype=int)
+	for j,slice in enumerate(vSliceInds[1:]):
+		# print(vData[vSliceInds[i]:slice])
+		vSlicePeakInds = pu.peak.indexes(vData[vSliceInds[j]:slice],thres=vTHRESHOLD[i],min_dist=vMINDIST[i],thres_abs=True)
+		vPeakInds += [vSliceInds[j] + vSlicePeakInds]
+	vPeakInds = np.concatenate(vPeakInds)
+	
+	label = "Peaks: ["\
+			+ ', '.join(['{:.2f}'.format(np.round(x,2))
+						for i,x in enumerate(unp.nominal_values(vE[vPeakInds])) ])\
+			+ "] keV"
+	# label = ['\n'.join(wrap(x,20)) for x in label]
+	
+	ax[i].plot(unp.nominal_values(vE[vPeakInds]), vData[vPeakInds], 'rx', markersize=20,
+			   label=label)
+	ax[i].legend(loc='upper right')
+	if not i % 2:
+		ax[i].set_ylabel("Event counts")
 	ax[i].set_title(sample.upper())
 
-fig.subplots_adjust(hspace=0.001,wspace=0.001)
+ax[-1].set_xlabel("Energy (keV)")
+ax[-2].set_xlabel("Energy (keV)")
+fig.subplots_adjust(hspace=0,wspace=0)
 fig.savefig("Figures/" + "XRay-analysis")
 
 
@@ -119,7 +158,7 @@ for i, sample in enumerate(vCOMPARISON_SAMPLE):
 						  dtype=float, delimiter='\n', skip_header=11, skip_footer=71, encoding='latin1')
 	vNoise = np.genfromtxt(DATAPATH + FILE_PREFIX + vEMPTY_MEAS[0] + FILE_POSTFIX,
 						   dtype=float, delimiter='\n', skip_header=11, skip_footer=71, encoding='latin1')
-	vData -= vNoise
+	# vData -= vNoise
 	vCh = np.arange(0, len(vData))
 	vE = chToE(vCh)
 	ax[i].semilogy(unp.nominal_values(vE), vData, 'b.', markersize=2)
