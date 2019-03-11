@@ -225,7 +225,16 @@ Nach Auslesen und Plotten der aufgenommen Spektren von den Kalibrationsproben, i
 \begin{equation}
 	E = a * \mathrm{Kanal} + b
 \end{equation}
-ergibt.
+ergibt. Die Fehler auf a und b pflanzen sich bei allen weiteren Rechnungen als systematische Fehler fort.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.25]{../Figures/am_calibration_fit.pdf}
+\caption{linearer Kalibrationsfit}
+\label{am_calibration_fit}
+\end{figure}
+
+Im Angesichts des Wertes für $\frac{\chi^2}{ndof}$ und der Residuen, muss die Hypothese des linearen Zusammenhangs ernsthaft in Zweifel gezogen werden. Allerdings konnten wir keine wesentlich plausiblere Hypothese aufstellen und mussten vorerst mit dieser Kalibrationsfunktion weiterrechnen.
 
 \subsubsection{Anlyse von Edelstahl}
 Als erstes ziehen wir die Leermessung von der Messung mit Edelstahl ab und wandeln die Kanalnummern mith Hilfe der Kalibrationsfunktion in eine Energieskala um.
@@ -303,16 +312,32 @@ Die Fehler auf a und b pflanzen sich bei allen weiteren Rechnungen als systemati
 
 Diese Anpassung ist mit Vorsicht zu genießen, nicht nur weil das $\frac{\chi^2}{ndof}$ sehr klein ist, sondern eine Anpassung mit nur drei Punkten immer eine beschränkte Aussagekraft hat. Leider waren für diesen Aufbau nicht mehr Proben zur Kalibration gegeben. Wir werden diese Kalibration dennoch weiter benutzen, da wir guten Grund haben anzunehmen, dass der Zusammenhang zwischen Energie und Kanalnummer tatsächlich linear ist.
 
-\subsubsection{Anlyse von Edelstahl}
-
 \subsubsection{Analyse anderer Materialien}
+Jetzt wollen wir andere Materialien  anhand ihres Röntgenspektrums analysieren und herausfinden aus welchen Elementen sie bestehen. Dafür müssen wir von den entsprechenden Rohdaten erstmal die Leermessung abziehen und dann die Kanalnummern mit Hilfe der Kalibrationsfunktion in eine Energieskala umrechnen. Dann lassen wir eien peakfinder über die Daten laufen um die prominentesten Peaks ausfindig zu machen.
 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.2]{../Figures/XRay-analysis.pdf}
+\caption{Messdaten für unbekannte Materialien}
+\label{XRay_analysis}
+\end{figure}
+
+\subsubsection{PUR und Variation der Spannung}
+Als
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.25]{../Figures/XRay-comparison.pdf}
+\caption{von links nach rechts und von oben nach unten: Messdaten für: PUR an bei 50kV; PUR aus bei 50kV; PUR an bei 20kV; PUR an bei 35kV.}
+\label{XRay-comparison}
+\end{figure}
 
 
 \section{Fazit}
 
 
 \section{Anhang}
-	
+
+
 	
 \end{document}
