@@ -24,6 +24,7 @@
 \usepackage{amstext}
 \usepackage{amsfonts}
 \usepackage{tikz}
+\usepackage{siunitx}
 %\usepackage{IEEEtrantools}
 
 % misc
@@ -198,6 +199,18 @@
 Ziel dieses Versuchs ist die Aufnahme der Röntgenspektren verschiedener Materialien und die Bestimmung der enthaltenen Materialien. Dazu werden wir zwei unterschiedliche Aufbauten verwenden. Als erstes nutzen wir eine Americiumquelle (Am) um das untersuchte Material mit Alphastrahlung zu bescheßen und Röntgenstrahlen zu erzeugen. Später nutzen wir eine Röntgenröhre um das Material anzustrahlen.
 
 \section{Theorie}
+\subsection{Röntgenstrahlung}
+Es gibt zwei Arten von Röntgenstrahlung: Bremsstrahlung, ein kontinuieriches Spektrum und charakteristische Strahlung, ein diskretes Spektrum.
+In diesem Versuch beschäftigen wir uns fast ausschließlich mit charakteristischer Röntgenstrahlung. Diese entsteht wenn ein Teilchen mit der kinetischen Energie $E_{kin}$ auf ein Material trifft und ein Elektron mit der Bindungsenergie $E_B$ bei $E_{kin} > E_B$ herausschlägt. In der entsprechenden Schale entsteht eine Lücke die von einem Elektron aus einer höheren Schale aufgefüllt wird. Dabei wird ein Photon ausgesandt mit einer Energie die der Energiedifferenz der beiden beteiligten Schalen entspricht. Am wahrscheinlichsten sind Übergänge von der L- zur K-Schale. Diesen Übergang nennt man $K_\alpha$.
+Die Energie der K-Serie lässt sich nach dem Moseleyschen Gesetz bestimmen:
+\begin{equation}
+	E_K = R \cdot h \cdot c (Z-1)^2 (\frac{1}{1^2} - \frac{1}{n^2})
+\end{equation}
+mit $n = 2,3,4,...$ für $K_\alpha, K_\beta, K_\gamma, ...$ und $R \cdot h \cdot c = 13,6$eV.
+
+\subsection{Röntgenröhre}
+In einer Röntgenröhre werden Elektronen von einer Kathode gelöst und durch ein starkes elektrische Feld zu einer Anode beschleunigt. Dort wechselwirken die Elektronen mit dem Anodenmaterial und es entsteht Röntgenstrahlung. Die Bremsstrahlung hängt dann ausschließlich von der angelegten Spannung ab und die charakteristische Strahlung hängt ausschließlich vom Anodenmaterial ab.
+
 
 \section{Aufbau mit Americium}
 \subsection{Aufbau}
@@ -215,10 +228,57 @@ Nach Auslesen und Plotten der aufgenommen Spektren von den Kalibrationsproben, i
 ergibt.
 
 \subsubsection{Edelstahl analysieren}
-Als erstes ziehen wir die Leermessung von der Messung mit Edelstahl ab. 
+Als erstes ziehen wir die Leermessung von der Messung mit Edelstahl ab und wandeln die Kanalnummern mith Hilfe der Kalibrationsfunktion in eine Energieskala um.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.25]{../Figures/am_fe_raw.pdf}
+\caption{Rohdaten für die Edelstahlprobe}
+\label{am_fe_raw}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.25]{../Figures/am_fe_clean.pdf}
+\caption{Daten für die Edelstahlprobe nach Abzug der Leermessung und Kalibration}
+\label{resolution}
+\end{figure}
+
+Trotz des starken Rauschens für geringe Energien, ist ein Peak sichtbar der heraussticht bei etwa 6 keV, von dem wir vermuten es könnte sich um die $K_\alpha$-Linie handeln. Außerdem fällt deutlich ein weiterer Peak bei etwa 17 keV auf. Wir ermitteln jeweils den Mittelwert und dessen Fehler beider Peaks, wieder durch Anpassung einer Gaußkurve.
+
+\begin{table}[H]
+	\renewcommand{\arraystretch}{1.5}
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		Vermutete Linie & erwarteter Wert & gemessener Wert & Abweichung \\
+		\hline
+		$K_\alpha$ & \SI{6.403}{keV} & $(6.442 \pm 0.003 \pm 0.037)$keV & $1,051\sigma$ \\
+		\cline{1-4}
+		 & & $(17.368 \pm 0.006 \pm 0.053)$keV & \\
+		\hline
+	\end{tabular}
+	\caption{Ergebnisse der Analyse von Edelstahl.}
+	\label{tab:am_fe_mean}
+\end{table}
+
+Die Ergebnisse legen Nahe, dass das Edelstahlplättchen tatsächlich hauptsächlich aus Eisen besteht.
 
 \subsubsection{Energieauflösung}
+Hier wollen wir die Energieauflösung des Detektors betrachten. Dafür schauen wir uns die Peaks an die wir bereits bei der Kalibration genutzt hatten. Diesmal brauchen wir deren Halbwertsbreiten $\Delta E$ die sich mit
+\begin{equation}
+	\Delta E = 2 \sqrt{2 \log2} \cdot \sigma
+\end{equation}
+aus den Standardabweichungen $\sigma$ ergeben. Letztere bekommen wir aus den entsprechenden Gaußfits.
 
+Trägt man die Auflösung $\frac{\Delta E}{E}$ über die Energie auf, erkennt man wie erwartet einen stetigen Abfall (etwa $\frac{1}{E}$).
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.25]{../Figures/am_resolution.pdf}
+\caption{Energieauflösung aufgetragen über die Energie}
+\label{am_resolution}
+\end{figure}
 
 \section{Aufbau mit Röntgenröhre}
 \subsection{Aufbau}
@@ -227,8 +287,10 @@ In diesem Aufbau nutzen wir eine Röntgenröhre. Die Probe wird in eine abgeschi
 Anschließend analysieren wir ein Stein, ein Schneckengehäuse, ein Computerchip, eine Tablette, ein Bleiblock, eine 10-cent-Münze, und eine Batterie.
 
 \subsection{Auswertung}
-
+\
 \section{Fazit}
+
+\section{Anhang}
 	
 	
 \end{document}

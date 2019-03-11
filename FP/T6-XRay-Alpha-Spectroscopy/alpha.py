@@ -268,8 +268,8 @@ def chToE(ch):
 ### ANALYSE FE ###
 
 # get data
-vNoise = np.genfromtxt(DATAPATH+"am_spek_leer"+FILE_POSTFIX, skip_header=14, skip_footer=37, encoding='latin-1', dtype=int, delimiter='\n')
-#vNoise = np.genfromtxt(DATAPATH+"am_spek_papier"+FILE_POSTFIX, skip_header=12, skip_footer=37, encoding='latin-1', dtype=int, delimiter='\n')
+#vNoise = np.genfromtxt(DATAPATH+"am_spek_leer"+FILE_POSTFIX, skip_header=14, skip_footer=37, encoding='latin-1', dtype=int, delimiter='\n')
+vNoise = np.genfromtxt(DATAPATH+"am_spek_papier"+FILE_POSTFIX, skip_header=12, skip_footer=37, encoding='latin-1', dtype=int, delimiter='\n')
 vData = np.genfromtxt(DATAPATH+'am_spek_fe'+FILE_POSTFIX, skip_header=14, skip_footer=37, encoding='latin-1', dtype=int, delimiter='\n')
 vCh = np.arange(len(vData))
 
@@ -310,6 +310,7 @@ ax.set_xlabel('energy [keV]')
 #ax.set_yscale('log')
 ax.set_ylabel('event counts')
 ax.set_title('clean data for steel')
+#fig.show()
 fig.savefig("Figures/am_fe_clean.pdf")
 
 # cut out peak
@@ -367,7 +368,7 @@ ax.set_ylabel('event counts')
 ax.set_title("steel with gauss fit")
 fig.savefig("Figures/am_fe_gauss.pdf")
 
-plt.close('all')
+#plt.close('all')
 
 # calc wavelength
 wl = (h*c / (17.5*1000*elementary_charge)) /1e-9

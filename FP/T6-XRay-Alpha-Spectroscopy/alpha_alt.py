@@ -180,7 +180,7 @@ def chToE(ch):
 #		E = []
 #		for i in range(len(ch)):
 #			 E += [-(m * ch[i] - a)**2 + b]
-#		return np.array(E)
+		return np.array(E)
 
 
 ### ANALYSE FE ###
@@ -192,7 +192,7 @@ vData = np.genfromtxt(DATAPATH+'am_spek_fe'+FILE_POSTFIX, skip_header=14, skip_f
 vCh = np.arange(len(vData))
 
 # set peak bound
-peakBound = [1530, 1590]
+peakBound = [1530, 1590]#[560, 585]#
 
 ## plot noise
 #fig, ax = plt.subplots()
@@ -280,12 +280,13 @@ plt.close('all')
 
 # convert to energy
 E = chToE(mean)
+E_stat, E_sys = pl.split_error(E)
 
 # calc wavelength
 #wl = (h*c / (E*1000*elementary_charge)) /1e-9
 
 # print result for energy of x-ray
-print('energy of x-ray for steel: ({})keV'.format(E))
+print('energy of x-ray for steel: (%.3f \pm %.3f \pm %.3f)keV'%(E.n, E_stat, E_sys))
 #print('wavelength of x-ray for steel: ({})nm'.format(wl))
 
 
@@ -318,6 +319,20 @@ vSigma = np.array(vSigma)
 
 # calc FWHM
 vFWHM = 2 * np.sqrt(2 * np.log(2)) * vSigma
+vLeft = vMean - vFWHM/2
+vRight = vMean + vFWHM/2
+vFWHM = chToE(vRight) - chToE(vLeft)
+
+vMean = chToE(vMean)
+
+vMean_stat, vMean_sys = pl.split_error(vMean)
+vFWHM_stat, vFWHM_sys = pl.split_error(vFWHM)
+
+# print results
+print('resolution results:')
+for i in range(len(vMean)):
+	print('mean'+str(i)+'= (%.3f \pm %.3f \pm %.3f)keV'%(vMean[i].n, vMean_stat[i], vMean_sys[i]))
+	print('FWHM'+str(i)+'= %.3f \pm %.3f \pm %.3f'%(vFWHM[i].n, vFWHM_stat[i], vFWHM_sys[i]))
 
 # plot resolution
 vRes = vFWHM/vMean

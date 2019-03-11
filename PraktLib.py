@@ -15,18 +15,23 @@ import io
 import random
 import scipy.optimize as spopt
 import uncertainties.unumpy as unp
-from uncertainties import ufloat
+from uncertainties import ufloat, UFloat
 
 import matplotlib
 
 
 def split_error(x):
-	sys = np.zeros(np.size(x))
-	stat = np.zeros(np.size(x))
-	for i in range(np.size(x)):
-		sys[i] = np.sqrt(sum(error**2 for (var, error) in x[i].error_components().items() if var.tag == "sys"))
-		stat[i] = np.sqrt(x[i].std_dev**2 - sys[i]**2)
-	return stat, sys
+	if isinstance(x, UFloat):
+		sys = np.sqrt(sum(error**2 for (var, error) in x.error_components().items() if var.tag == "sys"))
+		stat = np.sqrt(x.std_dev**2 - sys**2)
+		return stat, sys
+	else:
+		sys = np.zeros(np.size(x))
+		stat = np.zeros(np.size(x))
+		for i in range(np.size(x)):
+			sys[i] = np.sqrt(sum(error**2 for (var, error) in x[i].error_components().items() if var.tag == "sys"))
+			stat[i] = np.sqrt(x[i].std_dev**2 - sys[i]**2)
+		return stat, sys
 
 def stdToFWHM(std):
 	return 2 * np.sqrt(2 * np.log(2)) * std
