@@ -1,0 +1,30 @@
+# Counting time: 10s
+# Oscilloscope average: 128
+# Oscilloscope binning: 0.2mV
+# Error due to fluctuations:
+# Voltage (V) Counts (N) Height (mV)
+800 0 19
+850 0 19
+900 6 19
+950 9 19
+1000 8 19
+1050 14 19
+1100 23 19
+1150 13 19
+1200 15 19
+1250 26 19
+1300 19 19
+1350 11 19
+1400 31 19 # 15 19
+1450 63 19 # 14 19
+1500 73 19 # 25 19
+1550 134 19 # 22 19
+1600 54 19 # 29 19
+1650 79 19
+1700 476708 40 # peak-to-peak height overestimated from here, error +-10mV
+1750 635656 40
+1800 310138 45
+1850 266751 50
+1900 805293 50
+1950 307391 50 # error +-5mV from here
+2000 278031 49
