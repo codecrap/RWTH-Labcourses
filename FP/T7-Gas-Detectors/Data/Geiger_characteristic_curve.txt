@@ -1,6 +1,7 @@
 # Counting time 10s
+# Background: 4 Counts
 # Voltage (V) Counts (N)
-110 0
+# 110 0
 120 8
 130 37
 140 97
