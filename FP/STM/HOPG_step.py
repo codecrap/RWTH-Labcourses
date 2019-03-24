@@ -30,6 +30,11 @@ DATAPATH = "./Gwyddion/HOPG/"
 FILE_POSTFIX = ".txt"
 vRES = ['300nm']#, '166nm', '955nm']
 
+# set boundaries
+vBounds= [[[0.95e-7,1.10e-7], [0.89e-7, 1.03e-7], [0.65e-7,0.79e-7]],
+		  [[0,0],[0,0],[0,0]],
+		  [[0,0],[0,0],[0,0]]]
+
 ### for loop? ###
 for i, RES in enumerate(vRES):
 	# get data
@@ -37,5 +42,8 @@ for i, RES in enumerate(vRES):
 		   vX1, vY1, vX2, vY2, vX3, vY3 = np.genfromtxt((line.replace(',', '.') for line in data), skip_header=3).T
 	
 	# plot data
-	plt.plot(vX1, vY1)
+	#plt.plot(vX2, vY2, '.')
+	#plt.plot(vX2, vY2, '.')
+	#plt.plot(vX3, vY3, '.')
+	print(pl.find_nearest(vX1,0.95e-7))
 
