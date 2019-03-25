@@ -52,6 +52,9 @@ for i, RES in enumerate(vRES):
 	#plt.plot(vX2, vY2, '.')
 	#plt.plot(vX3, vY3, '.')
 	
+	vT = np.zeros(3)
+	vB = np.zeros(3)
+	
 	for j in range(3):
 		# get rid on nans
 		vX[j] = vX[j][~np.isnan(vX[j])]
@@ -63,15 +66,36 @@ for i, RES in enumerate(vRES):
 		vIdx = [idx1, idx2]
 		
 		# split array
-		vTop, _, vBottom = np.split(vY1, vIdx)
+		vTop, _, vBottom = np.split(vY[j], vIdx)
 		
 		# calculate means
 		top = ufloat(np.mean(vTop), np.std(vTop, ddof=1))
 		bottom = ufloat(np.mean(vBottom), np.std(vBottom, ddof=1))
 		
-		# calculate height
-		vHeights[j] += [top-bottom]
+		vT[j] = unp.nominal_values(top) 
+		vB[j] = unp.nominal_values(bottom)
 		
+		# calculate height
+		vHeights[j] += [top-bottom]	
+	
+	# plot data
+	fig, ax = plt.subplots()
+	ax.set_title('Kantenprofile bei '+RES+'-Auflösung')
+	ax.set_xlabel('x [m]')
+	ax.set_ylabel('y [m]')
+	ax.plot(vX1, vY1, 'r-', label='Profil 1')
+	ax.axhline(vT[0], color='r', linestyle='--', linewidth=1)
+	ax.axhline(vB[0], color='r', linestyle='--', linewidth=1)
+	ax.plot(vX2, vY2, 'b-', label='Profil 2')
+	ax.axhline(vT[1], color='b', linestyle='--', linewidth=1)
+	ax.axhline(vB[1], color='b', linestyle='--', linewidth=1)
+	ax.plot(vX3, vY3, 'g-', label='Profil 3')
+	ax.axhline(vT[2], color='g', linestyle='--', linewidth=1)
+	ax.axhline(vB[2], color='g', linestyle='--', linewidth=1)
+	ax.legend(loc='lower left')
+	#fig.show()
+	fig.savefig('Figures/'+RES+'_profiles.pdf')
+	
 	# calculate weighted mean
 	vH = abs(unp.nominal_values(vHeights[j]))
 	vHErr = unp.std_devs(vHeights[j])
@@ -80,3 +104,4 @@ for i, RES in enumerate(vRES):
 
 print(vHeights)	 
 print(vMeans)
+
