@@ -58,12 +58,12 @@ for i, RES in enumerate(vRES):
 		vY[j] = vY[j][~np.isnan(vY[j])]
 		
 		# find boundary indexes
-		void, idx1 = pl.find_nearest(vX[j], vBounds[i][j][0])
-		void, idx2 = pl.find_nearest(vX[j], vBounds[i][j][1])
+		_, idx1 = pl.find_nearest(vX[j], vBounds[i][j][0])
+		_, idx2 = pl.find_nearest(vX[j], vBounds[i][j][1])
 		vIdx = [idx1, idx2]
 		
 		# split array
-		vTop, void, vBottom = np.split(vY1, vIdx)
+		vTop, _, vBottom = np.split(vY1, vIdx)
 		
 		# calculate means
 		top = ufloat(np.mean(vTop), np.std(vTop, ddof=1))
