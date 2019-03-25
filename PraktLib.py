@@ -72,7 +72,7 @@ def readLabFile(file):
 def weightedMean(x, ex):
 	# return np.average(x,weights=1/ex,returned=True) 	# this should be equivalent
 	mean = np.sum(x/ex**2)/np.sum(1./ex**2)
-	sigma = unp.sqrt(1./np.sum(1./ex**2))
+	sigma = np.sqrt(1./np.sum(1./ex**2))
 	return mean, sigma
 
 def degToSr(value):

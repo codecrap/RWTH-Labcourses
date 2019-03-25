@@ -55,16 +55,16 @@ for i, RES in enumerate(vRES):
 			vY[j], vY[j+3] = vY[j+3], vY[j]
 	
 	# cut
-	vX = vX[:3]
-	vY = vY[3:]
+	vX = np.array(vX[:3])
+	vY = np.array(vY[3:])
 	
 	# pico to nano
 	vX = np.abs(vX * 1e-3)
 	vY = np.abs(vY * 1e-3)
 	
 	# calc a_theo
-	vXTheo = [np.sqrt(vBX[i][k]**2 + vCX[i][k]**2 + vBX[i][k]*vCX[i][k]*np.cos(phi)) for k in range(3)]
-	vYTheo = [np.sqrt(vBY[i][k]**2 + vCY[i][k]**2 + vBY[i][k]*vCY[i][k]*np.cos(phi)) for k in range(3)]
+	vXTheo = np.array([np.sqrt(vBX[i][k]**2 + vCX[i][k]**2 + vBX[i][k]*vCX[i][k]*np.cos(phi)) for k in range(3)])
+	vYTheo = np.array([np.sqrt(vBY[i][k]**2 + vCY[i][k]**2 + vBY[i][k]*vCY[i][k]*np.cos(phi)) for k in range(3)])
 	
 #	# print intermediate results
 #	print(RES)
@@ -76,14 +76,23 @@ for i, RES in enumerate(vRES):
 #	print(vY)
 	
 	# calculate calibration constants
-	vKX = [vXTheo[n]/vX[n] for n in range(3)]
-	vKY = [vYTheo[n]/vY[n] for n in range(3)]
+	vKX = np.array([vXTheo[n]/vX[n] for n in range(3)])
+	vKXErr = np.array([vErr[i][0] * vXTheo[n]/vX[n]**2 for n in range(3)])
+
+	vKY = np.array([vYTheo[n]/vY[n] for n in range(3)])
+	vKYErr = np.array([vErr[i][1] * vYTheo[n]/vY[n]**2 for n in range(3)])
+	
+	# calculate means
+	kx = pl.weightedMean(vKX, vKXErr)
+	ky = pl.weightedMean(vKY, vKYErr)
 	
 	# print end results
 	print(RES)
 	print('Cal. const.:')
-	print(vKX)
-	print(vKY)
+	print(kx)
+	#print(vKX)
+	print(ky)
+	#print(vKY)
 	
 	
 	
