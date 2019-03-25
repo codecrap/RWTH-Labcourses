@@ -41,7 +41,7 @@ vCX = np.array([[5,7,7], [5,5,5], [5,2,3]]) * g
 vCY = np.array([[11,11,11], [13,13,13], [7,2,7]]) * g
 
 # set angle
-phi = pl.degToSr(60)
+phi = pl.degToSr(120)
 
 for i, RES in enumerate(vRES):
 	# get data
@@ -66,14 +66,15 @@ for i, RES in enumerate(vRES):
 	vXTheo = np.array([np.sqrt(vBX[i][k]**2 + vCX[i][k]**2 + vBX[i][k]*vCX[i][k]*np.cos(phi)) for k in range(3)])
 	vYTheo = np.array([np.sqrt(vBY[i][k]**2 + vCY[i][k]**2 + vBY[i][k]*vCY[i][k]*np.cos(phi)) for k in range(3)])
 	
-#	# print intermediate results
-#	print(RES)
-#	print('Theo:')
-#	print(vXTheo)
-#	print(vYTheo)
-#	print('Exp:')
-#	print(vX)
-#	print(vY)
+	# print intermediate results
+	#print(RES)
+	#print('Theo:')
+	#print(vXTheo)
+	#print(vYTheo)
+	#print('Exp:')
+	#print(vX)
+	#print(vY)
+	#print(vErr)
 	
 	# calculate calibration constants
 	vKX = np.array([vXTheo[n]/vX[n] for n in range(3)])
@@ -89,10 +90,11 @@ for i, RES in enumerate(vRES):
 	# print end results
 	print(RES)
 	print('Cal. const.:')
-	print(kx)
+	#print(kx)
 	#print(vKX)
+	#print(vKXErr)
 	print(ky)
-	#print(vKY)
-	
+	print(vKY)
+	print(vKYErr)
 	
 	
