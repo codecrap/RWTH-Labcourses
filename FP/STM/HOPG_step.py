@@ -76,7 +76,7 @@ for i, RES in enumerate(vRES):
 		vB[j] = unp.nominal_values(bottom)
 		
 		# calculate height
-		vHeights[j] += [top-bottom]	
+		vHeights[i] += [top-bottom]	
 	
 	# plot data
 	fig, ax = plt.subplots()
@@ -97,8 +97,8 @@ for i, RES in enumerate(vRES):
 	fig.savefig('Figures/'+RES+'_profiles.pdf')
 	
 	# calculate weighted mean
-	vH = abs(unp.nominal_values(vHeights[j]))
-	vHErr = unp.std_devs(vHeights[j])
+	vH = abs(unp.nominal_values(vHeights[i]))
+	vHErr = unp.std_devs(vHeights[i])
 	mean, sigma = pl.weightedMean(vH, vHErr)
 	vMeans += [ufloat(mean, sigma)]
 
