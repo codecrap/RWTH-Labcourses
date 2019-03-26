@@ -94,66 +94,70 @@
 \subsection{Hochorientierter pyrolytischer Graphit (HOPG)}
 \subsubsection{Bestimmung der Höhe einer Stufe}
 
+Auf der HOPG Probe wollen wir erstmal eine Stufe finden und ihre Höhe bestimmen. Wie bei der Goldprobe, werten wir die Daten größtenteils mit Gwyddion aus. Nachdem wir die z-Bilder mit der Software im Rahmen des Möglichen geebnet hatten, haben wir für jede der drei Auflösungen jeweils drei Profillinien extrahiert, wie in exemplarisch in Abbildung \ref{166nm} zu sehen.
+
+Mit Python haben wir aus den Profilen jeweils die mittleren Höhen der Ebenen und ihre Standardabweichung bestimmt (Abbildung \ref{166nmProfiles}). Darauf haben wir die Differenz zwischen hoher und tiefer Ebene berechnet mit quadratisch addierten Standardabweichungen. Abschließend haben wir jeweils aus den drei Höhen das gewichtete Mittel gebildet. Die Ergebnisse sind in Tabelle \ref{tab:heights} zu sehen. Da der Abstand zwischen zwei Schichten in einem Graphitkristall $d = \SI{335}{pm}$ beträgt, würden wir als Höhenunterschied zwischen zwei Ebenen ein Vielfaches davon erwarten. Allerdings spiegeln das unsere Ergebnisse nicht wieder, wie an der starken $\sigma$-Abweichung zu erkennen.
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{../Gwyddion/HOPG/300nm.pdf}
-\caption{300nm}
+\caption{z-Bild bei {300}{nm}-Auflösung. Die Profile wurden entlang der schwarzen Linien extrahiert.}
 \label{300nm}
 \end{figure}	
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{../Figures/300nm_profiles.pdf}
-\caption{300nmProfiles}
+\caption{Extrahierte Profile bei {300}{nm}-Auflösung.}
 \label{300nmProfiles}
 \end{figure}	
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{../Gwyddion/HOPG/166nm.pdf}
-\caption{166nm}
+\caption{z-Bild bei {166}{nm}-Auflösung. Die Profile wurden entlang der schwarzen Linien extrahiert.}
 \label{166nm}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{../Figures/166nm_profiles.pdf}
-\caption{166nmProfiles}
+\caption{Extrahierte Profile bei {166}{nm}-Auflösung.}
 \label{166nmProfiles}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{../Gwyddion/HOPG/95nm.pdf}
-\caption{95nm}
+\caption{z-Bild bei {95}{nm}-Auflösung. Die Profile wurden entlang der weißen Linien extrahiert.}
 \label{95nm}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{../Figures/95nm_profiles.pdf}
-\caption{95nmProfiles}
+\caption{Extrahierte Profile bei {95}{nm}-Auflösung.}
 \label{95nmProfiles}
 \end{figure}
 
 \begin{table}[H]
 	\renewcommand{\arraystretch}{1.5}
 	\centering
-	\begin{tabular}{|c|c|c|c|}
+	\begin{tabular}{|c|c|c|c|c|}
 		\hline
-		Auflösung & individuelle Höhen & gewichtetes Mittel & Abweichung von der Erwartung \\
+		Auflösung & individuelle Höhen & gewichtetes Mittel & Abw. von $3d$ & Abw. von $4d$\\
 		\hline
-		\multirow{3}{*}{\SI{300}{nm}} & \SI{1.283+-0.051}{nm} & \multirow{3}{*}{\SI{1.291+-0.019}{nm}} & \multirow{3}{*}{2.6 $\sigma$} \\
-		 & \SI{1.270+-0.024}{nm} & & \\
-		 & \SI{1.358+-0.040}{nm} & & \\
+		\multirow{3}{*}{\SI{300}{nm}} & \SI{1.283+-0.051}{nm} & \multirow{3}{*}{\SI{1.291+-0.019}{nm}} & \multirow{3}{*}{$\SI{15,1}{\sigma}$} & \multirow{3}{*}{$\SI{2,6}{\sigma}$} \\
+		 & \SI{1.270+-0.024}{nm} & & & \\
+		 & \SI{1.358+-0.040}{nm} & & & \\
 		\hline
-		\multirow{3}{*}{\SI{166}{nm}} & \SI{1.172+-0.056}{nm} & \multirow{3}{*}{\SI{1,119+-0,034}{nm}} & \multirow{3}{*}{6.5 $\sigma$} \\
-		 & \SI{1.117+-0.064}{nm} & & \\
-		 & \SI{1.070+-0.057}{nm} & & \\
+		\multirow{3}{*}{\SI{166}{nm}} & \SI{1.172+-0.056}{nm} & \multirow{3}{*}{\SI{1,119+-0,034}{nm}} & \multirow{3}{*}{$\SI{3,4}{\sigma}$} & \multirow{3}{*}{$\SI{6,5}{\sigma}$} \\
+		 & \SI{1.117+-0.064}{nm} & & & \\
+		 & \SI{1.070+-0.057}{nm} & & & \\
 		\hline
-		\multirow{3}{*}{\SI{95}{nm}} & \SI{1.016+-0.074}{nm} & \multirow{3}{*}{\SI{1,132+-0,037}{nm}} & \multirow{3}{*}{5.6 $\sigma$} \\
-		 & \SI{1.127+-0.060}{nm} & & \\
-		 & \SI{1.209+-0.059}{nm} & & \\
+		\multirow{3}{*}{\SI{95}{nm}} & \SI{1.016+-0.074}{nm} & \multirow{3}{*}{\SI{1,132+-0,037}{nm}} & \multirow{3}{*}{$\SI{3,4}{\sigma}$} & \multirow{3}{*}{$\SI{5,6}{\sigma}$} \\
+		 & \SI{1.127+-0.060}{nm} & & & \\
+		 & \SI{1.209+-0.059}{nm} & & & \\
 		\hline
 	\end{tabular}
 	\caption{Wir erwarten ein Vielfaches von \SI{0,335}{nm}. Hier wurde die Abweichung vom Vierfachen, also \SI{1,340}{nm} berechnet.}
@@ -162,26 +166,46 @@
 
 \subsubsection{Kalibrierung der x- und y-Achse}
 
+Als Letztes wollen wir mit dem RTM atomar auflösen und dabei die x- und y-Achse kalibrieren. Dafür nutzen wir aus, dass wir die (messbare) Gitterkonstante $g = \SI{246}{pm}$ kennen. Also können wir für jeden gemessenen Abstand $a_{mess}$ zwischen zwei Atomen, zum Beispiel entlang einer zu kalibrirenden Achse, einen erwarteten Abstand $a_{theo}$ angeben.
+
+Seien $a, b, c$ die Kanten eines Dreiecks und $\alpha$ der Winkel zwischen $b$ und $c$, dann lautet der Kosinussatz wie folgt:
+\begin{equation}
+a^2 = b^2 + c^2 + b \cdot c \cdot \cos\alpha
+\end{equation}
+Legen wir in den gemessenen Bildern Dreiecke, so dass wir die Atome entlang von $b$ und $c$ abzählen können, erhalten wir
+\begin{equation}
+a_{theo}^2 = g^2 (N_b^2 + N_c^2 + N_b \cdot N_c \cdot \cos\alpha)
+\end{equation}
+wobei $N_b, N_c$ die Zahlen der Atome entlang $b, c$ sind, $g$ die Gitterkonstante und in unserem Fall $\alpha = 120^{\circ}$.
+
+Also haben wir für jede Auflösung jeweils drei Dreiecke entlang jeder Achse gelegt, wie in Abbildung \ref{3nm} zu sehen. Außnahme ist die zweite Messung in y-Richtung bei der \SI{2}{nm}-Auflösung. Die Verdrehung der Kristallachse gegenüber der y-Achse ist so gering, dass sich kurze Abstände direkt messen lassen (siehe Abbildung \ref{2nm}). Dann ist $a_{theo} = N \cdot g$.
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{../Gwyddion/HOPG/3nm_gimped.pdf}
-\caption{3nm}
+\caption{Strombild bei der \SI{3}{nm}-Auflösung. Dreiecke zur Berechnung von $k_x$ (bzw. $k_y$) sind grün (bzw. blau) eingezeichnet.}
 \label{3nm}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{../Gwyddion/HOPG/2,5nm_gimped.pdf}
-\caption{2,5nm}
+\caption{Strombild bei der \SI{2,5}{nm}-Auflösung. Dreiecke zur Berechnung von $k_x$ (bzw. $k_y$) sind grün (bzw. blau) eingezeichnet.}
 \label{2,5nm}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{../Gwyddion/HOPG/2nm_gimped.pdf}
-\caption{2nm}
+\caption{Strombild bei der \SI{2}{nm}-Auflösung. Dreiecke zur Berechnung von $k_x$ (bzw. $k_y$) sind grün (bzw. blau) eingezeichnet. Die Strecke ohne Dreieck ist mit 2 markiert.}
 \label{2nm}
 \end{figure}
+
+Da wir das Verhältnis zwischen $a_{mess}$ und $a_{theo}$ als linear annehmen, lässt sich die Kalibrationskonstante direkt aus dem Verhältnis der beiden bestimmen:
+\begin{equation}
+k = \frac{a_{theo}}{a_{mess}}.
+\end{equation}
+Wir erhalten so für jedes Dreieck ein $k_{x/y}$. Für jedes Bild bilden wir für $k_x$ und $k_y$ jeweils das gewichtete Mittel. Die einzige Unsicherheit in der Rechnung kommt von der Messung von $a_{mess}$. Da die Position der Mitte der Atome im Bild nicht immer eindeutig ist, haben wir auf die Position in x- bzw. y-Richtung jeweils pro Bild einen Fehler $\sigma_{pos}$ angenommen der etwa einem Atomradius im Bild entspricht. Der Fehler auf $a_{mess}$ ist dann $\sigma_a = \sqrt{2} \cdot \sigma_{pos}$ und pflanzt sich dann gaußisch auf $k$ fort. Die Ergebnisse lassen sich anhand der Tabellen \ref{tab:calibX} und \ref{tab:calibY} nachvollziehen.
 
 \begin{table}[H]
 	\renewcommand{\arraystretch}{1.5}
@@ -203,7 +227,7 @@
 		 & \SI{1.12+-0.12}{nm} & \SI{0.78}{nm} & \SI{0.69+-0.07}{nm} & \\
 		\hline
 	\end{tabular}
-	\caption{calibX}
+	\caption{Ergebnisse für die Kalibrierung der x-Achse.}
 	\label{tab:calibX}
 \end{table}
 
@@ -227,8 +251,10 @@
 		 & \SI{1.62+-0.08}{nm} & \SI{1.68}{nm} & \SI{1.03+-0.05}{nm} & \\
 		\hline
 	\end{tabular}
-	\caption{calibY}
+	\caption{Ergebnisse für die Kalibrierung der y-Achse.}
 	\label{tab:calibY}
 \end{table}
+
+Alle $\bar{k}_x$ sind miteinander innerhalb einer 1$\sigma$-Abweichung kompatibel. Bei den $\bar{k}_y$ sind die Werte für die \SI{3}{nm}- und \SI{2}{nm}-Auflösung innerhalb einer 1$\sigma$-Abweichung kompatibel aber der Wert für die \SI{2,5}{nm}-Auflösung weicht sehr stark von den anderen ab. Die Abweichung fällt schon bei der Betrachtung der gemessenen Abstände auf. Diese müssten, nach Betrachtung der $a_{theo}$, im Vergleich zu den Messungen bei \SI{3}{nm} größer sein. Entweder die Messung war fehlerhaft oder die y-Achse verhält sich nicht linear. In beiden Fällen würden sich erneute Messungen lohnen.
 
 \end{document}
