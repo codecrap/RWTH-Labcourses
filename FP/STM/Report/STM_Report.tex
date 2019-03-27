@@ -108,7 +108,7 @@ Für die Auswertung der RTM-Bilder nutzen wir Gwyddion 2.50. Mithilfe von Gwyddi
 \label{GAIN_opt_Z}
 \end{figure}
 
-Als erstes wollen wir eine Goldprobe untersuchen und uns anhand dieser mit der Funktionsweise des RTM vertraut machen. Dazu suchen wir uns eine charakteristische Stelle auf der Probe (TODO: Bild mit opt Einstellungen hinzufügen) und nehmen Bilder mit unterschiedlichen Einstellungen auf. Erst variieren wir den I-Gain und nehmen vier unterschiedliche Bilder auf. Danach halten wir die beste Einstellung fest, variieren die Rasterzeit und nehmen wieder unterschiedliche Bilder auf.
+Als erstes wollen wir eine Goldprobe untersuchen und uns anhand dieser mit der Funktionsweise des RTM vertraut machen. Dazu suchen wir uns eine charakteristische Stelle auf der Probe (siehe Abbildung \ref{GAIN_opt_Z}) und nehmen Bilder mit unterschiedlichen Einstellungen auf. Erst variieren wir den I-Gain und nehmen vier unterschiedliche Bilder auf. Danach halten wir die beste Einstellung fest, variieren die Rasterzeit und nehmen wieder unterschiedliche Bilder auf.
 
 Bei der Betrachtung der Strombilder für unterschiedliche I-Gains, fällt auf, dass für geringere Gains, also langsamere Regelung, immer mehr von der Topographie sichtbar wird. Für höhere Gains sehen wir immer mehr weiße Punkte durch Übersteuerung und wellenartige Muster.
 
@@ -156,9 +156,14 @@ Als optimalen Gain haben wir 1900 gewählt, da es einen guten Kompromiss zwische
 \label{GAIN_slow_profile}
 \end{figure}
 
+Um den Gain nach oben abzugrenzen, schauen wir uns die Profile identischer Stellen im Strombild für Gain 1900 und 2500 an. Nun bestimmen wir im selben Bereich (10 bis \SI{20}{nm}) jeweils die Peak-to-Peak-Amplitude, also die Differenz zwischen globalem Maximum und globalem Minimum in diesem Bereich (siehe Abbildung \ref{GAIN_I_forward_profiles}). Diese Zahl nehmen wir hier als Maß für die Oszillation bzw. Übersteuerung. Wir finden für einen Gain von 1900 bzw. 2500 eine Amplitude von \SI{5,05e-10}{A} bzw. \SI{8,34e-10}{A}. Damit oszilliert das Strombild beim Gain von 1900 merklich weniger. 
 
-TODO: Quantifizierung für zu schnelle Steuerung?
-
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../Figures/GAIN_I_forward_profiles.pdf}
+\caption{Aus dem Strombild extrahierte Profile. Horizontale Linien markieten die gefundenen Extrema, vertikale Linien markieren die Ränder des betrachteten Bereichs.}
+\label{GAIN_I_forward_profiles}
+\end{figure}
 
 Bei der Variierung der Rasterzeit lassen sich ganz ähnliche Effekte wie beim Gain beobachten, wobei eine kleinere Rasterzeit der Regelung weniger Zeit zum reagieren gibt und somit einem kleineren Gain entspricht. Das Umgekehrte gilt auch für größere Rasterzeiten.
 
@@ -207,7 +212,7 @@ Als optimale Rasterzeit haben wir \SI{0,1}{s} gewählt. Bei der quantitativen Be
 \end{figure}
 
 
-TODO: Quantifizierung für zu schnelle Steuerung?
+TODO: Quantifizierung für zu lange Rasterzeit?
 
 
 \subsection{Hochorientierter pyrolytischer Graphit (HOPG)}
