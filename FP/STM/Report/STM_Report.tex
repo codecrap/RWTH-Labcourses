@@ -1,3 +1,4 @@
+% !TeX spellcheck = de_DE
 \input{../../preamble.tex}
 
 \begin{document}
@@ -46,9 +47,6 @@
 		\Large{Heithem Assili, 368441 \\ Alexandre Drouet, 355095 \\ Olexiy Fedorets, 356615 \\}
 		\vspace{1cm}
 		\Large{\textsl{ Versuchstag: 12.03.2019 \\ Protokollabgabe: 27.03.2019}}
-
-		
-
 		
 	\end{center}
 	\vfill
@@ -58,7 +56,7 @@
 	
 	
 	
-\skippage
+%\skippage
 \pagenumbering{roman}
 \thispagestyle{plain}
 
@@ -88,9 +86,22 @@ In diesem Versuch beschäftigen wir uns mit einem Rastertunnelmikroskop (RTM). E
 
 \subsection{Theorie und Prinzip des RTM}
 
-Das Rastertunnelmikroskop basiert wie der Name schon andeutet auf den Tunneleffekt. Eine Spitze rastert bei angelegter Tunnelspannung einen Bereich einer Probe ab, so dass nur tunnelnde Elektronen zu einem Strom beitragen. Die feine Rasterbewegung wird realisiert durch drei Piezokristalle, einen für jede Raumrichtung. Diese erlauben präzise Bewegung im Subnanometerbereich.
+Das Rastertunnelmikroskop basiert wie der Name schon andeutet auf den Tunneleffekt. Eine Spitze rastert bei angelegter Tunnelspannung einen Bereich einer Probe ab, so dass tunnelnde Elektronen zu einem Strom beitragen. Der Tunnelstrom hängt linear von angelegter Spannung ab, jedoch exponentiell vom Abstand zwischen Spitze und Probe
+\begin{equation}
+	I \propto U \cdot e^{-2 \kappa d}, \quad \kappa = \sqrt{ \frac{2m_e (V_0 - E)}{\hbar^2} }
+\end{equation}
+was der Grund für die hohe Empfindlichkeit des RTM auf die Probenoberfläche ist.
+
+Die feine Rasterbewegung wird realisiert durch Ausnutzung des inversen Piezoelektrischen Effekts, wobei jeweils ein Piezokristall für jede Raumrichtung verwendet wird. Diese erlauben präzise Bewegung im Subnanometerbereich.
+
+Wichtig für den Versuch ist die Nachregelung der Höhe der Spitze über der Probe mit dem z-Piezo, welche bei den geringen Abständen notwendig ist, um den Kontakt von Spitze und Probe zu vermeiden. Dabei wird der z-Piezo über eine Stellgröße (den \emph{Gain}) $Y(t)$ geregelt, die von der Abweichung des Stromsignals vom Sollwert $E(t)=I(t)-S$ abhängt. Bei unserem Aufbau wird der differentielle Anteil des Gains nicht verwendet und der proportionale Anteil konstant gehalten. Wichtig ist nur der Integralteil
+\begin{equation}
+	Y(t) = \frac{h}{T_I} \int\limits_{t-T_I}^{t} E(t^\prime) \id t^\prime
+\end{equation}
+wobei die höchste Frequenz $f_{max} = 1/T_I$ auf die noch reagiert wird dem inversen der Integrationszeit entspricht. 
 
 Ein RTM hat zwei wesentliche Betriebsmodi. Einerseits den Konstantstrommodus, in dem der Strom möglichst konstant gehalten wird durch Regelung der Höhe, also Bewegung in z-Richtung. In diesem Fall ist die Topographie im z-Bild sichtbar. Andererseits gibt es den Konstanthöhenmodus bei dem die Spitze bei konstanter Höhe über die Probe fährt und die Topographie im Strombild sichtbar wird. Es kann von einem Modus in den anderen gewechselt werden über die Einstellung der Höhenregelung (über Gain und Rasterzeit). Der Konstanthöhenmodus ist der Grenzfall des Konstantstrommodus bei dem die Höhenregelung sehr langsam ist.
+
 
 \section{Aufbau}
 
@@ -98,15 +109,16 @@ In diesem Versuch verwenden wir ein RTM der Marke Nanosurf. Die Tunnelspitze hab
 
 Zum groben Anfahren wird der Schrittmotor verwendet, bevor für die vorsichtige Annäherung und das Rastern die Piezokristalle verwendet werden. 
 
+
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{../RTM.jpg}
+\includegraphics[width=0.75\textwidth,clip,trim=5cm 1cm 0 5cm]{../RTM.jpg}
 \caption{Tunnelspitze mit Probe gesehen durch eine Linse.}
 \label{RTM}
 \end{figure}
 
 \section{Durchführung und Auswertung}
-Für die Auswertung der RTM-Bilder nutzen wir Gwyddion 2.50. Mithilfe von Gwyddion extrahierte Daten haben wir wiederrum mit Python 3.6 ausgewertet. 
+Für die Auswertung der RTM-Bilder nutzen wir Gwyddion 2.50. Mithilfe von Gwyddion extrahierte Daten haben wir wiederum mit Python 3.6 ausgewertet. 
 
 \subsection{Gold}
 
@@ -117,50 +129,52 @@ Für die Auswertung der RTM-Bilder nutzen wir Gwyddion 2.50. Mithilfe von Gwyddi
 \label{GAIN_opt_Z}
 \end{figure}
 
-Als erstes wollen wir eine Goldprobe untersuchen und uns anhand dieser mit der Funktionsweise des RTM vertraut machen. Dazu suchen wir uns eine charakteristische Stelle auf der Probe (siehe Abbildung \ref{GAIN_opt_Z}) und nehmen Bilder mit unterschiedlichen Einstellungen auf. Erst variieren wir den I-Gain und nehmen vier unterschiedliche Bilder auf. Danach halten wir die beste Einstellung fest, variieren die Rasterzeit und nehmen wieder unterschiedliche Bilder auf.
+Als erstes wollen wir eine Goldprobe untersuchen und uns anhand dieser mit der Funktionsweise des RTM vertraut machen. Dazu suchen wir uns eine charakteristische Stelle auf der Probe (siehe Abbildung \ref{GAIN_opt_Z}) und nehmen Bilder mit unterschiedlichen Einstellungen auf. Erst variieren wir den I-Gain und nehmen vier unterschiedliche Bilder auf. Dabei ist die Rasterzeit fest 0.1 s, mit 256 points/line. Danach halten wir die beste Einstellung fest, variieren die Rasterzeit und nehmen wieder unterschiedliche Bilder auf. Dabei verwenden wir 128 points/line.
 
 Bei der Betrachtung der Strombilder für unterschiedliche I-Gains, fällt auf, dass für geringere Gains, also langsamere Regelung, immer mehr von der Topographie sichtbar wird. Für höhere Gains sehen wir immer mehr weiße Punkte durch Übersteuerung und wellenartige Muster.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{../Gwyddion/Gold/GAIN_slow_I_forward.pdf}
-\caption{Strombild der untersuchten Goldprobe bei Gain 800 und Rasterzeit \SI{0.1}{s}.}
+	\begin{subfigure}{0.49\textwidth}
+	\centering
+	\includegraphics[width=\textwidth]{../Gwyddion/Gold/GAIN_slow_I_forward.pdf}
+	\caption{Gain 800}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{../Gwyddion/Gold/GAIN_opt_I_forward.pdf}
+		\caption{Gain 1900}
+	\end{subfigure}
+
+	\begin{subfigure}{0.49\textwidth}
+	\centering
+	\includegraphics[width=\textwidth]{../Gwyddion/Gold/GAIN_extra_I_forward.pdf}
+	\caption{ Gain 2500 }
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+	\centering
+	\includegraphics[width=\textwidth]{../Gwyddion/Gold/GAIN_fast_I_forward.pdf}
+	\caption{ Gain 3000 }
+\end{subfigure}
+
+\caption{Strombilder der untersuchten Goldprobe bei Rasterzeit \SI{0.1}{s}}
 \label{GAIN_slow_I}
 \end{figure}
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{../Gwyddion/Gold/GAIN_opt_I_forward.pdf}
-\caption{Strombild der untersuchten Goldprobe bei Gain 1900 und Rasterzeit \SI{0.1}{s}.}
-\label{GAIN_opt_I}
-\end{figure}
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{../Gwyddion/Gold/GAIN_extra_I_forward.pdf}
-\caption{Stromild der untersuchten Goldprobe bei Gain 2500 und Rasterzeit \SI{0.1}{s}.}
-\label{GAIN_extra_I}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{../Gwyddion/Gold/GAIN_fast_I_forward.pdf}
-\caption{Strombild der untersuchten Goldprobe bei Gain 3000 und Rasterzeit \SI{0.1}{s}.}
-\label{GAIN_fast_I}
-\end{figure}
 
 Als optimalen Gain haben wir 1900 gewählt, da es einen guten Kompromiss zwischen beiden Extremen darstellt. Um das quantitativ zu begründen haben wir erstmal die Profile der z-Bilder für die Gains 1900 und 800 jeweils in Vor- und Rückwärtsrichtung an der selben Stelle extrahiert. Man erkennt klar, dass die Veschiebung zwischen beide Richtungen beim kleineren Gain deutlich größer ist. Nach Bestimmung der Minima und Berechnung der Differenz (auf der x-Achse) ergibt sich für einen Gain von 1900 bzw. 800 eine Verschiebung um \SI{5,08}{nm} bzw. \SI{8,98}{nm}.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{../Figures/GAIN_opt_profile.pdf}
+\includegraphics[width=0.9\textwidth]{../Figures/GAIN_opt_profile.pdf}
 \caption{Extrahierte Profile in Vor- und Rückwärtsrichtung für einen Gain von 1900.}
 \label{GAIN_opt_profile}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{../Figures/GAIN_slow_profile.pdf}
+\includegraphics[width=0.9\textwidth]{../Figures/GAIN_slow_profile.pdf}
 \caption{Extrahierte Profile in Vor- und Rückwärtsrichtung für einen Gain von 800.}
 \label{GAIN_slow_profile}
 \end{figure}
@@ -177,51 +191,66 @@ Um den Gain nach oben abzugrenzen, schauen wir uns die Profile identischer Stell
 Bei der Variierung der Rasterzeit lassen sich im Strombild ganz ähnliche Effekte wie beim Gain beobachten, wobei eine kleinere Rasterzeit der Regelung weniger Zeit zum reagieren gibt und somit einem kleineren Gain entspricht. Das Umgekehrte gilt nicht umbedingt für größere Rasterzeiten, aber dafür beobachten wir ein zunehmends verauschteres Bild.
 
 \begin{figure}[H]
-\centering
+	\centering
+	\begin{subfigure}{0.49\textwidth}
+		\centering
 \includegraphics[width=\textwidth]{../Gwyddion/Gold/TIME_005_I_forward.pdf}
-\caption{Strombild der untersuchten Goldprobe bei Gain 1900 und Rasterzeit \SI{0.05}{s}.}
-\label{TIME_005_I}
-\end{figure}
+\caption{Rasterzeit \SI{0.05}{s}.}
 
-\begin{figure}[H]
-\centering
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
 \includegraphics[width=\textwidth]{../Gwyddion/Gold/TIME_01_I_forward.pdf}
-\caption{Strombild der untersuchten Goldprobe bei Gain 1900 und Rasterzeit \SI{0.1}{s}.}
-\label{TIME_01_I}
-\end{figure}
+\caption{Rasterzeit \SI{0.1}{s}.}
 
-\begin{figure}[H]
-\centering
+	\end{subfigure}
+	
+	\begin{subfigure}{0.49\textwidth}
+		\centering
 \includegraphics[width=\textwidth]{../Gwyddion/Gold/TIME_02_I_forward.pdf}
-\caption{Strombild der untersuchten Goldprobe bei Gain 1900 und Rasterzeit \SI{0.2}{s}.}
-\label{TIME_02_I}
-\end{figure}
+\caption{Rasterzeit \SI{0.2}{s}.}
 
-\begin{figure}[H]
-\centering
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
 \includegraphics[width=\textwidth]{../Gwyddion/Gold/TIME_04_I_forward.pdf}
-\caption{Strombild der untersuchten Goldprobe bei Gain 1900 und Rasterzeit \SI{0.4}{s}.}
-\label{TIME_04_I}
+\caption{ Rasterzeit \SI{0.4}{s}.}
+
+	\end{subfigure}
+	
+	\caption{Strombilder der untersuchten Goldprobe bei Gain 1900.}
+	\label{GAIN_slow_I}
 \end{figure}
 
-Als optimale Rasterzeit haben wir \SI{0,1}{s} gewählt. Bei der quantitativen Begündung verfahren wir analog zur Variierung des Gains. Vergleichen wir die entsprechenden Profile der z-Bilder, finden wir für \SI{0,1}{s} bzw. \SI{0,05}{s} eine Verschiebung zwischen Vor- und Rückwärtsrichtung von \SI{6,25}{nm} bzw. \SI{7,81}{nm}.
+
+
+Als optimale Rasterzeit haben wir \SI{0,1}{s} gewählt. Bei der quantitativen Begündung verfahren wir analog zur Variation des Gains. Vergleichen wir die entsprechenden Profile der z-Bilder, finden wir für \SI{0,1}{s} bzw. \SI{0,05}{s} eine Verschiebung zwischen Vor- und Rückwärtsrichtung von \SI{6,25}{nm} bzw. \SI{7,81}{nm}.
+
+Um zu Quantifizieren wie der Einfluss zu hoher Rasterzeit ist haben ein Profil mit einen charakteristischen Graben vermessen, welches man in \cref{fig:rasterzeit} sieht. Dabei sieht man dass das Profil für eine höhere Rasterzeit abflacht und der Graben nicht mehr deutlich sichtbar ist. Somit verlieren wir die Profilinformation im Strombild. Die Werte für den Strom am Minimum betragen dabei $I_{min,0.1s} = 0.89 \times 10^{-10} \, \mathrm{A}$ und $I_{min,0.2s} = 6.69 \times 10^{-10} \, \mathrm{A}$.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{../Figures/TIME_01_profile.pdf}
+\includegraphics[width=0.85\textwidth]{../Figures/TIME_01_profile.pdf}
 \caption{Extrahierte Profile in Vor- und Rückwärtsrichtung für eine Rasterzeit von \SI{0.1}{s}.}
 \label{TIME_01_profile}
 \end{figure}
 
+
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{../Figures/TIME_005_profile.pdf}
+\includegraphics[width=0.85\textwidth]{../Figures/TIME_005_profile.pdf}
 \caption{Extrahierte Profile in Vor- und Rückwärtsrichtung für eine Rasterzeit von \SI{0.05}{s}.}
 \label{TIME_005_profile}
 \end{figure}
 
 
-TODO: Quantifizierung für zu lange Rasterzeit?
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{../Figures/TIME_I_profiles.pdf}
+	\caption{Extrahierte Profile für eine Rasterzeit von 0.1 s und 0.2 s.}
+	\label{fig:rasterzeit}
+\end{figure}
+
 
 
 \subsection{Hochorientierter pyrolytischer Graphit (HOPG)}
@@ -229,49 +258,78 @@ TODO: Quantifizierung für zu lange Rasterzeit?
 
 Auf der HOPG Probe wollen wir erstmal eine Stufe finden und ihre Höhe bestimmen. Nachdem wir die z-Bilder mit Gwyddion im Rahmen des Möglichen geebnet hatten, haben wir für jede der drei Auflösungen jeweils drei Profillinien extrahiert, wie exemplarisch in Abbildung \ref{166nm} zu sehen.
 
+\begin{table}[H]
+	\renewcommand{\arraystretch}{1}
+	\centering
+	\Large
+	\begin{adjustbox}{width=0.6\textwidth}
+		\begin{tabular}{ccc}
+			I - Gain & Rasterzeit & points/line \\
+			\hline
+			1500 & 0.2 s& 256 \\
+		\end{tabular}
+	\end{adjustbox}
+	\caption{Verwendete Einstellungen für den Versuchsteil mit HOPG-Probe }
+	\label{tab:HOPG-settings}
+\end{table}
+
 Mit Python haben wir aus den Profilen jeweils die mittleren Höhen der Ebenen und ihre Standardabweichung bestimmt (Abbildung \ref{166nmProfiles}). Darauf haben wir die Differenz zwischen hoher und tiefer Ebene berechnet mit quadratisch addierten Standardabweichungen. Abschließend haben wir jeweils aus den drei Höhen das gewichtete Mittel gebildet. Die Ergebnisse sind in Tabelle \ref{tab:heights} zu sehen. Da der Abstand zwischen zwei Schichten in einem Graphitkristall $d = \SI{335}{pm}$ beträgt, würden wir als Höhenunterschied zwischen zwei Ebenen ein Vielfaches davon erwarten. Allerdings spiegeln das unsere Ergebnisse nicht wieder, wie an der starken $\sigma$-Abweichung zu erkennen.
 
 \begin{figure}[H]
-\centering
+	\centering
+	\begin{subfigure}{0.49\textwidth}
+		\centering
 \includegraphics[width=\textwidth]{../Gwyddion/HOPG/300nm.pdf}
-\caption{z-Bild bei {300}{nm}-Auflösung. Die Profile wurden entlang der schwarzen Linien extrahiert.}
+\caption{z-Bild. Die Profile wurden entlang der schwarzen Linien extrahiert.}
 \label{300nm}
-\end{figure}	
-
-\begin{figure}[H]
-\centering
+	\end{subfigure}
+	\begin{subfigure}{0.5\textwidth}
+		\centering
 \includegraphics[width=\textwidth]{../Figures/300nm_profiles.pdf}
-\caption{Extrahierte Profile bei {300}{nm}-Auflösung.}
+\caption{Extrahierte Profile.}
 \label{300nmProfiles}
-\end{figure}	
+	\end{subfigure}
+	
+	\caption{{300}{nm}-Auflösung}
+\end{figure}
+
 
 \begin{figure}[H]
-\centering
+	\centering
+	\begin{subfigure}{0.49\textwidth}
+		\centering
 \includegraphics[width=\textwidth]{../Gwyddion/HOPG/166nm.pdf}
-\caption{z-Bild bei {166}{nm}-Auflösung. Die Profile wurden entlang der schwarzen Linien extrahiert.}
+\caption{z-Bild. Die Profile wurden entlang der schwarzen Linien extrahiert.}
 \label{166nm}
-\end{figure}
-
-\begin{figure}[H]
-\centering
+	\end{subfigure}
+	\begin{subfigure}{0.5\textwidth}
+		\centering
 \includegraphics[width=\textwidth]{../Figures/166nm_profiles.pdf}
-\caption{Extrahierte Profile bei {166}{nm}-Auflösung.}
+\caption{Extrahierte Profile.}
 \label{166nmProfiles}
+	\end{subfigure}
+	
+	\caption{{166}{nm}-Auflösung}
 \end{figure}
 
 \begin{figure}[H]
-\centering
+	\centering
+	\begin{subfigure}{0.49\textwidth}
+		\centering
 \includegraphics[width=\textwidth]{../Gwyddion/HOPG/95nm.pdf}
-\caption{z-Bild bei {95}{nm}-Auflösung. Die Profile wurden entlang der weißen Linien extrahiert.}
+\caption{z-Bild. Die Profile wurden entlang der weißen Linien extrahiert.}
 \label{95nm}
+	\end{subfigure}
+	\begin{subfigure}{0.5\textwidth}
+		\centering
+\includegraphics[width=\textwidth]{../Figures/95nm_profiles.pdf}
+\caption{Extrahierte Profile.}
+\label{95nmProfiles}
+	\end{subfigure}
+	
+	\caption{{95}{nm}-Auflösung}
 \end{figure}
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{../Figures/95nm_profiles.pdf}
-\caption{Extrahierte Profile bei {95}{nm}-Auflösung.}
-\label{95nmProfiles}
-\end{figure}
 
 \begin{table}[H]
 	\renewcommand{\arraystretch}{1.5}
@@ -338,7 +396,7 @@ Da wir das Verhältnis zwischen $a_{mess}$ und $a_{theo}$ als linear annehmen, l
 \begin{equation}
 k = \frac{a_{theo}}{a_{mess}}.
 \end{equation}
-Wir erhalten so für jedes Dreieck ein $k_{x/y}$. Für jedes Bild bilden wir für $k_x$ und $k_y$ jeweils das gewichtete Mittel. Die einzige Unsicherheit in der Rechnung kommt von der Messung von $a_{mess}$. Da die Position der Mitte der Atome im Bild nicht immer eindeutig ist, haben wir auf die Position in x- bzw. y-Richtung jeweils pro Bild einen Fehler $\sigma_{pos}$ angenommen der etwa einem Atomradius im Bild entspricht. Der Fehler auf $a_{mess}$ ist dann $\sigma_a = \sqrt{2} \cdot \sigma_{pos}$ und pflanzt sich dann gaußisch auf $k$ fort. Die Ergebnisse lassen sich anhand der Tabellen \ref{tab:calibX} und \ref{tab:calibY} nachvollziehen.
+Wir erhalten so für jedes Dreieck ein $k_{x/y}$. Für jedes Bild bilden wir für $k_x$ und $k_y$ jeweils das gewichtete Mittel inklusive dem Fehler auf den gewichteten Mittelwert. Die einzige Unsicherheit in der Rechnung kommt von der Messung von $a_{mess}$. Da die Position der Mitte der Atome im Bild nicht immer eindeutig ist, haben wir auf die Position in x- bzw. y-Richtung jeweils pro Bild einen Fehler $\sigma_{pos}$ angenommen der etwa einem Atomradius im Bild entspricht. Der Fehler auf $a_{mess}$ ist dann $\sigma_a = \sqrt{2} \cdot \sigma_{pos}$ und pflanzt sich dann gaußisch auf $k$ fort. Die Ergebnisse lassen sich anhand der Tabellen \ref{tab:calibX} und \ref{tab:calibY} nachvollziehen.
 
 \begin{table}[H]
 	\renewcommand{\arraystretch}{1.5}
