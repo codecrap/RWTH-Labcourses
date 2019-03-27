@@ -90,11 +90,13 @@ In diesem Versuch beschäftigen wir uns mit einem Rastertunnelmikroskop (RTM). E
 
 Das Rastertunnelmikroskop basiert wie der Name schon andeutet auf den Tunneleffekt. Eine Spitze rastert bei angelegter Tunnelspannung einen Bereich einer Probe ab, so dass nur tunnelnde Elektronen zu einem Strom beitragen. Die feine Rasterbewegung wird realisiert durch drei Piezokristalle, einen für jede Raumrichtung. Diese erlauben präzise Bewegung im Subnanometerbereich.
 
-Ein RTM hat zwei wesentliche Betriebsmodi. Einerseits den Konstantstrommodus, in dem der Strom möglichst konstant gehalten wird durch Regelung der Höhe, also Bewegung in z-Richtung. In diesem Fall ist die Topographie im z-Bild sichtbar, also dem Bild der am z-Kristall angelegten Spannung. Andererseits gibt es den Konstanthöhenmodus bei dem die Nadel bei konstanter Höhe über die Probe fährt und die Topographie im Strombild sichtbar wird.
+Ein RTM hat zwei wesentliche Betriebsmodi. Einerseits den Konstantstrommodus, in dem der Strom möglichst konstant gehalten wird durch Regelung der Höhe, also Bewegung in z-Richtung. In diesem Fall ist die Topographie im z-Bild sichtbar. Andererseits gibt es den Konstanthöhenmodus bei dem die Spitze bei konstanter Höhe über die Probe fährt und die Topographie im Strombild sichtbar wird. Es kann von einem Modus in den anderen gewechselt werden über die Einstellung der Höhenregelung (über Gain und Rasterzeit). Der Konstanthöhenmodus ist der Grenzfall des Konstantstrommodus bei dem die Höhenregelung sehr langsam ist.
 
 \section{Aufbau}
 
-In diesem Versuch verwenden wir ein RTM der Marke Nanosurf. Die Tunnelspitze haben wir selber aus einem Draht erstellt. 
+In diesem Versuch verwenden wir ein RTM der Marke Nanosurf. Die Tunnelspitze haben wir selber aus einem Draht erstellt. Die Spitze wird in eine Mulde gelegt und von einer Feder festgehalten. Die Probe wird auf einem Magnetsockel gelegt der wiederum auf einer Halterung mit Schrittmotor aufliegt.
+
+Zum groben Anfahren wird der Schrittmotor verwendet, bevor für die vorsichtige Annäherung und das Rastern die Piezokristalle verwendet werden. 
 
 \begin{figure}[H]
 \centering
@@ -103,7 +105,7 @@ In diesem Versuch verwenden wir ein RTM der Marke Nanosurf. Die Tunnelspitze hab
 \label{RTM}
 \end{figure}
 
-\section{Analyse}
+\section{Durchführung und Auswertung}
 Für die Auswertung der RTM-Bilder nutzen wir Gwyddion 2.50. Mithilfe von Gwyddion extrahierte Daten haben wir wiederrum mit Python 3.6 ausgewertet. 
 
 \subsection{Gold}
@@ -172,7 +174,7 @@ Um den Gain nach oben abzugrenzen, schauen wir uns die Profile identischer Stell
 \label{GAIN_I_forward_profiles}
 \end{figure}
 
-Bei der Variierung der Rasterzeit lassen sich ganz ähnliche Effekte wie beim Gain beobachten, wobei eine kleinere Rasterzeit der Regelung weniger Zeit zum reagieren gibt und somit einem kleineren Gain entspricht. Das Umgekehrte gilt auch für größere Rasterzeiten.
+Bei der Variierung der Rasterzeit lassen sich im Strombild ganz ähnliche Effekte wie beim Gain beobachten, wobei eine kleinere Rasterzeit der Regelung weniger Zeit zum reagieren gibt und somit einem kleineren Gain entspricht. Das Umgekehrte gilt nicht umbedingt für größere Rasterzeiten, aber dafür beobachten wir ein zunehmends verauschteres Bild.
 
 \begin{figure}[H]
 \centering
@@ -202,7 +204,7 @@ Bei der Variierung der Rasterzeit lassen sich ganz ähnliche Effekte wie beim Ga
 \label{TIME_04_I}
 \end{figure}
 
-Als optimale Rasterzeit haben wir \SI{0,1}{s} gewählt. Bei der quantitativen Begündung verfahren wir analog zur Variirung des Gains. Vergleichen wir die entsprechenden Profile der z-Bilder, finden wir für \SI{0,1}{s} bzw. \SI{0,05}{s} eine Verschiebung zwischen Vor- und Rückwärtsrichtung von \SI{6,25}{nm} bzw. \SI{7,81}{nm}.
+Als optimale Rasterzeit haben wir \SI{0,1}{s} gewählt. Bei der quantitativen Begündung verfahren wir analog zur Variierung des Gains. Vergleichen wir die entsprechenden Profile der z-Bilder, finden wir für \SI{0,1}{s} bzw. \SI{0,05}{s} eine Verschiebung zwischen Vor- und Rückwärtsrichtung von \SI{6,25}{nm} bzw. \SI{7,81}{nm}.
 
 \begin{figure}[H]
 \centering
@@ -225,7 +227,7 @@ TODO: Quantifizierung für zu lange Rasterzeit?
 \subsection{Hochorientierter pyrolytischer Graphit (HOPG)}
 \subsubsection{Bestimmung der Höhe einer Stufe}
 
-Auf der HOPG Probe wollen wir erstmal eine Stufe finden und ihre Höhe bestimmen. Wie bei der Goldprobe, werten wir die Daten größtenteils mit Gwyddion aus. Nachdem wir die z-Bilder mit der Software im Rahmen des Möglichen geebnet hatten, haben wir für jede der drei Auflösungen jeweils drei Profillinien extrahiert, wie in exemplarisch in Abbildung \ref{166nm} zu sehen.
+Auf der HOPG Probe wollen wir erstmal eine Stufe finden und ihre Höhe bestimmen. Nachdem wir die z-Bilder mit Gwyddion im Rahmen des Möglichen geebnet hatten, haben wir für jede der drei Auflösungen jeweils drei Profillinien extrahiert, wie exemplarisch in Abbildung \ref{166nm} zu sehen.
 
 Mit Python haben wir aus den Profilen jeweils die mittleren Höhen der Ebenen und ihre Standardabweichung bestimmt (Abbildung \ref{166nmProfiles}). Darauf haben wir die Differenz zwischen hoher und tiefer Ebene berechnet mit quadratisch addierten Standardabweichungen. Abschließend haben wir jeweils aus den drei Höhen das gewichtete Mittel gebildet. Die Ergebnisse sind in Tabelle \ref{tab:heights} zu sehen. Da der Abstand zwischen zwei Schichten in einem Graphitkristall $d = \SI{335}{pm}$ beträgt, würden wir als Höhenunterschied zwischen zwei Ebenen ein Vielfaches davon erwarten. Allerdings spiegeln das unsere Ergebnisse nicht wieder, wie an der starken $\sigma$-Abweichung zu erkennen.
 
@@ -291,7 +293,7 @@ Mit Python haben wir aus den Profilen jeweils die mittleren Höhen der Ebenen un
 		 & \SI{1.209+-0.059}{nm} & & & \\
 		\hline
 	\end{tabular}
-	\caption{Wir erwarten ein Vielfaches von \SI{0,335}{nm}. Hier wurde die Abweichung vom Vierfachen, also \SI{1,340}{nm} berechnet.}
+	\caption{Ergebnisse für die Stufenhöhe. Wir erwarten ein Vielfaches von $d = \SI{0,335}{nm}$.}
 	\label{tab:heights}
 \end{table}
 
