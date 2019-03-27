@@ -88,24 +88,59 @@ In diesem Versuch beschäftigen wir uns mit einem Rastertunnelmikroskop (RTM). E
 
 \subsection{Theorie und Prinzip des RTM}
 
-Tunneleffekt, Piezo, Realisierung der Rasterbewegung (hier xyz), Tunnelspitze, Betriebsmodi.
+Das Rastertunnelmikroskop basiert wie der Name schon andeutet auf den Tunneleffekt. Eine Spitze rastert bei angelegter Tunnelspannung einen Bereich einer Probe ab, so dass nur tunnelnde Elektronen zu einem Strom beitragen. Die feine Rasterbewegung wird realisiert durch drei Piezokristalle, einen für jede Raumrichtung. Diese erlauben präzise Bewegung im Subnanometerbereich.
+
+Ein RTM hat zwei wesentliche Betriebsmodi. Einerseits den Konstantstrommodus, in dem der Strom möglichst konstant gehalten wird durch Regelung der Höhe, also Bewegung in z-Richtung. In diesem Fall ist die Topographie im z-Bild sichtbar, also dem Bild der am z-Kristall angelegten Spannung. Andererseits gibt es den Konstanthöhenmodus bei dem die Nadel bei konstanter Höhe über die Probe fährt und die Topographie im Strombild sichtbar wird.
 
 \section{Aufbau}
 
 
 
 \section{Analyse}
+Für die Auswertung der RTM-Bilder nutzen wir Gwyddion 2.50. Mithilfe von Gwyddion extrahierte Daten haben wir wiederrum mit Python 3.6 ausgewertet. 
+
 \subsection{Gold}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../Gwyddion/Gold/GAIN_opt_Z_forward.pdf}
+\caption{Z-Bild der untersuchten Goldprobe bei Gain 1900 und Rasterzeit \SI{0.1}{s}.}
+\label{GAIN_opt_Z}
+\end{figure}
 
 Als erstes wollen wir eine Goldprobe untersuchen und uns anhand dieser mit der Funktionsweise des RTM vertraut machen. Dazu suchen wir uns eine charakteristische Stelle auf der Probe (TODO: Bild mit opt Einstellungen hinzufügen) und nehmen Bilder mit unterschiedlichen Einstellungen auf. Erst variieren wir den I-Gain und nehmen vier unterschiedliche Bilder auf. Danach halten wir die beste Einstellung fest, variieren die Rasterzeit und nehmen wieder unterschiedliche Bilder auf.
 
 Bei der Betrachtung der Strombilder für unterschiedliche I-Gains, fällt auf, dass für geringere Gains, also langsamere Regelung, immer mehr von der Topographie sichtbar wird. Für höhere Gains sehen wir immer mehr weiße Punkte durch Übersteuerung und wellenartige Muster.
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../Gwyddion/Gold/GAIN_slow_I_forward.pdf}
+\caption{Strombild der untersuchten Goldprobe bei Gain 800 und Rasterzeit \SI{0.1}{s}.}
+\label{GAIN_slow_I}
+\end{figure}
 
-TODO: entsprechende Bilder einfügen.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../Gwyddion/Gold/GAIN_opt_I_forward.pdf}
+\caption{Strombild der untersuchten Goldprobe bei Gain 1900 und Rasterzeit \SI{0.1}{s}.}
+\label{GAIN_opt_I}
+\end{figure}
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../Gwyddion/Gold/GAIN_extra_I_forward.pdf}
+\caption{Stromild der untersuchten Goldprobe bei Gain 2500 und Rasterzeit \SI{0.1}{s}.}
+\label{GAIN_extra_I}
+\end{figure}
 
-Als optimalen Gain haben wir 1900 gewählt. Um das quantitativ zu begründen haben wir erstmal die Profile der z-Bilder für die Gains 1900 und 800 jeweils in Vor- und Rückwärtsrichtung an der selben Stelle extrahiert. Man erkennt klar, dass die Veschiebung zwischen beide Richtungen beim kleineren Gain deutlich größer ist. Nach Bestimmung der Minima und Berechnung der Differenz (auf der x-Achse) ergibt sich für einen Gain von 1900 bzw. 800 eine Verschiebung um \SI{5,08}{nm} bzw. \SI{8,98}{nm}.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../Gwyddion/Gold/GAIN_fast_I_forward.pdf}
+\caption{Strombild der untersuchten Goldprobe bei Gain 3000 und Rasterzeit \SI{0.1}{s}.}
+\label{GAIN_fast_I}
+\end{figure}
+
+Als optimalen Gain haben wir 1900 gewählt, da es einen guten Kompromiss zwischen beiden Extremen darstellt. Um das quantitativ zu begründen haben wir erstmal die Profile der z-Bilder für die Gains 1900 und 800 jeweils in Vor- und Rückwärtsrichtung an der selben Stelle extrahiert. Man erkennt klar, dass die Veschiebung zwischen beide Richtungen beim kleineren Gain deutlich größer ist. Nach Bestimmung der Minima und Berechnung der Differenz (auf der x-Achse) ergibt sich für einen Gain von 1900 bzw. 800 eine Verschiebung um \SI{5,08}{nm} bzw. \SI{8,98}{nm}.
 
 \begin{figure}[H]
 \centering
@@ -127,9 +162,33 @@ TODO: Quantifizierung für zu schnelle Steuerung?
 
 Bei der Variierung der Rasterzeit lassen sich ganz ähnliche Effekte wie beim Gain beobachten, wobei eine kleinere Rasterzeit der Regelung weniger Zeit zum reagieren gibt und somit einem kleineren Gain entspricht. Das Umgekehrte gilt auch für größere Rasterzeiten.
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../Gwyddion/Gold/TIME_005_I_forward.pdf}
+\caption{Strombild der untersuchten Goldprobe bei Gain 1900 und Rasterzeit \SI{0.05}{s}.}
+\label{TIME_005_I}
+\end{figure}
 
-TODO: entsprechende Bilder einfügen.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../Gwyddion/Gold/TIME_01_I_forward.pdf}
+\caption{Strombild der untersuchten Goldprobe bei Gain 1900 und Rasterzeit \SI{0.1}{s}.}
+\label{TIME_01_I}
+\end{figure}
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../Gwyddion/Gold/TIME_02_I_forward.pdf}
+\caption{Strombild der untersuchten Goldprobe bei Gain 1900 und Rasterzeit \SI{0.2}{s}.}
+\label{TIME_02_I}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../Gwyddion/Gold/TIME_04_I_forward.pdf}
+\caption{Strombild der untersuchten Goldprobe bei Gain 1900 und Rasterzeit \SI{0.4}{s}.}
+\label{TIME_04_I}
+\end{figure}
 
 Als optimale Rasterzeit haben wir \SI{0,1}{s} gewählt. Bei der quantitativen Begündung verfahren wir analog zur Variirung des Gains. Vergleichen wir die entsprechenden Profile der z-Bilder, finden wir für \SI{0,1}{s} bzw. \SI{0,05}{s} eine Verschiebung zwischen Vor- und Rückwärtsrichtung von \SI{6,25}{nm} bzw. \SI{7,81}{nm}.
 
@@ -316,5 +375,14 @@ Wir erhalten so für jedes Dreieck ein $k_{x/y}$. Für jedes Bild bilden wir fü
 \end{table}
 
 Alle $\bar{k}_x$ sind miteinander innerhalb einer 1$\sigma$-Abweichung kompatibel. Bei den $\bar{k}_y$ sind die Werte für die \SI{3}{nm}- und \SI{2}{nm}-Auflösung innerhalb einer 1$\sigma$-Abweichung kompatibel aber der Wert für die \SI{2,5}{nm}-Auflösung weicht sehr stark von den anderen ab. Die Abweichung fällt schon bei der Betrachtung der gemessenen Abstände auf. Diese müssten, nach Betrachtung der $a_{theo}$, im Vergleich zu den Messungen bei \SI{3}{nm} größer sein. Entweder die Messung war fehlerhaft oder die y-Achse verhält sich nicht linear. In beiden Fällen würden sich erneute Messungen lohnen.
+
+
+\section{Fazit}
+
+Der Versuch war insofern erfolgreich, dass die Experimentatoren sich mit der Funktionsweise des RTM und mit entsprechender Auswertungssoftware vertraut gemacht haben.
+
+Wenn wir uns die konkreten Ergebnisse anschauen, ist das Fazit durchwachsener. Die gefundenen Stufenhöhen bei HOPG widersprechen der Erwartung. Da nur zwei von drei Stufenhöhen bei verschiedenen Auflösungen miteinander konsistent sind, wäre eine erneute Messung angebracht.
+
+Die Ergebnisse für die Kalibrierungskonstanten sind, bis auf $k_y$ für die \SI{2}{nm}-Auflösung, miteinander verträglich und könnten als solche verwendet werden. Lediglich das abweichende $k_y$ sollte lieber in einer neuen Messung bestimmt werden. Wenn das Ergebnis dennoch bestätigt würde, hätten wir es mit einem nicht-linearen Verhalten der y-Achse zu tun.
 
 \end{document}
