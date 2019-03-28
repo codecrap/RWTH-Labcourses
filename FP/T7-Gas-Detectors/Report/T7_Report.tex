@@ -165,6 +165,10 @@ For errors we used the uncertainties package for python, which calculates errors
 
 \section{Measurement of statistical distributions}
 
+\subsection{Setup}
+
+Since will still be using the setup of the Geiger counter for this part. 
+
 \subsection{Procedure}
 
 First we set the measurement, such that an average of at least 25 events were recorded per measurement, while the Sr-probe was in the detector. We found $10\,s$ to be a good interval. Then we measured the number of events per $10\,s$, 100 times.
@@ -275,7 +279,40 @@ We repeat the same measurement with the C14-probe and with an empty sample chang
 
 \subsection{Analysis}
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../Figures/Proportional_characteristic_curve_AM.pdf}
+\caption{Characteristic curve with Am.}
+\label{fig:AmChar}
+\end{figure}
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../Figures/Proportional_pulse_heights_AM.pdf}
+\caption{Puls heights versus voltage for Am.}
+\label{fig:AmPH}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../Figures/Proportional_characteristic_curve_C.pdf}
+\caption{Characteristic curve with C.}
+\label{fig:CChar}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../Figures/Proportional_pulse_heights_C.pdf}
+\caption{Puls heights versus voltage for C.}
+\label{fig:CPH}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../Figures/Proportional_characteristic_curve_EMPTY.pdf}
+\caption{Characteristic curve of the empty detector.}
+\label{fig:EmptyChar}
+\end{figure}
 
 \section{Conclusion}
 
