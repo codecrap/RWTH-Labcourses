@@ -1,67 +1,68 @@
+
 % !TeX spellcheck = de_DE
 \input{../../preamble.tex}
 
 \begin{document}
-	
+  
 \begin{titlepage}
-	\thispagestyle{empty}
-	\newgeometry{top=20mm, left=20mm, right=20mm, bottom=20mm}
-	
-%	\begin{minipage}{0.35\textwidth}
-%		\begin{flushleft}
+  \thispagestyle{empty}
+  \newgeometry{top=20mm, left=20mm, right=20mm, bottom=20mm}
+  
+%  \begin{minipage}{0.35\textwidth}
+%    \begin{flushleft}
 %
 %
-%		\end{flushleft}
-%	\end{minipage}
-%	\hfill
-%	\begin{minipage}{0.65\textwidth}
-%		\begin{flushright}
+%    \end{flushleft}
+%  \end{minipage}
+%  \hfill
+%  \begin{minipage}{0.65\textwidth}
+%    \begin{flushright}
 %
-%		\end{flushright}
-%	\end{minipage}
-	
-%	\vspace*{\fill}
-	\hspace{0pt}
-	\vspace{2cm}
-	\begin{center}
-%		\Thickline
-%		\vskip -0.5cm
-%		\Thinline
-		\hdashrule{\linewidth}{1pt}{}
-		\vskip -0.5cm
-		\hdashrule{\linewidth}{0.5pt}{}
-		
-		\vspace{0.5cm}
-		\Huge{ \textbf{ T7 \\}}
-		\LARGE{ \textbf{Gaseous ionisation detectors and statistics} } 
-		
-		\hdashrule{\linewidth}{0.5pt}{}
-		\vskip -0.95cm
-		\hdashrule{\linewidth}{1pt}{}
-%		\Thinline
-%		\vskip -0.9cm
-%		\Thickline 
-		
-		\vspace{3cm}
-		\Large{\textbf{ Group 14 \\}}
-		\Large{Heithem Assili, 368441 \\ Alexandre Drouet, 355095 \\ Olexiy Fedorets, 356615 \\}
-		\vspace{1cm}
-		\Large{\textsl{ Date of experiment: 14.03.2019 \\ Submission date: 28.03.2019}}
-		
-	\end{center}
-	\vfill
-%	\vspace*{\fill}
-	
+%    \end{flushright}
+%  \end{minipage}
+  
+%  \vspace*{\fill}
+  \hspace{0pt}
+  \vspace{2cm}
+  \begin{center}
+%    \Thickline
+%    \vskip -0.5cm
+%    \Thinline
+    \hdashrule{\linewidth}{1pt}{}
+    \vskip -0.5cm
+    \hdashrule{\linewidth}{0.5pt}{}
+    
+    \vspace{0.5cm}
+    \Huge{ \textbf{ T7 \\}}
+    \LARGE{ \textbf{Gaseous ionisation detectors and statistics} } 
+    
+    \hdashrule{\linewidth}{0.5pt}{}
+    \vskip -0.95cm
+    \hdashrule{\linewidth}{1pt}{}
+%    \Thinline
+%    \vskip -0.9cm
+%    \Thickline 
+    
+    \vspace{3cm}
+    \Large{\textbf{ Group 14 \\}}
+    \Large{Heithem Assili, 368441 \\ Alexandre Drouet, 355095 \\ Olexiy Fedorets, 356615 \\}
+    \vspace{1cm}
+    \Large{\textsl{ Date of experiment: 14.03.2019 \\ Submission date: 28.03.2019}}
+    
+  \end{center}
+  \vfill
+%  \vspace*{\fill}
+  
 \end{titlepage}
-	
-	
-	
+  
+  
+  
 %\skippage
 \pagenumbering{roman}
 \thispagestyle{plain}
 
 \tableofcontents
-%	\newpage
+%  \newpage
 \newpage
 \listoffigures
 
@@ -86,13 +87,120 @@ The goal of this experiment is to get aquainted with gas detectors and to learn 
 
 \subsection{Gas detectors}
 
+
+By ionizing Atoms with a suitable gas, in our case Argon, we can detect ionized Radiation with a gas detector.
+by entering the gas chamber, the charged particle generates an electron and an positive charged ion.
+through an applied electric field, the electrons go to the anode and the ions to the cathode. this creates a current
+that we can transform to a Voltage.
+the total charge Q arriving at the anode depends on the counter voltage U 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../Figures/total.PNG}
+\caption{Total charge versus counter voltage.}
+\label{fig:Total}
+\end{figure}
+
+Proportional Counter:
+We have a cylindrical gas chamber, where in the middle of the chamber is the anode wire and the cylinder Mantel
+is the cathode
+we can create an electrical Field E proportional to 1/r so near the wire we get a high field.
+if we put a high voltage (1kV) through a Resistance we get a gas amplification near the anode.
+
+A proportional counter is good for energy measurement because of the probability between magnitude of voltage and energy of the particle 
+We use it for detection of alpha and beta particles
+
+
+the characteristic curve is determined by puls rate in dependence of the applied voltage
+
+
+
+only from a certain threshold voltage a certain plus height is reached so particle can be detected
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../Figures/prop.PNG}
+\caption{Expected characteristic curve for proportional counter.}
+\label{fig:Proportional}
+\end{figure}
+
+
+GM-Counter
+
+
+the GM-Counter is a proportional counter with a higher voltage that generates a much stronger electrical field.
+This creates UV Photons, it comes to an avalanche along the whole anode wire.
+At the same time we have to quench the gas after ionization, otherwise the ions of the cathode activate new electrons.
+for the quench we use in our case a quench gas 
+
+
+the characteristic curve of a Geiger-Müller counter is:
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../Figures/Geiger.PNG}
+\caption{Expected characteristic curve for Geiger counter.}
+\label{fig:Geiger}
+\end{figure}
+
+
+from a certain threshold voltage the puls height is still dependent of the energy of the particle  after a certain Geiger threshold UG the pluses 
+are the same heights for all particles
+
 \subsection{Statistics}
+
+The first discrete distribution is the binomial distribution with the probability density:$$ P(k) = \frac{{n!}}{{k!\left( {n - k} \right)!}}p^k (1-p)^{n - k} = \left( {\begin{array}{*{20}c} n \\ k \\ \end{array}} \right)p^k (1-p)^{n - k}$$
+the mean value of$\bar{k}=\mu=np$and the RMS of $\sigma=\sqrt{np(1-p)}$
+
+
+for large $n$ and small probability $p$ we obtain the Poisson distribution with $np= \mu=const$:
+$P\left( k \right) = \frac{{e^{ - \mu } \mu ^k }}{{k!}}$ with$\bar{k}=\mu$ and $\sigma=\sqrt{\mu}$
+From this for large $\mu$($\mu>10$) we get the normal distribution:
+$P(k) = \frac{1}{{\sigma \sqrt {2\pi } }}e^{{{ - \left( {k - \mu } \right)^2 } \mathord{\left/ {\vphantom {{ - \left( {k - \mu } \right)^2 } {2\sigma ^2 }}} \right. \kern-\nulldelimiterspace} {2\sigma ^2 }}}$
+if$\mu$ and $\sigma$ are not independent, we get the relation $\sigma =\sqrt{\mu}$
+
+Finally, there is the Exponential distribution:
+
+$\rho(\Delta t)= Aexp(-A\Delta t)$
+
+Furthermore, one considers the $\chi^2$ distribution as a quality for fitting to the measured value:
+$\chi^2(a)=\sum{i=1}{n}{\dfrac{(x_i-y_i(a))^2}{\sigma_i^2}}$
+For a good fit, the value should be in the range of degrees of freedom.
+by minimizing the $\chi^2$ one gets the Parameter.
+the value for the integrated $\chi^2$ distribution from Zero to infinity gives the probability for re-measurement 
+a higher value for the $\chi^2$ it should therefore be very high, so one can say that the minimal $\chi^2$ was found .
 
 \section{Measurments with the Geiger counter}
 
 \subsection{Setup}
 
-As probe we will use Sr90. When used, the probe is placed inside a sealed lead chamber whith the Geiger-Müller-counter. The signal goes through a multiplier before it is goes into the electronical counter. We also have an oscilloscope, a dead time stage and a 1-MHz-generator we can introduce to the circuit when needed.   
+As probe we will use Sr90. The activity of the source on the day of the experiment is shown in \cref{tab:Activity}. When used, the probe is placed inside a sealed lead chamber whith the Geiger-Müller-counter. The signal goes through a multiplier before it is goes into the electronical counter. We also have an oscilloscope, a dead time stage and a 1-MHz-generator we can introduce to the circuit when needed.
+
+\begin{table}[H]
+        \renewcommand{\arraystretch}{1}
+        \centering
+        \Large
+        \begin{adjustbox}{width=\textwidth}
+                \begin{tabular}{|c|c|c|c|}
+                        \hline
+                        & Am & Sr & C \\
+                        \hline
+                        Buy date & 07.03.1986 & 04.01.1974 & 03.10.2004 \\
+                        \hline
+                        Activity at buy date (kBq) & $3570$ & $185$ & $1$ \\
+                        \hline
+                        Halflife time (years) & $\left(4.326 \pm 0.006\right) \times 10^{2}$ & $\left(2.890 \pm 0.003\right) \times 10^{1}$ & $\left(5.70 \pm 0.03\right) \times 10^{3}$ \\
+                        \hline
+                        Decay constant (1/s) & $\left(5.209 \pm 0.007\right) \times 10^{-11}$ & $\left(7.798 \pm 0.008\right) \times 10^{-10}$ & $\left(3.95 \pm 0.02\right) \times 10^{-12}$ \\
+                        \hline
+                        Activity today (kBq) & $\left(3.3814 \pm 0.0003\right) \times 10^{3}$ & $\left(6.085 \pm 0.007\right) \times 10^{1}$ & $\left(9.98200 \pm 0.00009\right) \times 10^{-1}$ \\
+                        \hline
+                \end{tabular}
+        \end{adjustbox}
+        \caption{Activities of sources on the day of the experiment.}
+        \label{tab:Activity}
+\end{table}   
 
 \subsection{Procedure}
 
@@ -190,14 +298,14 @@ This expected curve is shown in \cref{fig:GaussFit} together with the normalized
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{../Figures/Geiger_gauss_histogram.pdf}
-\caption{gauss hist}
+\caption{Pulse rate histogram with Sr.}
 \label{fig:GaussHist}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{../Figures/Geiger_gauss_fit.pdf}
-\caption{gauss fit}
+\caption{Normalized histogram with expected and fitted gauss curves.}
 \label{fig:GaussFit}
 \end{figure}
 
@@ -210,15 +318,29 @@ Of course here we only have one parameter, the mean value $\mu$, since the stand
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{../Figures/Geiger_poisson_histogram.pdf}
-\caption{poisson hist}
+\caption{Pulse rate histogram for empty counter.}
 \label{fig:PoissonHist}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{../Figures/Geiger_poisson_fit.pdf}
-\caption{poisson fit}
+\caption{Normalized histogram with expected and fitted poisson distributions.}
 \label{fig:PoissonFit}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../Figures/Geiger_eventtime_histogram_unnormalized.pdf}
+\caption{Event time histogram}
+\label{fig:ExpFit}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../Figures/Geiger_eventtime_histogram_fit.pdf}
+\caption{Normalized event time histogram with fitted curve.}
+\label{fig:ExpFit}
 \end{figure}
 
 To test the goodness of our predictions, we did a $\chi^2$ test for all of the distributions. We only used bins with more than 4 events. The resulting $\chi^2$ and $P$ values are listed in \cref{tab:DistGood}.
@@ -269,7 +391,7 @@ To test the goodness of our predictions, we did a $\chi^2$ test for all of the d
 
 \subsection{Setup}
 
-The methan-gas-flow proportional counter is flushed continuously with a argon-methan mixture. We will analyse a Am241, as well as a C14 probe. When used, the probes are placed inside a sample changer. The elecrtonic setup is equivalent to the one for the Geiger counter.
+The methan-gas-flow proportional counter is flushed continuously with a argon-methan mixture. We will analyse a Am241, as well as a C14 probe. The activity of the sources on the day of the experiment is shown in \cref{tab:Activity}. When used, the probes are placed inside a sample changer. The elecrtonic setup is equivalent to the one for the Geiger counter.
 
 \subsection{Procedure}
 
