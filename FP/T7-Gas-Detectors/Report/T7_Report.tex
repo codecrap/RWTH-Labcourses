@@ -96,6 +96,56 @@ First we placed a Sr90-Probe in a lead chamber and measured the count rate's dep
 
 \subsection{Analysis}
 
+\subsubsection{Characterization of dead time}
+
+First of all we generate a Plus of $1\,MHz$ with the Generator
+that is linked to the variable totzeitstufe($2\,ms$,$1\mu\,s$) and write the counts down(counts over $2\,s$ measured $3$ times).
+With
+\begin{equation}
+N =\frac{n}{1-n\cdot\tau}=\frac{n}{1-n\cdot\tau}
+\end{equation}
+ we can corrtect the Stufe if we consider that the smaller stufe is correct 
+with a measured countrate of $10^6$ for $1\mu\,s$ and 
+$519.67\pm0.07$ for $2\,ms$ we get a corrected stufe of $1.92\,ms$
+
+now we can calculate with the same method the auflösungszeit of the GM-Counter.
+we consider that the real stufe is between $1\mu\,s$ and $2\,ms$ 
+
+with 
+\begin{equation}
+\tau =\frac{1}{n}-\frac{1}{n}+\tau
+\end{equation}
+ ,$n=179.6\pm0.6\,\frac{1}{s}$ and$n=246.0\pm1.8\,\frac{1}{s}$ we got a auflösungszeit of $\tau=422\pm35\,ms $
+.
+\subsubsection{Stever-Diagramm}
+
+%\begin{figure}[H]
+%\centering
+%\includegraphics[width=\textwidth]{../Figures/Steverdiag.jpg}
+%\caption{Stever-Diagramm}
+%\label{fig:Stever-Diagramm}
+%\end{figure}
+with a stever we  can estimate the auflösungszeit on the oscilliscope out of the dead time an the relax time that we can read from the scope 
+
+the deadtime is the distance between the main peak and the next incoming peak, during that time the GM-Counter can not detect anything.
+ We estimate the dead time with $224\pm4\mu\,s$ (for that we read the dead time out of the steverdiagram 3 time with a min and max value and mean over all)
+ The realaxtime is the distance bewteen main peak and the next main peak , therfore we got  $505\pm11\mu\,s$ (same method as before)  
+ 
+\subsubsection{Characteristic curve of GM-Counter}
+after the dead time correcture we can now study the Characteristic Geiger-Curve.
+We Plot the Voltage(in 10 Volt steps) over the measured Counts in 1s ($\frac{Counts}{10\,s}$.
+
+with the calculated auflösungszeit we can now correct the Characteistic GM-Curve for the detected count with $N =\frac{n}{1-n\cdot\tau}$ 
+for errors we used gaussian propagation of uncertainty 
+
+
+%\begin{figure}[H]
+%\centering
+%\includegraphics[width=\textwidth]{../Figures/%Geiger_characteristic_curves_with_deadcorect.pdf}
+%\caption{GM-Characteristic}
+%\label{fig:GM-Characteristic}
+%\end{figure}
+
 \section{Measurement of statistical distributions}
 
 \subsection{Procedure}
