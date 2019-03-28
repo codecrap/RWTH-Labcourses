@@ -74,8 +74,8 @@ print("p = %.4f" % pVal)
 
 # plot
 fig, ax = plt.subplots()
-ax.hist(vCounts, np.unique(vCounts).size, density=False, histtype='step')
-ax.set_title("Gaussian distribution of counts for Geiger counter")
+ax.hist(vCounts, np.unique(vCounts).size, density=False)
+ax.set_title("Counts for Geiger counter with Sr")
 ax.set_xlabel("Number of events")
 ax.set_ylabel("Event Frequency")
 #ax.legend(loc='upper right')
@@ -84,12 +84,12 @@ fig.show()
 
 fig, ax = plt.subplots()
 ax.hist(vCounts, np.unique(vCounts).size, density=True, histtype='step')
-ax.plot(vXaxis, vNormal, 'r--', label=r"Gaussian: $\mu = %.1f, \sigma = %.1f$" % (mean,std))
-#ax.plot(vXaxis, gaussFit, 'g--', label=r"Gaussian: $\mu = %.1f, \sigma = %.1f$" % (mean,std))
-ax.set_title("Gaussian distribution of counts for Geiger counter")
+ax.plot(vXaxis, vNormal, 'r--', label=r"expected gaussian: $\mu = %.2f, \sigma = %.2f$" % (mean,std))
+ax.plot(vXaxis, gaussFit, 'g--', label=r"fitted gaussian: $\mu = %.2f, \sigma = %.2f$" % (opt[0],opt[1]))
+ax.set_title("Gaussian distribution of counts for Geiger counter with Sr")
 ax.set_xlabel("Number of events")
 ax.set_ylabel("Event Frequency")
-#ax.legend(loc='upper right')
+ax.legend(loc='upper right')
 fig.savefig("Figures/" + "Geiger_gauss_fit")
 fig.show()
 
@@ -102,9 +102,9 @@ def poisson(x, mu):
 	return np.array([math.pow(mu,val) * np.exp(-val) / math.factorial(val) for val in x])
 
 # get data
-vCounts = np.concatenate([np.full(60,0), np.full(34,1), np.full(17,2)])
+vCounts = np.concatenate([np.full(60,0), np.full(34,1), np.full(17,2), [3,4]])
 vXaxis = np.linspace(min(vCounts), max(vCounts), np.unique(vCounts).size)
-vXaxisLong = np.linspace(0, 2, 3)
+vXaxisLong = vXaxis
 
 # get mean and std
 mean = np.mean(vCounts)
@@ -117,7 +117,7 @@ print("std = %.2f" % std)
 vHist, _ = np.histogram(vCounts, np.unique(vCounts).size, density=True)
 vHistReal, _ = np.histogram(vCounts, np.unique(vCounts).size, density=False)
 
-# calc expected gauss
+# calc expected poisson
 print("estimate")
 vPoisson = poisson(vXaxis, mean)
 vPoissonLong = poisson(vXaxisLong, mean)
@@ -145,8 +145,8 @@ print("p = %.4f" % pVal)
 
 # plot
 fig, ax = plt.subplots()
-ax.hist(vCounts, np.unique(vCounts).size, density=False, histtype='step')
-ax.set_title("Poisson distribution for empty Geiger counter")
+ax.hist(vCounts, np.unique(vCounts).size, density=False)
+ax.set_title("Counts for empty Geiger counter")
 ax.set_xlabel("Number of events")
 ax.set_ylabel("Event Frequency")
 #ax.legend(loc='upper right')
@@ -155,11 +155,11 @@ fig.show()
 
 fig, ax = plt.subplots()
 ax.hist(vCounts, np.unique(vCounts).size, density=True, histtype='step')
-ax.plot(vXaxisLong, vPoissonLong, 'r--', label=r"Gaussian: $\mu = %.1f, \sigma = %.1f$" % (mean,std))
-ax.plot(vXaxisLong, poissonFitLong, 'g--', label=r"Gaussian: $\mu = %.1f, \sigma = %.1f$" % (mean,std))
-ax.set_title("Poisson distribution for empty Geiger counter")
+ax.plot(vXaxisLong, vPoissonLong, 'rx', label=r"expected poisson: $\mu = %.1f$" % (mean))
+ax.plot(vXaxisLong, poissonFitLong, 'gx', label=r"fitted poisson: $\mu = %.1f$" % (opt[0]))
+ax.set_title("Poisson distribution of counts for empty Geiger counter")
 ax.set_xlabel("Number of events")
 ax.set_ylabel("Event Frequency")
-#ax.legend(loc='upper right')
+ax.legend(loc='upper right')
 fig.savefig("Figures/" + "Geiger_poisson_fit")
 fig.show()
