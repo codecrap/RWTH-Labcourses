@@ -26,6 +26,9 @@ pl = reload(pl)
 FILE_POSTFIX = ".CSV"
 DATAPATH = "./Data/ALL0002/"
 
+# fraction of unique values to be used for bins
+BIN_FRACTION = 6
+
 # compute current activity of samples used
 # only Sr sample was used for geiger counter experiments
 # half-life data from: https://www.nndc.bnl.gov/nudat2/reCenter.jsp?z=95&n=146
@@ -38,11 +41,11 @@ vActivity_start = np.array([3570,185,1]) * 10**3									# convert kBq -> Bq
 vT_halflife = unp.uarray( [432.6,28.90,5700], [0.6,0.03,30] )						# in years
 
 # compute activities at t=T_experiment
-vDeltaT = np.array([ (T_experiment - t).total_seconds() for _,t in enumerate(vT_start) ])
+vT_elapsed = np.array([(T_experiment - t).total_seconds() for _, t in enumerate(vT_start)])
 vLambda =  np.log(2)/(vT_halflife *24*60*60*356)  									# convert years -> seconds
 # print(vT_halflife,vLambda)
 fActivity = lambda A0,l,t: A0 * unp.exp(-l*t)
-vActivity_today = fActivity(vActivity_start,vLambda,vDeltaT)
+vActivity_today = fActivity(vActivity_start, vLambda, vT_elapsed)
 
 print("Current activity:\n",vNames,"\n",vActivity_today)
 pl.printAsLatexTable( np.array([ [x.strftime("%d.%m.%Y") for _,x in enumerate(vT_start)],
@@ -69,30 +72,70 @@ ax.set_title("Geiger counter voltage"  )
 ax.set_xlabel("Time (ms)")
 ax.set_ylabel("Voltage (V)")
 fig.savefig("Figures/" + "Geiger_peaks_0,5s")
-fig.show()
+# fig.show()
 
-vDeltaTs = np.diff(vT[vPeakInds])*1e3
-vHist,vBins = np.histogram(vDeltaTs, round(len(np.unique(vDeltaTs))/4), density=True)
+vDeltaT = np.diff(vT[vPeakInds]) * 1e3												# convert s -> ms
+vHist,vBins = np.histogram(vDeltaT, round(len(np.unique(vDeltaT)) / BIN_FRACTION), density=True)
+vBinMiddle = vBins[0:-1]+np.diff(vBins)/2
 
+fig, ax = plt.subplots()
+ax.hist(vDeltaT, bins=round(len(np.unique(vDeltaT)) / BIN_FRACTION), density=False, edgecolor='k')
+ax.set_title("Histogram of event time-difference frequency")
+ax.set_xlabel("Time difference between two peaks $\Delta t$ (ms)")
+ax.set_ylabel("True frequency")
+fig.savefig("Figures/" + "Geiger_eventtime_histogram_unnormalized")
+# fig.show()
+
+f_expdist = lambda A,dt: A * np.exp(-A*dt)
 
 # part I:
 # use computed sample activity as estimate for expectation value of exponential distribution
-vExpDistEstimate = spst.expon.pdf(vDeltaTs,scale=1/unp.nominal_values(vActivity_today[1]))
+# vExpDist_activityEstimate = spst.expon.pdf(vDeltaT, scale=unp.nominal_values(vActivity_today[1]))
+vExpDist_activityEstimate = f_expdist(unp.nominal_values(vActivity_today[1]),vBinMiddle)
+
 
 # part II:
 # use mean as estimate for expectation value of exponential distribution
-A = np.mean(vDeltaTs)/(vT[-1]-vT[0])
-vExpDistEstimate = spst.expon.pdf(vDeltaTs,scale=1/A)
+# vExpDist_meanEstimate = spst.expon.pdf(vDeltaT, scale=1/A)
+A = len(vPeakInds) / (vT[-1] - vT[0])
+vExpDist_meanEstimate = f_expdist(A,vBinMiddle)
 
-f_expdist = lambda A,dt: A * np.exp(-A*dt)
-vExpDistEstimate = f_expdist(A,np.diff(vBins))
+
+# part III:
+# use least-squares fitting of distribution to the histogram data
+chifunc = lambda A,dt,y: (y - f_expdist(A,dt))
+A0 = [1]
+vFitparam,mCov,_,_,_ = spopt.leastsq(chifunc,A0,args=(vBinMiddle,vHist),full_output=True)
+
+# exclude bins with count less than 5 from chisquared test
+vHistTrue,vBinsTrue = np.histogram(vDeltaT, round(len(np.unique(vDeltaT)) / BIN_FRACTION), density=False)
+vMask = vHistTrue > 5
+
+chisq = np.sum(chifunc(vFitparam,vBinMiddle[vMask],vHist[vMask])**2) / (len(vBinMiddle[vMask])-len(vFitparam))
+pval = spst.chi2.sf(chisq,len(vBinMiddle[vMask])-len(vFitparam))					# alternative (less accuracy for small pvals): 1 - spst.chi2.cdf(chisq,len(vCounts)-len(vFitparam))
+print(chisq,pval)
+
+chisq_alt,pval_alt = spst.chisquare(vHist[vMask],f_expdist(vFitparam,vBinMiddle[vMask]),ddof=len(vBinMiddle[vMask])-len(vFitparam))
+pval_alt = spst.chi2.sf(chisq_alt,len(vBinMiddle[vMask])-len(vFitparam))
+
+vFitparam_std = np.sqrt(np.diag(mCov)*chisq_alt)
+print(vFitparam,vFitparam_std)
+print(chisq_alt,pval_alt)
+
 
 fig, ax = plt.subplots()
-ax.hist(vDeltaTs, bins=round(len(np.unique(vDeltaTs))/4), density=True )
-ax.plot(np.linspace(np.min(vDeltaTs),np.max(vDeltaTs),len(vExpDistEstimate)),vExpDistEstimate,'r-',label="Estimate using sample activity")
+ax.hist(vDeltaT, bins=round(len(np.unique(vDeltaT)) / BIN_FRACTION), density=True, edgecolor='k')
+ax.plot(vBinMiddle,f_expdist(vFitparam,vBinMiddle),'r-',
+		label="Nonlinear least-squares fit,\n $\chi^2 = %.1e, \, p = %.1e$" % (chisq,pval))
+ax.plot(vBinMiddle, vExpDist_activityEstimate, 'k-',
+		label="Estimate using sample activity")
+ax.plot(vBinMiddle, vExpDist_meanEstimate, 'g-',
+		label="Estimate using observed event rate")
 ax.set_title("Exponential distribution of event time differences")
-ax.set_xlabel("Time (ms)")
-ax.set_ylabel("Counts")
+ax.set_xlabel("Time difference between two peaks $\Delta t$ (ms)")
+ax.set_ylabel("Normalized frequency")
 ax.legend(loc='upper right')
-fig.savefig("Figures/" + "Geiger_eventtime_histogram")
-fig.show()
+fig.savefig("Figures/" + "Geiger_eventtime_histogram_fit")
+# fig.show()
+
+

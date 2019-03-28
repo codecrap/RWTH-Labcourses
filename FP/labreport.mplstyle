@@ -38,7 +38,7 @@ axes.grid.which     : both
 legend.fancybox     : True
 legend.fontsize     : large
 legend.framealpha   : 0.6
-lines.linewidth     : 3
+lines.linewidth     : 5
 lines.markersize    : 16
 lines.markeredgewidth   : 2
 errorbar.capsize    : 8

@@ -23,6 +23,9 @@ DATAPATH = "./Data/"
 FILE_POSTFIX = ".txt"
 vSOURCES = ["AM","C","EMPTY"]
 
+# _, vEmpty = np.genfromtxt(DATAPATH + "Proportional_characteristic_curve_pulse_heights_" + vSOURCES[-1] + FILE_POSTFIX,
+# 							dtype=float, delimiter=' ', comments='#', skip_header=5, usecols=(0, 1), unpack=True)
+
 # characteristic curves
 for i,source in enumerate(vSOURCES):
 	vU, vCounts = np.genfromtxt(DATAPATH + "Proportional_characteristic_curve_pulse_heights_" + source + FILE_POSTFIX,
@@ -30,7 +33,7 @@ for i,source in enumerate(vSOURCES):
 	
 	fig, ax = plt.subplots()
 	ax.semilogy(vU, vCounts, 'bo',markersize=25)
-	# ax.plot(vU, line(fitparam,vU), 'r-')
+	# ax.semilogy(vU, vCounts-vEmpty, 'go',markersize=25)								# also show counts without empty data
 	ax.set_title("Proportional counter characteristic curve, " + source + " sample")
 	ax.set_xlabel("Voltage (V)")
 	ax.set_ylabel("Counts")
@@ -45,7 +48,6 @@ for i, source in enumerate(vSOURCES[0:-1]):
 	
 	fig, ax = plt.subplots()
 	ax.errorbar(vU, vPulses, yerr=2, marker='s', color='r', markersize=15)			# same error for all values
-	# ax.plot(vU, line(fitparam,vU), 'r-')
 	ax.set_title("Proportional counter pulse heights, " + source + " sample")
 	ax.set_xlabel("Voltage (V)")
 	ax.set_ylabel("Pulse height (mV)")
