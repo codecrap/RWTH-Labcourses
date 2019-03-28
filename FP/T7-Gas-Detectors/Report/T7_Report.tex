@@ -87,12 +87,11 @@ The goal of this experiment is to get aquainted with gas detectors and to learn 
 
 \subsection{Gas detectors}
 
-
-By ionizing Atoms with a suitable gas, in our case Argon, we can detect ionized Radiation with a gas detector.
-by entering the gas chamber, the charged particle generates an electron and an positive charged ion.
-through an applied electric field, the electrons go to the anode and the ions to the cathode. this creates a current
-that we can transform to a Voltage.
-the total charge Q arriving at the anode depends on the counter voltage U 
+By ionizing Atoms with a suitable gas, in our case argon, we can detect ionized Radiation with a gas detector.
+By entering the gas chamber, the charged particle generates an electron and an positive charged ion.
+Through an applied electric field, the electrons go to the anode and the ions to the cathode. this creates a current
+that we can transform to a voltage.
+The total charge Q arriving at the anode depends on the counter voltage U 
 
 \begin{figure}[H]
 \centering
@@ -102,20 +101,17 @@ the total charge Q arriving at the anode depends on the counter voltage U
 \end{figure}
 
 Proportional Counter:
-We have a cylindrical gas chamber, where in the middle of the chamber is the anode wire and the cylinder Mantel
-is the cathode
-we can create an electrical Field E proportional to 1/r so near the wire we get a high field.
-if we put a high voltage (1kV) through a Resistance we get a gas amplification near the anode.
 
-A proportional counter is good for energy measurement because of the probability between magnitude of voltage and energy of the particle 
-We use it for detection of alpha and beta particles
+We have a cylindrical gas chamber, where in the middle of the chamber is the anode wire and the cylinder coat is the cathode.
+We can create an electrical field $E$ proportional to $\frac{1}{r}$ so near the wire we get a high field.
+If we put a high voltage (\SI{1}{kV}) through a resistance we get a gas amplification near the anode.
 
+A proportional counter is good for energy measurement because of the probability between magnitude of voltage and energy of the particle.
+We use it for detection of alpha and beta particles.
 
-the characteristic curve is determined by puls rate in dependence of the applied voltage
+The characteristic curve is determined by puls rate in dependence of the applied voltage.
 
-
-
-only from a certain threshold voltage a certain plus height is reached so particle can be detected
+Only from a certain threshold voltage a certain puls height is reached so particle can be detected.
 
 \begin{figure}[H]
 \centering
@@ -125,17 +121,11 @@ only from a certain threshold voltage a certain plus height is reached so partic
 \end{figure}
 
 
-GM-Counter
+GM-counter:
 
-
-the GM-Counter is a proportional counter with a higher voltage that generates a much stronger electrical field.
-This creates UV Photons, it comes to an avalanche along the whole anode wire.
+The GM-counter is a proportional counter with a higher voltage that generates a much stronger electrical field.
+This creates UV-photons, it comes to an avalanche along the whole anode wire.
 At the same time we have to quench the gas after ionization, otherwise the ions of the cathode activate new electrons.
-for the quench we use in our case a quench gas 
-
-
-the characteristic curve of a Geiger-Müller counter is:
-
 
 \begin{figure}[H]
 \centering
@@ -144,32 +134,32 @@ the characteristic curve of a Geiger-Müller counter is:
 \label{fig:Geiger}
 \end{figure}
 
-
-from a certain threshold voltage the puls height is still dependent of the energy of the particle  after a certain Geiger threshold UG the pluses 
-are the same heights for all particles
+From a certain threshold voltage the puls height is still dependent of the energy of the particle. After a certain Geiger threshold $U_G$ the pluses are the same heights for all particles.
 
 \subsection{Statistics}
 
-The first discrete distribution is the binomial distribution with the probability density:$$ P(k) = \frac{{n!}}{{k!\left( {n - k} \right)!}}p^k (1-p)^{n - k} = \left( {\begin{array}{*{20}c} n \\ k \\ \end{array}} \right)p^k (1-p)^{n - k}$$
-the mean value of$\bar{k}=\mu=np$and the RMS of $\sigma=\sqrt{np(1-p)}$
+The first discrete distribution is the binomial distribution with the probability density:
+$$ P(k) = \frac{{n!}}{{k!\left( {n - k} \right)!}}p^k (1-p)^{n - k} = \left( {\begin{array}{*{20}c} n \\ k \\ \end{array}} \right)p^k (1-p)^{n - k}$$
+with the mean value of $\bar{k}=\mu=np$ and the standard deviation of $\sigma=\sqrt{np(1-p)}$
 
+For large $n$ and small probability $p$ we obtain the Poisson distribution with $np= \mu=const$:
+$$P\left( k \right) = \frac{{e^{ - \mu } \mu ^k }}{{k!}}$$
+with $\bar{k}=\mu$ and $\sigma=\sqrt{\mu}$.
 
-for large $n$ and small probability $p$ we obtain the Poisson distribution with $np= \mu=const$:
-$P\left( k \right) = \frac{{e^{ - \mu } \mu ^k }}{{k!}}$ with$\bar{k}=\mu$ and $\sigma=\sqrt{\mu}$
-From this for large $\mu$($\mu>10$) we get the normal distribution:
-$P(k) = \frac{1}{{\sigma \sqrt {2\pi } }}e^{{{ - \left( {k - \mu } \right)^2 } \mathord{\left/ {\vphantom {{ - \left( {k - \mu } \right)^2 } {2\sigma ^2 }}} \right. \kern-\nulldelimiterspace} {2\sigma ^2 }}}$
-if$\mu$ and $\sigma$ are not independent, we get the relation $\sigma =\sqrt{\mu}$
+From this for large $\mu$ ($\mu>10$) we get the normal distribution:
+$$P(k) = \frac{1}{{\sigma \sqrt {2\pi } }}e^{{{ - \left( {k - \mu } \right)^2 } \mathord{\left/ {\vphantom {{ - \left( {k - \mu } \right)^2 } {2\sigma ^2 }}} \right. \kern-\nulldelimiterspace} {2\sigma ^2 }}}$$
+if $\mu$ and $\sigma$ are not independent, we get the relation $\sigma =\sqrt{\mu}$.
 
-Finally, there is the Exponential distribution:
+Finally, there is the exponential distribution:
 
-$\rho(\Delta t)= Aexp(-A\Delta t)$
+$$\rho(\Delta t)= A\exp(-A\Delta t).$$
 
-Furthermore, one considers the $\chi^2$ distribution as a quality for fitting to the measured value:
-$\chi^2(a)=\sum{i=1}{n}{\dfrac{(x_i-y_i(a))^2}{\sigma_i^2}}$
+Furthermore, one considers the $\chi^2$ distribution as a measurement of the goodness of a fit to the measured values:
+$$\chi^2(a)=\sum_{i=1}^{n}{\dfrac{(x_i-y_i(a))^2}{\sigma_i^2}}.$$
 For a good fit, the value should be in the range of degrees of freedom.
-by minimizing the $\chi^2$ one gets the Parameter.
-the value for the integrated $\chi^2$ distribution from Zero to infinity gives the probability for re-measurement 
-a higher value for the $\chi^2$ it should therefore be very high, so one can say that the minimal $\chi^2$ was found .
+By minimizing the $\chi^2$ one gets the parameters.
+The value for the integrated $\chi^2$ distribution from zero to infinity gives the probability for re-measurement of a higher value for the $\chi^2$.
+It should therefore be very high, so one can say that the minimal $\chi^2$ was found.
 
 \section{Measurments with the Geiger counter}
 
