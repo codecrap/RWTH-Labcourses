@@ -33,12 +33,13 @@ errCountscorrected=[0.0,0.89472923,1.92890706,3.13907316,3.93453543,4.844287,5.7
 
 fig, ax = plt.subplots()
 ax.plot(Voltage,Counts, 'b.')
-plt.errorbar(Voltage,Counts,errCounts, fmt='.')
+plt.errorbar(Voltage,Counts,errCounts, fmt='b.', label="Measured curve")
 ax.plot(Voltage,Correctedcounts, 'r.')
-plt.errorbar(Voltage,Correctedcounts,errCountscorrected, fmt='.')
-ax.set_title("Geiger counter characteristic curve")
+plt.errorbar(Voltage,Correctedcounts,errCountscorrected, fmt='r.', label="Curve with dead time correction")
+ax.set_title("Geiger counter characteristic curves")
 ax.set_xlabel("Voltage (V)")
-ax.set_ylabel("Event counts[1/s]")
+ax.legend(loc='lower right')
+ax.set_ylabel("Event counts (1/s)")
 
 fig.savefig("Figures/" + "Geiger_characteristic_curves")
 fig.show()

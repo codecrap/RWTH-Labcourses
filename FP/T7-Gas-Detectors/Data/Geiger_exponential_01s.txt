@@ -1,4 +1,4 @@
-counts per 0,1s in geiger
+# counts per 0,1s in geiger
 22
 22
 24

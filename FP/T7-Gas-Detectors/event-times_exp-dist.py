@@ -13,6 +13,7 @@ import math
 import peakutils as pu
 import datetime as dt
 import uncertainties.unumpy as unp
+from uncertainties import ufloat
 
 import matplotlib
 matplotlib.style.use("../labreport.mplstyle")
@@ -86,6 +87,17 @@ ax.set_ylabel("True frequency")
 fig.savefig("Figures/" + "Geiger_eventtime_histogram_unnormalized")
 # fig.show()
 
+vCounts = np.genfromtxt("./Data/Geiger_exponential_01s.txt",
+					dtype=float, delimiter=',', skip_header=1, unpack=True)
+
+vDeltaT01 = 0.1 / vCounts
+fig, ax = plt.subplots()
+ax.hist(vDeltaT01, bins=round(len(np.unique(vDeltaT01))/4), density=False, edgecolor='k')
+ax.set_title("Histogram of event time-difference frequency")
+ax.set_xlabel("Time difference between two peaks $\Delta t$ (ms)")
+ax.set_ylabel("True frequency")
+fig.savefig("Figures/" + "Geiger_eventtime_histogram_unnormalized_01s")
+
 f_expdist = lambda A,dt: A * np.exp(-A*dt)
 
 # part I:
@@ -104,8 +116,8 @@ vExpDist_meanEstimate = f_expdist(A,vBinMiddle)
 # part III:
 # use least-squares fitting of distribution to the histogram data
 chifunc = lambda A,dt,y: (y - f_expdist(A,dt))
-A0 = [1]
-vFitparam,mCov,_,_,_ = spopt.leastsq(chifunc,A0,args=(vBinMiddle,vHist),full_output=True)
+vFitparam_start = [1]
+vFitparam,mCov,_,_,_ = spopt.leastsq(chifunc,vFitparam_start,args=(vBinMiddle,vHist),full_output=True)
 
 # exclude bins with count less than 5 from chisquared test
 vHistTrue,vBinsTrue = np.histogram(vDeltaT, round(len(np.unique(vDeltaT)) / BIN_FRACTION), density=False)
@@ -118,10 +130,13 @@ print(chisq,pval)
 chisq_alt,pval_alt = spst.chisquare(vHist[vMask],f_expdist(vFitparam,vBinMiddle[vMask]),ddof=len(vBinMiddle[vMask])-len(vFitparam))
 pval_alt = spst.chi2.sf(chisq_alt,len(vBinMiddle[vMask])-len(vFitparam))
 
-vFitparam_std = np.sqrt(np.diag(mCov)*chisq_alt)
+vFitparam_std = np.sqrt(np.diag(mCov)*chisq)
 print(vFitparam,vFitparam_std)
 print(chisq_alt,pval_alt)
 
+# compute values needed for distribution characteristic
+print("Expected values from observed event rate: mu,sigma = ", 1/A)
+print("Expected values from fit: mu,sigma = ", 1/ufloat(vFitparam,vFitparam_std))
 
 fig, ax = plt.subplots()
 ax.hist(vDeltaT, bins=round(len(np.unique(vDeltaT)) / BIN_FRACTION), density=True, edgecolor='k')
