@@ -3,7 +3,7 @@
 ##################################################
 
 # Axes
-axes.titlesize      : x-large
+axes.titlesize      : x-large   # relative to global fontsize
 axes.titleweight    : bold
 axes.titlepad       : 20.0
 axes.labelsize      : large
@@ -12,10 +12,16 @@ axes.labelpad       : 10.0
 # Ticks
 xtick.labelsize     : large
 ytick.labelsize     : large
-xtick.major.size    : 16    ## major tick size in points
-xtick.minor.size    : 10
-ytick.major.size    : 16    ## major tick size in points
-ytick.minor.size    : 10
+xtick.major.size    : 20
+xtick.minor.size    : 12
+ytick.major.size    : 20
+ytick.minor.size    : 12
+xtick.major.width   : 1.2
+xtick.minor.width   : 1.2
+ytick.major.width   : 1.2
+ytick.minor.width   : 1.2
+xtick.direction     : in
+ytick.direction     : in
 xtick.minor.visible : True
 ytick.minor.visible : True
 
@@ -23,7 +29,7 @@ ytick.minor.visible : True
 grid.color          : b0b0b0
 grid.linestyle      : :
 grid.linewidth      : 1       ## in points
-grid.alpha          : 0.8     ## transparency, between 0.0 and 1.0
+grid.alpha          : 0.85     ## transparency, between 0.0 and 1.0
 axes.grid           : True
 axes.grid.axis      : both
 axes.grid.which     : both
@@ -34,6 +40,7 @@ legend.fontsize     : large
 legend.framealpha   : 0.6
 lines.linewidth     : 3
 lines.markersize    : 16
+lines.markeredgewidth   : 2
 errorbar.capsize    : 8
 
 # Text

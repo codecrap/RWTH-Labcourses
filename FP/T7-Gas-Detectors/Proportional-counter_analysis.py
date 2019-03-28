@@ -25,15 +25,15 @@ vSOURCES = ["AM","C","EMPTY"]
 
 
 for i,source in enumerate(vSOURCES):
-	vU, vCounts, vHeights = np.genfromtxt(DATAPATH + "Proportional_characteristic_curve_pulse_heights_" + source + FILE_POSTFIX,
-										dtype=float, delimiter=' ', skip_header=9, skip_footer=0, unpack=True)
-	
+	vU, vCounts = np.genfromtxt(DATAPATH + "Proportional_characteristic_curve_pulse_heights_" + source + FILE_POSTFIX,
+										dtype=float, delimiter=' ', skip_header=9, usecols=(0,1), unpack=True)
 	
 	fig, ax = plt.subplots()
 	ax.semilogy(vU, vCounts, 'b.')
 	# ax.plot(vU, line(fitparam,vU), 'r-')
-	ax.set_title(r"Detector efficiency $\varepsilon$ vs energy")
-	ax.set_xlabel("Energy (keV)")
-	ax.set_ylabel(r"$\varepsilon(E)$")
-	fig.savefig("Figures/" + "Efficiency")
+	ax.set_title("Proportional counter with " + source + " sample")
+	ax.set_xlabel("Voltage (V)")
+	ax.set_ylabel("Counts")
+	fig.savefig("Figures/" + "Proportional_characteristic_curve_"+source)
 	fig.show()
+
