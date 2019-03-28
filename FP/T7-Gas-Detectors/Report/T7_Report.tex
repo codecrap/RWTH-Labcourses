@@ -200,9 +200,49 @@ Of course here we only have one parameter, the mean value $\mu$, since the stand
 \label{fig:PoissonFit}
 \end{figure}
 
-TODO: chi2 test und tabelle mit ergebnissen
+To test the goodness of our predictions, we did a $\chi^2$ test for all of the distributions.   
 
-To test the goodness of our predictions, we did a $\chi^2$ test for all of the distributions.  
+\begin{table}[H]
+	\renewcommand{\arraystretch}{1.5}
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		Distribution & Parameter & Expected & Fitted \\
+		\hline
+		\multirow{2}{*}{Gaussian} & $\mu$ & \SI{260.14 \pm 1.14}{} & \SI{260.10 \pm 2.67}{} \\
+		 & $\sigma$ & \SI{11.37}{} & \SI{11.51 \pm 1.86}{} \\
+		\hline
+		\multirow{2}{*}{Poisson} & $\mu$ & \SI{0.66 \pm 0.08}{} & \SI{1.14 \pm 0.20}{} \\
+		 & $\sqrt{\mu}$ & \SI{0.81 \pm 0,05}{} & \SI{1,07 \pm 0,10}{} \\
+		\hline
+		\multirow{2}{*}{Exponential} & $\mu$ & \SI{}{} & \SI{}{} \\
+		 & $\sigma$ & \SI{}{} & \SI{}{} \\
+		\hline
+	\end{tabular}
+	\caption{Parameters for expected and fitted distributions.}
+	\label{tab:DistPara}
+\end{table}
+
+\begin{table}[H]
+	\renewcommand{\arraystretch}{1.5}
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		Distribution & Parameter & Expected & Fitted \\
+		\hline
+		\multirow{2}{*}{Gaussian} & $\chi^2$ & \SI{0.115}{} & \SI{0.119}{} \\
+		 & $P$ value & \SI{0.944}{} & \SI{0.942}{} \\
+		\hline
+		\multirow{2}{*}{Poisson} & $\chi^2$ & \SI{1.02}{} & \SI{0.23}{} \\
+		 & $P$ value & \SI{0.31}{} & \SI{0.63}{} \\
+		\hline
+		\multirow{2}{*}{Exponential} & $\chi^2$ & \SI{}{} & \SI{}{} \\
+		 & $P$ value & \SI{}{} & \SI{}{} \\
+		\hline
+	\end{tabular}
+	\caption{Goodness of expected and fitted distributions.}
+	\label{tab:DistGood}
+\end{table}
 
 \section{Measurements with the proportional counter}
 

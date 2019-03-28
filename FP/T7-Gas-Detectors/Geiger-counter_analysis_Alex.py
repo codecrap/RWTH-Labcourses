@@ -55,8 +55,8 @@ mask = vHistReal>4
 #print("%.10f" % pVal)
 
 chiSq, pVal = spst.chisquare(vHist[mask], vNormal[mask], ddof=2)
-print("chi2 = %.4f" % chiSq)
-print("p = %.4f" % pVal)
+print("chi2 = %.3f" % chiSq)
+print("p = %.3f" % pVal)
 
 # gauss fit
 print("leastsq fit")
@@ -69,8 +69,8 @@ print("std = %.2f \pm %.2f" % (opt[1],cov[1][1]))
 
 gaussFit = gaussFunc(vXaxis, opt[0], opt[1])
 chiSq, pVal = spst.chisquare(vHist[mask], gaussFit[mask], ddof=2)
-print("chi2 = %.4f" % chiSq)
-print("p = %.4f" % pVal)
+print("chi2 = %.3f" % chiSq)
+print("p = %.3f" % pVal)
 
 # plot
 fig, ax = plt.subplots()
@@ -126,8 +126,8 @@ vPoissonLong = poisson(vXaxisLong, mean)
 mask = vHistReal>4
 
 chiSq, pVal = spst.chisquare(vHist[mask], vPoisson[mask], ddof=1)
-print("chi2 = %.4f" % chiSq)
-print("p = %.4f" % pVal)
+print("chi2 = %.2f" % chiSq)
+print("p = %.2f" % pVal)
 
 # poisson fit
 print("leastsq fit")
@@ -140,8 +140,8 @@ std = 0.5*cov[0][0]/np.sqrt(opt[0])
 poissonFit = poisson(vXaxis, opt[0])
 poissonFitLong = poisson(vXaxisLong, opt[0])
 chiSq, pVal = spst.chisquare(vHist[mask], poissonFit[mask], ddof=1)
-print("chi2 = %.4f" % chiSq)
-print("p = %.4f" % pVal)
+print("chi2 = %.2f" % chiSq)
+print("p = %.2f" % pVal)
 
 # plot
 fig, ax = plt.subplots()
