@@ -3,10 +3,6 @@
 # Oscilloscope binning: 1mV
 # Error due to fluctuations: 2mV (0-1000V), 5mV (1050-2000V)
 # Voltage (V) Counts (N) Height (mV)
-0 1516
-0 1735
-0 1718
-0 1795
 0 1801 150
 50 2030 152
 100 2295 152
