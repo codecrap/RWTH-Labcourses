@@ -185,7 +185,7 @@ In \cref{fig:GaussHist} we see the recorded count rates for the Geiger counter w
 \begin{equation}
 P(k) = \frac{1}{\sqrt{2\pi}\sigma} \exp(-\frac{(k-\mu)^2}{2\sigma^2}).
 \end{equation}
-This expected curve is shown in \cref{fig:GaussFit} together with the normalized histogramm of the count rates. In the same figure we also plotted a gauss curve we fitted with the least square method with $\mu$ and $\sigma$ as free parameters.
+This expected curve is shown in \cref{fig:GaussFit} together with the normalized histogramm of the count rates. In the same figure we also plotted a gauss curve we fitted with the least square method with $\mu$ and $\sigma$ as free parameters. The mean values (including the error on mean) and standard deviations for both curves can be seen in \cref{tab:DistPara}.
 
 \begin{figure}[H]
 \centering
@@ -205,7 +205,7 @@ We proceed analogously for the count rates of the empty Geiger counter. In \cref
 \begin{equation}
 P(k) = \frac{\mu^k e^{-\mu}}{k!}.
 \end{equation}
-Of course here we only have one parameter, the mean value $\mu$, since the standard deviation is given by $\sigma = \sqrt{\mu}$.
+Of course here we only have one parameter, the mean value $\mu$, since the standard deviation is given by $\sigma = \sqrt{\mu}$. The mean values (including the error on mean) and standard deviations for both curves can be seen in \cref{tab:DistPara}. The errors on the standard deviations are come from the errors on the mean values through gaussian propagation.
 
 \begin{figure}[H]
 \centering
@@ -221,7 +221,7 @@ Of course here we only have one parameter, the mean value $\mu$, since the stand
 \label{fig:PoissonFit}
 \end{figure}
 
-To test the goodness of our predictions, we did a $\chi^2$ test for all of the distributions.   
+To test the goodness of our predictions, we did a $\chi^2$ test for all of the distributions. We only used bins with more than 4 events. The resulting $\chi^2$ and $P$ values are listed in \cref{tab:DistGood}.
 
 \begin{table}[H]
 	\renewcommand{\arraystretch}{1.5}
