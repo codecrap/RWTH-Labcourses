@@ -28,3 +28,8 @@ vCounts = np.genfromtxt(DATAPATH + "HOM-Dip_noFilter" + FILE_POSTFIX,
 
 fig,ax = plt.subplots()
 ax.plot(np.arange(2,len(vCounts)*0.5+2,0.5),vCounts,'ro-')
+
+# >>> myList = [["A", 20, False], ["B", 1, False], ["C", 8, False]]
+# >>> smallest = min(myList, key=lambda L: L[1])
+# >>> smallest
+# ['B', 1, False]
