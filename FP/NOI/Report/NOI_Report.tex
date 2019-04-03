@@ -1,0 +1,162 @@
+% !TeX spellcheck = en_US
+\input{../../preamble.tex}
+
+\begin{document}
+  
+\begin{titlepage}
+  \thispagestyle{empty}
+  \newgeometry{top=20mm, left=20mm, right=20mm, bottom=20mm}
+  
+%  \begin{minipage}{0.35\textwidth}
+%    \begin{flushleft}
+%
+%
+%    \end{flushleft}
+%  \end{minipage}
+%  \hfill
+%  \begin{minipage}{0.65\textwidth}
+%    \begin{flushright}
+%
+%    \end{flushright}
+%  \end{minipage}
+  
+%  \vspace*{\fill}
+  \hspace{0pt}
+  \vspace{2cm}
+  \begin{center}
+%    \Thickline
+%    \vskip -0.5cm
+%    \Thinline
+    \hdashrule{\linewidth}{1pt}{}
+    \vskip -0.5cm
+    \hdashrule{\linewidth}{0.5pt}{}
+    
+    \vspace{0.5cm}
+    \Huge{ \textbf{F17 \\}}
+    \LARGE{ \textbf{Noise fundamentals} } 
+    
+    \hdashrule{\linewidth}{0.5pt}{}
+    \vskip -0.95cm
+    \hdashrule{\linewidth}{1pt}{}
+%    \Thinline
+%    \vskip -0.9cm
+%    \Thickline 
+    
+    \vspace{3cm}
+    \Large{\textbf{ Group 14 \\}}
+    \Large{Heithem Assili, 368441 \\ Alexandre Drouet, 355095 \\ Olexiy Fedorets, 356615 \\}
+    \vspace{1cm}
+    \Large{\textsl{ Date of experiment: 21.03.2019 \\ Submission date: 04.04.2019}}
+    
+  \end{center}
+  \vfill
+%  \vspace*{\fill}
+  
+\end{titlepage}
+  
+  
+  
+%\skippage
+\pagenumbering{roman}
+\thispagestyle{plain}
+
+\tableofcontents
+%  \newpage
+\newpage
+\listoffigures
+
+%\begingroup
+%\let\cleardoublepage\relax
+%\let\clearpage\relax
+\listoftables
+%\endgroup
+%\listoftables
+
+\skippage
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\restoregeometry
+\thispagestyle{fancy}
+
+
+\section{Introduction}
+
+The goal of this experiment is to characterize and understand the effects of intrinsic thermodynamic fluctuations leading to a voltage across a resistor without any applied applied. This is called Johnson's noise, the dependence of which on resistance, bandwidth and temperature will be analyzed. Furthermore, Boltzmann's constant will be determined from these measurements.
+
+\subsection{Basic theoretic concepts}
+
+
+\begin{equation}\label{eq:johnson-expval}
+	\expval{V_J^2(t)} = 4k_B \cdot R \cdot T \cdot \Delta f
+\end{equation}
+
+\section{Setup characterisation measurements}
+
+\subsection{Actual gain measurements}
+
+
+\subsection{Multiplier module}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\includegraphics[width=\textwidth,clip,trim={0 5cm 3.4cm 5cm}]{TEK1.eps}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\includegraphics[width=\textwidth,clip,trim={0 5cm 3.4cm 5cm}]{TEK2.eps}
+	\end{subfigure}
+	
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\includegraphics[width=\textwidth,clip,trim={0 5cm 3.4cm 5cm}]{TEK3.eps}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\includegraphics[width=\textwidth,clip,trim={0 5cm 3.4cm 5cm}]{TEK4.eps}
+	\end{subfigure}
+	
+	\caption{}
+	\label{fig:xy}
+\end{figure}
+
+
+\subsection{Bandpass filter}
+\subsubsection{Phase response}
+
+\subsubsection{Gain dependence on frequency}
+
+
+
+
+
+
+
+
+\section{Johnson's noise \& Boltzmann's constant}
+
+\subsection{Room temperature measurement}
+
+\subsubsection{Dependence on resistance}
+
+\subsubsection{Dependence on Bandwidth}
+
+
+
+
+\subsection{Measurement at $T=77 \, K$}
+
+
+
+
+
+
+
+
+\section{Conclusion}
+
+
+
+\end{document}
