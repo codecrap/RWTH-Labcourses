@@ -192,7 +192,7 @@ def linreg_manual(x,y,ey):
 
 def plotFit(x, xerr, y, yerr, x_plotaxis=[], title="test", filename="test", xlabel="", ylabel="", res_ylabel="Data - Fit",
 			capsize=3, linewidth=2, markersize=10, marker='.', fontsize=20,
-			show=True, fitmethod='leastsq'):
+			show=True, fitmethod='least-squares'):
 	# print(len(x),len(xerr),len(y),len(yerr),y.shape)
 	if fitmethod not in ['ODR','least-squares']:
 		raise TypeError("fitmethod must be one of ['ODR','least-squares']! \n")
